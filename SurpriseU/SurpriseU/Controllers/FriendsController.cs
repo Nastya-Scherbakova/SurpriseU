@@ -10,64 +10,57 @@ using SurpriseU.Models;
 namespace SurpriseU.Controllers
 {
     [Produces("application/json")]
-    [Route("api/Presents")]
-    public class PresentsController : Controller
+    [Route("api/Friends")]
+    public class FriendsController : Controller
     {
-        private readonly PresentsContext _context;
+        private readonly ApplicationContext _context;
 
-        public ActionResult Index()
-        {
-            return View(_context.Presents.ToList());
-        }
-
-        public PresentsController(PresentsContext context)
+        public FriendsController(ApplicationContext context)
         {
             _context = context;
         }
-        [BindProperty]
-        public Present Present { get; set; }
 
-        // GET: api/Presents
+        // GET: api/Friends
         [HttpGet]
-        public IEnumerable<Present> GetPresents()
+        public IEnumerable<Friend> GetFriends()
         {
-            return _context.Presents;
+            return _context.Friends;
         }
 
-        // GET: api/Presents/5
+        // GET: api/Friends/5
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetPresent([FromRoute] int id)
+        public async Task<IActionResult> GetFriend([FromRoute] int id)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var present = await _context.Presents.SingleOrDefaultAsync(m => m.Id == id);
+            var friend = await _context.Friends.SingleOrDefaultAsync(m => m.Id == id);
 
-            if (present == null)
+            if (friend == null)
             {
                 return NotFound();
             }
 
-            return Ok(present);
+            return Ok(friend);
         }
 
-        // PUT: api/Presents/5
+        // PUT: api/Friends/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutPresent([FromRoute] int id, [FromBody] Present present)
+        public async Task<IActionResult> PutFriend([FromRoute] int id, [FromBody] Friend friend)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != present.Id)
+            if (id != friend.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(present).State = EntityState.Modified;
+            _context.Entry(friend).State = EntityState.Modified;
 
             try
             {
@@ -75,7 +68,7 @@ namespace SurpriseU.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!PresentExists(id))
+                if (!FriendExists(id))
                 {
                     return NotFound();
                 }
@@ -88,45 +81,45 @@ namespace SurpriseU.Controllers
             return NoContent();
         }
 
-        // POST: api/Presents
+        // POST: api/Friends
         [HttpPost]
-        public async Task<IActionResult> PostPresent([FromBody] Present present)
+        public async Task<IActionResult> PostFriend([FromBody] Friend friend)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            _context.Presents.Add(present);
+            _context.Friends.Add(friend);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetPresent", new { id = present.Id }, present);
+            return CreatedAtAction("GetFriend", new { id = friend.Id }, friend);
         }
 
-        // DELETE: api/Presents/5
+        // DELETE: api/Friends/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeletePresent([FromRoute] int id)
+        public async Task<IActionResult> DeleteFriend([FromRoute] int id)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var present = await _context.Presents.SingleOrDefaultAsync(m => m.Id == id);
-            if (present == null)
+            var friend = await _context.Friends.SingleOrDefaultAsync(m => m.Id == id);
+            if (friend == null)
             {
                 return NotFound();
             }
 
-            _context.Presents.Remove(present);
+            _context.Friends.Remove(friend);
             await _context.SaveChangesAsync();
 
-            return Ok(present);
+            return Ok(friend);
         }
 
-        private bool PresentExists(int id)
+        private bool FriendExists(int id)
         {
-            return _context.Presents.Any(e => e.Id == id);
+            return _context.Friends.Any(e => e.Id == id);
         }
     }
 }

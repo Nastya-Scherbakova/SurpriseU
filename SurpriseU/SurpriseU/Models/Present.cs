@@ -1,23 +1,35 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Collections;
 using System.Linq;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
+using System.Numerics;
 
 namespace SurpriseU.Models
 {
 
     public class Present
     {
-        public int PresentId { get; set; }
+        public int Id { get; set; }
         [Required, StringLength(100)]
         public string Title { get; set; }
-        [Required, StringLength(100)]
+        [Required, StringLength(1000)]
         public string Content { get; set; }
-        [Required, StringLength(100)]
+        public PresentsGender Gender { get; set; }
         public string Photo { get; set; }
-
+        public bool like { get; set; }
+        List<int> Age = new List<int>();
+        ArrayList Likes = new ArrayList();
+        ArrayList Hobbies = new ArrayList();
+        public Celebration Celebration { get; set; }
+        public enum PresentsGender
+        {
+            All,
+            Male,
+            Female
+        }
 
     }
     public class PresentsContext : DbContext
@@ -27,5 +39,14 @@ namespace SurpriseU.Models
         { }
         public DbSet<Present> Presents { get; set; }
 
+    }
+    public enum Celebration
+    {
+        Birthday,
+        NewYear,
+        WomenDay,
+        MenDay,
+        MothersDay,
+        Other
     }
 }
