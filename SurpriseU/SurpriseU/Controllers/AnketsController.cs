@@ -10,64 +10,57 @@ using SurpriseU.Models;
 namespace SurpriseU.Controllers
 {
     [Produces("application/json")]
-    [Route("api/Presents")]
-    public class PresentsController : Controller
+    [Route("api/Ankets")]
+    public class AnketsController : Controller
     {
-        private readonly PresentsContext _context;
+        private readonly ApplicationContext _context;
 
-        public ActionResult Index()
-        {
-            return View(_context.Presents.ToList());
-        }
-
-        public PresentsController(PresentsContext context)
+        public AnketsController(ApplicationContext context)
         {
             _context = context;
         }
-        [BindProperty]
-        public Present Present { get; set; }
 
-        // GET: api/Presents
+        // GET: api/Ankets
         [HttpGet]
-        public IEnumerable<Present> GetPresents()
+        public IEnumerable<Anket> GetAnkets()
         {
-            return _context.Presents;
+            return _context.Ankets;
         }
 
-        // GET: api/Presents/5
+        // GET: api/Ankets/5
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetPresent([FromRoute] int id)
+        public async Task<IActionResult> GetAnket([FromRoute] int id)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var present = await _context.Presents.SingleOrDefaultAsync(m => m.Id == id);
+            var anket = await _context.Ankets.SingleOrDefaultAsync(m => m.Id == id);
 
-            if (present == null)
+            if (anket == null)
             {
                 return NotFound();
             }
 
-            return Ok(present);
+            return Ok(anket);
         }
 
-        // PUT: api/Presents/5
+        // PUT: api/Ankets/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutPresent([FromRoute] int id, [FromBody] Present present)
+        public async Task<IActionResult> PutAnket([FromRoute] int id, [FromBody] Anket anket)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != present.Id)
+            if (id != anket.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(present).State = EntityState.Modified;
+            _context.Entry(anket).State = EntityState.Modified;
 
             try
             {
@@ -75,7 +68,7 @@ namespace SurpriseU.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!PresentExists(id))
+                if (!AnketExists(id))
                 {
                     return NotFound();
                 }
@@ -88,45 +81,45 @@ namespace SurpriseU.Controllers
             return NoContent();
         }
 
-        // POST: api/Presents
+        // POST: api/Ankets
         [HttpPost]
-        public async Task<IActionResult> PostPresent([FromBody] Present present)
+        public async Task<IActionResult> PostAnket([FromBody] Anket anket)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            _context.Presents.Add(present);
+            _context.Ankets.Add(anket);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetPresent", new { id = present.Id }, present);
+            return CreatedAtAction("GetAnket", new { id = anket.Id }, anket);
         }
 
-        // DELETE: api/Presents/5
+        // DELETE: api/Ankets/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeletePresent([FromRoute] int id)
+        public async Task<IActionResult> DeleteAnket([FromRoute] int id)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var present = await _context.Presents.SingleOrDefaultAsync(m => m.Id == id);
-            if (present == null)
+            var anket = await _context.Ankets.SingleOrDefaultAsync(m => m.Id == id);
+            if (anket == null)
             {
                 return NotFound();
             }
 
-            _context.Presents.Remove(present);
+            _context.Ankets.Remove(anket);
             await _context.SaveChangesAsync();
 
-            return Ok(present);
+            return Ok(anket);
         }
 
-        private bool PresentExists(int id)
+        private bool AnketExists(int id)
         {
-            return _context.Presents.Any(e => e.Id == id);
+            return _context.Ankets.Any(e => e.Id == id);
         }
     }
 }

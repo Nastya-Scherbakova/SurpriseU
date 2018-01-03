@@ -10,64 +10,57 @@ using SurpriseU.Models;
 namespace SurpriseU.Controllers
 {
     [Produces("application/json")]
-    [Route("api/Presents")]
-    public class PresentsController : Controller
+    [Route("api/Users")]
+    public class UsersController : Controller
     {
-        private readonly PresentsContext _context;
+        private readonly ApplicationContext _context;
 
-        public ActionResult Index()
-        {
-            return View(_context.Presents.ToList());
-        }
-
-        public PresentsController(PresentsContext context)
+        public UsersController(ApplicationContext context)
         {
             _context = context;
         }
-        [BindProperty]
-        public Present Present { get; set; }
 
-        // GET: api/Presents
+        // GET: api/Users
         [HttpGet]
-        public IEnumerable<Present> GetPresents()
+        public IEnumerable<User> GetUsers()
         {
-            return _context.Presents;
+            return _context.Users;
         }
 
-        // GET: api/Presents/5
+        // GET: api/Users/5
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetPresent([FromRoute] int id)
+        public async Task<IActionResult> GetUser([FromRoute] int id)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var present = await _context.Presents.SingleOrDefaultAsync(m => m.Id == id);
+            var user = await _context.Users.SingleOrDefaultAsync(m => m.Id == id);
 
-            if (present == null)
+            if (user == null)
             {
                 return NotFound();
             }
 
-            return Ok(present);
+            return Ok(user);
         }
 
-        // PUT: api/Presents/5
+        // PUT: api/Users/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutPresent([FromRoute] int id, [FromBody] Present present)
+        public async Task<IActionResult> PutUser([FromRoute] int id, [FromBody] User user)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != present.Id)
+            if (id != user.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(present).State = EntityState.Modified;
+            _context.Entry(user).State = EntityState.Modified;
 
             try
             {
@@ -75,7 +68,7 @@ namespace SurpriseU.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!PresentExists(id))
+                if (!UserExists(id))
                 {
                     return NotFound();
                 }
@@ -88,45 +81,45 @@ namespace SurpriseU.Controllers
             return NoContent();
         }
 
-        // POST: api/Presents
+        // POST: api/Users
         [HttpPost]
-        public async Task<IActionResult> PostPresent([FromBody] Present present)
+        public async Task<IActionResult> PostUser([FromBody] User user)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            _context.Presents.Add(present);
+            _context.Users.Add(user);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetPresent", new { id = present.Id }, present);
+            return CreatedAtAction("GetUser", new { id = user.Id }, user);
         }
 
-        // DELETE: api/Presents/5
+        // DELETE: api/Users/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeletePresent([FromRoute] int id)
+        public async Task<IActionResult> DeleteUser([FromRoute] int id)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var present = await _context.Presents.SingleOrDefaultAsync(m => m.Id == id);
-            if (present == null)
+            var user = await _context.Users.SingleOrDefaultAsync(m => m.Id == id);
+            if (user == null)
             {
                 return NotFound();
             }
 
-            _context.Presents.Remove(present);
+            _context.Users.Remove(user);
             await _context.SaveChangesAsync();
 
-            return Ok(present);
+            return Ok(user);
         }
 
-        private bool PresentExists(int id)
+        private bool UserExists(int id)
         {
-            return _context.Presents.Any(e => e.Id == id);
+            return _context.Users.Any(e => e.Id == id);
         }
     }
 }
