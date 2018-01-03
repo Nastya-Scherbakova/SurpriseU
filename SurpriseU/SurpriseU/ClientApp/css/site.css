@@ -9,7 +9,23 @@
     background-color: #4189C7;
     color: white;
 }
+div {
+    display: inline-block;
+    margin: 20px;
+}
 
+#tableBlock {
+    width: auto;
+}
+
+#editBlock {
+    display: none;
+    float: right;
+}
+
+#createBlock {
+    float: right;
+}
 /* Keep the nav menu independent of scrolling and on top of other items */
 .main-nav {
     position: fixed;
