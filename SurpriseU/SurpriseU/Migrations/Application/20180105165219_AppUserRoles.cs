@@ -5,10 +5,23 @@ using System.Collections.Generic;
 
 namespace SurpriseU.Migrations.Application
 {
-    public partial class UsersConnections : Migration
+    public partial class AppUserRoles : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "Roles",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Name = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Roles", x => x.Id);
+                });
+
             migrationBuilder.CreateTable(
                 name: "Users",
                 columns: table => new
@@ -18,17 +31,24 @@ namespace SurpriseU.Migrations.Application
                     Age = table.Column<DateTime>(nullable: false),
                     Email = table.Column<string>(nullable: true),
                     Gender = table.Column<int>(nullable: false),
-                    Name = table.Column<string>(maxLength: 100, nullable: false),
+                    Name = table.Column<string>(nullable: true),
                     Password = table.Column<string>(nullable: true),
-                    Photo = table.Column<string>(nullable: true)
+                    Photo = table.Column<string>(nullable: true),
+                    RoleId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Users", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Users_Roles_RoleId",
+                        column: x => x.RoleId,
+                        principalTable: "Roles",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Ankets",
+                name: "Anket",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -43,9 +63,9 @@ namespace SurpriseU.Migrations.Application
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Ankets", x => x.Id);
+                    table.PrimaryKey("PK_Anket", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Ankets_Users_UserId",
+                        name: "FK_Anket_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "Id",
@@ -53,7 +73,7 @@ namespace SurpriseU.Migrations.Application
                 });
 
             migrationBuilder.CreateTable(
-                name: "Friends",
+                name: "Friend",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -66,9 +86,9 @@ namespace SurpriseU.Migrations.Application
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Friends", x => x.Id);
+                    table.PrimaryKey("PK_Friend", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Friends_Users_UserId",
+                        name: "FK_Friend_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "Id",
@@ -76,26 +96,34 @@ namespace SurpriseU.Migrations.Application
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Ankets_UserId",
-                table: "Ankets",
+                name: "IX_Anket_UserId",
+                table: "Anket",
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Friends_UserId",
-                table: "Friends",
+                name: "IX_Friend_UserId",
+                table: "Friend",
                 column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Users_RoleId",
+                table: "Users",
+                column: "RoleId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Ankets");
+                name: "Anket");
 
             migrationBuilder.DropTable(
-                name: "Friends");
+                name: "Friend");
 
             migrationBuilder.DropTable(
                 name: "Users");
+
+            migrationBuilder.DropTable(
+                name: "Roles");
         }
     }
 }

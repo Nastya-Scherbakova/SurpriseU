@@ -9,9 +9,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-
-
-
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace SurpriseU
 {
@@ -29,9 +27,14 @@ namespace SurpriseU
         {
             services.AddDbContext<PresentsContext>(options =>
     options.UseSqlServer(Configuration.GetConnectionString("PresentsConnection")));
-        //    services.AddDbContext<ApplicationContext>(options =>
-        //options.UseSqlServer(Configuration.GetConnectionString("UsersConnection")));
-            
+                services.AddDbContext<ApplicationContext>(options =>
+            options.UseSqlServer(Configuration.GetConnectionString("ApplicationConnection")));
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                    .AddCookie(options => //CookieAuthenticationOptions
+                {
+                        options.LoginPath = new Microsoft.AspNetCore.Http.PathString("/Account/Login");
+                    });
+
             services.AddMvc();
             
         
@@ -56,6 +59,7 @@ namespace SurpriseU
             }
 
             app.UseStaticFiles();
+            app.UseAuthentication();
 
             app.UseMvc(routes =>
             {

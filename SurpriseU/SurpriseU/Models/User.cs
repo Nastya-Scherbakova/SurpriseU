@@ -15,7 +15,7 @@ namespace SurpriseU.Models
         public List<Anket> Ankets { get; set; }
 
         public int Id { get; set; }
-        [Required, StringLength(100)]
+        
         public string Name { get; set; }
         public DateTime Age { get; set; }
         public string Email { get; set; }
@@ -29,19 +29,39 @@ namespace SurpriseU.Models
         public List<Present> suggestedPresents;
         public string Password { get { return password; } set { password = value; } }
 
+        public int? RoleId { get; set; }
+        public Role Role { get; set; }
 
-
+    }
+    public class Role
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public List<User> Users { get; set; }
+        public Role()
+        {
+            Users = new List<User>();
+        }
     }
     public class ApplicationContext : DbContext
     {
         public DbSet<User> Users { get; set; }
-        public DbSet<Friend> Friends { get; set; }
-        public DbSet<Anket> Ankets { get; set; }
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        public DbSet<Role> Roles { get; set; }
+        public ApplicationContext(DbContextOptions<ApplicationContext> options)
+            : base(options)
         {
-            optionsBuilder.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=Userrelationsdb;Trusted_Connection=True;");
         }
     }
+    //public class ApplicationContext : DbContext
+    //{
+    //    public DbSet<User> Users { get; set; }
+    //    public DbSet<Friend> Friends { get; set; }
+    //    public DbSet<Anket> Ankets { get; set; }
+    //    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    //    {
+    //        optionsBuilder.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=Userrelationsdb;Trusted_Connection=True;");
+    //    }
+    //}
     //public class UsersContext : DbContext
     //{
     //    public UsersContext(DbContextOptions<UsersContext> options)

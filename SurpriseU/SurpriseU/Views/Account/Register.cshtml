@@ -1,0 +1,48 @@
+﻿@model SurpriseU.ViewModels.RegisterModel
+@{
+    ViewData["Title"] = "Register";
+}
+<div id="react-app">Loading...</div>
+<h2>Register</h2>
+<form asp-action="Register" asp-controller="Account" asp-anti-forgery="true">
+    <div class="validation" asp-validation-summary="ModelOnly" />
+    <div>
+        <div>
+            <label asp-for="Email">Введите Email</label><br />
+            <input type="text" asp-for="Email" />
+            <span asp-validation-for="Email" />
+        </div>
+        <div>
+            <label asp-for="Password">Введите пароль</label><br />
+            <input asp-for="Password" />
+            <span asp-validation-for="Password" />
+        </div>
+        <div>
+            <label asp-for="ConfirmPassword">Повторите пароль</label><br />
+            <input asp-for="ConfirmPassword" />
+            <span asp-validation-for="ConfirmPassword" />
+        </div>
+        <div>
+            <label asp-for="Name">Введите имя</label><br />
+            <input asp-for="Name" />
+            <span asp-validation-for="Name" />
+        </div>
+        <div>
+            <label asp-for="Age">Введите дату рождения</label><br />
+            <input asp-for="Age" />
+            <span asp-validation-for="Age" />
+        </div>
+        <div>
+            <label asp-for="Gender">Выберите пол</label><br />
+            <input asp-for="Gender" />
+            <span asp-validation-for="Gender" />
+        </div>
+        <div>
+            <input type="submit" value="Регистрация" />
+        </div>
+    </div>
+</form>
+
+@section scripts {
+    <script src="~/dist/main.js" asp-append-version="true"></script>
+}

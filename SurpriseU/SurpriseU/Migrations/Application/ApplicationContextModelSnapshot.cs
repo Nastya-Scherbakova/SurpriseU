@@ -39,13 +39,13 @@ namespace SurpriseU.Migrations.Application
 
                     b.Property<int?>("UserId");
 
-                    b.Property<int>("age");
+                    b.Property<int>("agee");
 
                     b.HasKey("Id");
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Ankets");
+                    b.ToTable("Anket");
                 });
 
             modelBuilder.Entity("SurpriseU.Models.Friend", b =>
@@ -69,7 +69,19 @@ namespace SurpriseU.Migrations.Application
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Friends");
+                    b.ToTable("Friend");
+                });
+
+            modelBuilder.Entity("SurpriseU.Models.Role", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Name");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Roles");
                 });
 
             modelBuilder.Entity("SurpriseU.Models.User", b =>
@@ -83,15 +95,17 @@ namespace SurpriseU.Migrations.Application
 
                     b.Property<int>("Gender");
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(100);
+                    b.Property<string>("Name");
 
                     b.Property<string>("Password");
 
                     b.Property<string>("Photo");
 
+                    b.Property<int?>("RoleId");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("RoleId");
 
                     b.ToTable("Users");
                 });
@@ -108,6 +122,13 @@ namespace SurpriseU.Migrations.Application
                     b.HasOne("SurpriseU.Models.User", "User")
                         .WithMany("Friends")
                         .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("SurpriseU.Models.User", b =>
+                {
+                    b.HasOne("SurpriseU.Models.Role", "Role")
+                        .WithMany("Users")
+                        .HasForeignKey("RoleId");
                 });
 #pragma warning restore 612, 618
         }
