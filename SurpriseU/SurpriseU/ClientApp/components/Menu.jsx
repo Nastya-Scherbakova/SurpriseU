@@ -3,7 +3,6 @@ import { Link, NavLink } from 'react-router-dom';
 import 'bootstrap';
 import '../css/bootstrap.css';
 import '../css/style.css';
-var FaBeer = require('react-icons/lib/fa/beer');
 
 const Anketa = React.createClass({
     render() {
@@ -39,11 +38,11 @@ export class Menu extends Component {
 
     render() {
         return (
-            <nav className=" navbar navbar-toggleable-sm fixed-top main-nav navbar-light bg-light">
+            <nav className=" navbar navbar-toggleable-sm fixed-top main-nav navbar-light bg-light" data-spy="affix" data-offset-top="400">
                 <div className="container">
                    
                     <ul className="d-flex flex-row nav navbar-nav flex-grow">    
-                        <li className="nav-item"><Link className='navbar-brand' to={'/'}><Present /></Link></li>
+                       
                         <li className="nav-item"><Link className='navbar-brand' to={'/'}>SurpriseU</Link></li>
                        
                     </ul>
@@ -53,8 +52,9 @@ export class Menu extends Component {
                     </ul>
                     <ul className=" d-flex flex-row nav navbar-nav flex-grow justify-content-end">
                      
-                        <li className="nav-item"><NavLink to={'/anketa'}><User /></NavLink></li>
-                        <li className="nav-item"><NavLink to={'/profile'}><Anketa /></NavLink></li>
+                        <li className="nav-item"><NavLink to={'/anketa'}><Anketa /></NavLink></li>
+                        <li className="nav-item"><NavLink to={'/profile'}><User /></NavLink></li>
+                        <li className="nav-item"><NavLink to={'/admin'}><Present /></NavLink></li>
                     </ul>
                 </div>
             </nav>
