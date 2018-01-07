@@ -12,23 +12,36 @@ export class Present extends React.Component {
     }
     render() {
         return <div>
-            <p><b>{this.state.data.Title}</b></p>
+            <p><b>{this.state.data.title}</b></p>
             <p><button onClick={this.onClick}>Delete</button></p>
         </div>;
     }
 }
-
+var genderEnum = {
+    "All":2,
+    "Male":0,
+    "Female":1
+}
+var celebrationEnum = {
+    "Birthday":0,
+    "NewYear":1,
+    "WomenDay":2,
+    "MenDay":3,
+    "MothersDay":4,
+    "Other":5
+}
 export class PresentForm extends React.Component {
+
     constructor(props) {
         super(props);
         this.state = {
             title: "",
             content: "",
-            gender: 0,
+           gender: 0,
             photo: "",
             age: [0, 100],
-            likes: [],
-            hobbies: [],
+            likes: "",
+            hobbies: "",
             celebration: 0
         };
 
@@ -71,16 +84,14 @@ export class PresentForm extends React.Component {
     onSubmit(e) {
         e.preventDefault();
         var newTitle = this.state.title.trim();
-        var newContent = this.state.content;
+        var newContent = this.state.content.trim();
         var newGender = this.state.gender;
         var newPhoto = this.state.photo;
         var newAge = this.state.age;
-        var newLikes = this.state.likes;
-        var newHobbies = this.state.hobbies;
+        var newLikes = this.state.likes.trim().split(',');
+        var newHobbies = this.state.hobbies.trim().split(',');
         var newCelebration = this.state.celebration;
-        if (!newTitle || !newPhoto) {
-            return;
-        }
+
         this.props.onPresentSubmit({
              title: newTitle,
              content: newContent,
@@ -96,9 +107,9 @@ export class PresentForm extends React.Component {
             content: "",
             gender: 0,
             photo: "",
-            age: [0, 100],
-            likes: [],
-            hobbies: [],
+            age: 0,
+            likes: "",
+            hobbies: "",
             celebration: 0
         });
     };
@@ -107,58 +118,68 @@ export class PresentForm extends React.Component {
         return (
             <form>
                 <input
-                    name="Title"
+                    name="title"
                     placeholder="Title"
                     value={this.state.title}
                     onChange={this.onTitleChange}
+
                 />
                 <br />
                 <input
-                    name="Content"
+                    name="content"
                     placeholder="Content"
                     value={this.state.content}
                     onChange={this.onContentChange}
                 />
                 <br />
-                <input
-                    name="Gender"
-                    placeholder="Gender"
+                <select 
+                    name="gender"
                     value={this.state.gender}
-                    onChange={this.onGenderChange}
-                />
+                    onChange={this.onGenderChange} >
+                     <option value="0">Male</option>
+                     <option value="1">Female</option>
+                     <option value="2">All</option>
+                  </select >
                 <br />  <input
-                    name="Photo"
+                    name="photo"
                     placeholder="Photo"
                     value={this.state.photo}
                     onChange={this.onPhotoChange}
                 />
                 <br />  <input
-                    name="Age"
+                    name="age"
                     placeholder="Age"
                     value={this.state.age}
                     onChange={this.onAgeChange}
                 />
                 <br />  <input
-                    name="Hobbies"
+                    name="hobbies"
                     placeholder="Hobbies"
                     value={this.state.hobbies}
                     onChange={this.onHobbiesChange}
                 />
                 <br />  <input
-                    name="Likes"
+                    name="likes"
                     placeholder="Likes"
                     value={this.state.likes}
                     onChange={this.onLikesChange}
                 />
-                <br />  <input
-                    name="Celebration"
-                    placeholder="Celebration"
+                <br />
+                <select 
+                    name="celebration"
                     value={this.state.celebration}
-                    onChange={this.onCelebrationChange}
-                />
+                    onChange={this.onCelebrationChange}>
+                    <option value="0">Birthday</option>
+                    <option value="1">NewYear</option>
+                    <option value="2">WomenDay</option>
+                    <option value="3">MenDay</option>
+                    <option value="4">MothersDay</option>
+                    <option value="5">Other</option>
+         
+                </select >
                 <br />
                 <br />
-                <button onClick={this.onSubmit(e)}>Add</button>
+                <input type="submit" value="Добавить" />
             </form>
         );
     }
@@ -211,7 +232,7 @@ export class PresentsList extends React.Component {
         }
     }
     // удаление объекта
-    onRemovepresent(present) {
+    onRemovePresent(present) {
 
         if (present) {
             var url = this.props.apiUrl + "/" + present.id;
@@ -231,7 +252,7 @@ export class PresentsList extends React.Component {
 
         var remove = this.onRemovePresent;
         return <div>
-            <PresentForm onPresentSubmit={this.onAddpresent} />
+            <PresentForm onPresentSubmit={this.onAddPresent} />
             <h2>Presents</h2>
             <div>
                 {
@@ -244,3 +265,4 @@ export class PresentsList extends React.Component {
         </div>;
     }
 }
+
