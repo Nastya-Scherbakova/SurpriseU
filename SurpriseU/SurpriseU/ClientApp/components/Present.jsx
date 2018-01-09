@@ -1,5 +1,8 @@
 ﻿import * as React from 'react';
+import '../css/style.css';
+import 'bootstrap';
 
+    //<p><button onClick={this.onClick}>Delete</button></p>
 export class Present extends React.Component {
 
     constructor(props) {
@@ -11,10 +14,13 @@ export class Present extends React.Component {
         this.props.onRemove(this.state.data);
     }
     render() {
-        return <div>
-            <p><b>{this.state.data.title}</b></p>
-            <p><button onClick={this.onClick}>Delete</button></p>
-        </div>;
+        return <div className="col-md-5 present-div animated fadeInDown">
+                <img className="present-img  rounded-circle pull-left" src={this.state.data.photo} />
+                <div className="present-info">
+                <p className="text-center">{this.state.data.title}</p>
+                <p className="">{this.state.data.content}</p>
+                </div>
+          </div>;
     }
 }
 var genderEnum = {
@@ -185,10 +191,48 @@ export class PresentForm extends React.Component {
     }
 };
 
+var test = [
+    {
+        title: "present 1",
+        content: "информация про подарок ваыавыавыафвававававыф",
+        gender: 0,
+        photo: "https://avatars.mds.yandex.net/get-pdb/51720/a98cbb00-060c-4d87-b5fa-ef7500a58dd5/s800",
+        age: [0, 100],
+        likes: ["asdds", "Asdfsds"],
+        hobbies: ["asdds", "Asdfsds"],
+        celebration: 0,
+        id: 1
+    },
+
+    {
+        title: "present 1",
+        content: "информация про подарок ваыавыавыафвававававыф",
+        gender: 0,
+        photo: "https://avatars.mds.yandex.net/get-pdb/51720/a98cbb00-060c-4d87-b5fa-ef7500a58dd5/s800",
+        age: [0, 100],
+        likes: ["asdds", "Asdfsds"],
+        hobbies: ["asdds", "Asdfsds"],
+        celebration: 0,
+        id: 2
+    },
+    {
+        title: "present 1",
+        content: "информация про подарок ваыавыавыафвававававыф",
+        gender: 0,
+        photo: "https://avatars.mds.yandex.net/get-pdb/51720/a98cbb00-060c-4d87-b5fa-ef7500a58dd5/s800",
+        age: [0, 100],
+        likes: ["asdds", "Asdfsds"],
+        hobbies: ["asdds", "Asdfsds"],
+        celebration: 0,
+        id: 3
+    },
+]
+
+
 export class PresentsList extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { presents: [] };
+        this.state = { presents: test };
 
         this.onAddPresent = this.onAddPresent.bind(this);
         this.onRemovePresent = this.onRemovePresent.bind(this);
@@ -258,8 +302,11 @@ export class PresentsList extends React.Component {
                 {
                     this.state.presents.map(function (present) {
 
-                        return <Present key={present.id} present={present} onRemove={remove} />
-                    })
+                        return
+                        <div >
+                        <Present key={present.id} present={present} onRemove={remove} />
+                        </div>
+                            })
                 }
             </div>
         </div>;

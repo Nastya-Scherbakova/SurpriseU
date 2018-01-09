@@ -7,7 +7,7 @@ export interface LayoutProps {
 
 export class Layout extends React.Component<LayoutProps, {}> {
     public render() {
-        return <div>
+        return <div >
             <div className='container-fluid pad'>
                     <Menu />
                 </div>

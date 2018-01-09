@@ -1,42 +1,273 @@
-﻿.flex-grow {
+﻿@import url('https://fonts.googleapis.com/css?family=Permanent+Marker');
+
+.flex-grow {
     flex: 1;
 }
 
-.icon {
-    display: inline-block;
-    width: 1em;
-    height: 1em;
-    stroke-width: 0;
-    stroke: currentColor;
-    fill: currentColor;
+
+
+.round-li {
+    background-color: white;
+    width: 7vh;
+    height: 7vh;
+    margin: 5px;
+    text-align: center;
+    border-bottom: 1px solid #50154F;
+    border-right: 1px solid #5E1B4E;
+    border-left: 1px solid #74254E;
+    border-top: 1px solid #70234E;
+    border-radius: 100%;
+    position:absolute;
+  
+}
+.user-icon {
+    margin: auto;
+    position: center;
+    color: black;
 }
 
-.pad {
-    margin-bottom: 90px;
-}
-.first {
-    padding-top: 140px;
-    height: 100vh;
-    max-height: 400px;
+/*вывод подарков*/
 
+.present-img {
+    height: 100%;
+}
+
+.present-div {
+    margin: 20px 15px 20px 15px;
+    height: 20vh;
+    position: relative;
+}
+
+.present-info {
+    border-radius: 0 30px 30px 0;
+    height: 100%;
+    margin-left: 10vh;
+    padding: 3em 0;
+    display: block;
+    background: linear-gradient(to top right,#8C9EFF, #E1F5FE);
+}
+
+
+
+/*смена меню*/
+
+.sps {
+    position: fixed;
+    top: 0;
+    left: 0;
+    transition: all 0.25s ease;
+    width: 100%;
+}
+
+.sps--abv {
+    background-color: transparent;
+    color: #000;
+    height: 15vh;
+}
+
+.sps--blw {
+    background-color: #fff !important;
+    color: #fff;
+    height: 10vh;
+}
+
+
+
+
+/*анимация подарков*/
+
+
+@-webkit-keyframes fadeInDown {
+    0% {
+        opacity: 0;
+        -webkit-transform: translateY(-20px);
+    }
+
+    100% {
+        opacity: 1;
+        -webkit-transform: translateY(0);
+    }
+}
+
+@-moz-keyframes fadeInDown {
+    0% {
+        opacity: 0;
+        -moz-transform: translateY(-20px);
+    }
+
+    100% {
+        opacity: 1;
+        -moz-transform: translateY(0);
+    }
+}
+
+@-o-keyframes fadeInDown {
+    0% {
+        opacity: 0;
+        -o-transform: translateY(-20px);
+    }
+
+    100% {
+        opacity: 1;
+        -o-transform: translateY(0);
+    }
+}
+
+@keyframes fadeInDown {
+    0% {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fadeInDown {
+    -webkit-animation-name: fadeInDown;
+    -moz-animation-name: fadeInDown;
+    -o-animation-name: fadeInDown;
+    animation-name: fadeInDown;
+}
+
+
+.animated {
+    -webkit-animation-fill-mode: both;
+    -moz-animation-fill-mode: both;
+
+    -o-animation-fill-mode: both;
+    animation-fill-mode: both;
+    -webkit-animation-duration: 1s;
+    -moz-animation-duration: 1s;
+
+    -o-animation-duration: 1s;
+    animation-duration: 1s;
+}
+
+
+/*градиент под меню*/
+.home-image {
+    position: absolute;
+    margin-bottom: 50px;
+    height: 60vh;
+    background: url(http://daler.ru/pictures/1/2560x1600/Goluboy-fon-9560.jpg);
     background-size: cover;
-    background-image: url('https://cs3.livemaster.ru/zhurnalfoto/c/b/9/150309133112.jpeg');
 }
 
-.affix {
-    -webkit-transition: padding 0.2s ease-out;
-    -moz-transition: padding 0.2s ease-out;
-    -o-transition: padding 0.2s ease-out;
-    transition: padding 0.2s ease-out;
+.menu-grad {
+    margin-bottom: 50px;
+    height: 60vh;
+    text-shadow: 2px 4px 3px rgba(0,0,0,0.3);
+    background: radial-gradient(at top, #E1F5FE, #DEF3FC, white, #DEE7FC, #D8DAE9, white, #DBE4F8, #EDE7F6, #E3F2FD, #D1E8FB);
+    background-size: 1200% 1200%;
+    -webkit-animation: AnimationName 30s ease infinite;
+    -moz-animation: AnimationName 30s ease infinite;
+    -o-animation: AnimationName 30s ease infinite;
+    animation: AnimationName 30s ease infinite;
+    opacity: 0.7;
 }
 
-.affix-top {
-    /* navbar style at top */
-    background: transparent;
-    border-color: transparent;
-    /*padding: 15px;*/
-    -webkit-transition: all 0.5s ease;
-    -moz-transition: all 0.5s ease;
-    -o-transition: all 0.5s ease;
-    transition: all 0.5s ease;
+@-webkit-keyframes AnimationName {
+    0% {
+        background-position: 0% 50%
+    }
+
+    50% {
+        background-position: 100% 50%
+    }
+
+    100% {
+        background-position: 0% 50%
+    }
+}
+
+@-moz-keyframes AnimationName {
+    0% {
+        background-position: 0% 50%
+    }
+
+    50% {
+        background-position: 100% 50%
+    }
+
+    100% {
+        background-position: 0% 50%
+    }
+}
+
+@-o-keyframes AnimationName {
+    0% {
+        background-position: 0% 50%
+    }
+
+    50% {
+        background-position: 100% 50%
+    }
+
+    100% {
+        background-position: 0% 50%
+    }
+}
+
+@keyframes AnimationName {
+    0% {
+        background-position: 0% 50%
+    }
+
+    50% {
+        background-position: 100% 50%
+    }
+
+    100% {
+        background-position: 0% 50%
+    }
+}
+
+
+
+/*напечатанный текст*/
+
+
+.line-1 {
+    font-family: 'Permanent Marker', cursive;
+    color: #0f0c29;
+    font-weight: bold;
+    position: relative;
+    top: 50%;
+    width: 20em;
+    margin: 0 auto;
+    border-right: 2px solid rgba(255,255,255,.75);
+    font-size: 3em;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    transform: translateY(-50%);
+    letter-spacing: 5px;
+}
+
+/* Animation Home Text*/
+.anim-typewriter {
+    animation: typewriter 5s steps(21) 1s 1 normal both, blinkTextCursor 500ms steps(21) infinite normal;
+}
+
+@keyframes typewriter {
+    from {
+        width: 0;
+    }
+
+    to {
+        width: 20em;
+    }
+}
+
+@keyframes blinkTextCursor {
+    from {
+        border-right-color: rgba(255,255,255,.75);
+    }
+
+    to {
+        border-right-color: transparent;
+    }
 }
