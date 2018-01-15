@@ -1,7 +1,7 @@
 ﻿import * as React from 'react';
 import '../css/style.css';
-import 'bootstrap';
 
+import '../css/bootstrap.css';
     //<p><button onClick={this.onClick}>Delete</button></p>
 export class Present extends React.Component {
 
@@ -18,7 +18,7 @@ export class Present extends React.Component {
                 <img className="present-img  rounded-circle pull-left" src={this.state.data.photo} />
                 <div className="present-info">
                 <p className="text-center">{this.state.data.title}</p>
-                <p className="">{this.state.data.content}</p>
+                <p className="">{this.state.data.content.split(".", 1)}</p>
                 </div>
           </div>;
     }
@@ -97,7 +97,6 @@ export class PresentForm extends React.Component {
         var newLikes = this.state.likes.trim().split(',');
         var newHobbies = this.state.hobbies.trim().split(',');
         var newCelebration = this.state.celebration;
-
         this.props.onPresentSubmit({
              title: newTitle,
              content: newContent,
@@ -191,48 +190,11 @@ export class PresentForm extends React.Component {
     }
 };
 
-var test = [
-    {
-        title: "present 1",
-        content: "информация про подарок ваыавыавыафвававававыф",
-        gender: 0,
-        photo: "https://avatars.mds.yandex.net/get-pdb/51720/a98cbb00-060c-4d87-b5fa-ef7500a58dd5/s800",
-        age: [0, 100],
-        likes: ["asdds", "Asdfsds"],
-        hobbies: ["asdds", "Asdfsds"],
-        celebration: 0,
-        id: 1
-    },
-
-    {
-        title: "present 1",
-        content: "информация про подарок ваыавыавыафвававававыф",
-        gender: 0,
-        photo: "https://avatars.mds.yandex.net/get-pdb/51720/a98cbb00-060c-4d87-b5fa-ef7500a58dd5/s800",
-        age: [0, 100],
-        likes: ["asdds", "Asdfsds"],
-        hobbies: ["asdds", "Asdfsds"],
-        celebration: 0,
-        id: 2
-    },
-    {
-        title: "present 1",
-        content: "информация про подарок ваыавыавыафвававававыф",
-        gender: 0,
-        photo: "https://avatars.mds.yandex.net/get-pdb/51720/a98cbb00-060c-4d87-b5fa-ef7500a58dd5/s800",
-        age: [0, 100],
-        likes: ["asdds", "Asdfsds"],
-        hobbies: ["asdds", "Asdfsds"],
-        celebration: 0,
-        id: 3
-    },
-]
-
 
 export class PresentsList extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { presents: test };
+        this.state = { presents: [] };
 
         this.onAddPresent = this.onAddPresent.bind(this);
         this.onRemovePresent = this.onRemovePresent.bind(this);
@@ -301,12 +263,11 @@ export class PresentsList extends React.Component {
             <div>
                 {
                     this.state.presents.map(function (present) {
-
-                        return
-                        <div >
-                        <Present key={present.id} present={present} onRemove={remove} />
-                        </div>
-                            })
+                    return
+                    <div >
+                    <Present key={present.id} present={present} onRemove={remove} />
+                    </div>
+                    })
                 }
             </div>
         </div>;

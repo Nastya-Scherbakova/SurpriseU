@@ -1,17 +1,18 @@
 ﻿import * as React from 'react';
-import { RouteComponentProps } from 'react-router';
-import { ReactDOM } from 'react';
+import '../css/style.css';
+import '../css/bootstrap.css';
 import { PresentsList, Present } from './Present.jsx';
 
-import '../css/style.css';
-
-export class Admin extends React.Component {
+export class LogIn extends React.Component {
     render() {
-        return <div>
-            <section className="menu-grad">
-                <p className="line-1 anim-typewriter">PRIVET NASTYA </p>
-            </section>
-            <PresentsList apiUrl="/api/Presents" />,
+        return
+        <div className="row justify-content-center user-form">
+            <div className="col-4">
+                Одна из двух колонок
+    </div>
+            <div className="col-4">
+                Одна из двух колонок
+    </div>
         </div>;
 
     }

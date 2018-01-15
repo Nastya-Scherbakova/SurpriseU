@@ -1,9 +1,12 @@
 ﻿import React, { Component } from 'react';
 import { Link, NavLink } from 'react-router-dom';
-import 'bootstrap';
+
 import '../css/bootstrap.css';
 import '../css/style.css';
 import 'scrollpos-styler';
+
+
+var FA = require('react-fontawesome');
 const Anketa = React.createClass({
     render() {
         return (
@@ -42,7 +45,7 @@ export class Menu extends Component {
                     </ul>
                     <ul className=" d-flex flex-row nav navbar-nav flex-grow justify-content-end">
                       
-                        <li ><Link to={'/anketa'}><Anketa /></Link></li>
+                        <li ><Link to={'/anketa'}><Anketa/></Link></li>
                         <li ><Link to={'/profile'}><User/ ></Link></li>
                     </ul>
                 </div>

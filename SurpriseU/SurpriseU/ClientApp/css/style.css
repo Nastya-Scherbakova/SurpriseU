@@ -1,35 +1,137 @@
 ﻿@import url('https://fonts.googleapis.com/css?family=Permanent+Marker');
-
-.flex-grow {
-    flex: 1;
+@import url(https://fonts.googleapis.com/css?family=Lato:400,700);
+body {
+    background: url('https://www.toptal.com/designers/subtlepatterns/patterns/gplaypattern.png');
 }
 
-
-
-.round-li {
-    background-color: white;
-    width: 7vh;
-    height: 7vh;
-    margin: 5px;
-    text-align: center;
-    border-bottom: 1px solid #50154F;
-    border-right: 1px solid #5E1B4E;
-    border-left: 1px solid #74254E;
-    border-top: 1px solid #70234E;
-    border-radius: 100%;
-    position:absolute;
-  
+/*https://hizonscatering.com/wp-content/uploads/2017/08/Monochromatic-Wedding-9.jpg конфеты 
+https://i.pinimg.com/564x/04/4a/4f/044a4fed98f101072b7bfeb4178695da.jpg шарики серебряные
+https://i.pinimg.com/564x/a3/87/ab/a387abd1a6eab1b1902bd459f27cf4a9.jpg
+    https://pm1.narvii.com/6639/7f76c797c61e19f18e4b8cda0a3b64803f5743d4_hq.jpg синий дым
+https://68.media.tumblr.com/c8d73137fbfaa28409084f9dc69ba95c/tumblr_ozzf2yJXob1w67d19o1_1280.jpg голубые шары*/
+.user-form {
+    font-family: 'Lato', sans-serif;
+    height: 60vh;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    width: 50vw;
+    margin-left: 25vw;
+    margin-top: 20vh;
 }
-.user-icon {
-    margin: auto;
-    position: center;
+
+.form-name {
+    
+    margin: 5vh;
+    letter-spacing: 7px;
+    text-transform: uppercase;
+}
+
+.half-form-left {
+    background-position: center center;
+    background-size: cover;
+    width: 25vw;
+    overflow: hidden;
+    background-image: url('https://pm1.narvii.com/6639/7f76c797c61e19f18e4b8cda0a3b64803f5743d4_hq.jpg');
+}
+.half-form-right {
+    background: white;
+    width: 25vw;
+    padding: 1vh 4vw 3vh 4vw;
+}
+
+.input-area {
+    height: 22vh;
+}
+
+.inpt {
+    display: block;
+    width: 100%;
+    height: 4vh;
+    padding: 2vh 1vh;
+    border: 1px solid #d9d9d9;
+    background: transparent;
+    border-radius: 2px;
+}
+.submit-wrap {
+    text-transform: uppercase;
+    height: 14vh;
+}
+
+.sbm-but {
+    height: 4vh;
+    display: block;
+    width: 100%;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: black;
+    border: 1px solid black;
+    background: transparent;
+    border-radius: 2px;
+}
+
+    .sbm-but:hover {
+        background-color: black;
+        color: white;
+        transition: all 0.2s;
+    }
+.tabs {
+    width: 100%;
+    margin-top: -2vh;
+    margin-bottom: 3vh;
+    border-bottom: 1px solid #d9d9d9;
+}
+
+.tab {
+    display: inline-block;
+    padding: 20px 10px 10px;
+    cursor: pointer;
+    letter-spacing: 0;
+    transition: all 0.1s ease-in-out;
+    text-transform: uppercase;
+    color: #d9d9d9;
+}
+.active-tab {
+color: black;
+border-bottom: 1px solid black;
+}
+.tab:hover {
     color: black;
 }
 
-/*вывод подарков*/
+.sw-pink {
+    width: 40px;
+    height: 3vh;
+    border-radius: 18px;
+    background: #FBABC7;
+    box-shadow: 0px 0px 1px rgba(0,0,0,0.5);
+}
 
+.cr-pink {
+    height: 3vh;
+    width: 3vh;
+    background: white;
+    border-radius: 18px;
+    box-shadow: 0px 0px 1px rgba(0,0,0,0.5);
+}
+.sw-blue {
+    width: 40px;
+    height: 3vh;
+    border-radius: 18px;
+    background: #B2ABFB;
+    box-shadow: 0px 0px 1px rgba(0,0,0,0.5);
+}
+
+.cr-blue {
+    height: 3vh;
+    width: 3vh;
+    background: white;
+    border-radius: 18px;
+    box-shadow: 0px 0px 1px rgba(0,0,0,0.5);
+}
+
+/*вывод подарков*/
 .present-img {
     height: 100%;
+    background-size: cover;
 }
 
 .present-div {
@@ -44,7 +146,8 @@
     margin-left: 10vh;
     padding: 3em 0;
     display: block;
-    background: linear-gradient(to top right,#8C9EFF, #E1F5FE);
+    background: linear-gradient(to left,rgba(140, 158, 255, 0.5), rgba(255, 245, 254, 0.5));
+
 }
 
 
@@ -149,11 +252,11 @@
 
 /*градиент под меню*/
 .home-image {
-    position: absolute;
     margin-bottom: 50px;
     height: 60vh;
-    background: url(http://daler.ru/pictures/1/2560x1600/Goluboy-fon-9560.jpg);
+    background: url(https://wallpaperscraft.ru/image/abstrakciya_seryy_siniy_dym_441_1920x1080.jpg);
     background-size: cover;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
 }
 
 .menu-grad {
@@ -269,5 +372,67 @@
 
     to {
         border-right-color: transparent;
+    }
+}
+
+
+.ball {
+    background-color: white;
+    position: absolute;
+    border-radius: 100%;
+    opacity: 0.7;
+    width: 0.5em;
+    height: 0.5em;
+    -webkit-animation: anim 1s ease-in-out infinite;
+    -moz-animation: anim 1s ease-in-out infinite;
+    -o-animation: anim 1s ease-in-out infinite;
+    animation: anim 1s ease-in-out infinite;
+    -webkit-animation-fill-mode: both;
+    -moz-animation-fill-mode: both;
+    -o-animation-fill-mode: both;
+    animation-fill-mode: both;
+    -webkit-animation-direction: alternate;
+    -moz-animation-direction: alternate;
+    -o-animation-direction: alternate;
+}
+
+
+@-webkit-keyframes anim {
+    from {
+        opacity: 1.0;
+    }
+
+    to {
+        opacity: 0.0;
+    }
+}
+
+@-moz-keyframes anim {
+    from {
+        opacity: 1.0;
+    }
+
+    to {
+        opacity: 0.0;
+    }
+}
+
+@-o-keyframes anim {
+    from {
+        opacity: 1.0;
+    }
+
+    to {
+        opacity: 0.0;
+    }
+}
+
+@keyframes anim {
+    from {
+        opacity: 1.0;
+    }
+
+    to {
+        opacity: 0.0;
     }
 }

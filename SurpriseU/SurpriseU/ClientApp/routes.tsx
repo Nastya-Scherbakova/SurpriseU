@@ -3,12 +3,13 @@ import { Route } from 'react-router-dom';
 import { RouteComponentProps } from 'react-router';
 import { Layout } from './components/Layout';
 import { Home } from './components/Home.jsx';
-import { Admin } from './components/Admin.jsx';
 import { Anketa } from './components/Anketa.jsx';
+import { LogIn } from './components/Login.jsx';
+
 export const routes = <Layout>
     <Route exact path='/' component={withoutRouteProps(Home) } />
     <Route path='/anketa' component={withoutRouteProps(Anketa)} />
-    <Route path='/profile' component={withoutRouteProps(Admin)} />
+    <Route path='/profile' component={withoutRouteProps(LogIn)} />
 </Layout>;
 
 function withoutRouteProps<P>(Component: React.ComponentClass<P> | React.SFC<P>):

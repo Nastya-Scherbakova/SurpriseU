@@ -1,13 +1,16 @@
 ﻿import * as React from 'react';
 import '../css/style.css';
+import '../css/bootstrap.css';
+import { PresentsList, Present } from './Present.jsx';
 
 export class Anketa extends React.Component {
     render() {
         return <div>
-            <section className="menu-grad">
-                <p className="line-1 anim-typewriter">Tut budet anketa</p>
-            </section>
-            
+            <div className="home-image">
+                
+            </div>
+            <PresentsList apiUrl="/api/Presents" />
+
         </div>;
 
     }
