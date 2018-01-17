@@ -1,4 +1,4 @@
-﻿import * as React from 'react';
+import * as React from 'react';
 import '../css/style.css';
 import '../css/bootstrap.css';
 import { PresentsList, Present } from './Present.jsx';
