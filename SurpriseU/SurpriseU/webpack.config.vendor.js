@@ -27,7 +27,17 @@ module.exports = (env) => {
         },
         plugins: [
             extractCSS,
-            new webpack.ProvidePlugin({ $: 'jquery', jQuery: 'jquery' }), // Maps these identifiers to the jQuery package (because Bootstrap expects it to be a global variable)
+            //new webpack.ProvidePlugin({ $: 'jquery', jQuery: 'jquery' }), // Maps these identifiers to the jQuery package (because Bootstrap expects it to be a global variable)
+            new webpack.ProvidePlugin({
+                $: 'jquery',
+                jQuery: 'jquery',
+                'window.jQuery': 'jquery',
+                Popper: ['popper.js', 'default'],
+                // In case you imported plugins individually, you must also require them here:
+                Util: "exports-loader?Util!bootstrap/js/dist/util",
+                Dropdown: "exports-loader?Dropdown!bootstrap/js/dist/dropdown",
+               
+      }),
             new webpack.DllPlugin({
                 path: path.join(__dirname, 'wwwroot', 'dist', '[name]-manifest.json'),
                 name: '[name]_[hash]'

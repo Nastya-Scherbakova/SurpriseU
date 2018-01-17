@@ -1,4 +1,4 @@
-﻿import * as React from 'react';
+import * as React from 'react';
 import { RouteComponentProps } from 'react-router';
 import { ReactDOM } from 'react';
 import { PresentsList, Present } from './Present.jsx';

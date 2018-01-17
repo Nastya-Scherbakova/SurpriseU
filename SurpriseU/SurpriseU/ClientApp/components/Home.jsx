@@ -4,8 +4,8 @@ import {ReactDOM } from 'react';
 import { PresentsList, Present } from './Present.jsx';
 import '../css/style.css';
 var test = {
-        title: "Капкейки",
-        content: "Красивые капкейки - украшение любого праздника. Мы предлагаем наборы оригинальных капкейков на любой вкус, а так же на заказ.",
+        title: "РљР°РєРѕР№-С‚Рѕ С‚Р°Р№С‚Р»",
+        content: "РљР°РєРѕР№-С‚Рѕ РєРѕРЅС‚РµРЅС‚.",
         gender: 0,
         photo: "https://avatars.mds.yandex.net/get-pdb/51720/a98cbb00-060c-4d87-b5fa-ef7500a58dd5/s800",
         age: [0, 100],

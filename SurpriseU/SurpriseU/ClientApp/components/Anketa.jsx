@@ -1,4 +1,4 @@
-﻿import * as React from 'react';
+import * as React from 'react';
 import '../css/style.css';
 
 export class Anketa extends React.Component {
