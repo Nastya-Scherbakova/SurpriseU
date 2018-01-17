@@ -1,5 +1,6 @@
 ﻿import * as React from 'react';
 import '../css/style.css';
+import { Link, NavLink } from 'react-router-dom';
 
 import '../css/bootstrap.css';
     //<p><button onClick={this.onClick}>Delete</button></p>
@@ -7,19 +8,44 @@ export class Present extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = { data: props.present };
+        this.state = {
+            data: props.present,
+            liked: false
+        };
         this.onClick = this.onClick.bind(this);
+        this.onLike = this.onLike.bind(this);
     }
     onClick(e) {
         this.props.onRemove(this.state.data);
     }
+    onLike() {
+        this.setState(prevState => ({
+            liked: !prevState.liked
+        }));
+    }
     render() {
+        const liked = this.state.liked;
+        const likeStyle = null;
+        if (liked) {
+            likeStyle = ' like-icon-2 '
+        } else {
+            likeStyle = ' like-icon-1 '
+        }
         return <div className="col-md-5 present-div animated fadeInDown">
                 <img className="present-img  rounded-circle pull-left" src={this.state.data.photo} />
                 <div className="present-info">
-                <p className="text-center">{this.state.data.title}</p>
-                <p className="">{this.state.data.content.split(".", 1)}</p>
+                <div className="d-flex justify-content-center align-items-center"><div className="present-title">{this.state.data.title}</div></div>
+                <div className="d-flex justify-content-start align-items-center present-about">{this.state.data.content.split(".", 1)}</div>
+                <div className="d-flex justify-content-between align-items-center present-bottom">
+                <NavLink className="navlink-no pres-nav " to={'/'}>
+                    <div className="d-flex justify-content-center align-items-center ">
+                        Читати далі
+                        <div className="d-flex justify-content-center align-items-center arrow-right-icon"></div>
+                    </div>
+                </NavLink>
+                <div className={"d-flex justify-content-center align-items-center like-icon" + likeStyle} onClick={this.onLike}></div>
                 </div>
+            </div>
           </div>;
     }
 }
@@ -223,7 +249,7 @@ export class PresentsList extends React.Component {
                 "age":present.age,
                 "likes":present.likes,
                 "hobbies":present.hobbies,
-                "celebration":present.celebration
+                "celebration": present.celebration
             });
             var xhr = new XMLHttpRequest();
 

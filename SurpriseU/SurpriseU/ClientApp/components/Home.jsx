@@ -6,8 +6,8 @@ import '../css/style.css';
 import { Ball } from './Ball.jsx';
 
 var test = {
-        title: "Капкейки",
-        content: "Красивые капкейки - украшение любого праздника. Мы предлагаем. наборы оригинальных капкейков на любой вкус, а так же на заказ.",
+        title: "РљР°РїРєРµР№РєРё",
+        content: "Р”СѓР¶Рµ СЃРјР°С‡РЅС– РєР°РїРєРµР№РєРё",
         gender: 0,
         photo: "https://avatars.mds.yandex.net/get-pdb/51720/a98cbb00-060c-4d87-b5fa-ef7500a58dd5/s800",
         age: [0, 100],
