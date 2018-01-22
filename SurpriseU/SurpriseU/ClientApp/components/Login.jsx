@@ -28,9 +28,6 @@ class SignUp extends React.Component {
             sheState = 'she-active'
         }
 
-
-
-
         return <div>
             <form action="#" method="post">
                 <div className="d-flex justify-content-around flex-column input-area ">
@@ -41,8 +38,8 @@ class SignUp extends React.Component {
 
                 <div className="d-flex justify-content-center align-items-center">
                     <label>Стать&nbsp;&nbsp;&nbsp;&nbsp;</label>
-                    <div className={"d-flex justify-content-center align-items-center gender-icon gender-icon-he " + heState} onClick={this.onGender}></div>
-                    <div className={"d-flex justify-content-center align-items-center gender-icon gender-icon-she " + sheState} onClick={this.onGender}></div>
+                    <div className={"d-flex justify-content-center align-items-center gender gender-he " + heState} onClick={this.onGender}></div>
+                    <div className={"d-flex justify-content-center align-items-center gender gender-she " + sheState} onClick={this.onGender}></div>
                 </div>
 
                 <div  className="submit-wrap d-flex align-items-center">
@@ -99,7 +96,6 @@ export class LogIn extends React.Component {
             signIn: !prevState.signIn
         }));
     }
-    
     render() {
         const signIn = this.state.signIn;
         let classI, classU, spans = null;
@@ -110,12 +106,12 @@ export class LogIn extends React.Component {
             classI = 'tab';
             classU = 'tab active-tab';
         }
-        return <div className="row user-form">
-            <div className="half-form-left "></div>
-            <div className="half-form-right ">
+        return <div className="row log-form">
+            <div className="left "></div>
+            <div className="right ">
                 <div >
                     <div className=" d-flex  justify-content-center align-items-center">
-                    <h2 className="form-name">SurpriseU</h2>
+                    <h2 className="name">SurpriseU</h2>
                     </div>
                     <div className="tabs d-flex justify-content-start">
                         <span className={classI}><a onClick={this.onTab}>Вхід</a></span>

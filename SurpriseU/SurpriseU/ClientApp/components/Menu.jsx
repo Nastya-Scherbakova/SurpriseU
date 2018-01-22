@@ -1,9 +1,10 @@
 ﻿import React, { Component } from 'react';
 import { Link, NavLink } from 'react-router-dom';
-
+import { User, Clipboard} from 'react-feather';
 import '../css/bootstrap.css';
 import '../css/style.css';
 import 'scrollpos-styler';
+
 
 export class Menu extends Component {
     render() {
@@ -16,8 +17,8 @@ export class Menu extends Component {
                     <div className="w-50 ml-5"><input className="form-control" type="search" placeholder="Search" aria-label="Search" /></div></div>
                     
                     <div className="d-flex flex-row">
-                    <NavLink className="navlink-no nav-icon" to={'/anketa'}>  <div className="d-flex justify-content-center align-items-center nav-icon-ank"></div></NavLink>
-                    <NavLink className="navlink-no nav-icon" to={'/profile'}><div className="d-flex justify-content-center align-items-center nav-icon-user"></div></NavLink>
+                    <NavLink className="navlink-no nav-icon" to={'/anketa'}>  <div className="d-flex justify-content-center align-items-center "><Clipboard size="5vh" color='#031560'/></div></NavLink>
+                    <NavLink className="navlink-no nav-icon" to={'/profile'}><div className="d-flex justify-content-center align-items-center"><User size="5vh" color='#031560'/></div></NavLink>
                     </div>
                
             </nav>

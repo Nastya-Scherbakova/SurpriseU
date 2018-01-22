@@ -27,20 +27,20 @@ export class Present extends React.Component {
         const liked = this.state.liked;
         const likeStyle = null;
         if (liked) {
-            likeStyle = ' like-icon-2 '
+            likeStyle = ' like-true '
         } else {
-            likeStyle = ' like-icon-1 '
+            likeStyle = ' like-false '
         }
-        return <div className="col-md-5 present-div animated fadeInDown">
-                <img className="present-img  rounded-circle pull-left" src={this.state.data.photo} />
-                <div className="present-info">
-                <div className="d-flex justify-content-center align-items-center"><div className="present-title">{this.state.data.title}</div></div>
-                <div className="d-flex justify-content-start align-items-center present-about">{this.state.data.content.split(".", 1)}</div>
-                <div className="d-flex justify-content-between align-items-center present-bottom">
-                <NavLink className="navlink-no pres-nav " to={'/'}>
+        return <div className="col-md-5 present animated fadeInDown">
+                <img className="img  rounded-circle pull-left" src={this.state.data.photo} />
+                <div className="info">
+                <div className="d-flex justify-content-center align-items-center"><div className="title">{this.state.data.title}</div></div>
+                <div className="d-flex justify-content-start align-items-center about">{this.state.data.content.split(".", 1)}</div>
+                <div className="d-flex justify-content-between align-items-center bottom">
+                <NavLink className="navlink-no nav " to={'/'}>
                     <div className="d-flex justify-content-center align-items-center ">
                         Читати далі
-                        <div className="d-flex justify-content-center align-items-center arrow-right-icon"></div>
+                        <div className="d-flex justify-content-center align-items-center arrow-right"></div>
                     </div>
                 </NavLink>
                 <div className={"d-flex justify-content-center align-items-center like-icon" + likeStyle} onClick={this.onLike}></div>
@@ -220,7 +220,7 @@ export class PresentForm extends React.Component {
 export class PresentsList extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { presents: [] };
+        this.state = { presents: null };
 
         this.onAddPresent = this.onAddPresent.bind(this);
         this.onRemovePresent = this.onRemovePresent.bind(this);
@@ -286,7 +286,7 @@ export class PresentsList extends React.Component {
         return <div>
             <PresentForm onPresentSubmit={this.onAddPresent} />
             <h2>Presents</h2>
-            <div>
+            <div className="d-flex flex-row  flex-wrap justify-content-around">
                 {
                     this.state.presents.map(function (present) {
                     return
