@@ -26,6 +26,7 @@
   <ItemGroup>
     <None Remove="ClientApp\components\Admin.jsx" />
     <None Remove="ClientApp\components\Admin.tsx" />
+    <None Remove="ClientApp\components\ConnectingDots.jsx" />
     <None Remove="ClientApp\components\NavMenu.tsx" />
   </ItemGroup>
 
