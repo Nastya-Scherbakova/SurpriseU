@@ -19,7 +19,7 @@ namespace SurpriseU.Models
         public string Content { get; set; }
         public PresentsGender Gender { get; set; }
         public string Photo { get; set; }
-        public bool like { get; set; }
+        //public bool like { get; set; }
         List<int> Age = new List<int>();
         ArrayList Likes = new ArrayList();
         ArrayList Hobbies = new ArrayList();

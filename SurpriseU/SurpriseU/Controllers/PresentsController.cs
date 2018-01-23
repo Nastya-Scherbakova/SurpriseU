@@ -90,11 +90,12 @@ namespace SurpriseU.Controllers
 
         // POST: api/Presents
         [HttpPost]
-        public IActionResult Post([FromBody]Present phone)
+        public IActionResult Post([FromBody]Present present)
         {
 
-            _context.Presents.Add(phone);
-            return Ok(phone);
+            _context.Presents.Add(present);
+            _context.SaveChanges();
+            return Ok(present);
         }
         //public async Task<IActionResult> PostPresent([FromBody] Present present)
         //{
@@ -113,10 +114,10 @@ namespace SurpriseU.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeletePresent([FromRoute] int id)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+            //if (!ModelState.IsValid)
+            //{
+            //    return BadRequest(ModelState);
+            //}
 
             var present = await _context.Presents.SingleOrDefaultAsync(m => m.Id == id);
             if (present == null)

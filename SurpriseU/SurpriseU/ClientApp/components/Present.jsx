@@ -3,7 +3,7 @@ import '../css/style.css';
 import { Link, NavLink } from 'react-router-dom';
 
 import '../css/bootstrap.css';
-    //<p><button onClick={this.onClick}>Delete</button></p>
+    
 export class Present extends React.Component {
 
     constructor(props) {
@@ -41,6 +41,7 @@ export class Present extends React.Component {
                     <div className="d-flex justify-content-center align-items-center ">
                         Читати далі
                         <div className="d-flex justify-content-center align-items-center arrow-right-icon"></div>
+                         <p><button onClick={this.onClick}>Delete</button></p>
                     </div>
                 </NavLink>
                 <div className={"d-flex justify-content-center align-items-center like-icon" + likeStyle} onClick={this.onLike}></div>
@@ -147,7 +148,7 @@ export class PresentForm extends React.Component {
 
     render() {
         return (
-            <form>
+            <form onSubmit={this.onSubmit}>
                 <input
                     name="title"
                     placeholder="Title"
@@ -289,10 +290,8 @@ export class PresentsList extends React.Component {
             <div>
                 {
                     this.state.presents.map(function (present) {
-                    return
-                    <div >
-                    <Present key={present.id} present={present} onRemove={remove} />
-                    </div>
+                    return <Present key={present.id} present={present} onRemove={remove} />
+                    
                     })
                 }
             </div>
