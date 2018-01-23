@@ -124,8 +124,9 @@ export class Home extends React.Component{
     }
 }
 
+var createReactClass = require('create-react-class');
 
-var PresentList = React.createClass({
+var PresentList = createReactClass({
     getInitialState: function () {
         return {
             displayedPresents: tests

@@ -36,7 +36,7 @@ namespace SurpriseU.Controllers
 
         // GET: api/Presents/5
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetPresent([FromRoute] int id)
+        public async Task<IActionResult> GetPresent([FromRoute] string id)
         {
             if (!ModelState.IsValid)
             {
@@ -55,7 +55,7 @@ namespace SurpriseU.Controllers
 
         // PUT: api/Presents/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutPresent([FromRoute] int id, [FromBody] Present present)
+        public async Task<IActionResult> PutPresent([FromRoute] string id, [FromBody] Present present)
         {
             if (!ModelState.IsValid)
             {
@@ -92,6 +92,7 @@ namespace SurpriseU.Controllers
         [HttpPost]
         public IActionResult Post([FromBody]Present present)
         {
+            
 
             _context.Presents.Add(present);
             _context.SaveChanges();
@@ -112,7 +113,7 @@ namespace SurpriseU.Controllers
 
         // DELETE: api/Presents/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeletePresent([FromRoute] int id)
+        public async Task<IActionResult> DeletePresent([FromRoute] string id)
         {
             //if (!ModelState.IsValid)
             //{
@@ -131,7 +132,7 @@ namespace SurpriseU.Controllers
             return Ok(present);
         }
 
-        private bool PresentExists(int id)
+        private bool PresentExists(string id)
         {
             return _context.Presents.Any(e => e.Id == id);
         }

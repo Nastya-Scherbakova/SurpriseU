@@ -11,24 +11,23 @@ namespace SurpriseU.Models
 {
     public class User
     {
-        public List<Friend> Friends { get; set; }
-        public List<Anket> Ankets { get; set; }
+       
 
-        public int Id { get; set; }
-        
+        public string Id { get; set; }
         public string Name { get; set; }
         public DateTime Age { get; set; }
         public string Email { get; set; }
         private string password;
         public Gender Gender { get; set; }
-        ArrayList Likes = new ArrayList();
-        ArrayList Hobbies = new ArrayList();
+        public List<string> Likes = new List<string>();
+        public List<string> Hobbies = new List<string>();
         public string Photo { get; set; }
-  
-        public List<Present> likedPresents;
-        public List<Present> suggestedPresents;
+        public List<User> Friends = new List<User>();
+        public List<User> Ankets = new List<User>();
+        public List<Present> likedPresents = new List<Present>();
+        public List<Present> likedByUsers = new List<Present>();
+        public List<Present> suggestedPresents = new List<Present>();
         public string Password { get { return password; } set { password = value; } }
-
         public int? RoleId { get; set; }
         public Role Role { get; set; }
 

@@ -8,11 +8,11 @@ using Microsoft.EntityFrameworkCore.Storage.Internal;
 using SurpriseU.Models;
 using System;
 
-namespace SurpriseU.Migrations
+namespace SurpriseU.Migrations.Presents
 {
     [DbContext(typeof(PresentsContext))]
-    [Migration("20171230173143_PresentsNew")]
-    partial class PresentsNew
+    [Migration("20180123100816_PresentsToUsers")]
+    partial class PresentsToUsers
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -23,7 +23,7 @@ namespace SurpriseU.Migrations
 
             modelBuilder.Entity("SurpriseU.Models.Present", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<int>("Celebration");
@@ -39,8 +39,6 @@ namespace SurpriseU.Migrations
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasMaxLength(100);
-
-                    b.Property<bool>("like");
 
                     b.HasKey("Id");
 

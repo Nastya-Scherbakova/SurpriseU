@@ -1,11 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Migrations;
 using System;
 using System.Collections.Generic;
 
-namespace SurpriseU.Migrations
+namespace SurpriseU.Migrations.Presents
 {
-    public partial class Index : Migration
+    public partial class PresentsToUsers : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -13,15 +12,16 @@ namespace SurpriseU.Migrations
                 name: "Presents",
                 columns: table => new
                 {
-                    PresentId = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Content = table.Column<string>(maxLength: 100, nullable: false),
-                    Photo = table.Column<string>(maxLength: 100, nullable: false),
+                    Id = table.Column<string>(nullable: false),
+                    Celebration = table.Column<int>(nullable: false),
+                    Content = table.Column<string>(maxLength: 1000, nullable: false),
+                    Gender = table.Column<int>(nullable: false),
+                    Photo = table.Column<string>(nullable: true),
                     Title = table.Column<string>(maxLength: 100, nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Presents", x => x.PresentId);
+                    table.PrimaryKey("PK_Presents", x => x.Id);
                 });
         }
 

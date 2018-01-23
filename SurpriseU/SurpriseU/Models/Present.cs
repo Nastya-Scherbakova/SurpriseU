@@ -12,7 +12,7 @@ namespace SurpriseU.Models
 
     public class Present
     {
-        public int Id { get; set; }
+        public string Id { get; set; }
         [Required, StringLength(100)]
         public string Title { get; set; }
         [Required, StringLength(1000)]
@@ -24,6 +24,8 @@ namespace SurpriseU.Models
         ArrayList Likes = new ArrayList();
         ArrayList Hobbies = new ArrayList();
         public Celebration Celebration { get; set; }
+        public List<int> UsersId = new List<int>();
+        public List<User> Users = new List<User>();
         public enum PresentsGender
         {
             All,
