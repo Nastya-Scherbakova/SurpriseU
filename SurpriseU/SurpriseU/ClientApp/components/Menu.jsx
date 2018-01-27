@@ -14,7 +14,7 @@ export class Menu extends Component {
                   
                 <div className="d-flex w-50"><NavLink className="nav-brand" to={'/'}>SurpriseU</NavLink>
                 
-                    <div className="w-50 ml-5"><input className="form-control" type="search" placeholder="Search" aria-label="Search" /></div></div>
+                    <div id='portal-nav-input' className="w-50 ml-5"><input className="form-control" type="search" placeholder="Search" aria-label="Search" /></div></div>
                     
                     <div className="d-flex flex-row">
                     <NavLink className="navlink-no nav-icon" to={'/anketa'}>  <div className="d-flex justify-content-center align-items-center "><Clipboard size="5vh" color='#031560'/></div></NavLink>
