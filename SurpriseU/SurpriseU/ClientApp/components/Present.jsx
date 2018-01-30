@@ -46,7 +46,7 @@ export class Present extends React.Component {
         return <div className="col-md-5 present animated fadeInDown">
             <img className="img  rounded-circle pull-left" src={this.state.data.photo} />
             <div className="info">
-                <div className="d-flex justify-content-center align-items-center"><div className="title">{this.state.data.title}</div></div>
+                <div className="d-flex justify-content-center align-items-center"><div className="title">{this.state.data.title}{this.state.data.age}</div></div>
                 <div className="d-flex justify-content-start align-items-center about">{this.state.data.content.split(".", 1)}</div>
                 <div className="d-flex justify-content-between align-items-center bottom">
                     <NavLink className="navlink-no nav " to={'/'}>
@@ -105,7 +105,7 @@ export class EditPresent extends React.Component {
         }
     }
     render() {
-        return <div className='form-add h-75 w-25 d-flex flex-column align-items-center animated fadeInDown'>
+        return <div className='form-add d-flex flex-column align-items-center animated fadeInDown'>
             <div className="w-100 d-flex flex-wrap align-items-center justify-content-center name">Додати подарунок</div>
             
             <PresentForm onPresentSubmit={this.onEditPresent} toClose={this.props.toClose}
@@ -113,9 +113,9 @@ export class EditPresent extends React.Component {
                 content={this.state.present.content}
                 gender={this.state.present.gender}
                 photo={this.state.present.photo}
-                age={[0, 100]}
+                age={[1, 100]}
                 likes={this.state.present.likes}
-                celebration={this.state.present.celebration}
+                celebration={[]}
                 />
         </div>;
     }
@@ -155,10 +155,10 @@ export class NewPresent extends React.Component {
     }
 
     render() {
-        return <div className='form-add h-75 w-25 d-flex flex-column align-items-center animated fadeInDown'>
+        return <div className='form-add d-flex flex-column align-items-center animated fadeInDown'>
                 <div className="w-100 d-flex flex-wrap align-items-center justify-content-center name">Додати подарунок</div>
                 <PresentForm onPresentSubmit={this.onAddPresent} toClose={this.props.toClose}
-                title='' content='' gender={-1} photo='' age={['','']} likes='' celebration={[]}
+                title='' content='' gender={-1} photo='' age={[]} likes='' celebration={[]}
                    />
             </div>;
     }
@@ -250,6 +250,7 @@ export class PresentForm extends React.Component {
         };
         this.onSubmit = this.onSubmit.bind(this);
         this.onChange = this.onChange.bind(this);
+        this.onChangeAge = this.onChangeAge.bind(this);
         this.validateField = this.validateField.bind(this);
         this.errorClass = this.errorClass.bind(this);
         this.celChanged = this.celChanged.bind(this);
@@ -257,6 +258,14 @@ export class PresentForm extends React.Component {
 
     onChange(e) {
         this.setState({ [e.target.name]: e.target.value });
+    }
+    onChangeAge(e) {
+        var tmpAge = this.state.age.slice();
+        if ([e.target.name] == 'age1') {
+            tmpAge[0] = e.target.value;
+        }
+        else tmpAge[1] = e.target.value;
+        this.setState({ age: tmpAge });
     }
 
     celChanged(newCelebration) {
@@ -271,7 +280,7 @@ export class PresentForm extends React.Component {
         var newContent = this.state.content.trim();
         var newGender = this.state.gender;
         var newPhoto = this.state.photo;
-        var newAge = this.state.age;
+        var newAge = this.state.age.slice();
         var newLikes = this.state.likes.trim().split(',');
         var newCelebration = this.state.celebration;
         this.props.onPresentSubmit({
@@ -322,7 +331,7 @@ export class PresentForm extends React.Component {
                 fieldErrors.photo = fieldValid ? '' : 'Вкажіть фото';
                 formValid[3] = fieldValid ? true : false;
                 break;
-            case 'age':
+            case 'age1':
                 fieldValid = value >= 0;
                 fieldErrors.age = fieldValid ? '' : 'Введіть коректні межі віку';
                 formValid[4] = fieldValid ? true : false;
@@ -379,21 +388,21 @@ export class PresentForm extends React.Component {
                 <div className='mb-4 gender d-flex justify-content-around'>
                     <label>
                         <input type="radio" value="0" name="gender" checked={this.state.gender === '0'} onChange={this.onChange} onClick={this.validateField}/>
-                        <div className={(this.state.gender == '0') ? 'male checked' : 'male'} ></div>
+                        <div className={(this.state.gender == '0') ? 'male male-checked' : 'male'} ></div>
                     </label>
                     <label>
                         <input type="radio" value="2" name="gender" checked={this.state.gender === '2'} onChange={this.onChange} onClick={this.validateField}/>
-                        <div className={(this.state.gender == '2') ? 'both checked' : 'both'}></div>
+                        <div className={(this.state.gender == '2') ? 'both both-checked' : 'both'}></div>
                     </label>
                     <label >
                         <input type="radio" value="1" name="gender" checked={this.state.gender === '1'} onChange={this.onChange} onClick={this.validateField}/>
-                        <div className={(this.state.gender == '1') ? 'female checked' : 'female'}></div>
+                        <div className={(this.state.gender == '1') ? 'female female-checked' : 'female'}></div>
                     </label>
                 </div>
                 <FormErrors error={this.state.formErrors.gender} />
 
                 <div className='w-100 d-flex justify-content-center align-items-center'>
-                    <input className='std photo'
+                    <input className={`std photo ${this.errorClass(this.state.formErrors.age)}`}
                         name="photo"
                         placeholder="Введіть посилання або завантажте вручну"
                         value={this.state.photo}
@@ -406,16 +415,16 @@ export class PresentForm extends React.Component {
                 <div className='d-flex w-75 justify-content-around align-items-center'>
                     
                     <input className={`std age ${this.errorClass(this.state.formErrors.age)}`}
-                        name="age"
+                        name="age1"
                         placeholder="Початковий вік"
                         value={this.state.age[0]}
-                        onChange={this.onChange}
+                        onChange={this.onChangeAge}
                         onBlur={this.validateField} />
                     <input className={`std age ${this.errorClass(this.state.formErrors.age)}`}
-                        name="age"
+                        name="age2"
                         placeholder="Кінцевий вік"
                         value={this.state.age[1]}
-                        onChange={this.onChange}
+                        onChange={this.onChangeAge}
                         onBlur={this.validateField} />
                 </div>
                 <FormErrors error={this.state.formErrors.age} />
@@ -427,7 +436,6 @@ export class PresentForm extends React.Component {
                     onChange={this.onChange}
                     onBlur={this.validateField} />
                 <FormErrors error={this.state.formErrors.likes} />
-                
                 <CheckboxGroup
                     checkboxDepth={2} 
                     name="celebration"

@@ -20,10 +20,6 @@ body {
     font-family: 'Roboto', sans-serif;
 }
 
-
-.bold {
-    font-weight: bolder;
-}
 /*ADD PRESENT*/
 
 .addPresent {
@@ -40,6 +36,17 @@ body {
     border-radius: 30px;
     box-shadow: 0 3px 5px 0 rgba(0,0,0,0.1);
     background: rgba(255,255,255,0.2);
+
+
+    @media screen and (min-width: 480px) {
+        height: 75%;
+        width: 25%;
+    }
+
+    @media screen and (max-width: 480px) {
+        height: 80%;
+        width: 80%;
+    }
 
     .name {
         background: linear-gradient(to right, #FFFFFF, #C1C3FF);
@@ -73,7 +80,7 @@ body {
         }
 
         .has-error {
-            border: 1px solid red;
+            background: #F2D7D7;
         }
 
         .std {
@@ -111,37 +118,22 @@ body {
                 height: 3vh;
                 margin: 0 2vh;
 
-                .male {
-                    &::before {
-                        font-family: FontAwesome;
-                        content: "\f222";
-                        color: #A2AAD2;
-                        font-size: 3vh;
+                @each $gender, $content, $color in (female, 221, #D2A2C6), (both, 1db, #C2A6D2), (male, 222, #A2AAD2) {
+                    .#{$gender} {
+                        &::before {
+                            font-family: FontAwesome;
+                            content: "\f#{$content}";
+                            color: #{$color};
+                            font-size: 3vh;
+                        }
                     }
                 }
 
-                .female {
-                    &::before {
-                        font-family: FontAwesome;
-                        content: "\f221";
-                        color: #D2A2C6;
-                        font-size: 3vh;
-                    }
-                }
-
-                .both {
-                    &::before {
-                        font-family: FontAwesome;
-                        content: "\f228";
-                        color: #C2A6D2;
-                        font-size: 3vh;
-                    }
-                }
-
-
-                .checked {
-                    &::before {
-                        color: $darkblue;
+                @each $gender, $color in (female, #AE0082), (both, #6B00A9), (male, #001CAA) {
+                    .#{$gender}-checked {
+                        &::before {
+                            color: $color;
+                        }
                     }
                 }
             }
