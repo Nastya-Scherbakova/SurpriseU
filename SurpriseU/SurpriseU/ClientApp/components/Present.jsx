@@ -46,7 +46,7 @@ export class Present extends React.Component {
         return <div className="col-md-5 present animated fadeInDown">
             <img className="img  rounded-circle pull-left" src={this.state.data.photo} />
             <div className="info">
-                <div className="d-flex justify-content-center align-items-center"><div className="title">{this.state.data.title}{this.state.data.age}</div></div>
+                <div className="d-flex justify-content-center align-items-center"><div className="title">{this.state.data.title}</div></div>
                 <div className="d-flex justify-content-start align-items-center about">{this.state.data.content.split(".", 1)}</div>
                 <div className="d-flex justify-content-between align-items-center bottom">
                     <NavLink className="navlink-no nav " to={'/'}>
@@ -87,9 +87,8 @@ export class EditPresent extends React.Component {
                 "content": present.content,
                 "gender": present.gender,
                 "photo": present.photo,
-                "age": present.age,
+                "age": [],
                 "likes": present.likes,
-                "hobbies": ["хобби"],
                 "celebration": 0
             });
             var xhr = new XMLHttpRequest();
@@ -138,8 +137,7 @@ export class NewPresent extends React.Component {
                 "photo": present.photo,
                 "age": present.age,
                 "likes": ["wert", "ddff"],
-                "hobbies": ["хобби"],
-                "celebration": 0
+                "celebration": [0]
             });
             var xhr = new XMLHttpRequest();
 

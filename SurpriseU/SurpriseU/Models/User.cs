@@ -22,11 +22,11 @@ namespace SurpriseU.Models
         public List<string> Likes = new List<string>();
         public List<string> Hobbies = new List<string>();
         public string Photo { get; set; }
-        public List<User> Friends = new List<User>();
-        public List<User> Ankets = new List<User>();
-        public List<Present> likedPresents = new List<Present>();
-        public List<Present> likedByUsers = new List<Present>();
-        public List<Present> suggestedPresents = new List<Present>();
+        public List<int> FriendsId = new List<int>();
+        public List<int> AnketsId = new List<int>();
+        public List<int> likedPresentsId = new List<int>();
+        public List<int> likedByUsersId = new List<int>();
+        public List<int> suggestedPresentsId = new List<int>();
         public string Password { get { return password; } set { password = value; } }
         public int? RoleId { get; set; }
         public Role Role { get; set; }

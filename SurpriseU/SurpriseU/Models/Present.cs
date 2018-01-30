@@ -20,17 +20,24 @@ namespace SurpriseU.Models
         public PresentsGender Gender { get; set; }
         public string Photo { get; set; }
         //public bool like { get; set; }
-        List<int> Age = new List<int>();
-        ArrayList Likes = new ArrayList();
-        ArrayList Hobbies = new ArrayList();
-        public Celebration Celebration { get; set; }
-        public List<int> UsersId = new List<int>();
-        public List<User> Users = new List<User>();
+        public List<int> Age { get; set; }
+        public List<string> Likes { get; set; }
+        public List<int> Celebration { get; set; }
+        public List<int> UsersId { get; set; }
+       
         public enum PresentsGender
         {
             All,
             Male,
             Female
+        }
+        public Present()
+        {
+            Age = new List<int>();
+            Likes = new List<string>();
+            Celebration = new List<int>();
+            UsersId = new List<int>();
+            
         }
 
     }
@@ -42,13 +49,13 @@ namespace SurpriseU.Models
         public DbSet<Present> Presents { get; set; }
 
     }
-    public enum Celebration
-    {
-        Birthday,
-        NewYear,
-        WomenDay,
-        MenDay,
-        MothersDay,
-        Other
-    }
+    //public enum Celebration
+    //{
+    //    Birthday,
+    //    NewYear,
+    //    WomenDay,
+    //    MenDay,
+    //    MothersDay,
+    //    Other
+    //}
 }
