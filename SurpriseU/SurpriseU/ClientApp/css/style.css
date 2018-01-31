@@ -1,0 +1,151 @@
+﻿
+
+/*анимация подарков*/
+
+
+
+/*напечатанный текст*/
+
+
+.line-1 {
+    font-family: 'Permanent Marker', cursive;
+    color: #0f0c29;
+    font-weight: bold;
+    position: relative;
+    top: 50%;
+    width: 20em;
+    margin: 0 auto;
+    border-right: 2px solid rgba(255,255,255,.75);
+    font-size: 3em;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    transform: translateY(-50%);
+    letter-spacing: 5px;
+}
+
+/* Animation Home Text*/
+.anim-typewriter {
+    animation: typewriter 5s steps(21) 1s 1 normal both, blinkTextCursor 500ms steps(21) infinite normal;
+}
+
+@keyframes typewriter {
+    from {
+        width: 0;
+    }
+
+    to {
+        width: 20em;
+    }
+}
+
+@keyframes blinkTextCursor {
+    from {
+        border-right-color: rgba(255,255,255,.75);
+    }
+
+    to {
+        border-right-color: transparent;
+    }
+}
+
+
+.ball {
+    background-color: white;
+    position: absolute;
+    border-radius: 100%;
+    opacity: 0.7;
+    width: 0.5em;
+    height: 0.5em;
+    -webkit-animation: anim 1s ease-in-out infinite;
+    -moz-animation: anim 1s ease-in-out infinite;
+    -o-animation: anim 1s ease-in-out infinite;
+    animation: anim 1s ease-in-out infinite;
+    -webkit-animation-fill-mode: both;
+    -moz-animation-fill-mode: both;
+    -o-animation-fill-mode: both;
+    animation-fill-mode: both;
+    -webkit-animation-direction: alternate;
+    -moz-animation-direction: alternate;
+    -o-animation-direction: alternate;
+}
+
+
+@-webkit-keyframes anim {
+    from {
+        opacity: 1.0;
+    }
+
+    to {
+        opacity: 0.0;
+    }
+}
+
+@-moz-keyframes anim {
+    from {
+        opacity: 1.0;
+    }
+
+    to {
+        opacity: 0.0;
+    }
+}
+
+@-o-keyframes anim {
+    from {
+        opacity: 1.0;
+    }
+
+    to {
+        opacity: 0.0;
+    }
+}
+
+@keyframes anim {
+    from {
+        opacity: 1.0;
+    }
+
+    to {
+        opacity: 0.0;
+    }
+}
+
+
+
+/*https://hizonscatering.com/wp-content/uploads/2017/08/Monochromatic-Wedding-9.jpg конфеты 
+https://i.pinimg.com/564x/04/4a/4f/044a4fed98f101072b7bfeb4178695da.jpg шарики серебряные
+https://i.pinimg.com/564x/a3/87/ab/a387abd1a6eab1b1902bd459f27cf4a9.jpg
+    https://pm1.narvii.com/6639/7f76c797c61e19f18e4b8cda0a3b64803f5743d4_hq.jpg синий дым
+https://68.media.tumblr.com/c8d73137fbfaa28409084f9dc69ba95c/tumblr_ozzf2yJXob1w67d19o1_1280.jpg голубые шары*/
+
+
+.sw {
+    width: 40px;
+    height: 3vh;
+    border-radius: 18px;
+    box-shadow: 0px 0px 1px rgba(0,0,0,0.5);
+}
+
+.cr {
+    height: 3vh;
+    width: 3vh;
+    background: white;
+    border-radius: 18px;
+    box-shadow: 0px 0px 1px rgba(0,0,0,0.5);
+}
+
+
+.saturation {
+    text-shadow: 0 0 10px #7D001B, 0 0 20px #650016, 0 0 40px #7A001A, 0 0 80px #A50024;
+    will-change: filter, color;
+    filter: saturate(60%);
+    animation: flicker steps(100) 2s infinite;
+}
+
+@keyframes flicker {
+    50% {
+        color: white;
+        filter: saturate(200%) hue-rotate(20deg);
+    }
+}

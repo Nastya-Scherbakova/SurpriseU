@@ -1,0 +1,787 @@
+﻿@import url("https://use.fontawesome.com/releases/v5.0.1/css/all.css");
+@import url(https://fonts.googleapis.com/css?family=Lato:400,700);
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500&subset=cyrillic-ext');
+@import url('https://fonts.googleapis.com/css?family=Lobster&subset=cyrillic');
+@import 'bootstrap.css';
+@font-face {
+    font-family: "FontAwesome";
+    font-weight: normal;
+    font-style: normal;
+    src: url("http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/fonts/fontawesome-webfont.eot?v=4.3.0");
+    src: url("http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/fonts/fontawesome-webfont.eot?#iefix&v=4.3.0") format("embedded-opentype"), url("http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/fonts/fontawesome-webfont.woff2?v=4.3.0") format("woff2"), url("http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/fonts/fontawesome-webfont.woff?v=4.3.0") format("woff"), url("http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/fonts/fontawesome-webfont.ttf?v=4.3.0") format("truetype"), url("http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/fonts/fontawesome-webfont.svg?v=4.3.0#fontawesomeregular") format("svg");
+}
+
+$darkblue: #031560;
+
+
+
+body {
+    background: url('https://www.toptal.com/designers/subtlepatterns/patterns/gplaypattern.png');
+    font-family: 'Roboto', sans-serif;
+}
+
+
+.bold {
+    font-weight: bolder;
+}
+/*ADD PRESENT*/
+
+.addPresent {
+    position: absolute;
+    background: url('https://d2v9y0dukr6mq2.cloudfront.net/video/thumbnail/Vd3bj2jPe/smoke-background-abstract-blue-smoke-cloud-smoke-in-slow-motion-white-smoke-slowly-floating-through-space-against-black-background-smoke-effect-fog-effect-smoke-machine-studio-shot_rnxne320__F0000.png');
+    background-size: cover;
+}
+
+.form-add {
+    overflow: hidden;
+    position: relative;
+    margin: auto;
+    margin-top: 15vh;
+    border-radius: 30px;
+    box-shadow: 0 3px 5px 0 rgba(0,0,0,0.1);
+    background: rgba(255,255,255,0.2);
+
+    .name {
+        background: linear-gradient(to right, #FFFFFF, #C1C3FF);
+        height: 7vh;
+        border-radius: 30px 30px 0 0;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        font-size: 1.3em;
+    }
+
+    .new-present-form {
+        height: 90%;
+        margin: 1vh 0;
+
+        .std, textarea, select {
+            background: rgba(255,255,255,0.9);
+            width: 100%;
+            padding: 10px 15px;
+            height: 18%;
+            border: none;
+            border-radius: 25px;
+
+            &:focus {
+                outline: none;
+                background: rgba(255,255,255,1);
+            }
+        }
+
+        .age {
+            width: 40%;
+        }
+
+        .has-error {
+            border: 1px solid red;
+        }
+
+        .std {
+            height: 7%;
+        }
+
+        .photo {
+            width: 75%;
+            margin-right: 3%;
+        }
+
+        .but {
+            margin: 0 2vh;
+            -webkit-transition: all 0.3s ease-in-out;
+            -moz-transition: all 0.3s ease-in-out;
+            -o-transition: all 0.3s ease-in-out;
+            transition: all 0.3s ease-in-out;
+
+            &:hover {
+                -webkit-transform: scale(1.1);
+                -moz-transform: scale(1.1);
+                -ms-transform: scale(1.1);
+                -o-transform: scale(1.1);
+                transform: scale(1.1);
+            }
+        }
+
+        .gender {
+            input[type="radio"], button {
+                display: none;
+            }
+
+            label {
+                width: 3vh;
+                height: 3vh;
+                margin: 0 2vh;
+
+                .male {
+                    &::before {
+                        font-family: FontAwesome;
+                        content: "\f222";
+                        color: #A2AAD2;
+                        font-size: 3vh;
+                    }
+                }
+
+                .female {
+                    &::before {
+                        font-family: FontAwesome;
+                        content: "\f221";
+                        color: #D2A2C6;
+                        font-size: 3vh;
+                    }
+                }
+
+                .both {
+                    &::before {
+                        font-family: FontAwesome;
+                        content: "\f228";
+                        color: #C2A6D2;
+                        font-size: 3vh;
+                    }
+                }
+
+
+                .checked {
+                    &::before {
+                        color: $darkblue;
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/*PROFILE*/
+
+
+.profile {
+    position: absolute;
+    background: url('https://d2v9y0dukr6mq2.cloudfront.net/video/thumbnail/Vd3bj2jPe/smoke-background-abstract-blue-smoke-cloud-smoke-in-slow-motion-white-smoke-slowly-floating-through-space-against-black-background-smoke-effect-fog-effect-smoke-machine-studio-shot_rnxne320__F0000.png');
+    background-size: cover;
+
+    .name {
+        position: absolute;
+        height: 5vh;
+        font-family: 'Lobster', cursive;
+        font-size: 3em;
+        top: -2vh;
+        color: $darkblue;
+    }
+
+    .info {
+        margin: auto;
+        margin-top: 15vh;
+        border-radius: 30px;
+        height: 30vh;
+        padding: 1vh;
+        display: block;
+        background: rgba(255,255,255,0.2);
+        box-shadow: 0 3px 5px 0 rgba(0,0,0,0.1);
+        position: relative;
+        width: 60%;
+
+        .img {
+            width: 70%;
+            box-shadow: 0 0 5px 0 rgba(0,0,0,0.5);
+        }
+
+        .info-in-area {
+            border-radius: 30px;
+            height: 24vh;
+            display: block;
+            background: rgba(255,255,255,0.3);
+            box-shadow: 0 3px 5px 0 rgba(0,0,0,0.1);
+            position: relative;
+            width: 35%;
+            margin: 2%;
+
+            .info-in {
+                margin: 2vh;
+            }
+
+            .nav {
+                background: linear-gradient(to right, #FFFFFF, #C1C3FF);
+                height: 4vh;
+                border-radius: 30px 30px 0 0;
+                letter-spacing: 1px;
+                text-transform: uppercase;
+                font-size: 1.3em;
+            }
+        }
+
+        input {
+            width: 4vh;
+            border: 1px solid $darkblue;
+            background-color: $darkblue;
+            border-radius: 25px;
+            color: #fbfbfb;
+            transition: all 300ms ease-in-out;
+            margin: 2px;
+            padding: 0 1vh;
+
+            &:focus {
+                width: 10vh;
+                padding: 6px 15px;
+                outline: none;
+                border: 1px solid $darkblue;
+                background-color: #fbfbfb;
+                color: $darkblue;
+            }
+
+            &::-webkit-input-placeholder {
+                color: #fbfbfb;
+            }
+
+            &::-moz-placeholder {
+                color: #fbfbfb;
+            }
+        }
+
+
+
+        .tag {
+            border: 1px solid $darkblue;
+            background-color: $darkblue;
+            border-radius: 25px;
+            padding: 6px 15px;
+            color: #fbfbfb;
+            transition: all 300ms ease-in-out;
+            margin: 2px;
+
+            &:hover {
+                border: 1px solid $darkblue;
+                color: $darkblue;
+                background-color: #fbfbfb;
+            }
+        }
+
+        .social-icon {
+            margin: 5px;
+            -webkit-transition: all 0.3s ease-in-out;
+            -moz-transition: all 0.3s ease-in-out;
+            -o-transition: all 0.3s ease-in-out;
+            transition: all 0.3s ease-in-out;
+            color: #3A4260;
+            font-size: 3vh;
+
+            &:hover {
+                -webkit-transform: scale(1.1);
+                -moz-transform: scale(1.1);
+                -ms-transform: scale(1.1);
+                -o-transform: scale(1.1);
+                transform: scale(1.1);
+            }
+        }
+
+        .edit {
+            position: absolute;
+            top: 1vh;
+            right: 1vh;
+
+            &::before {
+                font-family: "Font Awesome 5 Free";
+                content: "\f044";
+            }
+        }
+
+        .insta {
+            &::before {
+                font-family: "Font Awesome 5 Brands";
+                content: "\f16d";
+            }
+
+            &:hover::before {
+                color: #517fa4;
+            }
+        }
+
+        .tel {
+
+            &::before {
+                font-family: "Font Awesome 5 Brands";
+                content: "\f3fe";
+            }
+
+            &:hover::before {
+                color: #0088cc;
+            }
+        }
+
+        .face {
+            &::before {
+                font-family: "Font Awesome 5 Brands";
+                content: "\f39e";
+            }
+
+            &:hover::before {
+                color: #3b5998;
+            }
+        }
+    }
+
+    .fields {
+        height: 40vh;
+        width: 30%;
+        margin-top: 5vh;
+        border-radius: 30px;
+        display: block;
+        background: rgba(255,255,255,0.2);
+        box-shadow: 0 3px 5px 0 rgba(0,0,0,0.1);
+        position: relative;
+
+        .saved-presents {
+            height: 35vh;
+            overflow: hidden;
+        }
+    }
+
+    .nav {
+        background: linear-gradient(to right, #FFFFFF, #C1C3FF);
+        height: 5vh;
+        border-radius: 30px 30px 0 0;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        font-size: 1.3em;
+    }
+
+    .plus-div {
+        .plus {
+            -webkit-transition: all 0.3s ease-in-out;
+            -moz-transition: all 0.3s ease-in-out;
+            -o-transition: all 0.3s ease-in-out;
+            transition: all 0.3s ease-in-out;
+            }
+            &:hover {
+                .plus {
+                    -webkit-transform: scale(1.1);
+                    -moz-transform: scale(1.1);
+                    -ms-transform: scale(1.1);
+                    -o-transform: scale(1.1);
+                    transform: scale(1.1);
+                }
+            }
+        }
+
+        .user-present {
+            height: 15vh;
+            width: 15vh;
+            position: relative;
+            margin: 2%;
+            background: rgba(255,255,255,0.4);
+
+            img {
+                background-size: cover;
+            }
+        }
+    }
+    /*PRESENTS*/
+    .present {
+        margin: 20px 15px 20px 15px;
+        height: 20vh;
+        position: relative;
+
+        .title {
+            position: absolute;
+            height: 5vh;
+            font-family: 'Lobster', cursive;
+            font-size: 3.5em;
+            top: -2vh;
+        }
+
+        .info {
+            border-radius: 0 30px 30px 0;
+            height: 100%;
+            margin-left: 10vh;
+            padding: 1em 0;
+            display: block;
+            background: rgba(255,255,255,0.5);
+            box-shadow: 5px 5px 5px -5px rgba(0,0,0,0.3);
+        }
+
+        .img {
+            height: 100%;
+            background-size: cover;
+        }
+
+        .arrow-right::before {
+            font-family: FontAwesome;
+            content: "\f105";
+            color: $darkblue;
+            font-size: 3vh;
+            margin: 5px;
+        }
+
+        .like-false::before {
+            font-family: 'Font Awesome 5 Free';
+            content: "\f004";
+            color: $darkblue;
+            font-size: 3vh;
+            font-weight: 400;
+        }
+
+        .like-true::before {
+            font-family: 'Font Awesome 5 Free';
+            content: "\f004";
+            color: $darkblue;
+            font-size: 3vh;
+            font-weight: 900;
+        }
+
+        .bottom {
+            height: 5vh;
+            font-size: 1.2em;
+            color: #142C7E;
+            padding: 2vh;
+        }
+
+        .about {
+            margin-top: 4.5vh;
+            margin-left: 13vh;
+            height: 8vh;
+        }
+
+        .nav {
+            color: $darkblue;
+            font-weight: 400;
+            margin-left: 35%;
+
+            &:hover {
+                color: $darkblue;
+            }
+        }
+    }
+
+    .navlink-no:hover {
+        text-decoration: none;
+    }
+
+    .navlink-no:focus {
+        text-decoration: none;
+    }
+    /*MENU*/
+    .sps {
+        position: fixed;
+        top: 0;
+        left: 0;
+        transition: all 0.25s ease;
+        width: 100%;
+    }
+
+    .nav-brand {
+        font-family: 'Lato', sans-serif;
+        letter-spacing: 7px;
+        text-transform: uppercase;
+        font-size: 2em;
+        color: black;
+        display: inline-block;
+
+        &:focus, &:hover {
+            text-decoration: none;
+            color: black;
+        }
+    }
+
+    .nav-icon {
+        margin: 2vh;
+    }
+
+    .nav-icon-user::before {
+        font-family: FontAwesome;
+        content: "\f007";
+        color: black;
+        font-size: 5vh;
+    }
+
+    .nav-icon-ank::before {
+        font-family: FontAwesome;
+        content: "\f02d";
+        color: black;
+        font-size: 5vh;
+    }
+
+    .sps--abv {
+        background-color: transparent;
+        color: #000;
+        height: 15vh;
+    }
+
+    .sps--blw {
+        background-color: #fff !important;
+        color: #fff;
+        height: 10vh;
+        box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    }
+
+    .home-image {
+        margin-bottom: 50px;
+        height: 50vh;
+        background: url(https://wallpaperscraft.ru/image/abstrakciya_seryy_siniy_dym_441_1920x1080.jpg);
+        background-size: cover;
+        box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    }
+    /*REGISTRATION LOGIN*/
+    .log-form {
+        font-family: 'Lato', sans-serif;
+        height: 60vh;
+        box-shadow: 0 0 10px rgba(0,0,0,0.5);
+        width: 50vw;
+        margin-left: 25vw;
+        margin-top: 20vh;
+
+        .left {
+            background-position: center center;
+            background-size: cover;
+            width: 25vw;
+            overflow: hidden;
+            background-image: url('https://pm1.narvii.com/6639/7f76c797c61e19f18e4b8cda0a3b64803f5743d4_hq.jpg');
+        }
+
+        .right {
+            background: white;
+            width: 25vw;
+            padding: 1vh 4vw 3vh 4vw;
+
+            .name {
+                margin: 5vh;
+                letter-spacing: 7px;
+                text-transform: uppercase;
+            }
+
+            .input-area {
+                height: 19vh;
+            }
+
+            .input-area-2 {
+                height: 18vh;
+                margin-top: 2vh;
+            }
+
+            .inpt {
+                display: block;
+                width: 100%;
+                height: 4vh;
+                padding: 2vh 1vh;
+                border: 1px solid #d9d9d9;
+                background: transparent;
+                border-radius: 2px;
+            }
+
+            .submit-wrap {
+                height: 8vh;
+            }
+
+            .sbm-but {
+                text-transform: uppercase;
+                height: 4vh;
+                display: block;
+                width: 100%;
+                letter-spacing: 2px;
+                color: black;
+                border: 1px solid #031868;
+                background: transparent;
+                border-radius: 2px;
+
+                &:hover {
+                    background-color: #031868;
+                    color: white;
+                    transition: all 0.2s;
+                }
+            }
+
+            .gender {
+                height: 7vh;
+                width: 7vh;
+                font-size: 3vh;
+                font-weight: bold;
+            }
+
+            .gender-he {
+                &::before {
+                    font-family: FontAwesome;
+                    content: "\f222";
+                    color: #d9d9d9;
+                }
+            }
+
+            .he-active {
+                &::before {
+                    color: #052E7D;
+                }
+            }
+
+            .gender-she {
+                &::before {
+                    font-family: FontAwesome;
+                    content: "\f221";
+                    color: #d9d9d9;
+                }
+            }
+
+            .she-active {
+                &::before {
+                    color: #7D001B;
+                }
+            }
+
+            .social-icon {
+                border-radius: 50%;
+                background-clip: content-box;
+                padding: 3px;
+                height: 7vh;
+                width: 7vh;
+                margin: 7px;
+                -webkit-transition: all 0.3s ease-in-out;
+                -moz-transition: all 0.3s ease-in-out;
+                -o-transition: all 0.3s ease-in-out;
+                transition: all 0.3s ease-in-out;
+
+                &:hover {
+                    padding: 5px;
+                    -webkit-transform: scale(1.1);
+                    -moz-transform: scale(1.1);
+                    -ms-transform: scale(1.1);
+                    -o-transform: scale(1.1);
+                    transform: scale(1.1);
+                }
+            }
+
+            .tw {
+                border: 1px dashed #3CF;
+                background-color: #3CF;
+
+                &::before {
+                    font-family: FontAwesome;
+                    content: "\f099";
+                    color: white;
+                    font-size: 3vh;
+                }
+            }
+
+            .go {
+                border: 1px dashed #DC4A38;
+                background-color: #DC4A38;
+
+                &::before {
+                    font-family: FontAwesome;
+                    content: "\f0d5";
+                    color: white;
+                    font-size: 3vh;
+                }
+            }
+
+            .face {
+                border: 1px dashed #3B5998;
+                background-color: #3B5998;
+
+                &::before {
+                    font-family: FontAwesome;
+                    content: "\f09a";
+                    color: white;
+                    font-size: 3vh;
+                }
+            }
+
+
+            .tabs {
+                width: 100%;
+                margin-top: -2vh;
+                margin-bottom: 3vh;
+                border-bottom: 1px solid #d9d9d9;
+            }
+
+            .tab {
+                display: inline-block;
+                padding: 20px 10px 10px;
+                cursor: pointer;
+                letter-spacing: 0;
+                transition: all 0.1s ease-in-out;
+                text-transform: uppercase;
+                color: #d9d9d9;
+
+                &:hover {
+                    color: black;
+                }
+            }
+
+            .active-tab {
+                color: black;
+                border-bottom: 1px solid black;
+            }
+        }
+    }
+    /*ANIMATION*/
+    @-webkit-keyframes fadeInDown {
+        0% {
+            opacity: 0;
+            -webkit-transform: translateY(-20px);
+        }
+
+        100% {
+            opacity: 1;
+            -webkit-transform: translateY(0);
+        }
+    }
+
+    @-moz-keyframes fadeInDown {
+        0% {
+            opacity: 0;
+            -moz-transform: translateY(-20px);
+        }
+
+        100% {
+            opacity: 1;
+            -moz-transform: translateY(0);
+        }
+    }
+
+    @-o-keyframes fadeInDown {
+        0% {
+            opacity: 0;
+            -o-transform: translateY(-20px);
+        }
+
+        100% {
+            opacity: 1;
+            -o-transform: translateY(0);
+        }
+    }
+
+    @keyframes fadeInDown {
+        0% {
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+
+        100% {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .fadeInDown {
+        -webkit-animation-name: fadeInDown;
+        -moz-animation-name: fadeInDown;
+        -o-animation-name: fadeInDown;
+        animation-name: fadeInDown;
+    }
+
+
+    .animated {
+        -webkit-animation-fill-mode: both;
+        -moz-animation-fill-mode: both;
+        -o-animation-fill-mode: both;
+        animation-fill-mode: both;
+        -webkit-animation-duration: 1s;
+        -moz-animation-duration: 1s;
+        -o-animation-duration: 1s;
+        animation-duration: 1s;
+    }
