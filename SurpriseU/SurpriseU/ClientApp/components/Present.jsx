@@ -136,10 +136,11 @@ export class NewPresent extends React.Component {
                 "content": present.content,
                 "gender": present.gender,
                 "photo": present.photo,
-                "age":/* present.age,*/['10', '39'],
+                "startAge": 10,
+                "endAge": 30,
                 "likes": ["wert", "ddff"],
                 //"hobbies": ["хобби"],
-                "celebration": [0]
+                "celebration": [0,1,3]
             });
             var xhr = new XMLHttpRequest();
 
