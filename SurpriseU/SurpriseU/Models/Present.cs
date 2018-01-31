@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using System.Numerics;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SurpriseU.Models
 {
@@ -19,12 +20,40 @@ namespace SurpriseU.Models
         public string Content { get; set; }
         public PresentsGender Gender { get; set; }
         public string Photo { get; set; }
-        //public bool like { get; set; }
-        public List<int> Age { get; set; }
-        public List<string> Likes { get; set; }
-        public List<int> Celebration { get; set; }
-        public List<int> UsersId { get; set; }
-       
+        public int StartAge { get; set; }
+        public int EndAge { get; set; }
+        private String LikesString { get; set; }
+        private String CelebrationString { get; set; }
+        private String UsersIdString { get; set; }
+
+        [NotMapped]
+        public List<string> Likes
+        {
+            get { return LikesString.Split(',').ToList(); }
+            set
+            {
+                LikesString = String.Join(",", value);
+            }
+        }
+        [NotMapped]
+        public List<int> Celebration
+        {
+            get { return CelebrationString.Split(',').ToList().Select(idU => Convert.ToInt32(idU)).ToList(); }
+            set
+            {
+                CelebrationString = String.Join(",", value.ToString());
+            }
+        }
+        [NotMapped]
+        public List<int> UsersId
+        {
+            get { return UsersIdString.Split(',').ToList().Select(idU => Convert.ToInt32(idU)).ToList(); }
+            set
+            {
+                UsersIdString = String.Join(",", value.ToString());
+            }
+        }
+
         public enum PresentsGender
         {
             All,
@@ -33,7 +62,7 @@ namespace SurpriseU.Models
         }
         public Present()
         {
-            Age = new List<int>();
+            
             Likes = new List<string>();
             Celebration = new List<int>();
             UsersId = new List<int>();
