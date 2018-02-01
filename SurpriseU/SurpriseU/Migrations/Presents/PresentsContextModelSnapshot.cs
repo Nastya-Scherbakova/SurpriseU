@@ -25,19 +25,27 @@ namespace SurpriseU.Migrations.Presents
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("Celebration");
+                    b.Property<string>("CelebrationString");
 
                     b.Property<string>("Content")
                         .IsRequired()
                         .HasMaxLength(1000);
 
+                    b.Property<int>("EndAge");
+
                     b.Property<int>("Gender");
 
+                    b.Property<string>("LikesString");
+
                     b.Property<string>("Photo");
+
+                    b.Property<int>("StartAge");
 
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasMaxLength(100);
+
+                    b.Property<string>("UsersIdString");
 
                     b.HasKey("Id");
 

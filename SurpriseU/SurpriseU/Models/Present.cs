@@ -22,9 +22,9 @@ namespace SurpriseU.Models
         public string Photo { get; set; }
         public int StartAge { get; set; }
         public int EndAge { get; set; }
-        private String LikesString { get; set; }
-        private String CelebrationString { get; set; }
-        private String UsersIdString { get; set; }
+        public String LikesString { get; set; }
+        public String CelebrationString { get; set; }
+        public String UsersIdString { get; set; }
 
         [NotMapped]
         public List<string> Likes
