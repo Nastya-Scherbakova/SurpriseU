@@ -87,9 +87,10 @@ export class EditPresent extends React.Component {
                 "content": present.content,
                 "gender": present.gender,
                 "photo": present.photo,
-                "age": [],
+                "startAge": present.startAge,
+                "endAge": present.endAge,
                 "likes": present.likes,
-                "celebration": 0
+                "celebration": present.celebration
             });
             var xhr = new XMLHttpRequest();
             var url = "/api/Presents/" +  present.id;
@@ -112,9 +113,10 @@ export class EditPresent extends React.Component {
                 content={this.state.present.content}
                 gender={this.state.present.gender}
                 photo={this.state.present.photo}
-                age={[1, 100]}
+                startAge={this.state.present.startAge}
+                endAge={this.state.present.endAge}
                 likes={this.state.present.likes}
-                celebration={[]}
+                celebration={this.state.present.celebration}
                 />
         </div>;
     }
@@ -135,9 +137,10 @@ export class NewPresent extends React.Component {
                 "content": present.content,
                 "gender": present.gender,
                 "photo": present.photo,
-                "age": present.age,
-                "likes": ["wert", "ddff"],
-                "celebration": [0]
+                "startAge": present.startAge,
+                "endAge": present.endAge,
+                "likes": present.likes,
+                "celebration": present.celebration
             });
             var xhr = new XMLHttpRequest();
 
@@ -156,7 +159,7 @@ export class NewPresent extends React.Component {
         return <div className='form-add d-flex flex-column align-items-center animated fadeInDown'>
                 <div className="w-100 d-flex flex-wrap align-items-center justify-content-center name">Додати подарунок</div>
                 <PresentForm onPresentSubmit={this.onAddPresent} toClose={this.props.toClose}
-                title='' content='' gender={-1} photo='' age={[]} likes='' celebration={[]}
+                title='' content='' gender='' photo='' startAge='' endAge='' likes='' celebration=''
                    />
             </div>;
     }
@@ -232,7 +235,8 @@ export class PresentForm extends React.Component {
             content: props.content,
             gender: props.gender,
             photo: props.photo,
-            age: props.age,
+            startAge: props.startAge,
+            endAge: props.endAge,
             likes: props.likes,
             celebration: props.celebration,
             formErrors: {
@@ -248,7 +252,6 @@ export class PresentForm extends React.Component {
         };
         this.onSubmit = this.onSubmit.bind(this);
         this.onChange = this.onChange.bind(this);
-        this.onChangeAge = this.onChangeAge.bind(this);
         this.validateField = this.validateField.bind(this);
         this.errorClass = this.errorClass.bind(this);
         this.celChanged = this.celChanged.bind(this);
@@ -256,14 +259,6 @@ export class PresentForm extends React.Component {
 
     onChange(e) {
         this.setState({ [e.target.name]: e.target.value });
-    }
-    onChangeAge(e) {
-        var tmpAge = this.state.age.slice();
-        if ([e.target.name] == 'age1') {
-            tmpAge[0] = e.target.value;
-        }
-        else tmpAge[1] = e.target.value;
-        this.setState({ age: tmpAge });
     }
 
     celChanged(newCelebration) {
@@ -277,8 +272,9 @@ export class PresentForm extends React.Component {
         var newTitle = this.state.title.trim();
         var newContent = this.state.content.trim();
         var newGender = this.state.gender;
-        var newPhoto = this.state.photo;
-        var newAge = this.state.age.slice();
+        var newPhoto = this.state.photo.trim();
+        var newStartAge = this.state.startAge.trim();
+        var newEndAge = this.state.endAge.trim();
         var newLikes = this.state.likes.trim().split(',');
         var newCelebration = this.state.celebration;
         this.props.onPresentSubmit({
@@ -286,7 +282,8 @@ export class PresentForm extends React.Component {
             content: newContent,
             gender: newGender,
             photo: newPhoto,
-            age: newAge,
+            startAge: newStartAge,
+            endAge: newEndAge,
             likes: newLikes,
             celebration: newCelebration
         });
@@ -295,7 +292,8 @@ export class PresentForm extends React.Component {
             content: props.content,
             gender: props.gender,
             photo: props.photo,
-            age: props.age,
+            startAge: props.startAge,
+            endAge: props.endAge,
             likes: props.likes,
             celebration: props.celebration
         });
@@ -329,7 +327,7 @@ export class PresentForm extends React.Component {
                 fieldErrors.photo = fieldValid ? '' : 'Вкажіть фото';
                 formValid[3] = fieldValid ? true : false;
                 break;
-            case 'age1':
+            case 'startAge':
                 fieldValid = value >= 0;
                 fieldErrors.age = fieldValid ? '' : 'Введіть коректні межі віку';
                 formValid[4] = fieldValid ? true : false;
@@ -413,16 +411,16 @@ export class PresentForm extends React.Component {
                 <div className='d-flex w-75 justify-content-around align-items-center'>
                     
                     <input className={`std age ${this.errorClass(this.state.formErrors.age)}`}
-                        name="age1"
+                        name="startAge"
                         placeholder="Початковий вік"
-                        value={this.state.age[0]}
-                        onChange={this.onChangeAge}
+                        value={this.state.startAge}
+                        onChange={this.onChange}
                         onBlur={this.validateField} />
                     <input className={`std age ${this.errorClass(this.state.formErrors.age)}`}
-                        name="age2"
+                        name="endAge"
                         placeholder="Кінцевий вік"
-                        value={this.state.age[1]}
-                        onChange={this.onChangeAge}
+                        value={this.state.endAge}
+                        onChange={this.onChange}
                         onBlur={this.validateField} />
                 </div>
                 <FormErrors error={this.state.formErrors.age} />
