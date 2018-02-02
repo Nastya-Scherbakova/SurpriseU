@@ -8,7 +8,7 @@ import { LogIn } from './components/Login.jsx';
 import { Profile } from './components/Profile.jsx';
 export const routes = <Layout>
     <Route exact path='/' component={withoutRouteProps(Home) } />
-    <Route path='/anketa' component={withoutRouteProps(Anketa)} />
+    <Route path='/anketa' component={withoutRouteProps(LogIn)} />
     <Route path='/profile' component={withoutRouteProps(Profile)} />
 </Layout>;
 
