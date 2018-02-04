@@ -246,7 +246,7 @@ export class LogIn extends React.Component {
                     </div>
                 </div>
                 <div>
-                        {signIn ? <SignIn /> : <SignUp apiUrl="/api/Users"/>}
+                        {signIn ? <SignIn /> : <SignUp apiUrl="/Account/Register"/>}
                 </div>
             </div>
             </div>

@@ -86,8 +86,8 @@ namespace SurpriseU.Controllers
         {
             return View();
         }
+
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register(RegisterModel model)
         {
             if (ModelState.IsValid)
@@ -96,7 +96,7 @@ namespace SurpriseU.Controllers
                 if (user == null)
                 {
                     // добавляем пользователя в бд
-                    user = new User { Email = model.Email, Password = model.Password, Name=model.Name, Age=model.Age };
+                    user = new User { Email = model.Email, Password = model.Password, Name=model.Name, Gender=model.Gender };
                     Role userRole = await _context.Roles.FirstOrDefaultAsync(r => r.Name == "user");
                     if (userRole != null)
                         user.Role = userRole;
