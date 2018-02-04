@@ -106,7 +106,8 @@ export class LogIn extends React.Component {
             classI = 'tab';
             classU = 'tab active-tab';
         }
-        return <div className="row log-form">
+        return <div className='w-100 h-100 d-flex justify-content-center'>
+        <div className="row log-form">
             <div className="left "></div>
             <div className="right ">
                 <div >
@@ -122,7 +123,7 @@ export class LogIn extends React.Component {
                     {signIn ? <SignIn /> : <SignUp />}
                 </div>
             </div>
-
+            </div>
         </div>;
 
     }

@@ -2,7 +2,7 @@
 import { Link, NavLink } from 'react-router-dom';
 import { User, Clipboard} from 'react-feather';
 import '../css/bootstrap.css';
-import '../css/style.css';
+import '../css/Site.scss';
 import 'scrollpos-styler';
 
 
@@ -12,7 +12,7 @@ export class Menu extends Component {
             <nav className="d-flex align-items-center justify-content-between navbar navbar-toggleable-sm navbar-light fixed-top sps sps--abv">
                 
                   
-                <div className="d-flex w-50"><NavLink className="nav-brand" to={'/'}>SurpriseU</NavLink>
+                <div className="d-flex w-50 align-items-center"><h1><NavLink className="nav-brand" to={'/'}>SurpriseU</NavLink></h1>
                 
                     <div id='portal-nav-input' className="w-50 ml-5"><input className="form-control" type="search" placeholder="Search" aria-label="Search" /></div></div>
                     

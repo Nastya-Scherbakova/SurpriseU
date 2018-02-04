@@ -87,10 +87,10 @@ export class EditPresent extends React.Component {
                 "content": present.content,
                 "gender": present.gender,
                 "photo": present.photo,
-                "age": present.age,
+                "startAge": present.startAge,
+                "endAge": present.endAge,
                 "likes": present.likes,
-                "hobbies": ["хобби"],
-                "celebration": 0
+                "celebration": present.celebration
             });
             var xhr = new XMLHttpRequest();
             var url = "/api/Presents/" +  present.id;
@@ -100,12 +100,13 @@ export class EditPresent extends React.Component {
                 if (xhr.status == 200) {
                     this.loadData();
                 }
+                else alert(xhr.status + ': ' + xhr.statusText);
             }.bind(this);
             xhr.send(data);
         }
     }
     render() {
-        return <div className='form-add h-75 w-25 d-flex flex-column align-items-center animated fadeInDown'>
+        return <div className='form-add d-flex flex-column align-items-center animated fadeInDown'>
             <div className="w-100 d-flex flex-wrap align-items-center justify-content-center name">Додати подарунок</div>
             
             <PresentForm onPresentSubmit={this.onEditPresent} toClose={this.props.toClose}
@@ -113,13 +114,16 @@ export class EditPresent extends React.Component {
                 content={this.state.present.content}
                 gender={this.state.present.gender}
                 photo={this.state.present.photo}
-                age={[0, 100]}
+                startAge={this.state.present.startAge}
+                endAge={this.state.present.endAge}
                 likes={this.state.present.likes}
                 celebration={this.state.present.celebration}
                 />
         </div>;
     }
 }
+
+
 
 
 
@@ -136,12 +140,12 @@ export class NewPresent extends React.Component {
                 "content": present.content,
                 "gender": present.gender,
                 "photo": present.photo,
-                "startAge": 10,
-                "endAge": 30,
-                "likes": ["wert", "ddff"],
-                //"hobbies": ["хобби"],
-                "celebration": [0,1,3]
+                "startAge": present.startAge,
+                "endAge": present.endAge,
+                "likes": present.likes,
+                "celebration": present.celebration
             });
+            alert(data);
             var xhr = new XMLHttpRequest();
 
             xhr.open("post", this.props.apiUrl, true);
@@ -150,18 +154,19 @@ export class NewPresent extends React.Component {
                 if (xhr.status == 200) {
                     this.loadData();
                 }
+                else alert(xhr.status + ': ' + xhr.statusText);
             }.bind(this);
             xhr.send(data);
         }
     }
 
     render() {
-        return <div className='form-add h-75 w-25 d-flex flex-column align-items-center animated fadeInDown'>
-                <div className="w-100 d-flex flex-wrap align-items-center justify-content-center name">Додати подарунок</div>
-                <PresentForm onPresentSubmit={this.onAddPresent} toClose={this.props.toClose}
-                title='' content='' gender={-1} photo='' age={['','']} likes='' celebration={[]}
-                   />
-            </div>;
+        return <div className='form-add d-flex flex-column align-items-center animated fadeInDown'>
+            <div className="w-100 d-flex flex-wrap align-items-center justify-content-center name">Додати подарунок</div>
+            <PresentForm onPresentSubmit={this.onAddPresent} toClose={this.props.toClose}
+                title='' content='' gender={-1} photo='' startAge={null} endAge={null} likes={null} celebration={null}
+            />
+        </div>;
     }
 }
 
@@ -176,8 +181,7 @@ export class PresentsList extends React.Component {
         };
         this.onRemovePresent = this.onRemovePresent.bind(this);
     }
-    
-
+   
     // загрузка данных
     loadData() {
         var xhr = new XMLHttpRequest();
@@ -191,7 +195,6 @@ export class PresentsList extends React.Component {
     componentDidMount() {
         this.loadData();
     }
-
 
     // удаление объекта
     onRemovePresent(present) {
@@ -215,7 +218,7 @@ export class PresentsList extends React.Component {
                 {
                     this.state.presents.map(function (present) {
                     return <Present key={present.id} present={present} onRemove={remove} />
-                     })
+                    })
                 }
         </div>;
     }
@@ -235,7 +238,8 @@ export class PresentForm extends React.Component {
             content: props.content,
             gender: props.gender,
             photo: props.photo,
-            age: props.age,
+            startAge: props.startAge,
+            endAge: props.endAge,
             likes: props.likes,
             celebration: props.celebration,
             formErrors: {
@@ -268,19 +272,21 @@ export class PresentForm extends React.Component {
 
     onSubmit(e) {
         e.preventDefault();
-        var newTitle = this.state.title.trim();
-        var newContent = this.state.content.trim();
-        var newGender = this.state.gender;
-        var newPhoto = this.state.photo;
-        var newAge = this.state.age;
-        var newLikes = this.state.likes.trim().split(',');
-        var newCelebration = this.state.celebration;
+        var newTitle = this.state.title,
+            newContent = this.state.content,
+            newGender = Number(this.state.gender),
+            newPhoto = this.state.photo,
+            newStartAge = Number(this.state.startAge),
+            newEndAge = Number(this.state.endAge),
+            newLikes = this.state.likes.split(','),
+            newCelebration = this.state.celebration.map(Number);
         this.props.onPresentSubmit({
             title: newTitle,
             content: newContent,
             gender: newGender,
             photo: newPhoto,
-            age: newAge,
+            startAge: newStartAge,
+            endAge: newEndAge,
             likes: newLikes,
             celebration: newCelebration
         });
@@ -289,7 +295,8 @@ export class PresentForm extends React.Component {
             content: props.content,
             gender: props.gender,
             photo: props.photo,
-            age: props.age,
+            startAge: props.startAge,
+            endAge: props.endAge,
             likes: props.likes,
             celebration: props.celebration
         });
@@ -323,9 +330,14 @@ export class PresentForm extends React.Component {
                 fieldErrors.photo = fieldValid ? '' : 'Вкажіть фото';
                 formValid[3] = fieldValid ? true : false;
                 break;
-            case 'age':
+            case 'startAge':
                 fieldValid = value >= 0;
-                fieldErrors.age = fieldValid ? '' : 'Введіть коректні межі віку';
+                fieldErrors.age = fieldValid ? '' : 'Початковий вік має бути більше 0 та менше кінцевого';
+                formValid[4] = (fieldValid && value <= this.state.endAge) ? true : false;
+                break;
+            case 'endAge':
+                fieldValid = value <= 100 && value >= this.state.startAge;
+                fieldErrors.age = fieldValid ? '' : 'Кінцевий вік має бути менше 100 та більше початкового';
                 formValid[4] = fieldValid ? true : false;
                 break;
             case 'likes':
@@ -380,21 +392,21 @@ export class PresentForm extends React.Component {
                 <div className='mb-4 gender d-flex justify-content-around'>
                     <label>
                         <input type="radio" value="0" name="gender" checked={this.state.gender === '0'} onChange={this.onChange} onClick={this.validateField}/>
-                        <div className={(this.state.gender == '0') ? 'male checked' : 'male'} ></div>
+                        <div className={(this.state.gender == '0') ? 'male male-checked' : 'male'} ></div>
                     </label>
                     <label>
                         <input type="radio" value="2" name="gender" checked={this.state.gender === '2'} onChange={this.onChange} onClick={this.validateField}/>
-                        <div className={(this.state.gender == '2') ? 'both checked' : 'both'}></div>
+                        <div className={(this.state.gender == '2') ? 'both both-checked' : 'both'}></div>
                     </label>
                     <label >
                         <input type="radio" value="1" name="gender" checked={this.state.gender === '1'} onChange={this.onChange} onClick={this.validateField}/>
-                        <div className={(this.state.gender == '1') ? 'female checked' : 'female'}></div>
+                        <div className={(this.state.gender == '1') ? 'female female-checked' : 'female'}></div>
                     </label>
                 </div>
                 <FormErrors error={this.state.formErrors.gender} />
 
                 <div className='w-100 d-flex justify-content-center align-items-center'>
-                    <input className='std photo'
+                    <input className={`std photo ${this.errorClass(this.state.formErrors.photo)}`}
                         name="photo"
                         placeholder="Введіть посилання або завантажте вручну"
                         value={this.state.photo}
@@ -407,15 +419,15 @@ export class PresentForm extends React.Component {
                 <div className='d-flex w-75 justify-content-around align-items-center'>
                     
                     <input className={`std age ${this.errorClass(this.state.formErrors.age)}`}
-                        name="age"
+                        name="startAge"
                         placeholder="Початковий вік"
-                        value={this.state.age[0]}
+                        value={this.state.startAge}
                         onChange={this.onChange}
                         onBlur={this.validateField} />
                     <input className={`std age ${this.errorClass(this.state.formErrors.age)}`}
-                        name="age"
+                        name="endAge"
                         placeholder="Кінцевий вік"
-                        value={this.state.age[1]}
+                        value={this.state.endAge}
                         onChange={this.onChange}
                         onBlur={this.validateField} />
                 </div>
@@ -428,7 +440,6 @@ export class PresentForm extends React.Component {
                     onChange={this.onChange}
                     onBlur={this.validateField} />
                 <FormErrors error={this.state.formErrors.likes} />
-                
                 <CheckboxGroup
                     checkboxDepth={2} 
                     name="celebration"
