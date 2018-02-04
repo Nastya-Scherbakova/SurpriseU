@@ -89,27 +89,28 @@ namespace SurpriseU.Controllers
         }
 
         // POST: api/Presents
-        [HttpPost]
-        public IActionResult Post([FromBody]Present present)
-        {
-            
 
-            _context.Presents.Add(present);
-            _context.SaveChanges();
-            return Ok(present);
-        }
-        //public async Task<IActionResult> PostPresent([FromBody] Present present)
+        //public IActionResult Post([FromBody]Present present)
         //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return BadRequest(ModelState);
-        //    }
+
 
         //    _context.Presents.Add(present);
-        //    await _context.SaveChangesAsync();
-
-        //    return CreatedAtAction("GetPresent", new { id = present.Id }, present);
+        //    _context.SaveChanges();
+        //    return Ok(present);
         //}
+        [HttpPost]
+        public async Task<IActionResult> Post([FromBody] Present present)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            _context.Presents.Add(present);
+            await _context.SaveChangesAsync();
+
+            return CreatedAtAction("GetPresent", new { id = present.Id }, present);
+        }
 
         // DELETE: api/Presents/5
         [HttpDelete("{id}")]
