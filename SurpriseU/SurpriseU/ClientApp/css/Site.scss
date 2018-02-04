@@ -807,9 +807,21 @@ body {
             width: 100%;
             height: 4vh;
             padding: 2vh 1vh;
-            border: 1px solid #d9d9d9;
-            background: transparent;
+            border: 1px solid #EAEAEA;
+            background: white;
             border-radius: 2px;
+
+            &:focus {
+                border: 1px solid #B9D0F8;
+                -webkit-box-shadow: 0 0 0 0.2rem rgba(69, 130, 236, 0.25);
+                box-shadow: 0 0 0 0.2rem rgba(69, 130, 236, 0.25);
+            }
+        }
+
+        .has-error {
+            border: 1px solid #F8B9B9;
+            -webkit-box-shadow: 0 0 0 0.2rem rgba(236,69,69, 0.25);
+            box-shadow: 0 0 0 0.2rem rgba(236,69,69, 0.25);
         }
 
         .submit-wrap {
@@ -821,7 +833,7 @@ body {
             height: 4vh;
             display: block;
             width: 100%;
-            letter-spacing: 2px;
+            letter-spacing: 1px;
             color: black;
             border: 1px solid #031868;
             background: transparent;

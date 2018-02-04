@@ -14,7 +14,7 @@ export class Menu extends Component {
                     <h1 className="align-middle" > <NavLink className="nav-brand align-middle" to={'/'}>SurpriseU</NavLink></h1>
                     <div className="d-flex w-50 align-items-center ml-3 h-100 input-div">
                         <div className='icon align-items-center justify-content-center'><Search className='search-icon' color='#AEAEAE' /></div>
-                        <input className="form-control" type="search" placeholder="Search" aria-label="Search" />
+                        <input className="form-control" type="search" placeholder="Пошук" aria-label="Search" />
                     </div>
                 </div> 
                 <div className="d-flex w-25">
