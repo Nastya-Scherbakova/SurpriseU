@@ -65,7 +65,7 @@ export class Present extends React.Component {
                 onRequestClose={this.handleCloseModal}
                 className='addPresent w-100 h-100 d-flex align-items-center'
             >
-                <EditPresent present={this.state.data} toClose={this.handleCloseModal} />
+                <EditPresent apiUrl="/api/Presents" loadData={this.props.loadData} present={this.state.data} toClose={this.handleCloseModal} />
             </ReactModal>
         </div>;
     }
@@ -90,34 +90,28 @@ export class EditPresent extends React.Component {
                 "startAge": present.startAge,
                 "endAge": present.endAge,
                 "likes": present.likes,
-                "celebration": present.celebration
+                "celebration": present.celebration,
+                "id": this.state.present.id
             });
             var xhr = new XMLHttpRequest();
-            var url = "/api/Presents/" +  present.id;
+            var url = this.props.apiUrl + "/" + this.state.present.id;
             xhr.open("put", url, true);
             xhr.setRequestHeader("Content-type", "application/json");
             xhr.onload = function () {
-                if (xhr.status == 200) {
-                    this.loadData();
+                if (xhr.status == 204) {
+                    this.props.loadData;
                 }
                 else alert(xhr.status + ': ' + xhr.statusText);
             }.bind(this);
             xhr.send(data);
         }
     }
+
     render() {
         return <div className='form-add d-flex flex-column align-items-center animated fadeInDown'>
-            <div className="w-100 d-flex flex-wrap align-items-center justify-content-center name">Додати подарунок</div>
-            <PresentForm onPresentSubmit={this.onEditPresent} toClose={this.props.toClose}
-                title={this.state.present.title}
-                content={this.state.present.content}
-                gender={this.state.present.gender}
-                photo={this.state.present.photo}
-                startAge={this.state.present.startAge}
-                endAge={this.state.present.endAge}
-                likes={this.state.present.likes}
-                celebration={this.state.present.celebration}
-                />
+            <div className="w-100 d-flex flex-wrap align-items-center justify-content-center name">Редагувати подарунок</div>
+            <PresentForm onPresentSubmit={this.onEditPresent} toClose={this.props.toClose} present={this.state.present}
+            />
         </div>;
     }
 }
@@ -129,6 +123,18 @@ export class EditPresent extends React.Component {
 export class NewPresent extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {
+            present: {
+                title: '',
+                content: '',
+                gender: null,
+                photo: '',
+                startAge: null,
+                endAge: null,
+                likes: null,
+                celebration: []
+            }
+        };
         this.onAddPresent = this.onAddPresent.bind(this);
     }
 
@@ -144,16 +150,13 @@ export class NewPresent extends React.Component {
                 "likes": present.likes,
                 "celebration": present.celebration
             });
-            alert(data);
             var xhr = new XMLHttpRequest();
-
             xhr.open("post", this.props.apiUrl, true);
             xhr.setRequestHeader("Content-type", "application/json");
             xhr.onload = function () {
                 if (xhr.status == 200) {
                     this.loadData();
                 }
-                else alert(xhr.status + ': ' + xhr.statusText);
             }.bind(this);
             xhr.send(data);
         }
@@ -162,8 +165,7 @@ export class NewPresent extends React.Component {
     render() {
         return <div className='form-add d-flex flex-column align-items-center animated fadeInDown'>
             <div className="w-100 d-flex flex-wrap align-items-center justify-content-center name">Додати подарунок</div>
-            <PresentForm onPresentSubmit={this.onAddPresent} toClose={this.props.toClose}
-                title='' content='' gender={null} photo='' startAge={null} endAge={null} likes={null} celebration={[]}
+            <PresentForm onPresentSubmit={this.onAddPresent} toClose={this.props.toClose} present={this.state.present}
             />
         </div>;
     }
@@ -193,11 +195,10 @@ export class PresentsList extends React.Component {
     }
     componentDidMount() {
         this.loadData();
-    }
+    } 
 
     // удаление объекта
     onRemovePresent(present) {
-
         if (present) {
             var url = this.props.apiUrl + "/" + present.id;
             var xhr = new XMLHttpRequest();
@@ -213,10 +214,11 @@ export class PresentsList extends React.Component {
     }
     render() {
         var remove = this.onRemovePresent;
+        var loadData = this.loadData;
         return <div className="d-flex flex-row  flex-wrap justify-content-around">
                 {
                     this.state.presents.map(function (present) {
-                    return <Present key={present.id} present={present} onRemove={remove} />
+                    return <Present key={present.id} present={present} onRemove={remove} loadData={loadData} />
                     })
                 }
         </div>;
@@ -229,14 +231,14 @@ export class PresentForm extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            title: props.title,
-            content: props.content,
-            gender: props.gender,
-            photo: props.photo,
-            startAge: props.startAge,
-            endAge: props.endAge,
-            likes: props.likes,
-            celebration: props.celebration,
+            title: props.present.title,
+            content: props.present.content,
+            gender: props.present.gender,
+            photo: props.present.photo,
+            startAge: props.present.startAge,
+            endAge: props.present.endAge,
+            likes: props.present.likes,
+            celebration: props.present.celebration,
             formErrors: {
                 title: '',
                 content: '',
@@ -267,35 +269,16 @@ export class PresentForm extends React.Component {
 
     onSubmit(e) {
         e.preventDefault();
-        var newTitle = this.state.title,
-            newContent = this.state.content,
-            newGender = Number(this.state.gender),
-            newPhoto = this.state.photo,
-            newStartAge = Number(this.state.startAge),
-            newEndAge = Number(this.state.endAge),
-            newLikes = this.state.likes.split(','),
-            newCelebration = this.state.celebration;
         this.props.onPresentSubmit({
-            title: newTitle,
-            content: newContent,
-            gender: newGender,
-            photo: newPhoto,
-            startAge: newStartAge,
-            endAge: newEndAge,
-            likes: newLikes,
-            celebration: newCelebration
+            title: this.state.title,
+            content: this.state.content,
+            gender: (typeof this.state.gender == 'string') ? Number(this.state.gender) : this.state.gender,
+            photo: this.state.photo,
+            startAge: (typeof this.state.startAge == 'string') ? Number(this.state.startAge) : this.state.startAge,
+            endAge: (typeof this.state.endAge == 'string') ? Number(this.state.endAge) : this.state.endAge,
+            likes: (typeof this.state.likes == 'string') ? this.state.likes.split(',') : this.state.likes,
+            celebration: this.state.celebration
         });
-        this.setState({
-            title: props.title,
-            content: props.content,
-            gender: props.gender,
-            photo: props.photo,
-            startAge: props.startAge,
-            endAge: props.endAge,
-            likes: props.likes,
-            celebration: props.celebration
-        });
-        
     };
 
     validateField(e) {
@@ -360,7 +343,7 @@ export class PresentForm extends React.Component {
         let field = this.state.formValid,
             allFields = field[0] && field[1] && field[2] && field[3] && field[4] && field[5] && field[6],
             check = allFields ? <div className='but' onMouseDown={this.onSubmit} onMouseUp={this.props.toClose}><Check size="5vh" color='#031560' /> </div> :
-                <div className='but' ><Check size="5vh" color='grey' /> </div>;
+                <div className='but' onMouseDown={this.onSubmit} onMouseUp={this.props.toClose}><Check size="5vh" color='grey' /> </div>;
         return (
             <form className='w-75 new-present-form d-flex flex-column justify-content-around align-items-center' onSubmit={this.onSubmit}>
 
@@ -458,7 +441,6 @@ export class PresentForm extends React.Component {
                         ].map((item) => < label className='d-flex align-items-center w-50'>{this.checkItem(item.value)} <Checkbox value={item.value} /> {item.label}</label>)
                     }
                 </CheckboxGroup>
-
                 <div className='d-flex justify-content-around'>
                     {check}
                     <div className='but' onClick={this.props.toClose}><X size="5vh" color='#600303' /></div>
