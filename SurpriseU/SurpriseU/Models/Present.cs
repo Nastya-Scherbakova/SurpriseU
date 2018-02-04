@@ -14,43 +14,67 @@ namespace SurpriseU.Models
     public class Present
     {
         public string Id { get; set; }
-        [Required, StringLength(100)]
+        
         public string Title { get; set; }
-        [Required, StringLength(1000)]
+        
         public string Content { get; set; }
         public PresentsGender Gender { get; set; }
         public string Photo { get; set; }
         public int StartAge { get; set; }
         public int EndAge { get; set; }
-        public String LikesString { get; set; }
-        public String CelebrationString { get; set; }
-        public String UsersIdString { get; set; }
+        public string LikesString { get; set; }
+        public string CelebrationString { get; set; }
+        public string UsersIdString { get; set; }
 
         [NotMapped]
         public List<string> Likes
         {
-            get { return LikesString.Split(',').ToList(); }
+            get {
+                if (LikesString != null)
+                {
+                    return LikesString.Split(',').ToList();
+                }
+                else return null;
+               
+            }
             set
             {
-                LikesString = String.Join(",", value);
+                LikesString = string.Join(",", value);
             }
         }
         [NotMapped]
         public List<int> Celebration
         {
-            get { return CelebrationString.Split(',').ToList().Select(idU => Convert.ToInt32(idU)).ToList(); }
+            get {
+                if (CelebrationString != null)
+                {
+                    List<string> Cel = CelebrationString.Split(',').ToList();
+                    return Cel.Select(idU => Convert.ToInt32(idU)).ToList();
+                }
+                else return null;
+
+            }
             set
             {
-                CelebrationString = String.Join(",", value.ToString());
+                CelebrationString = string.Join(",", value);
             }
         }
         [NotMapped]
         public List<int> UsersId
         {
-            get { return UsersIdString.Split(',').ToList().Select(idU => Convert.ToInt32(idU)).ToList(); }
+            get
+            {
+                if (UsersIdString != null)
+                {
+
+                    return UsersIdString.Split(',').ToList().Select(idU => Convert.ToInt32(idU)).ToList(); ;
+                }
+                else return null;
+            }
+               
             set
             {
-                UsersIdString = String.Join(",", value.ToString());
+                UsersIdString = string.Join(",", value);
             }
         }
 
@@ -63,9 +87,9 @@ namespace SurpriseU.Models
         public Present()
         {
             
-            Likes = new List<string>();
-            Celebration = new List<int>();
-            UsersId = new List<int>();
+            //Likes = new List<string>();
+            //Celebration = new List<int>();
+            //UsersId = new List<int>();
             
         }
 
