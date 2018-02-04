@@ -1,7 +1,7 @@
 ﻿import * as React from 'react';
 import '../css/style.css';
 import { Link, NavLink } from 'react-router-dom';
-import { X, Check, Image, Upload} from 'react-feather';
+import { X, Check, Image, Upload, Square, CheckSquare} from 'react-feather';
 import '../css/Site.scss'; 
 import { Checkbox, CheckboxGroup } from 'react-checkbox-group';
 import ReactModal from 'react-modal';
@@ -108,7 +108,6 @@ export class EditPresent extends React.Component {
     render() {
         return <div className='form-add d-flex flex-column align-items-center animated fadeInDown'>
             <div className="w-100 d-flex flex-wrap align-items-center justify-content-center name">Додати подарунок</div>
-            
             <PresentForm onPresentSubmit={this.onEditPresent} toClose={this.props.toClose}
                 title={this.state.present.title}
                 content={this.state.present.content}
@@ -164,7 +163,7 @@ export class NewPresent extends React.Component {
         return <div className='form-add d-flex flex-column align-items-center animated fadeInDown'>
             <div className="w-100 d-flex flex-wrap align-items-center justify-content-center name">Додати подарунок</div>
             <PresentForm onPresentSubmit={this.onAddPresent} toClose={this.props.toClose}
-                title='' content='' gender={-1} photo='' startAge={null} endAge={null} likes={null} celebration={null}
+                title='' content='' gender={null} photo='' startAge={null} endAge={null} likes={null} celebration={[]}
             />
         </div>;
     }
@@ -225,10 +224,6 @@ export class PresentsList extends React.Component {
 }
 
 
-
-
-
-const FormErrors = ({ error }) => error.length > 0 ? <p >{error}  </p> : <p > </p>;
 export class PresentForm extends React.Component {
 
     constructor(props) {
@@ -245,11 +240,9 @@ export class PresentForm extends React.Component {
             formErrors: {
                 title: '',
                 content: '',
-                gender: '',
                 photo: '',
                 age: '',
-                likes: '',
-                celebration: ''
+                likes: ''
             },
             formValid: [false, false, false, false, false, false, false]
         };
@@ -257,14 +250,16 @@ export class PresentForm extends React.Component {
         this.onChange = this.onChange.bind(this);
         this.validateField = this.validateField.bind(this);
         this.errorClass = this.errorClass.bind(this);
-        this.celChanged = this.celChanged.bind(this);
+        this.onCheckboxChanged = this.onCheckboxChanged.bind(this);
+        this.checkItem = this.checkItem.bind(this);
+        this.isErrorField = this.isErrorField.bind(this);
     }
 
     onChange(e) {
         this.setState({ [e.target.name]: e.target.value });
     }
 
-    celChanged(newCelebration) {
+    onCheckboxChanged(newCelebration) {
         this.setState({
             celebration: newCelebration
         });
@@ -279,7 +274,7 @@ export class PresentForm extends React.Component {
             newStartAge = Number(this.state.startAge),
             newEndAge = Number(this.state.endAge),
             newLikes = this.state.likes.split(','),
-            newCelebration = this.state.celebration.map(Number);
+            newCelebration = this.state.celebration;
         this.props.onPresentSubmit({
             title: newTitle,
             content: newContent,
@@ -321,9 +316,7 @@ export class PresentForm extends React.Component {
                 formValid[1] = fieldValid ? true : false;
                 break;
             case 'gender':
-                fieldValid = value >= 0;
-                fieldErrors.gender = fieldValid ? '' : 'Оберіть стать';
-                formValid[2] = fieldValid ? true : false;
+                formValid[2] = value >= 0 ? true : false;
                 break;
             case 'photo':
                 fieldValid = value.length >= 6;
@@ -346,9 +339,7 @@ export class PresentForm extends React.Component {
                 formValid[5] = fieldValid ? true : false;
                 break;
             case 'celebration':
-                fieldValid = value.length >= 0;
-                fieldErrors.celebration = fieldValid ? '' : 'Оберіть хоча б одне свято';
-                formValid[6] = fieldValid ? true : false;
+                formValid[6] = value.length >= 0 ? true : false;
                 break;
             default:
                 break;
@@ -359,27 +350,32 @@ export class PresentForm extends React.Component {
         });
     }
 
-    errorClass(error) {
-        return (error.length === 0 ? '' : 'has-error');
-    }
+    errorClass = (error) => error.length === 0 ? '' : 'has-error';
+    
+    checkItem = (item) => this.state.celebration.indexOf(item) !== -1 ? <CheckSquare size="2vh" color="#fff" className='mr-3' /> : <Square size="2vh" color="#fff" className='mr-3'/>;
+
+    isErrorField = ( error ) => error.length > 0 ? <p className='w-100 d-flex justify-content-center'>{error}  </p> : <p > </p>;
 
     render() {
         let field = this.state.formValid,
             allFields = field[0] && field[1] && field[2] && field[3] && field[4] && field[5] && field[6],
             check = allFields ? <div className='but' onMouseDown={this.onSubmit} onMouseUp={this.props.toClose}><Check size="5vh" color='#031560' /> </div> :
-            <div className='but' ><Check size="5vh" color='grey' /> </div>;
+                <div className='but' ><Check size="5vh" color='grey' /> </div>;
         return (
-            <form className=' w-75 new-present-form d-flex flex-column justify-content-around align-items-center' onSubmit={this.onSubmit}>
+            <form className='w-75 new-present-form d-flex flex-column justify-content-around align-items-center' onSubmit={this.onSubmit}>
 
-                <input className={`std ${this.errorClass(this.state.formErrors.title)}`}
+                <div className='w-100'>
+                    <input className={`text ${this.errorClass(this.state.formErrors.title)}`}
                     name="title"
                     placeholder="Назва"
                     value={this.state.title}
                     onChange={this.onChange}
                     onBlur={this.validateField}
                     maxLength='100' />
-                <FormErrors error={this.state.formErrors.title} />
+                {this.isErrorField(this.state.formErrors.title)}
+                </div>
 
+                <div className='w-100'>
                 <textarea className={`${this.errorClass(this.state.formErrors.content)}`}
                     name="content"
                     placeholder="Інформація про подарунок"
@@ -387,26 +383,25 @@ export class PresentForm extends React.Component {
                     onChange={this.onChange}
                     onBlur={this.validateField}
                     maxLength='1000' />
-                <FormErrors error={this.state.formErrors.content} />
-
-                <div className='mb-4 gender d-flex justify-content-around'>
-                    <label>
-                        <input type="radio" value="0" name="gender" checked={this.state.gender === '0'} onChange={this.onChange} onClick={this.validateField}/>
-                        <div className={(this.state.gender == '0') ? 'male male-checked' : 'male'} ></div>
-                    </label>
-                    <label>
-                        <input type="radio" value="2" name="gender" checked={this.state.gender === '2'} onChange={this.onChange} onClick={this.validateField}/>
-                        <div className={(this.state.gender == '2') ? 'both both-checked' : 'both'}></div>
-                    </label>
-                    <label >
-                        <input type="radio" value="1" name="gender" checked={this.state.gender === '1'} onChange={this.onChange} onClick={this.validateField}/>
-                        <div className={(this.state.gender == '1') ? 'female female-checked' : 'female'}></div>
-                    </label>
+                {this.isErrorField(this.state.formErrors.content)}
                 </div>
-                <FormErrors error={this.state.formErrors.gender} />
+                
+                    <div className='w-100 mb-4 gender d-flex justify-content-around'>
+                        {
+                            [
+                                { value: 1, gender: "male" },
+                                { value: 0, gender: "both" },
+                                { value: 2, gender: "female" }
+                            ].map((item) => <label>
+                                <input type="radio" value={item.value} name="gender" checked={this.state.gender === item.value} onChange={this.onChange} onClick={this.validateField} />
+                                <div className={(this.state.gender == item.value) ? (item.gender + ' ' + item.gender + '-checked') : (item.gender) } ></div>
+                            </label>)
+                        }
+                    </div>
 
-                <div className='w-100 d-flex justify-content-center align-items-center'>
-                    <input className={`std photo ${this.errorClass(this.state.formErrors.photo)}`}
+                <div className='w-100'>
+                    <div className='w-100 d-flex justify-content-between align-items-center'>
+                        <input className={`text mr-3 ${this.errorClass(this.state.formErrors.photo)}`}
                         name="photo"
                         placeholder="Введіть посилання або завантажте вручну"
                         value={this.state.photo}
@@ -414,47 +409,56 @@ export class PresentForm extends React.Component {
                         onBlur={this.validateField}/>
                     <Image size='3.6vh' color='#4E6677' />
                 </div>
-                <FormErrors error={this.state.formErrors.photo} />
-
-                <div className='d-flex w-75 justify-content-around align-items-center'>
-                    
-                    <input className={`std age ${this.errorClass(this.state.formErrors.age)}`}
-                        name="startAge"
-                        placeholder="Початковий вік"
-                        value={this.state.startAge}
-                        onChange={this.onChange}
-                        onBlur={this.validateField} />
-                    <input className={`std age ${this.errorClass(this.state.formErrors.age)}`}
-                        name="endAge"
-                        placeholder="Кінцевий вік"
-                        value={this.state.endAge}
-                        onChange={this.onChange}
-                        onBlur={this.validateField} />
+                {this.isErrorField(this.state.formErrors.photo)}
                 </div>
-                <FormErrors error={this.state.formErrors.age} />
 
-                <input className={`std ${this.errorClass(this.state.formErrors.likes)}`}
+                <div className='w-100'>
+                    <div className='w-100 d-flex justify-content-between align-items-center'>
+                        {
+                            [
+                                { name: "startAge", placeholder: "Початковий вік", class: 'mr-2 ', toState: this.state.startAge },
+                                { name: "endAge", placeholder: "Кінцевий вік", class: 'ml-2 ', toState: this.state.endAge}
+                            ].map((item) => <input className={item.class+ this.errorClass(this.state.formErrors.age)+ ' text '}
+                                name={item.name}
+                                placeholder={item.placeholder}
+                                value={item.toState}
+                                onChange={this.onChange}
+                                onBlur={this.validateField}/>
+                                )
+                        }
+                    </div>
+                    {this.isErrorField(this.state.formErrors.age)}
+                </div>
+
+                <div className='w-100'>
+                    <input className={`text ${this.errorClass(this.state.formErrors.likes)}`}
                     name="likes"
                     placeholder="Подобається (через кому)"
                     value={this.state.likes}
                     onChange={this.onChange}
-                    onBlur={this.validateField} />
-                <FormErrors error={this.state.formErrors.likes} />
+                    onBlur={this.validateField}/>
+                {this.isErrorField(this.state.formErrors.likes)}
+                </div>
+
                 <CheckboxGroup
-                    checkboxDepth={2} 
+                    checkboxDepth={2}
                     name="celebration"
                     value={this.state.celebration}
-                    onChange={this.celChanged}
+                    onChange={this.onCheckboxChanged}
                     onClick={this.validateField}
-                >
-                    <label><Checkbox value="0" /> День народження</label>
-                    <label><Checkbox value="1" /> Новий рік</label>
-                    <label><Checkbox value="2" /> Жіночий день</label>
-                    <label><Checkbox value="3" /> Чоловічий день</label>
-                    <label><Checkbox value="4" /> День матері</label>
-                    <label><Checkbox value="5" /> Інші</label>
+                    className='d-flex w-100 justify-content-between flex-wrap'
+                > {
+                        [
+                            { value: 0, label: "День народження" },
+                            { value: 1, label: "Новий рік" },
+                            { value: 2, label: "Жіночий день" },
+                            { value: 3, label: "Чоловічий день" },
+                            { value: 4, label: "День матері" },
+                            { value: 5, label: "Інші" }
+                        ].map((item) => < label className='d-flex align-items-center w-50'>{this.checkItem(item.value)} <Checkbox value={item.value} /> {item.label}</label>)
+                    }
                 </CheckboxGroup>
-                <FormErrors error={this.state.formErrors.celebration} />
+
                 <div className='d-flex justify-content-around'>
                     {check}
                     <div className='but' onClick={this.props.toClose}><X size="5vh" color='#600303' /></div>

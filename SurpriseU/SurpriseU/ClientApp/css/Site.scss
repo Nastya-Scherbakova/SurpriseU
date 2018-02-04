@@ -16,12 +16,17 @@
 
 @mixin for-size($size) {
     @if $size == phone-only {
-        @media (max-width: 599px) {
+        @media (max-width: 576px) {
+            @content;
+        }
+    }
+    @else if $size == phone-landscape-up {
+        @media (min-width: 568px) {
             @content;
         }
     }
     @else if $size == tablet-portrait-up {
-        @media (min-width: 600px) {
+        @media (min-width: 768px) {
             @content;
         }
     }
@@ -36,7 +41,18 @@
         }
     }
 }
-
+@mixin for-orient($or) {
+    @if $or == port {
+        @media (orientation: portrait) {
+            @content;
+        }
+    }
+    @else if $or == land {
+        @media (orientation: landscape) {
+            @content;
+        }
+    }
+}
 $darkblue: #031560;
 
 
@@ -47,25 +63,29 @@ body {
     font-size: 100%;
 
     h1 {
+        @include for-size(phone-only) {
+            font-size: 1.4em;
+            letter-spacing: 0.3em;
+        }
+
+        @include for-size(phone-landscape-up) {
+            font-size: 1.3em;
+            letter-spacing: 0.3em;
+        }
 
         @include for-size(tablet-portrait-up) {
             font-size: 1.8em;
-            letter-spacing: 0.6em;
+            letter-spacing: 0.4em;
         }
 
         @include for-size(tablet-landscape-up) {
             font-size: 2em;
-            letter-spacing: 0.7em;
-        }
-
-        @include for-size(phone-only) {
-            font-size: 1em;
-            letter-spacing: 0.5em;
+            letter-spacing: 0.6em;
         }
 
         @include for-size(desktop-up) {
             font-size: 2.5em;
-            letter-spacing: 0.8em;
+            letter-spacing: 0.5em;
         }
     }
 }
@@ -88,19 +108,30 @@ body {
     box-shadow: 0 3px 5px 0 rgba(0,0,0,0.1);
     background: rgba(255,255,255,0.2);
 
-    @include for-size(tablet-portrait-up) {
+    @include for-size(phone-only) {
+        height: 80%;
+        width: 80%;
+    }
+
+    @include for-size(phone-landscape-up) {
         height: 80%;
         width: 50%;
     }
 
-    @include for-size(tablet-landscape-up) {
+    @include for-size(tablet-portrait-up) {
         height: 80%;
-        width: 25%;
+        width: 75%;
     }
 
-    @include for-size(phone-only) {
+    @include for-size(tablet-landscape-up) {
         height: 80%;
-        width: 80%;
+        width: 50%;
+    }
+
+
+    @include for-size(desktop-up) {
+        height: 80%;
+        width: 30%;
     }
 
     .name {
@@ -116,7 +147,7 @@ body {
         height: 90%;
         margin: 1vh 0;
 
-        .std, textarea, select {
+        .text, textarea {
             background: rgba(255,255,255,0.9);
             width: 100%;
             padding: 10px 15px;
@@ -130,21 +161,8 @@ body {
             }
         }
 
-        .age {
-            width: 40%;
-        }
-
         .has-error {
             background: #F2D7D7;
-        }
-
-        .std {
-            height: 7%;
-        }
-
-        .photo {
-            width: 75%;
-            margin-right: 3%;
         }
 
         .but {
@@ -171,7 +189,7 @@ body {
             label {
                 width: 3vh;
                 height: 3vh;
-                margin: 0 2vh;
+                margin: 0 1%;
 
                 @each $gender, $content, $color in (female, 221, #D2A2C6), (both, 1db, #C2A6D2), (male, 222, #A2AAD2) {
                     .#{$gender} {
@@ -193,6 +211,13 @@ body {
                 }
             }
         }
+
+        input[type="checkbox"] {
+            transition: all 0.1s ease-in-out;
+            position: absolute;
+            opacity: 0;
+            z-index: -1;
+        }
     }
 }
 
@@ -202,53 +227,129 @@ body {
 
 /*MENU*/
 
+.home-image {
+    margin-bottom: 50px;
+    background: url(https://wallpaperscraft.ru/image/abstrakciya_seryy_siniy_dym_441_1920x1080.jpg);
+    background-size: cover;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+
+    @include for-size(phone-only) {
+        height: 35vh;
+        background-size: 250%;
+        background-position: center top;
+    }
+
+    @include for-size(phone-landscape-up) {
+        height: 40vh;
+        background-size: 150%;
+        background-position: center top;
+    }
+
+    @include for-size(tablet-landscape-up) {
+        background-size: cover;
+    }
+
+    @include for-size(desktop-up) {
+        height: 50vh;
+    }
+}
 .sps {
     position: fixed;
     top: 0;
     left: 0;
     transition: all 0.25s ease;
     width: 100%;
-}
 
-.nav-brand {
-    font-family: 'Lato', sans-serif;
-    text-transform: uppercase;
-    color: black;
-    display: inline-block;
-    &:focus, &:hover {
-        text-decoration: none;
+    .nav-brand {
+        font-family: 'Lato', sans-serif;
+        text-transform: uppercase;
         color: black;
+        display: inline-block;
+
+        &:focus, &:hover {
+            text-decoration: none;
+            color: black;
+        }
     }
-}
 
-.nav-icon {
-    margin: 2vh;
-}
+    .input-div {
+        position: relative;
 
-.nav-icon-user::before {
-    font-family: FontAwesome;
-    content: "\f007";
-    color: black;
-    font-size: 5vh;
-}
+        .icon {
+            position: absolute;
+            z-index: 1;
 
-.nav-icon-ank::before {
-    font-family: FontAwesome;
-    content: "\f02d";
-    color: black;
-    font-size: 5vh;
+            .search-icon {
+                height: 2vh;
+                margin: 1vh;
+            }
+        }
+
+        .form-control {
+            padding-left: 5vh;
+            width: 75%;
+
+            @include for-size(phone-only) {
+                height: 4.5vh;
+            }
+
+            @include for-size(phone-landscape-up) {
+                height: 5vh;
+            }
+
+        }
+    }
+
+    .nav-icon {
+        @include for-size(phone-only) {
+            margin: 2vw;
+            height: 60%;
+            width: 60%;
+        }
+
+        @include for-size(phone-landscape-up) {
+            margin: 2vh;
+            height: 5vh;
+            width: 5vh;
+        }
+
+        @include for-size(tablet-portrait-up) {
+            margin: 1vw;
+            height: 4.3vh;
+        }
+    }
 }
 
 .sps--abv {
     background-color: transparent;
     color: #000;
-    height: 15vh;
+
+    @include for-size(phone-only) {
+        height: 10vh;
+    }
+
+    @include for-size(tablet-portrait-up) {
+        height: 14vh;
+    }
+
+    @include for-size(desktop-up) {
+        height: 15vh;
+    }
 }
 
 .sps--blw {
     background-color: #fff !important;
     color: #fff;
-    height: 10vh;
+
+    
+    @include for-size(phone-landscape-up) {
+        height: 10vh;
+    }
+
+    @include for-size(phone-only) {
+        height: 8vh;
+    }
+
     box-shadow: 0 0 10px rgba(0,0,0,0.5);
 }
 
@@ -278,189 +379,247 @@ body {
         color: $darkblue;
     }
 
-    .info {
+    .profile-area {
         margin: auto;
         margin-top: 15vh;
         border-radius: 30px;
-        height: 30vh;
-        padding: 1vh;
         display: block;
         background: rgba(255,255,255,0.2);
         box-shadow: 0 3px 5px 0 rgba(0,0,0,0.1);
+        padding: 1vh;
+        display: block;
         position: relative;
-        width: 60%;
 
-        .img {
-            width: 70%;
-            box-shadow: 0 0 5px 0 rgba(0,0,0,0.5);
+        @include for-orient(port) {
+            width: 80vw;
+            height: 80vh;
         }
 
-        .info-in-area {
+        @include for-orient(land) {
+            width: 75vw;
+            height: 80vh;
+        }
+
+        .info {
+            height: 30%;
+
+            .img {
+                @include for-orient(port) {
+                    width: 15vh;
+                    height: 15vh;
+                }
+
+                @include for-orient(land) {
+                    width: 20vh;
+                    height: 20vh;
+                }
+
+                box-shadow: 0 0 5px 0 rgba(0,0,0,0.5);
+            }
+
+            @each $gender, $content, $color in (female, 221, #7D001B), (male, 222, #052E7D) {
+                .#{$gender} {
+                    &::before {
+                        font-family: FontAwesome;
+                        content: "\f#{$content}";
+                        color: #{$color};
+                        font-size: 3vh;
+                    }
+                }
+            }
+
+            input {
+                width: 4vh;
+                border: 1px solid $darkblue;
+                background-color: $darkblue;
+                border-radius: 25px;
+                color: #fbfbfb;
+                transition: all 300ms ease-in-out;
+                margin: 2px;
+                padding: 0 1vh;
+
+                &:focus {
+                    width: 10vh;
+                    padding: 6px 15px;
+                    outline: none;
+                    border: 1px solid $darkblue;
+                    background-color: #fbfbfb;
+                    color: $darkblue;
+                }
+
+                &::-webkit-input-placeholder {
+                    color: #fbfbfb;
+                }
+
+                &::-moz-placeholder {
+                    color: #fbfbfb;
+                }
+            }
+
+            .user-data {
+                @include for-orient(port) {
+                    -webkit-box-orient: vertical !important;
+                    -webkit-box-direction: normal !important;
+                    -ms-flex-direction: column !important;
+                    flex-direction: column !important;
+                }
+
+                @include for-orient(land) {
+                    -webkit-box-orient: horizontal !important;
+                    -webkit-box-direction: normal !important;
+                    -ms-flex-direction: row !important;
+                    flex-direction: row !important;
+                }
+            }
+
+            .tag {
+                border: 1px solid $darkblue;
+                background-color: $darkblue;
+                border-radius: 25px;
+                padding: 0.5vh 1.5vh;
+                color: #fbfbfb;
+                transition: all 300ms ease-in-out;
+                margin: 2px;
+
+                &:hover {
+                    border: 1px solid $darkblue;
+                    color: $darkblue;
+                    background-color: #fbfbfb;
+                }
+            }
+
+            .social-icon {
+                margin: 5px;
+                -webkit-transition: all 0.3s ease-in-out;
+                -moz-transition: all 0.3s ease-in-out;
+                -o-transition: all 0.3s ease-in-out;
+                transition: all 0.3s ease-in-out;
+                color: #3A4260;
+
+                &:hover {
+                    -webkit-transform: scale(1.1);
+                    -moz-transform: scale(1.1);
+                    -ms-transform: scale(1.1);
+                    -o-transform: scale(1.1);
+                    transform: scale(1.1);
+                }
+            }
+
+            @each $item, $content, $color in (insta, 16d, #517fa4), (tel, 3fe, #0088cc), (face, 39e, #3b5998) {
+                .#{$item} {
+                    &::before {
+                        font-family: "Font Awesome 5 Brands";
+                        content: "\f#{$content}";
+                        font-size: 3vh;
+                    }
+
+                    &:hover::before {
+                        color: #{$color};
+                    }
+                }
+            }
+        }
+
+        .content {
+            height: 70%;
+            width: 100%;
+
+            @include for-orient(port) {
+                -webkit-box-orient: vertical !important;
+                -webkit-box-direction: normal !important;
+                -ms-flex-direction: column !important;
+                flex-direction: column !important;
+            }
+
+            @include for-orient(land) {
+                -webkit-box-orient: horizontal !important;
+                -webkit-box-direction: normal !important;
+                -ms-flex-direction: row !important;
+                flex-direction: row !important;
+            }
+        }
+
+        .fields {
+            @include for-orient(port) {
+                height: 30%;
+                width: 90%;
+            }
+
+            @include for-orient(land) {
+                height: 80%;
+                width: 30%;
+            }
+
             border-radius: 30px;
-            height: 24vh;
             display: block;
-            background: rgba(255,255,255,0.3);
+            background: rgba(255,255,255,0.2);
             box-shadow: 0 3px 5px 0 rgba(0,0,0,0.1);
             position: relative;
-            width: 35%;
-            margin: 2%;
-
-            .info-in {
-                margin: 2vh;
-            }
+            overflow: hidden;
 
             .nav {
                 background: linear-gradient(to right, #FFFFFF, #C1C3FF);
-                height: 4vh;
+                width: 100%;
                 border-radius: 30px 30px 0 0;
                 letter-spacing: 1px;
                 text-transform: uppercase;
                 font-size: 1.3em;
+
+                @include for-orient(port) {
+                    height: 25%;
+                }
+
+                @include for-orient(land) {
+                    height: 8vh;
+                }
+            }
+
+            .content2 {
+                @include for-orient(port) {
+                    -ms-flex-wrap: nowrap !important;
+                    flex-wrap: nowrap !important;
+                    justify-content: flex-start;
+                }
+
+                @include for-orient(land) {
+                    -ms-flex-wrap: wrap !important;
+                    flex-wrap: wrap !important;
+                    justify-content: space-around;
+                }
+            }
+
+            .user-present {
+                @include for-orient(port) {
+                    height: 10vh;
+                    width: 10vh;
+                }
+
+                @include for-orient(land) {
+                    height: 15vh;
+                    width: 15vh;
+                }
+
+                margin: 1vh;
+                background: rgba(255,255,255,0.4);
             }
         }
 
-        input {
-            width: 4vh;
-            border: 1px solid $darkblue;
-            background-color: $darkblue;
-            border-radius: 25px;
-            color: #fbfbfb;
-            transition: all 300ms ease-in-out;
-            margin: 2px;
-            padding: 0 1vh;
+        .plus-div {
+            .plus {
+                @include for-orient(port) {
+                    margin: 1.5vh;
+                }
 
-            &:focus {
-                width: 10vh;
-                padding: 6px 15px;
-                outline: none;
-                border: 1px solid $darkblue;
-                background-color: #fbfbfb;
-                color: $darkblue;
+                @include for-orient(land) {
+                    margin: 4vh;
+                }
+
+                -webkit-transition: all 0.3s ease-in-out;
+                -moz-transition: all 0.3s ease-in-out;
+                -o-transition: all 0.3s ease-in-out;
+                transition: all 0.3s ease-in-out;
             }
 
-            &::-webkit-input-placeholder {
-                color: #fbfbfb;
-            }
-
-            &::-moz-placeholder {
-                color: #fbfbfb;
-            }
-        }
-
-
-
-        .tag {
-            border: 1px solid $darkblue;
-            background-color: $darkblue;
-            border-radius: 25px;
-            padding: 6px 15px;
-            color: #fbfbfb;
-            transition: all 300ms ease-in-out;
-            margin: 2px;
-
-            &:hover {
-                border: 1px solid $darkblue;
-                color: $darkblue;
-                background-color: #fbfbfb;
-            }
-        }
-
-        .social-icon {
-            margin: 5px;
-            -webkit-transition: all 0.3s ease-in-out;
-            -moz-transition: all 0.3s ease-in-out;
-            -o-transition: all 0.3s ease-in-out;
-            transition: all 0.3s ease-in-out;
-            color: #3A4260;
-            font-size: 3vh;
-
-            &:hover {
-                -webkit-transform: scale(1.1);
-                -moz-transform: scale(1.1);
-                -ms-transform: scale(1.1);
-                -o-transform: scale(1.1);
-                transform: scale(1.1);
-            }
-        }
-
-        .edit {
-            position: absolute;
-            top: 1vh;
-            right: 1vh;
-
-            &::before {
-                font-family: "Font Awesome 5 Free";
-                content: "\f044";
-            }
-        }
-
-        .insta {
-            &::before {
-                font-family: "Font Awesome 5 Brands";
-                content: "\f16d";
-            }
-
-            &:hover::before {
-                color: #517fa4;
-            }
-        }
-
-        .tel {
-
-            &::before {
-                font-family: "Font Awesome 5 Brands";
-                content: "\f3fe";
-            }
-
-            &:hover::before {
-                color: #0088cc;
-            }
-        }
-
-        .face {
-            &::before {
-                font-family: "Font Awesome 5 Brands";
-                content: "\f39e";
-            }
-
-            &:hover::before {
-                color: #3b5998;
-            }
-        }
-    }
-
-    .fields {
-        height: 40vh;
-        width: 30%;
-        margin-top: 5vh;
-        border-radius: 30px;
-        display: block;
-        background: rgba(255,255,255,0.2);
-        box-shadow: 0 3px 5px 0 rgba(0,0,0,0.1);
-        position: relative;
-
-        .saved-presents {
-            height: 35vh;
-            overflow: hidden;
-        }
-    }
-
-    .nav {
-        background: linear-gradient(to right, #FFFFFF, #C1C3FF);
-        height: 5vh;
-        border-radius: 30px 30px 0 0;
-        letter-spacing: 1px;
-        text-transform: uppercase;
-        font-size: 1.3em;
-    }
-
-    .plus-div {
-        .plus {
-            -webkit-transition: all 0.3s ease-in-out;
-            -moz-transition: all 0.3s ease-in-out;
-            -o-transition: all 0.3s ease-in-out;
-            transition: all 0.3s ease-in-out;
-            }
             &:hover {
                 .plus {
                     -webkit-transform: scale(1.1);
@@ -471,19 +630,8 @@ body {
                 }
             }
         }
-
-        .user-present {
-            height: 15vh;
-            width: 15vh;
-            position: relative;
-            margin: 2%;
-            background: rgba(255,255,255,0.4);
-
-            img {
-                background-size: cover;
-            }
-        }
     }
+}
     /*PRESENTS*/
     .present {
         margin: 20px 15px 20px 15px;
@@ -568,38 +716,76 @@ body {
     .navlink-no:focus {
         text-decoration: none;
     }
-  
-.home-image {
-    margin-bottom: 50px;
-    height: 50vh;
-    background: url(https://wallpaperscraft.ru/image/abstrakciya_seryy_siniy_dym_441_1920x1080.jpg);
-    background-size: cover;
-    box-shadow: 0 0 10px rgba(0,0,0,0.5);
-}
 
-/*background-image: url(https://images.pexels.com/photos/730508/pexels-photo-730508.jpeg?w=1260&h=750&dpr=2&auto=compress&cs=tinysrgb);
-        background-image: url(https://cdn.pixabay.com/photo/2017/11/27/07/01/christmas-2980686_1280.jpg);
-    background: url(https://wallpaperscraft.ru/image/abstrakciya_seryy_siniy_dym_441_1920x1080.jpg); - синий дым */
+
 /*REGISTRATION LOGIN*/
 .log-form {
     font-family: 'Lato', sans-serif;
-    height: 60vh;
     box-shadow: 0 0 10px rgba(0,0,0,0.5);
-    width: 50vw;
-    margin-top: 20vh;
 
-    .left {
-        background-position: center center;
-        background-size: cover;
-        width: 25vw;
-        overflow: hidden;
-        background-image: url('https://pm1.narvii.com/6639/7f76c797c61e19f18e4b8cda0a3b64803f5743d4_hq.jpg');
+    @include for-orient(port) {
+        -webkit-box-orient: vertical !important;
+        -webkit-box-direction: normal !important;
+        -ms-flex-direction: column !important;
+        flex-direction: column !important;
     }
 
-    .right {
+    @include for-orient(land) {
+        -webkit-box-orient: horizontal !important;
+        -webkit-box-direction: normal !important;
+        -ms-flex-direction: row !important;
+        flex-direction: row !important;
+    }
+
+    @include for-size (phone-only) {
+        margin-top: 12vh;
+    }
+
+    @include for-size (phone-landscape-up) {
+        margin-top: 15vh;
+    }
+
+    @include for-orient(port) {
+        width: 80vw;
+        height: 80vh;
+    }
+
+    @include for-orient(land) {
+        margin-top: 20vh;
+        width: 50vw;
+        height: 60vh;
+    }
+
+    .image {
+        background-position: center center;
+        background-size: cover;
+        overflow: hidden;
+        background-image: url('https://pm1.narvii.com/6639/7f76c797c61e19f18e4b8cda0a3b64803f5743d4_hq.jpg');
+
+        @include for-orient(port) {
+            width: 100%;
+            height: 30%;
+        }
+
+        @include for-orient(land) {
+            width: 25vw;
+            height: 100%;
+        }
+    }
+
+    .content {
         background: white;
-        width: 25vw;
         padding: 1vh 4vw 3vh 4vw;
+
+        @include for-orient(port) {
+            width: 100%;
+            height: 70%;
+        }
+
+        @include for-orient(land) {
+            width: 25vw;
+            height: 100%;
+        }
 
         .name {
             margin: 5vh;
@@ -649,37 +835,35 @@ body {
         }
 
         .gender {
-            height: 7vh;
-            width: 7vh;
-            font-size: 3vh;
-            font-weight: bold;
-        }
-
-        .gender-he {
-            &::before {
-                font-family: FontAwesome;
-                content: "\f222";
-                color: #d9d9d9;
+            input[type="radio"], button {
+                display: none;
             }
-        }
 
-        .he-active {
-            &::before {
-                color: #052E7D;
-            }
-        }
+            label {
+                height: 7vh;
+                width: 7vh;
+                font-size: 3vh;
+                font-weight: bold;
+                margin: 0 1%;
 
-        .gender-she {
-            &::before {
-                font-family: FontAwesome;
-                content: "\f221";
-                color: #d9d9d9;
-            }
-        }
+                @each $gender, $content, $color in (female, 221, #d9d9d9), (male, 222, #d9d9d9) {
+                    .#{$gender} {
+                        &::before {
+                            font-family: FontAwesome;
+                            content: "\f#{$content}";
+                            color: #{$color};
+                            font-size: 3vh;
+                        }
+                    }
+                }
 
-        .she-active {
-            &::before {
-                color: #7D001B;
+                @each $gender, $color in (female, #7D001B), (male, #052E7D) {
+                    .#{$gender}-checked {
+                        &::before {
+                            color: $color;
+                        }
+                    }
+                }
             }
         }
 
