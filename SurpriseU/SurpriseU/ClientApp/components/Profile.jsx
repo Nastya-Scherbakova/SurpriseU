@@ -11,20 +11,8 @@ var Nastya = {
     instagram: '',
     telegram: '',
     facebook: '',
-    likes: ['спорт', 'хореографія'],
-    hobbies: ['співати', 'програмування'],
+    likes: ['спорт', 'хореографія', 'співати', 'програмування'],
     photo: 'https://pp.userapi.com/c840025/v840025300/39a4/aQuz84zS8-0.jpg'
-}
-
-class Tag extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-    render() {
-        return <div className='tag'>
-            { this.props.data}
-        </div>;
-    }
 }
 
 class Info extends React.Component {
@@ -40,23 +28,26 @@ class Info extends React.Component {
         else {
             genderIcon = 'user-she'
         }
-        return <div className="w-75 d-flex align-items-center justify-content-center" >
-            <div className="d-flex flex-column">
-            <img className="img rounded-circle " src={this.props.user.photo} />
-            </div>
-            <div className="d-flex user-data justify-content-around w-50">
-                <div className="d-flex flex-column justify-content-around">
-                    <div className="d-flex align-items-center">Cтать  <div className={(this.props.user.gender == 0) ? 'male' : 'female' } ></div></div>
-                    <div className="d-flex align-items-center">Вік  <div className='user-age' >{this.props.user.age}</div></div>
+        return <div className="info w-100 d-flex justify-content-around align-items-center">
+            <div className="d-flex flex-column main align-items-center">
+                    <img className="img rounded-circle " src={this.props.user.photo} />
+                    <div className="d-flex justify-content-around">
+                        <a className="d-flex justify-content-center align-items-center social-icon navlink-no  tel" href={this.props.user.telegram}></a>
+                        <a className="d-flex justify-content-center align-items-center social-icon navlink-no  insta " href={this.props.user.instagram}></a>
+                        <a className="d-flex justify-content-center align-items-center social-icon navlink-no  face" href={this.props.user.facebook}></a>
                     </div>
-                <div className="d-flex justify-content-around">
-                    <a className="d-flex justify-content-center align-items-center social-icon navlink-no  tel" href={this.props.user.telegram}></a>
-                    <a className="d-flex justify-content-center align-items-center social-icon navlink-no  insta " href={this.props.user.instagram}></a>
-                    <a className="d-flex justify-content-center align-items-center social-icon navlink-no  face" href={this.props.user.facebook}></a>
-                </div>
-                <Likes user={this.props.user} />
+                    <div className="d-flex justify-content-center align-items-center button">
+                        Редагувати
+                     </div>
+                    <div className="d-flex justify-content-center align-items-center button">
+                        Пошук
+                     </div>
             </div>
-
+            <div className="d-flex flex-column other-data h-100 justify-content-around">
+                <div className="d-flex align-items-center age">Дата народження<div >{this.props.user.age}</div></div>
+                <Likes user={this.props.user} />
+                <Friends user={this.props.user} />
+            </div>
         </div>;
     }
 }
@@ -67,13 +58,12 @@ class Likes extends React.Component {
     }
     render() {
         const likes = this.props.user.likes;
-        let tags = likes.map(item => <Tag data={item} />);
-        return <div className="d-flex flex-column align-items-between">
-            <div className="d-flex w-100 nav justify-content-center align-items-center">Подобається</div>
-            <div className="d-flex flex-wrap info-in" >
-                <input placeholder="+" />
-                {tags}
-            </div>
+        return <div className="w-100 h-25 d-flex flex-wrap align-items-center likes" >
+            <div className="d-flex like-title align-items-center">Подобається</div>
+            <input placeholder="+" />
+            {
+                likes.map(item => <div className='tag'>{item}</div>)
+            }
         </div>;
     }
 }
@@ -83,9 +73,10 @@ class Friends extends React.Component {
         super(props);
     }
     render() {
-        return <div className="d-flex flex-column fields">
+        return <div className="d-flex flex-column friends">
             <div className="d-flex w-100 nav justify-content-center align-items-center">Друзі</div>
-            <div className="d-flex h-100 content2 align-items-center">
+            <div className="d-flex h-100 content align-items-center">
+
             </div>
         </div>;
     }
@@ -104,9 +95,6 @@ class LikedPresents extends React.Component {
         return <div className="d-flex flex-column fields">
             <div className="d-flex nav justify-content-center align-items-center">Вподобані подарунки</div>
             <div className="d-flex h-100 content2 align-items-center">
-                <LikedPresent />
-                <LikedPresent />
-                <LikedPresent />
                 <LikedPresent />
                 <LikedPresent />
                 <LikedPresent />
@@ -141,9 +129,6 @@ class AddedPresents extends React.Component {
                 </div>
                 <LikedPresent />
                 <LikedPresent />
-                <LikedPresent />
-                <LikedPresent />
-                <LikedPresent />
             </div>
             <ReactModal
                 isOpen={this.state.showModal}
@@ -167,16 +152,12 @@ export class Profile extends React.Component {
     render() {
         let user = this.state.user;
         return <div className="profile h-100 w-100">
-            <div className='profile-area'>
-
+            <div className='profile-area d-flex flex-column justify-content-around'>
                 <div className="d-flex justify-content-center align-items-center w-100 name">{user.name}</div>
-                <div className="info d-flex justify-content-around">
-                    <Info user={user} />
-                </div>
-                <div className='d-flex content justify-content-around align-items-center '>
+                <Info user={user} />
+                <div className='d-flex content align-items-center'>
                     <LikedPresents />
                     <AddedPresents />
-                    <Friends user={user} />
                 </div>
             </div>
         </div>;

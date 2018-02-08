@@ -1,7 +1,7 @@
 ﻿import * as React from 'react';
 import '../css/style.css';
 import { Link, NavLink } from 'react-router-dom';
-import { X, Check, Image, Upload, Square, CheckSquare} from 'react-feather';
+import { X, Check, Image, Upload, Plus} from 'react-feather';
 import '../css/Site.scss'; 
 import { Checkbox, CheckboxGroup } from 'react-checkbox-group';
 import ReactModal from 'react-modal';
@@ -55,11 +55,27 @@ export class Present extends React.Component {
                         <div className="d-flex justify-content-center align-items-center arrow-right"></div>
                         </div>
                     </NavLink>
-                    <p><button onClick={this.onClick}>Delete</button></p>
-                    <p><button onClick={this.handleOpenModal}>Edit</button></p>
-                    <div className={"d-flex justify-content-center align-items-center like-icon" + likeStyle} onClick={this.onLike}></div>
-                </div>
+                   
+                    
+                    {/* <p><button onClick={this.onClick}>Delete</button></p>
+                    <p><button onClick={this.handleOpenModal}>Edit</button></p>*/}
+                    <div className="d-flex justify-content-center align-items-center" onClick={this.onLike}>
+                        {
+                            this.state.liked ? <svg className='animated opac' xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink"
+                            width="6vh" height="6vh" viewBox="0 0 30 30">
+                                <path fill="#7496DB" d="M2.2 9.4c0 1.3.2 3.3 2 5.1 1.6 1.6 6.9 5.2 7.1 5.4.2.1.4.2.6.2s.4-.1.6-.2c.2-.2 5.5-3.7 7.1-5.4 1.8-1.8 2-3.8 2-5.1 0-3-2.4-5.4-5.4-5.4-1.6 0-3.2.9-4.2 2.3-1-1.4-2.6-2.3-4.4-2.3-2.9 0-5.4 2.4-5.4 5.4z" />
+
+                            </svg>
+                                :
+                                <svg xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink"
+                                    width="6vh" height="6vh" viewBox="0 0 30 30">
+                                    <path fill="#DBDBE3"  d="M2.2 9.4c0 1.3.2 3.3 2 5.1 1.6 1.6 6.9 5.2 7.1 5.4.2.1.4.2.6.2s.4-.1.6-.2c.2-.2 5.5-3.7 7.1-5.4 1.8-1.8 2-3.8 2-5.1 0-3-2.4-5.4-5.4-5.4-1.6 0-3.2.9-4.2 2.3-1-1.4-2.6-2.3-4.4-2.3-2.9 0-5.4 2.4-5.4 5.4z" />
+
+                                </svg>
+                        }
+                    </div>
             </div>
+        </div>
             <ReactModal
                 isOpen={this.state.showModal}
                 onRequestClose={this.handleCloseModal}
@@ -253,7 +269,6 @@ export class PresentForm extends React.Component {
         this.validateField = this.validateField.bind(this);
         this.errorClass = this.errorClass.bind(this);
         this.onCheckboxChanged = this.onCheckboxChanged.bind(this);
-        this.checkItem = this.checkItem.bind(this);
         this.isErrorField = this.isErrorField.bind(this);
     }
 
@@ -335,7 +350,7 @@ export class PresentForm extends React.Component {
 
     errorClass = (error) => error.length === 0 ? '' : 'has-error';
     
-    checkItem = (item) => this.state.celebration.indexOf(item) !== -1 ? <CheckSquare size="2vh" color="#fff" className='mr-3' /> : <Square size="2vh" color="#fff" className='mr-3'/>;
+    
 
     isErrorField = ( error ) => error.length > 0 ? <p className='w-100 d-flex justify-content-center'>{error}  </p> : <p > </p>;
 
@@ -347,7 +362,7 @@ export class PresentForm extends React.Component {
         return (
             <form className='w-75 new-present-form d-flex flex-column justify-content-around align-items-center' onSubmit={this.onSubmit}>
 
-                <div className='w-100'>
+                <div className='w-100  h-input'>
                     <input className={`text ${this.errorClass(this.state.formErrors.title)}`}
                     name="title"
                     placeholder="Назва"
@@ -358,18 +373,19 @@ export class PresentForm extends React.Component {
                 {this.isErrorField(this.state.formErrors.title)}
                 </div>
 
-                <div className='w-100'>
+                <div className='w-100 h-25'>
                 <textarea className={`${this.errorClass(this.state.formErrors.content)}`}
                     name="content"
                     placeholder="Інформація про подарунок"
                     value={this.state.content}
                     onChange={this.onChange}
                     onBlur={this.validateField}
-                    maxLength='1000' />
+                    maxLength='1000'
+                  />
                 {this.isErrorField(this.state.formErrors.content)}
                 </div>
                 
-                    <div className='w-100 mb-4 gender d-flex justify-content-around'>
+                <div className='w-100 gender d-flex justify-content-around'>
                         {
                             [
                                 { value: 1, gender: "male" },
@@ -381,9 +397,8 @@ export class PresentForm extends React.Component {
                             </label>)
                         }
                     </div>
-
-                <div className='w-100'>
-                    <div className='w-100 d-flex justify-content-between align-items-center'>
+                
+                    <div className='w-100 h-input d-flex justify-content-between align-items-center'>
                         <input className={`text mr-3 ${this.errorClass(this.state.formErrors.photo)}`}
                         name="photo"
                         placeholder="Введіть посилання або завантажте вручну"
@@ -393,10 +408,8 @@ export class PresentForm extends React.Component {
                     <Image size='3.6vh' color='#4E6677' />
                 </div>
                 {this.isErrorField(this.state.formErrors.photo)}
-                </div>
-
-                <div className='w-100'>
-                    <div className='w-100 d-flex justify-content-between align-items-center'>
+                
+                    <div className='w-100  h-input d-flex justify-content-between align-items-center'>
                         {
                             [
                                 { name: "startAge", placeholder: "Початковий вік", class: 'mr-2 ', toState: this.state.startAge },
@@ -411,9 +424,8 @@ export class PresentForm extends React.Component {
                         }
                     </div>
                     {this.isErrorField(this.state.formErrors.age)}
-                </div>
 
-                <div className='w-100'>
+                <div className='w-100 h-input'>
                     <input className={`text ${this.errorClass(this.state.formErrors.likes)}`}
                     name="likes"
                     placeholder="Подобається (через кому)"
@@ -422,26 +434,46 @@ export class PresentForm extends React.Component {
                     onBlur={this.validateField}/>
                 {this.isErrorField(this.state.formErrors.likes)}
                 </div>
-
+                <div className='w-100 pl-3 h-15'>
                 <CheckboxGroup
                     checkboxDepth={2}
                     name="celebration"
                     value={this.state.celebration}
                     onChange={this.onCheckboxChanged}
                     onClick={this.validateField}
-                    className='d-flex w-100 justify-content-between flex-wrap'
-                > {
-                        [
-                            { value: 0, label: "День народження" },
-                            { value: 1, label: "Новий рік" },
-                            { value: 2, label: "Жіночий день" },
-                            { value: 3, label: "Чоловічий день" },
-                            { value: 4, label: "День матері" },
-                            { value: 5, label: "Інші" }
-                        ].map((item) => < label className='d-flex align-items-center w-50'>{this.checkItem(item.value)} <Checkbox value={item.value} /> {item.label}</label>)
+                    className='d-flex w-100 justify-content-between flex-wrap pl-1 h-100'
+                    > {
+                            [
+                                { value: 0, label: "День народження" },
+                                { value: 1, label: "Новий рік" },
+                                { value: 2, label: "Жіночий день" }
+                            ].map((item) => <label className='d-flex align-items-center w-50 check-label'>
+                                {
+                                    this.state.celebration.indexOf(item.value) !== -1 ?
+                                        <span className='d-flex justify-content-center align-items-center mr-3 checkbox-true animated scaleIn'><Check className='check' /></span>
+                                        : <span className='d-flex justify-content-center align-items-center mr-3 checkbox-false'><Plus className='check' /></span>
+
+                                }
+                                <Checkbox value={item.value} /> {item.label}</label>)
+                          
+                    }
+                    {[
+                        { value: 3, label: "Чоловічий день" },
+                        { value: 4, label: "День матері" },
+                        { value: 5, label: "Інші" }
+                    ].map((item) => <label className='d-flex align-items-center w-50 check-label'>
+                        {
+                            this.state.celebration.indexOf(item.value) !== -1 ?
+                                        <span className='d-flex justify-content-center align-items-center mr-3 checkbox-true2'><Check className='check animated scaleIn' /></span>
+                                : <span className='d-flex justify-content-center align-items-center mr-3 checkbox-false2'></span>
+
+                        }
+
+                        <Checkbox value={item.value} /> {item.label}</label>)
                     }
                 </CheckboxGroup>
-                <div className='d-flex justify-content-around'>
+                </div>
+                <div className='d-flex justify-content-around mt-3'>
                     {check}
                     <div className='but' onClick={this.props.toClose}><X size="5vh" color='#600303' /></div>
                 </div>
