@@ -13,14 +13,14 @@ namespace SurpriseU.Controllers
     [Route("api/Presents")]
     public class PresentsController : Controller
     {
-        private readonly PresentsContext _context;
+        private readonly ApplicationContext _context;
 
         public ActionResult Index()
         {
             return View(_context.Presents.ToList());
         }
 
-        public PresentsController(PresentsContext context)
+        public PresentsController(ApplicationContext context)
         {
             _context = context;
         }

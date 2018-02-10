@@ -132,7 +132,7 @@ class SignUp extends React.Component {
                         value={this.state.name}
                         onChange={this.onChange}
                         onBlur={this.validateField}
-                        maxLength='20'
+                        
                         type="name"/>
                     {this.isErrorField(this.state.formErrors.name)}
                     <input className={`inpt ${this.errorClass(this.state.formErrors.email)}`}
