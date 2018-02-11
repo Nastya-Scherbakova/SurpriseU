@@ -145,10 +145,7 @@ namespace SurpriseU.Models
                 .HasOne(pt => pt.User)
                 .WithMany(p => p.suggestedPresents);
 
-            //-------Users with presents, that was selected for them (one-to-many)
-            modelBuilder.Entity<Present>()
-                .HasOne(pt => pt.User)
-                .WithMany(p => p.suggestedPresents);
+            
 
 
 

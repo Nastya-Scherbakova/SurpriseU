@@ -16,13 +16,13 @@ namespace SurpriseU
 {
     public class Program
     {
-        public static void Main(string[] args)
-        {
+        //public static void Main(string[] args)
+        //{
 
             
-            BuildWebHost(args).Run();
-        }
-        public static async Task MainAsync(string[] args)
+        //    BuildWebHost(args).Run();
+        //}
+        public static async Task Main(string[] args)
         {
             //BuildWebHost(args).Run();
             var host = BuildWebHost(args);
@@ -31,6 +31,8 @@ namespace SurpriseU
                 var services = scope.ServiceProvider;
                 try
                 {
+                    var context = services.GetRequiredService<ApplicationContext>();
+                    PresentTagInitializer.Initialize(context);
                     var userManager = services.GetRequiredService<UserManager<User>>();
                     var rolesManager = services.GetRequiredService<RoleManager<IdentityRole>>();
                     await RoleInitializer.InitializeAsync(userManager, rolesManager);
@@ -41,6 +43,7 @@ namespace SurpriseU
                     logger.LogError(ex, "An error occurred while seeding the database.");
                 }
             }
+            host.Run();
         }
 
         public static IWebHost BuildWebHost(string[] args) =>

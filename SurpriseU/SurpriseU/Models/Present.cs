@@ -37,13 +37,12 @@ namespace SurpriseU.Models
         }
     }
 
-        public enum PresentsGender
-        {
-            All,
-            Male,
-            Female
-        }
-       
-
+    public enum PresentsGender
+    {
+        All,
+        Male,
+        Female
     }
-    
+
+
+}

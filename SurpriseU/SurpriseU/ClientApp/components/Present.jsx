@@ -57,8 +57,8 @@ export class Present extends React.Component {
                     </NavLink>
                    
                     
-                    {/* <p><button onClick={this.onClick}>Delete</button></p>
-                    <p><button onClick={this.handleOpenModal}>Edit</button></p>*/}
+                     <p><button onClick={this.onClick}>Delete</button></p>
+                    <p><button onClick={this.handleOpenModal}>Edit</button></p>
                     <div className="d-flex justify-content-center align-items-center" onClick={this.onLike}>
                         {
                             this.state.liked ? <svg className='animated opac' xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink"
