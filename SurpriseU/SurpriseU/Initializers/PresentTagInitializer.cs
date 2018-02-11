@@ -22,7 +22,7 @@ namespace SurpriseU.Initializers
                         Title = "Кекс",
                         Content = "Смачний подарунок для твоєї пишечки",
                         Gender = PresentsGender.All,
-                        Photo  = "http://mom-story.com/wp-content/uploads/2015/04/romovyy-keks-s-izyumom3.jpg",
+                        Photo  = "http://s017.radikal.ru/i406/1309/c6/b9a2bf51866b.png",
                         StartAge = 10,
                         EndAge  = 85
                         //List<PresentTag> Tags
@@ -148,7 +148,7 @@ namespace SurpriseU.Initializers
                               Title = "Настільна гра",
                               Content = "Дозволить Вам частіше збиратись компанією",
                               Gender = PresentsGender.All,
-                              Photo = "http://i.grenka.ua/shop/1/1/379/Igra-prestolov_23051_3.png",
+                              Photo = "https://desktopgames.com.ua/games/154/game-of-thrones-card-game-f0.jpg",
                               StartAge = 8,
                               EndAge = 85,
                               //List<PresentTag> Tags
