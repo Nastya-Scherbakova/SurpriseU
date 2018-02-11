@@ -22,7 +22,7 @@ namespace SurpriseU.Initializers
                         Title = "Кекс",
                         Content = "Смачний подарунок для твоєї пишечки",
                         Gender = PresentsGender.All,
-                        Photo  = "http://qoo.by/3PET",
+                        Photo  = "http://mom-story.com/wp-content/uploads/2015/04/romovyy-keks-s-izyumom3.jpg",
                         StartAge = 10,
                         EndAge  = 85
                         //List<PresentTag> Tags
@@ -36,7 +36,7 @@ namespace SurpriseU.Initializers
                         Title = "Торт",
                         Content = "Смачний подарунок до вашого святкового столу",
                         Gender = PresentsGender.All,
-                        Photo = "http://qoo.by/3PES",
+                        Photo = "http://eurotort.com.ua/katalog-tortov/images/thumbs/405.jpg",
                         StartAge = 5,
                         EndAge = 85,
                         //List<PresentTag> Tags
@@ -50,7 +50,7 @@ namespace SurpriseU.Initializers
                         Title = "PowerBank",
                         Content = "Залишайся на зв'язку навіть під час подорожі",
                         Gender = PresentsGender.All,
-                        Photo = "http://qoo.by/3PEQ",
+                        Photo = "https://www.bhphotovideo.com/images/images2500x2500/ijoy_pww_10k_red_10000_mah_dual_usb_1203465.jpg",
                         StartAge = 14,
                         EndAge = 85,
                         //List<PresentTag> Tags
@@ -64,7 +64,7 @@ namespace SurpriseU.Initializers
                          Title = "Кульки",
                          Content = "Подаруй легкість та яскравість",
                          Gender = PresentsGender.Female,
-                         Photo = "http://qoo.by/3PEP",
+                         Photo = "http://ralphsrentall.com/wp-content/uploads/2016/02/balloons.png",
                          StartAge = 10,
                          EndAge = 85,
                          //List<PresentTag> Tags
@@ -78,7 +78,7 @@ namespace SurpriseU.Initializers
                           Title = "Святковий набір",
                           Content = "Чудовий вибір, коли бажаєш підкреслити різносторонність людини",
                           Gender = PresentsGender.All,
-                          Photo = "http://qoo.by/3PF4",
+                          Photo = "https://merrybee.com.ua/wp-content/uploads/2017/05/DSC_1829-min.jpg",
                           StartAge = 16,
                           EndAge = 85,
                           //List<PresentTag> Tags
@@ -92,7 +92,7 @@ namespace SurpriseU.Initializers
                            Title = "Навушники",
                            Content = "Накращий подарунок для твого геймера",
                            Gender = PresentsGender.Male,
-                           Photo = "http://qoo.by/3PF6",
+                           Photo = "http://shop.vodafone.ua/uploads/shop/products/large/ef72b3c1f04d226e3cb6235d1dfdf946.jpg",
                            StartAge = 10,
                            EndAge = 40,
                            //List<PresentTag> Tags
@@ -106,7 +106,7 @@ namespace SurpriseU.Initializers
                             Title = "XBox 360",
                             Content = "Смачний подарунок для твоєї пишечки",
                             Gender = PresentsGender.Male,
-                            Photo = "http://qoo.by/3PFp",
+                            Photo = "https://super.com.ua/upload/iblock/cfa/cfa0c67b83db5103d934a8146138677b.jpg",
                             StartAge = 10,
                             EndAge = 85,
                             //List<PresentTag> Tags
@@ -120,7 +120,7 @@ namespace SurpriseU.Initializers
                              Title = "L.O.L.",
                              Content = "Подарунок для маленької красуні",
                              Gender = PresentsGender.Female,
-                             Photo = "http://qoo.by/3PFq",
+                             Photo = "https://i5.walmartimages.com/asr/220907a5-d0ff-4af9-bf26-555140d0c3d0_1.87f45cc77cc82c98d7af3690ee092dbe.jpeg?odnHeight=450&odnWidth=450&odnBg=FFFFFF",
                              StartAge = 3,
                              EndAge = 11,
                              //List<PresentTag> Tags
@@ -134,7 +134,7 @@ namespace SurpriseU.Initializers
                               Title = "LunchBox",
                               Content = "Завжди ситий - завжди щасливий",
                               Gender = PresentsGender.All,
-                              Photo = "http://qoo.by/3PFA",
+                              Photo = "https://img.newchic.com/thumb/large/oaupload/newchic/images/F1/E1/78ac4ff0-7f75-416e-8061-45266b8f86b7.jpg",
                               StartAge = 10,
                               EndAge = 85,
                               //List<PresentTag> Tags
@@ -148,7 +148,7 @@ namespace SurpriseU.Initializers
                               Title = "Настільна гра",
                               Content = "Дозволить Вам частіше збиратись компанією",
                               Gender = PresentsGender.All,
-                              Photo = "http://qoo.by/3PFH",
+                              Photo = "http://i.grenka.ua/shop/1/1/379/Igra-prestolov_23051_3.png",
                               StartAge = 8,
                               EndAge = 85,
                               //List<PresentTag> Tags
@@ -162,7 +162,7 @@ namespace SurpriseU.Initializers
                               Title = "Щоденник Insta-girl",
                               Content = "Допоможе тобі організувати свій день та Instagram",
                               Gender = PresentsGender.Female,
-                              Photo = "http://qoo.by/3PFA",
+                              Photo = "http://shop.djournal.com.ua/published/publicdata/DMAGAZIN/attachments/SC/products_pictures/oh-my-book-ua-bir-11.jpg",
                               StartAge = 8,
                               EndAge = 50,
                               //List<PresentTag> Tags
