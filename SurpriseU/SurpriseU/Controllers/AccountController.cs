@@ -13,13 +13,14 @@ using SurpriseU.Services;
 using SurpriseU.ViewModels;
 
 
+
 namespace SurpriseU.Controllers
 {
     public class AccountController : Controller
     {
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
-        //private readonly IEmailSender _emailSender;
+       // private readonly IEmailSender _emailSender;
         private readonly ILogger _logger;
 
         public AccountController(

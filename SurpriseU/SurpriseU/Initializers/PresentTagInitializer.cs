@@ -19,10 +19,10 @@ namespace SurpriseU.Initializers
                     new Present
                     {
                         Id = "1",
-                        Title = "Кекс",
-                        Content = "Смачний подарунок для твоєї пишечки",
+                        Title = "Капкейк",
+                        Content = "Десерт, який представляє собою бісквітне тістечко. На бісквіт красиво викладається начинка. Якщо перекладати назву, то вийде «тістечко у формі чашки».",
                         Gender = PresentsGender.All,
-                        Photo  = "http://s017.radikal.ru/i406/1309/c6/b9a2bf51866b.png",
+                        Photo  = "https://www.handletheheat.com/wp-content/uploads/2015/02/Chocolate-Raspberry-Cupcakes-square.jpg",
                         StartAge = 10,
                         EndAge  = 85
                         //List<PresentTag> Tags
@@ -146,9 +146,9 @@ namespace SurpriseU.Initializers
                           {
                               Id = "10",
                               Title = "Настільна гра",
-                              Content = "Дозволить Вам частіше збиратись компанією",
+                              Content = "Термін, застосовуваний щодо ігор, в яких здійснюються маніпуляції з ігровими предметами на плоскій поверхні (зазвичай столі). Настільні ігри переважно розраховані на декількох людей",
                               Gender = PresentsGender.All,
-                              Photo = "https://desktopgames.com.ua/games/154/game-of-thrones-card-game-f0.jpg",
+                              Photo = "https://hobbyworld.com.ua/published/publicdata/HOBBYWOR/attachments/SC/products_pictures/P4250261-1024x1024_enl.jpg",
                               StartAge = 8,
                               EndAge = 85,
                               //List<PresentTag> Tags

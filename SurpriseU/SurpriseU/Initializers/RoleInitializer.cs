@@ -33,7 +33,7 @@ namespace SurpriseU.Initializers
                 {
                     await userManager.AddToRoleAsync(admin, "admin");
                     await userManager.AddToRoleAsync(admin2, "admin");
-
+                    
                 }
             }
         }
