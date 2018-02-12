@@ -55,10 +55,8 @@ export class Present extends React.Component {
                         <div className="d-flex justify-content-center align-items-center arrow-right"></div>
                         </div>
                     </NavLink>
-                   
-                    
-                    {/* <p><button onClick={this.onClick}>Delete</button></p>
-                    <p><button onClick={this.handleOpenModal}>Edit</button></p>*/}
+                    <p><button onClick={this.onClick}>Delete</button></p>
+                    <p><button onClick={this.handleOpenModal}>Edit</button></p>
                     <div className="d-flex justify-content-center align-items-center" onClick={this.onLike}>
                         {
                             this.state.liked ? <svg className='animated opac' xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink"
@@ -212,7 +210,6 @@ export class PresentsList extends React.Component {
     componentDidMount() {
         this.loadData();
     } 
-
     // удаление объекта
     onRemovePresent(present) {
         if (present) {
@@ -231,10 +228,11 @@ export class PresentsList extends React.Component {
     render() {
         var remove = this.onRemovePresent;
         var loadData = this.loadData;
+       
         return <div className="d-flex flex-row  flex-wrap justify-content-around">
                 {
-                    this.state.presents.map(function (present) {
-                    return <Present key={present.id} present={present} onRemove={remove} loadData={loadData} />
+                this.state.presents.map(function (present) {
+                    return <Present key={present.id} present={present} onRemove={remove}  />
                     })
                 }
         </div>;
@@ -254,7 +252,7 @@ export class PresentForm extends React.Component {
             startAge: props.present.startAge,
             endAge: props.present.endAge,
             likes: props.present.likes,
-            celebration: props.present.celebration,
+            celebration: [],
             formErrors: {
                 title: '',
                 content: '',
@@ -359,6 +357,7 @@ export class PresentForm extends React.Component {
             allFields = field[0] && field[1] && field[2] && field[3] && field[4] && field[5] && field[6],
             check = allFields ? <div className='but' onMouseDown={this.onSubmit} onMouseUp={this.props.toClose}><Check size="5vh" color='#031560' /> </div> :
                 <div className='but' onMouseDown={this.onSubmit} onMouseUp={this.props.toClose}><Check size="5vh" color='grey' /> </div>;
+        let celebrationNew = (typeof this.state.celebration == 'array') ? <p>array</p> : <p>not array</p>;
         return (
             <form className='w-75 new-present-form d-flex flex-column justify-content-around align-items-center' onSubmit={this.onSubmit}>
 
@@ -442,22 +441,11 @@ export class PresentForm extends React.Component {
                     onChange={this.onCheckboxChanged}
                     onClick={this.validateField}
                     className='d-flex w-100 justify-content-between flex-wrap pl-1 h-100'
-                    > {
-                            [
-                                { value: 0, label: "День народження" },
-                                { value: 1, label: "Новий рік" },
-                                { value: 2, label: "Жіночий день" }
-                            ].map((item) => <label className='d-flex align-items-center w-50 check-label'>
-                                {
-                                    this.state.celebration.indexOf(item.value) !== -1 ?
-                                        <span className='d-flex justify-content-center align-items-center mr-3 checkbox-true animated scaleIn'><Check className='check' /></span>
-                                        : <span className='d-flex justify-content-center align-items-center mr-3 checkbox-false'><Plus className='check' /></span>
-
-                                }
-                                <Checkbox value={item.value} /> {item.label}</label>)
-                          
-                    }
+                    > 
                     {[
+                            { value: 0, label: "День народження" },
+                            { value: 1, label: "Новий рік" },
+                            { value: 2, label: "Жіночий день" },
                         { value: 3, label: "Чоловічий день" },
                         { value: 4, label: "День матері" },
                         { value: 5, label: "Інші" }
@@ -472,6 +460,7 @@ export class PresentForm extends React.Component {
                         <Checkbox value={item.value} /> {item.label}</label>)
                     }
                 </CheckboxGroup>
+                    
                 </div>
                 <div className='d-flex justify-content-around mt-3'>
                     {check}

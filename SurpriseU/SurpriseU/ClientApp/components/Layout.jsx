@@ -1,12 +1,24 @@
 import * as React from 'react';
+import { Switch, Route, withRouter } from 'react-router-dom';
+import { inject, observer } from 'mobx-react';
 import { Menu } from './Menu.jsx';
 import '../css/style.css';
-export interface LayoutProps {
-    children?: React.ReactNode;
-}
 
-export class Layout extends React.Component<LayoutProps, {}> {
-    public render() {
+
+
+
+
+@inject('commonStore')
+@withRouter
+@observer
+
+
+export class Layout extends React.Component{
+    
+
+
+
+    render() {
         return <div >
             <div className='container-fluid pad'>
                     <Menu />
