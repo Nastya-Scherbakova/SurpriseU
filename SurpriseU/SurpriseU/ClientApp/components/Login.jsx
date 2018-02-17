@@ -1,8 +1,13 @@
 ﻿import * as React from 'react';
-import '../css/style.css';
-import '../css/bootstrap.css';
+import { inject, observer } from 'mobx-react';
+import { withRouter, Link } from 'react-router-dom';
+import {  Check } from 'react-feather';
 
-class SignUp extends React.Component {
+
+@inject('authStore')
+@withRouter
+@observer
+class Register extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -10,14 +15,15 @@ class SignUp extends React.Component {
             email: '',
             gender: null,
             password: '',
+            password2: '',
             formErrors: {
                 name: '',
                 email: '',
-                password: ''
+                password: '',
+                password2: ''
             },
             formValid: [false, false, false, false]
         };
-        this.onAddUser = this.onAddUser.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
         this.onChange = this.onChange.bind(this);
         this.validateField = this.validateField.bind(this);
@@ -25,51 +31,18 @@ class SignUp extends React.Component {
         this.isErrorField = this.isErrorField.bind(this);
     }
 
-    onChange(e) {
-        this.setState({ [e.target.name]: e.target.value });
-    }
+    onChange = e => this.setState({ [e.target.name]: e.target.value });
 
-    onSubmit(e) {
+    onSubmit = e => {
         e.preventDefault();
-        var newName = this.state.name,
-            newPassword = this.state.password,
-            newGender = Number(this.state.gender),
-            newEmail = this.state.email;
-        this.onAddUser({
-            name: newName,
-            email: newEmail,
-            gender: newGender,
-            password: newPassword
-        });
-        this.setState({
-            name: props.name,
-            email: props.email,
-            gender: props.gender,
-            password: props.password
-        });
-
+        this.props.authStore.register({
+            name: this.state.name,
+            email: this.state.email,
+            password: this.state.password,
+            gender: Number(this.state.gender)
+        })
+            .then(() => this.props.history.replace('/'));
     };
-
-    onAddUser(user) {
-        if (user) {
-            var data = JSON.stringify({
-                "name": user.name,
-                "email": user.email,
-                "password": user.password,
-                "gender": user.gender,
-            });
-            var xhr = new XMLHttpRequest();
-            xhr.open("post", this.props.apiUrl, true);
-            xhr.setRequestHeader("Content-type", "application/json");
-            xhr.onload = function () {
-                if (xhr.status == 200) {
-                    this.loadData();
-                }
-                else alert(xhr.status + ': ' + xhr.statusText);
-            }.bind(this);
-            xhr.send(data);
-        }
-    }
 
     validateField(e) {
         let fieldErrors = this.state.formErrors,
@@ -96,6 +69,11 @@ class SignUp extends React.Component {
                 fieldErrors.password = fieldValid ? '' : 'Введіть коректний пароль';
                 formValid[3] = fieldValid ? true : false;
                 break;
+            case 'password2':
+                fieldValid = value == this.state.password;
+                fieldErrors.password = fieldValid ? '' : 'Паролі відрізняються';
+                formValid[3] = fieldValid ? true : false;
+                break;
             default:
                 break;
         }
@@ -110,21 +88,9 @@ class SignUp extends React.Component {
     isErrorField = (error) => error.length > 0 ? <p className='d-flex justify-content-center'>{error}</p> : <p > </p>;
 
     render() {
-        const socialIcons = [' tw ', ' go ', ' face '].map((icon) =>
-            <a key={icon} className={"d-flex justify-content-center align-items-center social-icon" + icon}></a>
-        );
         let field = this.state.formValid,
-            allFields = field[0] && field[1] && field[2] && field[3],
-            check = allFields ? <div onClick={this.onSubmit} className="sbm-but">Зареєструватися</div> :
-                <div className="sbm-but">Зареєструватися</div>;
-        return <div>
-            <div className="d-flex justify-content-center flex-column  align-items-center">
-                <div className="d-flex flex-row">
-                    {socialIcons}
-                </div>
-            </div>
-            <form onSubmit={this.onSubmit}>
-                <div className="d-flex justify-content-around flex-column input-area ">
+            allFields = field[0] && field[1] && field[2] && field[3];
+        return <form className='form d-flex justify-content-around flex-column align-items-center' onSubmit={this.onSubmit}>
                     <input className={`inpt ${this.errorClass(this.state.formErrors.name)}`}
                         name="name"
                         required="required" 
@@ -132,7 +98,6 @@ class SignUp extends React.Component {
                         value={this.state.name}
                         onChange={this.onChange}
                         onBlur={this.validateField}
-                        maxLength='20'
                         type="name"/>
                     {this.isErrorField(this.state.formErrors.name)}
                     <input className={`inpt ${this.errorClass(this.state.formErrors.email)}`}
@@ -142,7 +107,6 @@ class SignUp extends React.Component {
                         value={this.state.email}
                         onChange={this.onChange}
                         onBlur={this.validateField}
-                        maxLength='20'
                         type="email" />
                     {this.isErrorField(this.state.formErrors.email)}
                     <input className={`inpt ${this.errorClass(this.state.formErrors.password)}`}
@@ -152,56 +116,99 @@ class SignUp extends React.Component {
                         value={this.state.password}
                         onChange={this.onChange}
                         onBlur={this.validateField}
-                        maxLength='20'
                         type="password" />
                     {this.isErrorField(this.state.formErrors.password)}
-                </div>
-                <div className='w-100 mb-4 gender d-flex justify-content-around'>
-                    {
-                        [
-                            { value: 0, gender: "male" },
-                            { value: 1, gender: "female" }
-                        ].map((item) => <label>
-                            <input type="radio" value={item.value} name="gender" checked={this.state.gender === item.value} onChange={this.onChange} onClick={this.validateField} />
-                            <div className={(this.state.gender == item.value) ? (item.gender + ' ' + item.gender + '-checked') : (item.gender)} ></div>
-                        </label>)
-                    }
-                </div>
-                <div  className="submit-wrap d-flex align-items-center">
-                    {check}
-                </div>
-            </form>
-        </div>;
+                    <input className={`inpt ${this.errorClass(this.state.formErrors.password2)}`}
+                        required="required"
+                        name="password2"
+                        placeholder="Повторіть пароль"
+                        value={this.state.password2}
+                        onChange={this.onChange}
+                        onBlur={this.validateField}
+                        type="password" />
+                    {this.isErrorField(this.state.formErrors.password2)}
+
+                    <div className='w-75 gender d-flex justify-content-center'>
+                <label className='w-50 d-flex justify-content-center'>
+                            <input type="radio" value={0} name="gender" checked={this.state.gender === 0} onChange={this.onChange} onClick={this.validateField} />
+                            <div className={(this.state.gender == 0) ? ('male male' + '-checked') : 'male'} ></div>
+                        </label>
+                <label className='w-50 d-flex justify-content-center'>
+                            <input type="radio" value={1} name="gender" checked={this.state.gender === 1} onChange={this.onChange} onClick={this.validateField} />
+                            <div className={(this.state.gender == 1) ? ('female female' + '-checked') : 'female'} ></div>
+                        </label>
+                    </div>
+                    <div onClick={this.onSubmit} className="sbm-but mb-3 d-flex justify-content-center align-items-center">Зареєструватися</div>
+            </form>;
 
     }
 }
 
 
 
+const socialIcons = [' tw ', ' go ', ' face '].map((icon) =>
+    <a key={icon} className={"d-flex justify-content-center align-items-center social-icon" + icon}></a>
+);
 
-class SignIn extends React.Component {
+
+@inject('authStore')
+@withRouter
+@observer
+class Login extends React.Component {
+    constructor() {
+        super();
+        this.state = {
+            email: '',
+            password: '',
+            remember: false
+        };
+        this.onSubmit = this.onSubmit.bind(this);
+        this.onChange = this.onChange.bind(this);
+    }
+
+    onChange = e => this.setState({ [e.target.name]: e.target.value });
+
+    onSubmit = e => {
+        e.preventDefault();
+        this.props.authStore.login({
+            email: this.state.email,
+            password: this.state.password
+        })
+    };
+
     render() {
-        const socialIcons = [' tw ', ' go ', ' face '].map((icon) =>
-            <a key={icon} className={"d-flex justify-content-center align-items-center social-icon"+icon}></a>
-        );
-
-        return <div>
-            <form action="#" method="post">
+        const { values, errors, inProgress } = this.props.authStore;
+        return <form className='form d-flex justify-content-around flex-column  align-items-center' onSubmit={this.onSubmit}>
                 <div className="d-flex justify-content-center flex-column  align-items-center">
                     <div className="d-flex flex-row">
                         {socialIcons}
                     </div>
                 </div>
-                <div className="d-flex justify-content-around flex-column input-area-2 ">
-                    <input type="email" name="email" id="email" className="inpt" required="required" placeholder="Логін" />
-                    <input type="password" name="password" id="password" className="inpt" required="required" placeholder="Пароль" />
-                    <input type="submit" value="Увійти" className="sbm-but" />
-                </div>
-                <div className="d-flex justify-content-center">Забули пароль?</div>
-                
+                <input className='inpt'
+                        name="email"
+                        required="required"
+                        placeholder="Логін"
+                        value={this.state.email}
+                        onChange={this.onChange}
+                        type="email" />
+                <input className='inpt'
+                        name="password"
+                        required="required"
+                        placeholder="Пароль"
+                        value={this.state.password}
+                        onChange={this.onChange}
+                        type="password" />
+                    <div onClick={this.onSubmit} className="sbm-but d-flex justify-content-center align-items-center">Увійти</div>
+                    
+                    <label className='d-flex justify-content-center align-items-center w-100 check-label'>
+                        {
+                            this.state.remember ? <span className='d-flex justify-content-center align-items-center mr-3 checkbox-true'><Check className='check animated scaleIn' /></span>
+                        : <span className='d-flex justify-content-center align-items-center mr-3 checkbox-false'><Check className='check animated scaleIn' /></span>
 
-            </form>
-        </div>;
+                        }
+                       Запам'ятати мене</label>
+                    <div className="d-flex justify-content-center">Забули пароль?</div>
+            </form>;
 
     }
 }
@@ -210,44 +217,30 @@ class SignIn extends React.Component {
 export class LogIn extends React.Component {
     constructor(props) {
         super(props);
-        this.onTab = this.onTab.bind(this);
         this.state = {
-            signIn: true
+            signIn: 0
         };
+        this.onTab = this.onTab.bind(this);
     }
+    onTab = e => this.setState({ signIn: e.target.value });
 
-    onTab() {
-        this.setState(prevState => ({
-            signIn: !prevState.signIn
-        }));
-    }
     render() {
-        const signIn = this.state.signIn;
-        let classI, classU, spans = null;
-        if (signIn) {
-            classI = 'tab active-tab';
-            classU = 'tab ';
-        } else {
-            classI = 'tab';
-            classU = 'tab active-tab';
-        }
         return <div className='w-100 h-100 d-flex justify-content-center'>
             <div className='log-form row'>
             <div className="image"></div>
-            <div className="content ">
-                <div >
-                    <div className=" d-flex  justify-content-center align-items-center">
-                    <h2 className="name">SurpriseU</h2>
+            <div className="content d-flex flex-column justify-content-around align-items-center">
+                    <div className=" d-flex name justify-content-center align-items-center">
+                        <h2>SurpriseU</h2>
                     </div>
-                        
-                    <div className="tabs d-flex justify-content-start">
-                        <span className={classI}><a onClick={this.onTab}>Вхід</a></span>
-                        <span className={classU}><a onClick={this.onTab}>Реєстрація</a></span>
+                    <div className="tabs d-flex justify-content-start align-items-bottom ">
+                            <label className={(this.state.signIn == 0) ? ('tab tab-active') : ('tab')}> Вхід
+                                <input type="radio" value={0} onClick={this.onTab} />
+                            </label>
+                            <label className={(this.state.signIn == 1) ? ('tab tab-active') : ('tab')}>Реєстрація
+                                <input type="radio" value={1} onClick={this.onTab} />
+                            </label>
                     </div>
-                </div>
-                <div>
-                        {signIn ? <SignIn /> : <SignUp apiUrl="/Account/Register"/>}
-                </div>
+                {(this.state.signIn == 0) ? <Login /> : <Register />}
             </div>
             </div>
         </div>;

@@ -1,0 +1,451 @@
+﻿@font-face {
+    font-family: "FontAwesome";
+    font-weight: normal;
+    font-style: normal;
+    src: url("http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/fonts/fontawesome-webfont.eot?v=4.3.0");
+    src: url("http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/fonts/fontawesome-webfont.eot?#iefix&v=4.3.0") format("embedded-opentype"), url("http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/fonts/fontawesome-webfont.woff2?v=4.3.0") format("woff2"), url("http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/fonts/fontawesome-webfont.woff?v=4.3.0") format("woff"), url("http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/fonts/fontawesome-webfont.ttf?v=4.3.0") format("truetype"), url("http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/fonts/fontawesome-webfont.svg?v=4.3.0#fontawesomeregular") format("svg");
+}
+
+
+@mixin for-size($size) {
+    @if $size == phone-only {
+        @media (max-width: 576px) {
+            @content;
+        }
+    }
+    @else if $size == phone-landscape-up {
+        @media (min-width: 568px) {
+            @content;
+        }
+    }
+    @else if $size == tablet-portrait-up {
+        @media (min-width: 768px) {
+            @content;
+        }
+    }
+    @else if $size == tablet-landscape-up {
+        @media (min-width: 900px) {
+            @content;
+        }
+    }
+    @else if $size == desktop-up {
+        @media (min-width: 1200px) {
+            @content;
+        }
+    }
+}
+
+@mixin for-orient($or) {
+    @if $or == port {
+        @media (orientation: portrait) {
+            @content;
+        }
+    }
+    @else if $or == land {
+        @media (orientation: landscape) {
+            @content;
+        }
+    }
+}
+
+$darkblue: #031560;
+
+@mixin keyframes($name) {
+    @-webkit-keyframes #{$name} {
+        @content;
+    }
+
+    @-moz-keyframes #{$name} {
+        @content;
+    }
+
+    @-ms-keyframes #{$name} {
+        @content;
+    }
+
+    @keyframes #{$name} {
+        @content;
+    }
+}
+
+
+
+
+
+/*PROFILE*/
+.profile {
+    position: absolute;
+    background: url('https://d2v9y0dukr6mq2.cloudfront.net/video/thumbnail/Vd3bj2jPe/smoke-background-abstract-blue-smoke-cloud-smoke-in-slow-motion-white-smoke-slowly-floating-through-space-against-black-background-smoke-effect-fog-effect-smoke-machine-studio-shot_rnxne320__F0000.png');
+    background-size: cover;
+
+    .name {
+        position: absolute;
+        height: 5vh;
+        font-family: 'Lobster', cursive;
+        font-size: 3em;
+        top: -2vh;
+        color: $darkblue;
+    }
+
+    .profile-area {
+        margin: auto;
+        display: block;
+        position: relative;
+
+        @include for-size( phone-landscape-up ) {
+            margin-top: 14vh;
+        }
+
+        @include for-size(tablet-portrait-up) {
+            margin-top: 16vh;
+        }
+
+        @include for-orient(port) {
+            width: 80vw;
+            height: 80vh;
+        }
+
+        @include for-orient(land) {
+            width: 60vw;
+            height: 78vh;
+        }
+
+        @include for-size(phone-only) {
+            width: 90vw;
+            height: 85vh;
+            margin-top: 12vh;
+        }
+
+        .info {
+            border-radius: 2vh;
+            background: rgba(255,255,255,0.2);
+            box-shadow: 0 3px 5px 0 rgba(0,0,0,0.1);
+            display: block;
+            position: relative;
+            padding: 1vh;
+
+            @include for-orient(port) {
+                height: 45%;
+            }
+
+            @include for-orient(land) {
+                height: 45vh;
+            }
+
+            .main {
+                width: 30%;
+
+                .img {
+
+                    @include for-orient(port) {
+                        width: 15vh;
+                        height: 15vh;
+                    }
+
+                    @include for-orient(land) {
+                        width: 20vh;
+                        height: 20vh;
+                    }
+
+                    box-shadow: 0 0 5px 0 rgba(0,0,0,0.5);
+                }
+
+                .social-icon {
+                    margin: 5px;
+                    -webkit-transition: all 0.3s ease-in-out;
+                    -moz-transition: all 0.3s ease-in-out;
+                    -o-transition: all 0.3s ease-in-out;
+                    transition: all 0.3s ease-in-out;
+                    color: #3A4260;
+
+                    &:hover {
+                        -webkit-transform: scale(1.1);
+                        -moz-transform: scale(1.1);
+                        -ms-transform: scale(1.1);
+                        -o-transform: scale(1.1);
+                        transform: scale(1.1);
+                    }
+                }
+
+                @each $item, $content, $color in (insta, 16d, #517fa4), (tel, 3fe, #0088cc), (face, 39e, #3b5998) {
+                    .#{$item} {
+                        &::before {
+                            font-family: "Font Awesome 5 Brands";
+                            content: "\f#{$content}";
+                            font-size: 3vh;
+                        }
+
+                        &:hover::before {
+                            color: #{$color};
+                        }
+                    }
+                }
+
+                .button {
+                    height: 30%;
+                    width: 75%;
+                    background: blue;
+                }
+            }
+
+            .other-data {
+                width: 55%;
+                margin-top: 7%;
+
+                .age {
+                    font-weight: bold;
+                }
+
+                .likes {
+                    overflow: hidden;
+
+                    .like-title {
+                        font-weight: bold;
+                        margin-right: 5%;
+                    }
+
+                    input {
+                        width: 4vh;
+                        border: 1px solid $darkblue;
+                        background-color: $darkblue;
+                        border-radius: 2vh;
+                        color: #fbfbfb;
+                        transition: all 300ms ease-in-out;
+                        margin: 0.2vh;
+                        padding: 0.4vh 1vh;
+
+                        &:focus {
+                            width: 10vh;
+                            padding: 0.4vh 1.5vh;
+                            outline: none;
+                            background-color: #fbfbfb;
+                            color: $darkblue;
+                        }
+
+                        &::-webkit-input-placeholder {
+                            color: #fbfbfb;
+                        }
+
+                        &::-moz-placeholder {
+                            color: #fbfbfb;
+                        }
+                    }
+
+                    .tag {
+                        border: 1px solid $darkblue;
+                        background-color: $darkblue;
+                        border-radius: 2vh;
+                        padding: 0.4vh 1.5vh;
+                        color: #fbfbfb;
+                        transition: all 300ms ease-in-out;
+                        margin: 0.2vh;
+
+                        &:hover {
+                            border: 1px solid $darkblue;
+                            color: $darkblue;
+                            background-color: #fbfbfb;
+                        }
+                    }
+                }
+
+
+                .friends {
+                    margin: auto;
+                    border-radius: 2vh;
+                    display: block;
+                    background: rgba(255,255,255,0.2);
+                    box-shadow: 0 3px 5px 0 rgba(0,0,0,0.1);
+                    position: relative;
+                    overflow: hidden;
+
+                    @include for-orient(port) {
+                        height: 45%;
+                        width: 100%;
+                    }
+
+                    @include for-orient(land) {
+                        height: 45%;
+                        width: 100%;
+                    }
+
+                    .nav {
+                        background: linear-gradient(to right, #FFFFFF, #C1C3FF);
+                        width: 100%;
+                        border-radius: 2vh 2vh 0 0;
+                        letter-spacing: 1px;
+                        text-transform: uppercase;
+                        font-size: 1.3em;
+
+                        @include for-orient(port) {
+                            height: 25%;
+                        }
+
+                        @include for-orient(land) {
+                            height: 30%;
+                        }
+                    }
+
+                    .content2 {
+                        @include for-orient(port) {
+                            -ms-flex-wrap: nowrap !important;
+                            flex-wrap: nowrap !important;
+                            justify-content: flex-start;
+                        }
+
+                        @include for-orient(land) {
+                            -ms-flex-wrap: wrap !important;
+                            flex-wrap: wrap !important;
+                            justify-content: space-around;
+                        }
+                    }
+
+                    .user-present {
+                        @include for-orient(port) {
+                            height: 10vh;
+                            width: 10vh;
+                        }
+
+                        @include for-orient(land) {
+                            height: 15vh;
+                            width: 15vh;
+                        }
+
+                        margin: 1vh;
+                        background: rgba(255,255,255,0.4);
+                    }
+                }
+            }
+        }
+
+
+        .content {
+            @include for-orient(port) {
+                -webkit-box-orient: vertical !important;
+                -webkit-box-direction: normal !important;
+                -ms-flex-direction: column !important;
+                flex-direction: column !important;
+                justify-content: space-around;
+                height: 42vh;
+                width: 100%;
+            }
+
+            @include for-orient(land) {
+                -webkit-box-orient: horizontal !important;
+                -webkit-box-direction: normal !important;
+                -ms-flex-direction: row !important;
+                flex-direction: row !important;
+                justify-content: space-between;
+                height: 30vh;
+                width: 100%;
+            }
+        }
+
+        .fields {
+            @include for-orient(port) {
+                height: 45%;
+                width: 100%;
+            }
+
+            @include for-orient(land) {
+                height: 100%;
+                width: 45%;
+            }
+
+            border-radius: 2vh;
+            display: block;
+            background: rgba(255,255,255,0.2);
+            box-shadow: 0 3px 5px 0 rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+
+            .nav {
+                background: linear-gradient(to right, #FFFFFF, #C1C3FF);
+                width: 100%;
+                border-radius: 2vh 2vh 0 0;
+                letter-spacing: 1px;
+                text-transform: uppercase;
+                font-size: 1.3em;
+
+                @include for-orient(port) {
+                    height: 25%;
+                }
+
+                @include for-orient(land) {
+                    height: 8vh;
+                }
+            }
+
+            .content2 {
+                @include for-orient(port) {
+                    -ms-flex-wrap: nowrap !important;
+                    flex-wrap: nowrap !important;
+                    justify-content: flex-start;
+                }
+
+                @include for-orient(land) {
+                    -ms-flex-wrap: wrap !important;
+                    flex-wrap: wrap !important;
+                    justify-content: space-around;
+                }
+            }
+
+            .user-present {
+                @include for-orient(port) {
+                    height: 10vh;
+                    width: 10vh;
+                }
+
+                @include for-orient(land) {
+                    height: 15vh;
+                    width: 15vh;
+                }
+
+                margin: 1vh;
+                background: rgba(255,255,255,0.4);
+            }
+        }
+
+        .plus-div {
+            .plus {
+                @include for-orient(port) {
+                    margin: 1.5vh;
+                }
+
+                @include for-orient(land) {
+                    margin: 4vh;
+                }
+
+                -webkit-transition: all 0.3s ease-in-out;
+                -moz-transition: all 0.3s ease-in-out;
+                -o-transition: all 0.3s ease-in-out;
+                transition: all 0.3s ease-in-out;
+            }
+
+            &:hover {
+                .plus {
+                    -webkit-transform: scale(1.1);
+                    -moz-transform: scale(1.1);
+                    -ms-transform: scale(1.1);
+                    -o-transform: scale(1.1);
+                    transform: scale(1.1);
+                }
+            }
+        }
+
+        .right-arrow {
+            height: 10vh;
+            -webkit-transition: all 0.3s ease-in-out;
+            -moz-transition: all 0.3s ease-in-out;
+            -o-transition: all 0.3s ease-in-out;
+            transition: all 0.3s ease-in-out;
+
+            &:hover {
+                -webkit-transform: scale(1.1);
+                -moz-transform: scale(1.1);
+                -ms-transform: scale(1.1);
+                -o-transform: scale(1.1);
+                transform: scale(1.1);
+            }
+        }
+    }
+}

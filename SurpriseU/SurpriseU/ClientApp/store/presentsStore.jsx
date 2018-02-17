@@ -1,39 +1,54 @@
 ﻿import { observable, action, computed } from 'mobx';
 import requests from '../requests';
-import superagent from 'superagent';
+
+
 export class PresentsStore {
     @observable isLoading = false;
-    @observable presentsRegistry = [{ title: 'aaaaa', content: 'dddd' }, { title: 'aaaaa', content: 'dddd' }];
-    @observable predicate = {};
-
-
-    
-
-  
+    @observable presentsState = [];
     
     @action loadPresents() {
         this.isLoading = true;
-        var xhr = new XMLHttpRequest();
-        var tmp = [];
-        xhr.open("get", '/api/Presents', true);
-        xhr.onload = function () {
-            var data = JSON.parse(xhr.responseText);
-            tmp = data.splice('');
-            alert(tmp[0].title);
-        };
-        xhr.send();
+        requests.Presents.all().then(
+            action(presents => {
+                this.presentsState = presents.slice('');
+            })
+        )
     }
-    
 
-    @action loadPresent(id = {}) {
-        this.isLoading = true;
-        return requests.Present.get(id)
-            .then(action(({ present }) => {
-                this.presentsRegistry.set(present.id, present);
-                return present;
-            }))
-            .finally(action(() => { this.isLoading = false; }));
+    @action createPresent(present) {
+        this.presentsState.push(present);
+        return requests.Presents.add(present).then(action(() => {
+            this.loadPresents();
+        }))
     }
+
+    @action tagsToNewPresent(present) {
+        let tonew = this.presentsState.find(item => item.title === present.title);
+        let newTags = tonew.tags.map(tag => { tag.presentId = tonew.id });
+        
+
+    }
+
+    @action deletePresent(present) {
+        return requests.Presents.del(present.id)
+            .then(action(() => {
+                this.loadPresents();
+            }))
+    }
+    @action editPresent(present) {
+        return requests.Presents.edit(present)
+            .then(action(() => {
+                this.loadPresents();
+            }))
+    }
+
+    @action getPresent(id) {
+        return requests.Presents.edit(present)
+            .then(action(() => {
+                this.loadPresents();
+            }))
+    }
+
 }
 
-export default new PresentsStore();
+export default new PresentsStore(); 

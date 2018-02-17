@@ -7,14 +7,24 @@ import { BrowserRouter } from 'react-router-dom';
 import { useStrict } from 'mobx';
 import { Provider } from 'mobx-react';
 
+
 import commonStore from './store/commonStore';
 import presentsStore from './store/presentsStore';
+import tagsStore from './store/tagsStore';
+import authStore from './store/authStore';
+import userStore from './store/userStore';
 let routes = RoutesModule.routes;
 
 const stores = {
     commonStore,
-    presentsStore
+    presentsStore,
+    tagsStore,
+    authStore,
+    userStore
 };
+
+useStrict(true);
+renderApp();
 
 function renderApp() {
     // This code starts up the React app when it runs in a browser. It sets up the routing
@@ -30,8 +40,6 @@ function renderApp() {
     );
 }
 
-useStrict(true);
-renderApp();
 
 // Allow Hot Module Replacement
 if (module.hot) {

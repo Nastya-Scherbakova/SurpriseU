@@ -18,7 +18,7 @@ export class Menu extends Component {
                     </div>
                 </div> 
                 <div className="d-flex w-25">
-                    <NavLink className="navlink-no" to={'/anketa'}> <div className=" nav-icon d-flex justify-content-center align-items-center "><Clipboard size='100%' color='#031560' /></div></NavLink>
+                    <NavLink className="navlink-no" to={'/login'}> <div className=" nav-icon d-flex justify-content-center align-items-center "><Clipboard size='100%' color='#031560' /></div></NavLink>
                     <NavLink className="navlink-no" to={'/profile'}><div className=" nav-icon d-flex justify-content-center align-items-center"><User size='100%' color='#031560' /></div></NavLink>
                 </div> 
             </nav>

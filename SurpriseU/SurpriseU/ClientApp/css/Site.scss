@@ -3,7 +3,7 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500&subset=cyrillic-ext');
 @import url('https://fonts.googleapis.com/css?family=Lobster&subset=cyrillic');
 @import 'bootstrap.css';
-
+@import 'Profile.scss';
 
 @font-face {
     font-family: "FontAwesome";
@@ -111,7 +111,7 @@ body {
 
 .addPresent {
     position: absolute;
-    background: url('https://d2v9y0dukr6mq2.cloudfront.net/video/thumbnail/Vd3bj2jPe/smoke-background-abstract-blue-smoke-cloud-smoke-in-slow-motion-white-smoke-slowly-floating-through-space-against-black-background-smoke-effect-fog-effect-smoke-machine-studio-shot_rnxne320__F0000.png');
+    background: url('https://assets.rbl.ms/16979358/980x.jpg');
     background-size: cover;
 }
 
@@ -166,16 +166,41 @@ body {
         .text, textarea {
             background: rgba(255,255,255,0.9);
             width: 100%;
-            padding: 10px 15px;
+            padding: 1.5vh 2vw;
             height: 75%;
-            border: none;
+            border: 1px solid rgba(170,170,170, 0.6);
             border-radius: 2.5vh;
 
             &:focus {
+                border: 1px solid steelblue;
                 outline: none;
                 background: rgba(255,255,255,1);
             }
         }
+
+        .tags {
+            min-height: 7.5%;
+            width: 100%;
+            background: rgba(255,255,255,0.9);
+            padding: 0.5vh 1vw;
+            border: none;
+            border-radius: 2.5vh;
+            border: 1px solid rgba(170,170,170, 0.6);
+             &:focus {
+                border: 1px solid steelblue;
+                outline: none;
+                background: rgba(255,255,255,1);
+            }
+
+            .tag {
+                padding: 0.7vh 1.5vw;
+                height: 50%;
+                border-radius: 2vh;
+                border: 1px solid $darkblue;
+                margin: 0.7% 1%;
+            }
+        }
+
 
         .h-input {
             height: 10%;
@@ -186,7 +211,15 @@ body {
         }
 
         .has-error {
-            background: #F2D7D7;
+            border: 1px solid #F8B9B9;
+            -webkit-box-shadow: 0 0 0 0.2rem rgba(236,69,69, 0.25);
+            box-shadow: 0 0 0 0.2rem rgba(236,69,69, 0.25);
+
+            &:focus {
+                border: 1px solid #F8ADAD;
+                outline: none;
+                background: rgba(255,255,255,1);
+            }
         }
 
         .but {
@@ -305,6 +338,7 @@ body {
         .checkbox-true2 {
             background-color: rgba(23,118,221, 0.9);
             border-radius: 3px;
+
             .check {
                 width: 1.3vh;
                 color: white;
@@ -324,7 +358,7 @@ body {
 /*MENU*/
 
     .home-image {
-        margin-bottom: 50px;
+        margin-bottom: 3vh;
         background: url(https://wallpaperscraft.ru/image/abstrakciya_seryy_siniy_dym_441_1920x1080.jpg);
         background-size: cover;
         box-shadow: 0 0 10px rgba(0,0,0,0.5);
@@ -454,367 +488,7 @@ body {
 }
     
     
-    /*PROFILE*/
-.profile {
-    position: absolute;
-    background: url('https://d2v9y0dukr6mq2.cloudfront.net/video/thumbnail/Vd3bj2jPe/smoke-background-abstract-blue-smoke-cloud-smoke-in-slow-motion-white-smoke-slowly-floating-through-space-against-black-background-smoke-effect-fog-effect-smoke-machine-studio-shot_rnxne320__F0000.png');
-    background-size: cover;
-
-    .name {
-        position: absolute;
-        height: 5vh;
-        font-family: 'Lobster', cursive;
-        font-size: 3em;
-        top: -2vh;
-        color: $darkblue;
-    }
-
-    .profile-area {
-        margin: auto;
-        display: block;
-        position: relative;
-
-        @include for-size( phone-landscape-up ) {
-            margin-top: 14vh;
-        }
-
-        @include for-size(tablet-portrait-up) {
-            margin-top: 16vh;
-        }
-
-        @include for-orient(port) {
-            width: 80vw;
-            height: 80vh;
-        }
-
-        @include for-orient(land) {
-            width: 60vw;
-            height: 78vh;
-        }
-
-        @include for-size(phone-only) {
-            width: 90vw;
-            height: 85vh;
-            margin-top: 12vh;
-        }
-
-        .info {
-            border-radius: 2vh;
-            background: rgba(255,255,255,0.2);
-            box-shadow: 0 3px 5px 0 rgba(0,0,0,0.1);
-            display: block;
-            position: relative;
-            padding: 1vh;
-
-            @include for-orient(port) {
-                height: 45%;
-            }
-
-            @include for-orient(land) {
-                height: 45vh;
-            }
-
-            .main {
-                width: 30%;
-
-                .img {
-
-                    @include for-orient(port) {
-                        width: 15vh;
-                        height: 15vh;
-                    }
-
-                    @include for-orient(land) {
-                        width: 20vh;
-                        height: 20vh;
-                    }
-
-                    box-shadow: 0 0 5px 0 rgba(0,0,0,0.5);
-                }
-
-                .social-icon {
-                    margin: 5px;
-                    -webkit-transition: all 0.3s ease-in-out;
-                    -moz-transition: all 0.3s ease-in-out;
-                    -o-transition: all 0.3s ease-in-out;
-                    transition: all 0.3s ease-in-out;
-                    color: #3A4260;
-
-                    &:hover {
-                        -webkit-transform: scale(1.1);
-                        -moz-transform: scale(1.1);
-                        -ms-transform: scale(1.1);
-                        -o-transform: scale(1.1);
-                        transform: scale(1.1);
-                    }
-                }
-
-                @each $item, $content, $color in (insta, 16d, #517fa4), (tel, 3fe, #0088cc), (face, 39e, #3b5998) {
-                    .#{$item} {
-                        &::before {
-                            font-family: "Font Awesome 5 Brands";
-                            content: "\f#{$content}";
-                            font-size: 3vh;
-                        }
-
-                        &:hover::before {
-                            color: #{$color};
-                        }
-                    }
-                }
-
-                .button {
-                    height: 30%;
-                    width: 75%;
-                    background: blue;
-                }
-            }
-
-            .other-data {
-                width: 55%;
-                margin-top: 7%;
-
-                .age {
-                    font-weight: bold;
-                }
-
-                .likes {
-                    overflow: hidden;
-
-                    .like-title {
-                        font-weight: bold;
-                        margin-right: 5%;
-                    }
-
-                    input {
-                        width: 4vh;
-                        border: 1px solid $darkblue;
-                        background-color: $darkblue;
-                        border-radius: 2vh;
-                        color: #fbfbfb;
-                        transition: all 300ms ease-in-out;
-                        margin: 0.2vh;
-                        padding: 0.4vh 1vh;
-
-                        &:focus {
-                            width: 10vh;
-                            padding: 0.4vh 1.5vh;
-                            outline: none;
-                            background-color: #fbfbfb;
-                            color: $darkblue;
-                        }
-
-                        &::-webkit-input-placeholder {
-                            color: #fbfbfb;
-                        }
-
-                        &::-moz-placeholder {
-                            color: #fbfbfb;
-                        }
-                    }
-
-                    .tag {
-                        border: 1px solid $darkblue;
-                        background-color: $darkblue;
-                        border-radius: 2vh;
-                        padding: 0.4vh 1.5vh;
-                        color: #fbfbfb;
-                        transition: all 300ms ease-in-out;
-                        margin: 0.2vh;
-
-                        &:hover {
-                            border: 1px solid $darkblue;
-                            color: $darkblue;
-                            background-color: #fbfbfb;
-                        }
-                    }
-                }
-
-
-                .friends {
-                    margin: auto;
-                    border-radius: 2vh;
-                    display: block;
-                    background: rgba(255,255,255,0.2);
-                    box-shadow: 0 3px 5px 0 rgba(0,0,0,0.1);
-                    position: relative;
-                    overflow: hidden;
-
-                    @include for-orient(port) {
-                        height: 45%;
-                        width: 100%;
-                    }
-
-                    @include for-orient(land) {
-                        height: 45%;
-                        width: 100%;
-                    }
-
-                    .nav {
-                        background: linear-gradient(to right, #FFFFFF, #C1C3FF);
-                        width: 100%;
-                        border-radius: 2vh 2vh 0 0;
-                        letter-spacing: 1px;
-                        text-transform: uppercase;
-                        font-size: 1.3em;
-
-                        @include for-orient(port) {
-                            height: 25%;
-                        }
-
-                        @include for-orient(land) {
-                            height: 30%;
-                        }
-                    }
-
-                    .content2 {
-                        @include for-orient(port) {
-                            -ms-flex-wrap: nowrap !important;
-                            flex-wrap: nowrap !important;
-                            justify-content: flex-start;
-                        }
-
-                        @include for-orient(land) {
-                            -ms-flex-wrap: wrap !important;
-                            flex-wrap: wrap !important;
-                            justify-content: space-around;
-                        }
-                    }
-
-                    .user-present {
-                        @include for-orient(port) {
-                            height: 10vh;
-                            width: 10vh;
-                        }
-
-                        @include for-orient(land) {
-                            height: 15vh;
-                            width: 15vh;
-                        }
-
-                        margin: 1vh;
-                        background: rgba(255,255,255,0.4);
-                    }
-                }
-            }
-        }
-
-
-        .content {
-            @include for-orient(port) {
-                -webkit-box-orient: vertical !important;
-                -webkit-box-direction: normal !important;
-                -ms-flex-direction: column !important;
-                flex-direction: column !important;
-                justify-content: space-around;
-                height: 42vh;
-                width: 100%;
-            }
-
-            @include for-orient(land) {
-                -webkit-box-orient: horizontal !important;
-                -webkit-box-direction: normal !important;
-                -ms-flex-direction: row !important;
-                flex-direction: row !important;
-                justify-content: space-between;
-                height: 30vh;
-                width: 100%;
-            }
-        }
-
-        .fields {
-            @include for-orient(port) {
-                height: 45%;
-                width: 100%;
-            }
-
-            @include for-orient(land) {
-                height: 100%;
-                width: 45%;
-            }
-
-            border-radius: 2vh;
-            display: block;
-            background: rgba(255,255,255,0.2);
-            box-shadow: 0 3px 5px 0 rgba(0,0,0,0.1);
-            position: relative;
-            overflow: hidden;
-
-            .nav {
-                background: linear-gradient(to right, #FFFFFF, #C1C3FF);
-                width: 100%;
-                border-radius: 2vh 2vh 0 0;
-                letter-spacing: 1px;
-                text-transform: uppercase;
-                font-size: 1.3em;
-
-                @include for-orient(port) {
-                    height: 25%;
-                }
-
-                @include for-orient(land) {
-                    height: 8vh;
-                }
-            }
-
-            .content2 {
-                @include for-orient(port) {
-                    -ms-flex-wrap: nowrap !important;
-                    flex-wrap: nowrap !important;
-                    justify-content: flex-start;
-                }
-
-                @include for-orient(land) {
-                    -ms-flex-wrap: wrap !important;
-                    flex-wrap: wrap !important;
-                    justify-content: space-around;
-                }
-            }
-
-            .user-present {
-                @include for-orient(port) {
-                    height: 10vh;
-                    width: 10vh;
-                }
-
-                @include for-orient(land) {
-                    height: 15vh;
-                    width: 15vh;
-                }
-
-                margin: 1vh;
-                background: rgba(255,255,255,0.4);
-            }
-        }
-
-        .plus-div {
-            .plus {
-                @include for-orient(port) {
-                    margin: 1.5vh;
-                }
-
-                @include for-orient(land) {
-                    margin: 4vh;
-                }
-
-                -webkit-transition: all 0.3s ease-in-out;
-                -moz-transition: all 0.3s ease-in-out;
-                -o-transition: all 0.3s ease-in-out;
-                transition: all 0.3s ease-in-out;
-            }
-
-            &:hover {
-                .plus {
-                    -webkit-transform: scale(1.1);
-                    -moz-transform: scale(1.1);
-                    -ms-transform: scale(1.1);
-                    -o-transform: scale(1.1);
-                    transform: scale(1.1);
-                }
-            }
-        }
-    }
-}
+  
    
     
     /*PRESENTS*/
@@ -825,9 +499,8 @@ body {
 
     .title {
         position: absolute;
-        height: 5vh;
         font-family: 'Lobster', cursive;
-        font-size: 3.5em;
+        font-size: 4vh;
         top: -2vh;
     }
 
@@ -906,6 +579,14 @@ body {
         margin-top: 4.5vh;
         margin-left: 13vh;
         height: 8vh;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .settings {
+        position: absolute;
+        top: 2vh;
+        right: 4vh;
     }
 
     .nav {
@@ -927,93 +608,119 @@ body {
         text-decoration: none;
     }
     /*REGISTRATION LOGIN*/
-    .log-form {
-        font-family: 'Lato', sans-serif;
-        box-shadow: 0 0 10px rgba(0,0,0,0.5);
+.log-form {
+    font-family: 'Lato', sans-serif;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+
+    input[type="radio"] {
+        display: none;
+    }
+
+    @include for-orient(port) {
+        -webkit-box-orient: vertical !important;
+        -webkit-box-direction: normal !important;
+        -ms-flex-direction: column !important;
+        flex-direction: column !important;
+    }
+
+    @include for-orient(land) {
+        -webkit-box-orient: horizontal !important;
+        -webkit-box-direction: normal !important;
+        -ms-flex-direction: row !important;
+        flex-direction: row !important;
+    }
+
+    @include for-size (phone-only) {
+        margin-top: 12vh;
+    }
+
+    @include for-size (phone-landscape-up) {
+        margin-top: 15vh;
+    }
+
+    @include for-orient(port) {
+        width: 80vw;
+        height: 80vh;
+    }
+
+    @include for-orient(land) {
+        margin-top: 20vh;
+        width: 50vw;
+        height: 60vh;
+    }
+
+    .image {
+        background-position: center center;
+        background-size: cover;
+        overflow: hidden;
+        background-image: url('https://pm1.narvii.com/6639/7f76c797c61e19f18e4b8cda0a3b64803f5743d4_hq.jpg');
 
         @include for-orient(port) {
-            -webkit-box-orient: vertical !important;
-            -webkit-box-direction: normal !important;
-            -ms-flex-direction: column !important;
-            flex-direction: column !important;
+            width: 100%;
+            height: 30%;
         }
 
         @include for-orient(land) {
-            -webkit-box-orient: horizontal !important;
-            -webkit-box-direction: normal !important;
-            -ms-flex-direction: row !important;
-            flex-direction: row !important;
+            width: 25vw;
+            height: 100%;
         }
+    }
 
-        @include for-size (phone-only) {
-            margin-top: 12vh;
-        }
-
-        @include for-size (phone-landscape-up) {
-            margin-top: 15vh;
-        }
+    .content {
+        background: white;
+        padding: 4vh 4vw 3.5vh 4vw;
 
         @include for-orient(port) {
-            width: 80vw;
-            height: 80vh;
+            width: 100%;
+            height: 70%;
         }
 
         @include for-orient(land) {
-            margin-top: 20vh;
-            width: 50vw;
-            height: 60vh;
+            width: 25vw;
+            height: 100%;
         }
 
-        .image {
-            background-position: center center;
-            background-size: cover;
-            overflow: hidden;
-            background-image: url('https://pm1.narvii.com/6639/7f76c797c61e19f18e4b8cda0a3b64803f5743d4_hq.jpg');
-
-            @include for-orient(port) {
-                width: 100%;
-                height: 30%;
-            }
-
-            @include for-orient(land) {
-                width: 25vw;
-                height: 100%;
-            }
+        .name {
+            height: 10%;
+            letter-spacing: 7px;
+            text-transform: uppercase;
         }
 
-        .content {
-            background: white;
-            padding: 1vh 4vw 3vh 4vw;
+        .tabs {
+            height: 10%;
+            width: 100%;
+            border-bottom: 1px solid #d9d9d9;
+            padding: 0;
+            margin-top: -2vh;
 
-            @include for-orient(port) {
-                width: 100%;
-                height: 70%;
-            }
-
-            @include for-orient(land) {
-                width: 25vw;
-                height: 100%;
-            }
-
-            .name {
-                margin: 5vh;
-                letter-spacing: 7px;
+            .tab {
+                display: inline-block;
+                padding: 20px 10px 10px;
+                cursor: pointer;
+                transition: all 0.1s ease-in-out;
                 text-transform: uppercase;
+                color: #d9d9d9;
+                margin: 0;
+
+                &:hover {
+                    color: black;
+                }
             }
 
-            .input-area {
-                height: 19vh;
+            .tab-active {
+                color: black;
+                border-bottom: 1px solid black;
             }
+        }
 
-            .input-area-2 {
-                height: 18vh;
-                margin-top: 2vh;
-            }
+        .form {
+            height: 70%;
+            width: 90%;
 
             .inpt {
                 display: block;
                 width: 100%;
-                height: 4vh;
+                height: 10%;
                 padding: 2vh 1vh;
                 border: 1px solid #EAEAEA;
                 background: white;
@@ -1031,148 +738,172 @@ body {
                 -webkit-box-shadow: 0 0 0 0.2rem rgba(236,69,69, 0.25);
                 box-shadow: 0 0 0 0.2rem rgba(236,69,69, 0.25);
             }
+        }
 
-            .submit-wrap {
-                height: 8vh;
+        .sbm-but {
+            height: 10%;
+            width: 100%;
+            text-transform: uppercase;
+            height: 4vh;
+            display: block;
+            width: 100%;
+            letter-spacing: 1px;
+            color: black;
+            border: 1px solid #031868;
+            background: transparent;
+            border-radius: 2px;
+
+            &:hover {
+                background-color: #031868;
+                color: white;
+                transition: all 0.2s;
+            }
+        }
+
+        .gender {
+            input[type="radio"], button {
+                display: none;
             }
 
-            .sbm-but {
-                text-transform: uppercase;
-                height: 4vh;
-                display: block;
-                width: 100%;
-                letter-spacing: 1px;
-                color: black;
-                border: 1px solid #031868;
-                background: transparent;
-                border-radius: 2px;
-
-                &:hover {
-                    background-color: #031868;
-                    color: white;
-                    transition: all 0.2s;
-                }
-            }
-
-            .gender {
-                input[type="radio"], button {
-                    display: none;
-                }
-
-                label {
-                    height: 7vh;
-                    width: 7vh;
-                    font-size: 3vh;
-                    font-weight: bold;
-                    margin: 0 1%;
-
-                    @each $gender, $content, $color in (female, 221, #d9d9d9), (male, 222, #d9d9d9) {
-                        .#{$gender} {
-                            &::before {
-                                font-family: FontAwesome;
-                                content: "\f#{$content}";
-                                color: #{$color};
-                                font-size: 3vh;
-                            }
-                        }
-                    }
-
-                    @each $gender, $color in (female, #7D001B), (male, #052E7D) {
-                        .#{$gender}-checked {
-                            &::before {
-                                color: $color;
-                            }
-                        }
-                    }
-                }
-            }
-
-            .social-icon {
-                border-radius: 50%;
-                background-clip: content-box;
-                padding: 3px;
+            label {
                 height: 7vh;
                 width: 7vh;
-                margin: 7px;
-                -webkit-transition: all 0.3s ease-in-out;
-                -moz-transition: all 0.3s ease-in-out;
-                -o-transition: all 0.3s ease-in-out;
-                transition: all 0.3s ease-in-out;
+                font-size: 3vh;
+                font-weight: bold;
+                margin: 0 1%;
 
-                &:hover {
-                    padding: 5px;
-                    -webkit-transform: scale(1.1);
-                    -moz-transform: scale(1.1);
-                    -ms-transform: scale(1.1);
-                    -o-transform: scale(1.1);
-                    transform: scale(1.1);
+                @each $gender, $content, $color in (female, 221, #d9d9d9), (male, 222, #d9d9d9) {
+                    .#{$gender} {
+                        &::before {
+                            font-family: FontAwesome;
+                            content: "\f#{$content}";
+                            color: #{$color};
+                            font-size: 3vh;
+                        }
+                    }
+                }
+
+                @each $gender, $color in (female, #7D001B), (male, #052E7D) {
+                    .#{$gender}-checked {
+                        &::before {
+                            color: $color;
+                        }
+                    }
                 }
             }
+        }
 
-            .tw {
-                border: 1px dashed #3CF;
-                background-color: #3CF;
+        .social-icon {
+            border-radius: 50%;
+            background-clip: content-box;
+            padding: 3px;
+            height: 7vh;
+            width: 7vh;
+            margin: 7px;
+            -webkit-transition: all 0.3s ease-in-out;
+            -moz-transition: all 0.3s ease-in-out;
+            -o-transition: all 0.3s ease-in-out;
+            transition: all 0.3s ease-in-out;
 
-                &::before {
-                    font-family: FontAwesome;
-                    content: "\f099";
-                    color: white;
-                    font-size: 3vh;
+            &:hover {
+                padding: 5px;
+                -webkit-transform: scale(1.1);
+                -moz-transform: scale(1.1);
+                -ms-transform: scale(1.1);
+                -o-transform: scale(1.1);
+                transform: scale(1.1);
+            }
+        }
+
+        .tw {
+            border: 1px dashed #3CF;
+            background-color: #3CF;
+
+            &::before {
+                font-family: FontAwesome;
+                content: "\f099";
+                color: white;
+                font-size: 3vh;
+            }
+        }
+
+        .go {
+            border: 1px dashed #DC4A38;
+            background-color: #DC4A38;
+
+            &::before {
+                font-family: FontAwesome;
+                content: "\f0d5";
+                color: white;
+                font-size: 3vh;
+            }
+        }
+
+        .face {
+            border: 1px dashed #3B5998;
+            background-color: #3B5998;
+
+            &::before {
+                font-family: FontAwesome;
+                content: "\f09a";
+                color: white;
+                font-size: 3vh;
+            }
+        }
+
+        input[type="checkbox"] {
+            transition: all 0.1s ease-in-out;
+            position: absolute;
+            opacity: 0;
+            z-index: -1;
+        }
+
+        .check-label {
+            font-weight: bolder;
+        }
+
+        .checkbox-false, .checkbox-true {
+            display: inline-block;
+            position: relative;
+            transform-origin: center;
+            width: 2vh;
+            height: 2vh;
+        }
+
+        .checkbox-false {
+            background-color: rgba(0,0,0,0.1);
+            .check {
+                width: 0vh;
+                color: transparent;
+                -moz-transition: all 0.2s linear;
+                -o-transition: all 0.2s linear;
+                -webkit-transition: all 0.2s linear;
+                transition: all 0.2s linear;
+            }
+
+            &:hover {
+                .check {
+                    color: $darkblue;
+                    width: 1.5vh;
                 }
             }
+        }
 
-            .go {
-                border: 1px dashed #DC4A38;
-                background-color: #DC4A38;
+        .checkbox-true {
+            background-color: rgba(23,118,221, 0.9);
+            border-radius: 3px;
 
-                &::before {
-                    font-family: FontAwesome;
-                    content: "\f0d5";
-                    color: white;
-                    font-size: 3vh;
-                }
-            }
-
-            .face {
-                border: 1px dashed #3B5998;
-                background-color: #3B5998;
-
-                &::before {
-                    font-family: FontAwesome;
-                    content: "\f09a";
-                    color: white;
-                    font-size: 3vh;
-                }
-            }
-
-
-            .tabs {
-                width: 100%;
-                margin-top: -2vh;
-                margin-bottom: 3vh;
-                border-bottom: 1px solid #d9d9d9;
-            }
-
-            .tab {
-                display: inline-block;
-                padding: 20px 10px 10px;
-                cursor: pointer;
-                letter-spacing: 0;
-                transition: all 0.1s ease-in-out;
-                text-transform: uppercase;
-                color: #d9d9d9;
-
-                &:hover {
-                    color: black;
-                }
-            }
-
-            .active-tab {
-                color: black;
-                border-bottom: 1px solid black;
+            .check {
+                width: 1.3vh;
+                color: white;
+                -moz-transition: all 0.2s linear;
+                -o-transition: all 0.2s linear;
+                -webkit-transition: all 0.2s linear;
+                transition: all 0.2s linear;
             }
         }
     }
+}
 
 
 

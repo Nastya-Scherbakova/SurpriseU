@@ -1,38 +1,17 @@
 import * as React from 'react';
-import { RouteComponentProps } from 'react-router';
 import { ReactDOM } from 'react-dom';
-import { withRouter, NavLink } from 'react-router-dom'
-import { PresentsList, Present } from './Present.jsx';
+import { PresentsList} from './Present';
 import { inject, observer } from 'mobx-react';
-import '../css/style.css';
-
-@inject('presentsStore', 'commonStore')
-@withRouter
-@observer
+import { Link, NavLink, withRouter } from 'react-router-dom';
 
 export class Home extends React.Component{
-
-    componentWillMount() {
-        this.props.presentsStore.loadPresents();
-    }
-    
-
     render() {
-        const { presentsRegistry, isLoading } = this.props.presentsStore;
         return <div>
             <div className="home-image"></div>
-            <PresentsList apiUrl="/api/Presents"
-                presents={presentsRegistry}
-                loading={isLoading}/>
+             <PresentsList />
         </div>;
-
     }
 }
-
-
-
-
-
 
 
 

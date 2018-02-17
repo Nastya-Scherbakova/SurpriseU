@@ -19,12 +19,12 @@ namespace SurpriseU.Controllers
             //string role = User.FindFirst(x => x.Type == ClaimsIdentity.DefaultRoleClaimType).Value;
             return View();
         }
-        [Authorize(Roles = "admin")]
-        public IActionResult AdminsCabinet()
-        {
+        //[Authorize(Roles = "admin")]
+        //public IActionResult AdminsCabinet()
+        //{
 
-            return View();
-        }
+        //    return View();
+        //}
 
         public IActionResult Error()
         {

@@ -1,11 +1,14 @@
 ﻿import * as React from 'react';
-import '../css/style.css';
-import { Link, NavLink } from 'react-router-dom';
-import { X, Check, Image, Upload, Plus} from 'react-feather';
-import '../css/Site.scss'; 
-import { Checkbox, CheckboxGroup } from 'react-checkbox-group';
+import { Link, NavLink, withRouter } from 'react-router-dom';
+import { X, Check, Image, Upload, Edit, Trash} from 'react-feather';
 import ReactModal from 'react-modal';
+import { inject, observer } from 'mobx-react';
+import Autosuggest from 'react-autosuggest'
+import Radium from 'radium';
 
+@inject('presentsStore')
+@withRouter
+@observer
 export class Present extends React.Component {
     constructor(props) {
         super(props);
@@ -14,11 +17,12 @@ export class Present extends React.Component {
             liked: false,
             showModal: false,
         };
-        this.onClick = this.onClick.bind(this);
         this.onLike = this.onLike.bind(this);
 
         this.handleOpenModal = this.handleOpenModal.bind(this);
         this.handleCloseModal = this.handleCloseModal.bind(this);
+        this.onEditPresent = this.onEditPresent.bind(this);
+        this.onRemovePresent = this.onRemovePresent.bind(this);
     }
 
     handleOpenModal() {
@@ -27,27 +31,31 @@ export class Present extends React.Component {
     handleCloseModal() {
         this.setState({ showModal: false });
     }
-    onClick(e) {
-        this.props.onRemove(this.state.data);
-    }
     onLike() {
         this.setState(prevState => ({
             liked: !prevState.liked
         }));
     }
-    render() {
-        const liked = this.state.liked;
-        const likeStyle = null;
-        if (liked) {
-            likeStyle = ' like-true '
-        } else {
-            likeStyle = ' like-false '
+    onEditPresent(present) {
+        if (present) {
+            this.props.presentsStore.editPresent(present);
         }
+    }
+    onRemovePresent() {
+            this.props.presentsStore.deletePresent(this.state.data);
+    }
+    render() {
         return <div className="col-md-5 present animated fadeInDown">
             <img className="img  rounded-circle pull-left" src={this.state.data.photo} />
             <div className="info">
                 <div className="d-flex justify-content-center align-items-center"><div className="title">{this.state.data.title}</div></div>
-                <div className="d-flex justify-content-start align-items-center about">{this.state.data.content.split(".", 1)}</div>
+                <div className="settings">
+                    <Edit className='mx-2' size="3vh" color='#C4C4D8' onClick={this.handleOpenModal}/>
+                    <Trash className='mx-2' size="3vh" color='#C4C4D8' onClick={this.onRemovePresent} />
+                </div>
+                <div className="d-flex justify-content-start align-items-center about">
+                    {this.state.data.content}
+                </div>
                 <div className="d-flex justify-content-between align-items-center bottom">
                     <NavLink className="navlink-no nav " to={'/'}>
                         <div className="d-flex justify-content-center align-items-center ">
@@ -55,85 +63,30 @@ export class Present extends React.Component {
                         <div className="d-flex justify-content-center align-items-center arrow-right"></div>
                         </div>
                     </NavLink>
-                    <p><button onClick={this.onClick}>Delete</button></p>
-                    <p><button onClick={this.handleOpenModal}>Edit</button></p>
                     <div className="d-flex justify-content-center align-items-center" onClick={this.onLike}>
-                        {
-                            this.state.liked ? <svg className='animated opac' xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink"
-                            width="6vh" height="6vh" viewBox="0 0 30 30">
-                                <path fill="#7496DB" d="M2.2 9.4c0 1.3.2 3.3 2 5.1 1.6 1.6 6.9 5.2 7.1 5.4.2.1.4.2.6.2s.4-.1.6-.2c.2-.2 5.5-3.7 7.1-5.4 1.8-1.8 2-3.8 2-5.1 0-3-2.4-5.4-5.4-5.4-1.6 0-3.2.9-4.2 2.3-1-1.4-2.6-2.3-4.4-2.3-2.9 0-5.4 2.4-5.4 5.4z" />
-
-                            </svg>
-                                :
-                                <svg xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink"
-                                    width="6vh" height="6vh" viewBox="0 0 30 30">
-                                    <path fill="#DBDBE3"  d="M2.2 9.4c0 1.3.2 3.3 2 5.1 1.6 1.6 6.9 5.2 7.1 5.4.2.1.4.2.6.2s.4-.1.6-.2c.2-.2 5.5-3.7 7.1-5.4 1.8-1.8 2-3.8 2-5.1 0-3-2.4-5.4-5.4-5.4-1.6 0-3.2.9-4.2 2.3-1-1.4-2.6-2.3-4.4-2.3-2.9 0-5.4 2.4-5.4 5.4z" />
-
-                                </svg>
-                        }
+                        {this.state.liked ?  isLiked : notLiked }
                     </div>
             </div>
-        </div>
+            </div>
+
             <ReactModal
                 isOpen={this.state.showModal}
                 onRequestClose={this.handleCloseModal}
-                className='addPresent w-100 h-100 d-flex align-items-center'
-            >
-                <EditPresent apiUrl="/api/Presents" loadData={this.props.loadData} present={this.state.data} toClose={this.handleCloseModal} />
+                className='addPresent w-100 h-100 d-flex align-items-center'>
+                <div className='form-add d-flex flex-column align-items-center animated fadeInDown'>
+                    <div className="w-100 d-flex flex-wrap align-items-center justify-content-center name">Редагувати подарунок</div>
+                    <PresentForm onPresentSubmit={this.onEditPresent} toClose={this.handleCloseModal} present={this.state.data} />
+                </div>
             </ReactModal>
-        </div>;
-    }
-}
-
-export class EditPresent extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            present: props.present
-        };
-        this.onEditPresent = this.onEditPresent.bind(this);
-    }
-
-    onEditPresent(present) {
-        if (present) {
-            var data = JSON.stringify({
-                "title": present.title,
-                "content": present.content,
-                "gender": present.gender,
-                "photo": present.photo,
-                "startAge": present.startAge,
-                "endAge": present.endAge,
-                "likes": present.likes,
-                "celebration": present.celebration,
-                "id": this.state.present.id
-            });
-            var xhr = new XMLHttpRequest();
-            var url = this.props.apiUrl + "/" + this.state.present.id;
-            xhr.open("put", url, true);
-            xhr.setRequestHeader("Content-type", "application/json");
-            xhr.onload = function () {
-                if (xhr.status == 204) {
-                    this.props.loadData;
-                }
-                else alert(xhr.status + ': ' + xhr.statusText);
-            }.bind(this);
-            xhr.send(data);
-        }
-    }
-
-    render() {
-        return <div className='form-add d-flex flex-column align-items-center animated fadeInDown'>
-            <div className="w-100 d-flex flex-wrap align-items-center justify-content-center name">Редагувати подарунок</div>
-            <PresentForm onPresentSubmit={this.onEditPresent} toClose={this.props.toClose} present={this.state.present}
-            />
+            
         </div>;
     }
 }
 
 
-
-
-
+@inject('presentsStore', 'commonStore')
+@withRouter
+@observer
 export class NewPresent extends React.Component {
     constructor(props) {
         super(props);
@@ -141,12 +94,11 @@ export class NewPresent extends React.Component {
             present: {
                 title: '',
                 content: '',
-                gender: null,
+                gender: '',
                 photo: '',
-                startAge: null,
-                endAge: null,
-                likes: null,
-                celebration: []
+                startAge: '',
+                endAge: '',
+                tags: []
             }
         };
         this.onAddPresent = this.onAddPresent.bind(this);
@@ -154,25 +106,7 @@ export class NewPresent extends React.Component {
 
     onAddPresent(present) {
         if (present) {
-            var data = JSON.stringify({
-                "title": present.title,
-                "content": present.content,
-                "gender": present.gender,
-                "photo": present.photo,
-                "startAge": present.startAge,
-                "endAge": present.endAge,
-                "likes": present.likes,
-                "celebration": present.celebration
-            });
-            var xhr = new XMLHttpRequest();
-            xhr.open("post", this.props.apiUrl, true);
-            xhr.setRequestHeader("Content-type", "application/json");
-            xhr.onload = function () {
-                if (xhr.status == 200) {
-                    this.loadData();
-                }
-            }.bind(this);
-            xhr.send(data);
+            this.props.presentsStore.createPresent(present);
         }
     }
 
@@ -186,62 +120,29 @@ export class NewPresent extends React.Component {
 }
 
 
-
+@inject('presentsStore', 'commonStore')
+@withRouter
+@observer
 export class PresentsList extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            presents: [],
-            showModal: false
-        };
-        this.onRemovePresent = this.onRemovePresent.bind(this);
-    }
-   
-    // загрузка данных
-    loadData() {
-        var xhr = new XMLHttpRequest();
-        xhr.open("get", this.props.apiUrl, true);
-        xhr.onload = function () {
-            var data = JSON.parse(xhr.responseText);
-            this.setState({ presents: data });
-        }.bind(this);
-        xhr.send();
-    }
     componentDidMount() {
-        this.loadData();
-    } 
-    // удаление объекта
-    onRemovePresent(present) {
-        if (present) {
-            var url = this.props.apiUrl + "/" + present.id;
-            var xhr = new XMLHttpRequest();
-            xhr.open("delete", url, true);
-            xhr.setRequestHeader("Content-Type", "application/json");
-            xhr.onload = function () {
-                if (xhr.status == 200) {
-                    this.loadData();
-                }
-            }.bind(this);
-            xhr.send();
-        }
+        this.props.presentsStore.loadPresents();
     }
+
     render() {
-        var remove = this.onRemovePresent;
-        var loadData = this.loadData;
-       
+        const { presentsState } = this.props.presentsStore;
         return <div className="d-flex flex-row  flex-wrap justify-content-around">
                 {
-                this.state.presents.map(function (present) {
-                    return <Present key={present.id} present={present} onRemove={remove}  />
-                    })
+                presentsState.map(present => <Present key={present.id} present={present} />)
                 }
         </div>;
     }
 }
 
-
+@inject('presentsStore', 'tagsStore')
+@withRouter
+@observer
+@Radium
 export class PresentForm extends React.Component {
-
     constructor(props) {
         super(props);
         this.state = {
@@ -251,47 +152,92 @@ export class PresentForm extends React.Component {
             photo: props.present.photo,
             startAge: props.present.startAge,
             endAge: props.present.endAge,
-            likes: props.present.likes,
+            id: props.present.id,
+            tags: props.present.tags,
+            likes: [],
             celebration: [],
+            likesValue: '',
+            celebrationValue: '',
+            likesSuggestions: [],
+            celebrationSuggestions: [],
             formErrors: {
                 title: '',
                 content: '',
                 photo: '',
-                age: '',
-                likes: ''
+                age: ''
             },
-            formValid: [false, false, false, false, false, false, false]
+            formValid: [false, false, false, false, false]
         };
         this.onSubmit = this.onSubmit.bind(this);
         this.onChange = this.onChange.bind(this);
         this.validateField = this.validateField.bind(this);
         this.errorClass = this.errorClass.bind(this);
-        this.onCheckboxChanged = this.onCheckboxChanged.bind(this);
         this.isErrorField = this.isErrorField.bind(this);
+        this.deleteTag = this.deleteTag.bind(this);
     }
+
+    componentWillMount() {
+        let likes = [], celebration = [];
+        this.state.tags.map(tag => {
+            let newTag = this.props.tagsStore.likesStore.find(storeTag => storeTag.id === tag.tagId);
+            newTag != undefined ? likes.push(newTag) : celebration.push(this.props.tagsStore.celebrationStore.find(storeTag => storeTag.id === tag.tagId));
+        });
+        this.setState({
+            likes: likes,
+            celebration: celebration
+        })
+    }
+
+    onTagChange = (e, { newValue, method }) => {
+        this.setState({ [`${e.target.id}Value`]: newValue});
+    };
+
+    onSuggestionsFetchRequested = (value, reason) => {
+        const inputValue = value.trim().toLowerCase();
+        const inputLength = inputValue.length;
+        const suggestions = inputLength === 0 ? [] : this.props.tagsStore[`${reason}Store`].filter(
+            lang => lang.name.toLowerCase().slice(0, inputLength) === inputValue);
+        this.setState({ [`${reason}Suggestions`]: suggestions});
+    };
+
+    onSuggestionsClearRequested = (e) => {
+        this.setState({ [`${e.target.id}Suggestions`]: [] })
+    };
+    
+    newTag(name, id, e) {
+        let tags = this.state[`${e.target.id}`];
+        tags.map(x => x.id).indexOf(id) == -1 && tags.push({ id: id, name: name });
+        this.setState({
+            [e.target.id]: tags,
+            [`${e.target.id}Value`]: ''
+        });
+    }
+
+    deleteTag(id, field, e) {
+        e.preventDefault();
+        let tags = this.state[`${field}`];
+        tags.splice(tags.findIndex(x => x.id === id), 1);
+        this.setState({ [field]: tags })
+    }   
 
     onChange(e) {
         this.setState({ [e.target.name]: e.target.value });
     }
-
-    onCheckboxChanged(newCelebration) {
-        this.setState({
-            celebration: newCelebration
-        });
-    }
-
+    
     onSubmit(e) {
         e.preventDefault();
+        let presentTag = e => Object.assign({}, { presentId: '' }, { tagId: e.id });
+        let tags = this.state.likes.map(like => presentTag(like)).concat(this.state.celebration.map(cel => presentTag(cel)));
         this.props.onPresentSubmit({
             title: this.state.title,
             content: this.state.content,
-            gender: (typeof this.state.gender == 'string') ? Number(this.state.gender) : this.state.gender,
+            gender: Number(this.state.gender),
             photo: this.state.photo,
-            startAge: (typeof this.state.startAge == 'string') ? Number(this.state.startAge) : this.state.startAge,
-            endAge: (typeof this.state.endAge == 'string') ? Number(this.state.endAge) : this.state.endAge,
-            likes: (typeof this.state.likes == 'string') ? this.state.likes.split(',') : this.state.likes,
-            celebration: this.state.celebration
+            startAge: Number(this.state.startAge),
+            endAge: Number(this.state.endAge),
+            tags: tags
         });
+        
     };
 
     validateField(e) {
@@ -329,14 +275,6 @@ export class PresentForm extends React.Component {
                 fieldErrors.age = fieldValid ? '' : 'Кінцевий вік має бути менше 100 та більше початкового';
                 formValid[4] = fieldValid ? true : false;
                 break;
-            case 'likes':
-                fieldValid = value.length >= 3;
-                fieldErrors.likes = fieldValid ? '' : 'Вкажіть хоча б одне подобається';
-                formValid[5] = fieldValid ? true : false;
-                break;
-            case 'celebration':
-                formValid[6] = value.length >= 0 ? true : false;
-                break;
             default:
                 break;
         }
@@ -348,16 +286,14 @@ export class PresentForm extends React.Component {
 
     errorClass = (error) => error.length === 0 ? '' : 'has-error';
     
-    
-
     isErrorField = ( error ) => error.length > 0 ? <p className='w-100 d-flex justify-content-center'>{error}  </p> : <p > </p>;
 
     render() {
+        const { likes, celebration, likesValue, celebrationValue, likesSuggestions, celebrationSuggestions} = this.state;
         let field = this.state.formValid,
-            allFields = field[0] && field[1] && field[2] && field[3] && field[4] && field[5] && field[6],
+            allFields = field[0] && field[1] && field[2] && field[3] && field[4],
             check = allFields ? <div className='but' onMouseDown={this.onSubmit} onMouseUp={this.props.toClose}><Check size="5vh" color='#031560' /> </div> :
                 <div className='but' onMouseDown={this.onSubmit} onMouseUp={this.props.toClose}><Check size="5vh" color='grey' /> </div>;
-        let celebrationNew = (typeof this.state.celebration == 'array') ? <p>array</p> : <p>not array</p>;
         return (
             <form className='w-75 new-present-form d-flex flex-column justify-content-around align-items-center' onSubmit={this.onSubmit}>
 
@@ -424,44 +360,40 @@ export class PresentForm extends React.Component {
                     </div>
                     {this.isErrorField(this.state.formErrors.age)}
 
-                <div className='w-100 h-input'>
-                    <input className={`text ${this.errorClass(this.state.formErrors.likes)}`}
-                    name="likes"
-                    placeholder="Подобається (через кому)"
-                    value={this.state.likes}
-                    onChange={this.onChange}
-                    onBlur={this.validateField}/>
-                {this.isErrorField(this.state.formErrors.likes)}
-                </div>
-                <div className='w-100 pl-3 h-15'>
-                <CheckboxGroup
-                    checkboxDepth={2}
-                    name="celebration"
-                    value={this.state.celebration}
-                    onChange={this.onCheckboxChanged}
-                    onClick={this.validateField}
-                    className='d-flex w-100 justify-content-between flex-wrap pl-1 h-100'
-                    > 
-                    {[
-                            { value: 0, label: "День народження" },
-                            { value: 1, label: "Новий рік" },
-                            { value: 2, label: "Жіночий день" },
-                        { value: 3, label: "Чоловічий день" },
-                        { value: 4, label: "День матері" },
-                        { value: 5, label: "Інші" }
-                    ].map((item) => <label className='d-flex align-items-center w-50 check-label'>
-                        {
-                            this.state.celebration.indexOf(item.value) !== -1 ?
-                                        <span className='d-flex justify-content-center align-items-center mr-3 checkbox-true2'><Check className='check animated scaleIn' /></span>
-                                : <span className='d-flex justify-content-center align-items-center mr-3 checkbox-false2'></span>
+               
+                    <div className='tags d-flex flex-wrap align-items-center'>{likes.map(item => <div className='tag'>{item.name}
+                        <X size='2vh' color='black' onClick={e => this.deleteTag(item.id, 'likes', e)} /></div>)}
+                    <Autosuggest
+                        id={'likes'}
+                        theme={theme}
+                        suggestions={likesSuggestions}
+                        onSuggestionsFetchRequested={({ value }) => this.onSuggestionsFetchRequested(value, 'likes').bind(this)}
+                        onSuggestionsClearRequested={this.onSuggestionsClearRequested.bind(this)}
+                        onSuggestionSelected={(e, { suggestion }) => this.newTag(suggestion.name, suggestion.id, e).bind(this)}
+                        getSuggestionValue={suggestion => suggestion.name}
+                        renderSuggestion={suggestion => <div> {suggestion.name} </div>}
+                        inputProps={{ placeholder: 'Подобається', value: likesValue, onChange: this.onTagChange.bind(this), id: 'likes'}}
+                        highlightFirstSuggestion={true} />
+                    </div><p></p>
+                
 
-                        }
+                    <div className='tags d-flex flex-wrap align-items-center'>{celebration.map(item => <div className='tag'>{item.name}
+                        <X size='2vh' color='black' onClick={e => this.deleteTag(item.id, 'celebration', e)} /></div>)}
+                    <Autosuggest
+                        id={'celebration'}
+                        theme={theme}
+                        suggestions={celebrationSuggestions}
+                        onSuggestionsFetchRequested={({ value}) => this.onSuggestionsFetchRequested(value, 'celebration').bind(this)}
+                        onSuggestionsClearRequested={this.onSuggestionsClearRequested.bind(this)}
+                        onSuggestionSelected={(e, { suggestion }) => this.newTag(suggestion.name, suggestion.id, e).bind(this)}
+                        getSuggestionValue={suggestion => suggestion.name}
+                        renderSuggestion={suggestion => <div> {suggestion.name} </div>}
+                        inputProps={{ placeholder: 'Свята', value: celebrationValue, onChange: this.onTagChange.bind(this), id: 'celebration'}}
+                        highlightFirstSuggestion={true} />
+                    </div>
+                    <p></p>
+                  
 
-                        <Checkbox value={item.value} /> {item.label}</label>)
-                    }
-                </CheckboxGroup>
-                    
-                </div>
                 <div className='d-flex justify-content-around mt-3'>
                     {check}
                     <div className='but' onClick={this.props.toClose}><X size="5vh" color='#600303' /></div>
@@ -470,3 +402,97 @@ export class PresentForm extends React.Component {
         );
     }
 };
+const theme = {
+    input: {
+        border: 'none',
+        outline: 'none',
+        background: 'transparent',
+        margin: '0 0 0 2%',
+        width: '100%',
+    },
+    container: {
+        height: '75%',
+        position: 'relative',
+        width: '25%'
+    },
+    suggestionsContainerOpen: {
+        position: 'absolute',
+        top: '4vh',
+        width: '100%'
+    },
+    suggestionsList: {
+        listStyleType: 'none',
+        background: 'rgba(255, 255, 255, 0.2)',
+        margin: '0',
+        padding: '0'
+    },
+    suggestion: {
+        padding: '1% 4%',
+        flex: 'row'
+    },
+    suggestionHighlighted: {
+        background: 'rgba(255, 255, 255, 0.5)'
+    }
+};
+
+
+
+
+//const theme = {
+
+//    container: {
+//        width: '50%',
+//        minHeight: '10%',
+//               background: 'blue',
+    
+//    },
+//    input: {
+//       outline: 'none',
+//       background: 'rgba(255, 255, 255, 0.9)',
+//       width:'100%',
+//       padding: '0.7vh 1vw',
+//       height: '70%',
+//       border: '1px solid rgba(170,170,170, 0.6)',
+//       borderRadius: '2.5vh',
+//       borderBottomRightRadius: '2.5vh',
+//       borderBottomLeftRadius: '2.5vh',
+//    },
+//    inputFocused: {
+//        borderBottomRightRadius: '0',
+//        borderBottomLeftRadius: '0',
+//        borderBottom: 'none',
+//    },
+//    suggestionsContainerOpen: {
+//        borderBottomRightRadius: '2.5vh',
+//        borderBottomLeftRadius: '2.5vh',
+//        border: '1px solid rgba(170,170,170, 0.6)',
+//        borderTop: 'none',
+//         background: 'rgba(255, 255, 255, 0.9)',
+//    },
+//    suggestionsList: {
+//        listStyleType: 'none',
+        
+//    },
+//    suggestion: {
+//        padding: '1% 4%'
+//    },
+//    suggestionHighlighted: {
+//        background: 'rgba(255, 255, 255, 0.5)'
+//    }
+//};
+
+
+
+
+const isLiked = <svg className='animated opac'
+        xmlns="http://www.w3.org/2000/svg"
+        width="6vh" height="6vh" viewBox="0 0 30 30">
+        <path fill="#7496DB" d="M2.2 9.4c0 1.3.2 3.3 2 5.1 1.6 1.6 6.9 5.2 7.1 5.4.2.1.4.2.6.2s.4-.1.6-.2c.2-.2 5.5-3.7 7.1-5.4 1.8-1.8 2-3.8 2-5.1 0-3-2.4-5.4-5.4-5.4-1.6 0-3.2.9-4.2 2.3-1-1.4-2.6-2.3-4.4-2.3-2.9 0-5.4 2.4-5.4 5.4z" />
+    </svg>;
+
+const notLiked = <svg xmlns="http://www.w3.org/2000/svg"
+      
+        width="6vh" height="6vh" viewBox="0 0 30 30">
+        <path fill="#DBDBE3" d="M2.2 9.4c0 1.3.2 3.3 2 5.1 1.6 1.6 6.9 5.2 7.1 5.4.2.1.4.2.6.2s.4-.1.6-.2c.2-.2 5.5-3.7 7.1-5.4 1.8-1.8 2-3.8 2-5.1 0-3-2.4-5.4-5.4-5.4-1.6 0-3.2.9-4.2 2.3-1-1.4-2.6-2.3-4.4-2.3-2.9 0-5.4 2.4-5.4 5.4z" />
+</svg>;
+

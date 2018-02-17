@@ -3,7 +3,7 @@ import { Present } from './Present.jsx';
 import '../css/Site.scss';
 import ReactModal from 'react-modal';
 import { PresentsList, NewPresent } from './Present.jsx';
-import { Plus, Settings, Search } from 'react-feather';
+import { Plus, Settings, Search, ChevronRight} from 'react-feather';
 var Nastya = {
     name: 'Настя',
     age: '19',
@@ -36,10 +36,10 @@ class Info extends React.Component {
                         <a className="d-flex justify-content-center align-items-center social-icon navlink-no  insta " href={this.props.user.instagram}></a>
                         <a className="d-flex justify-content-center align-items-center social-icon navlink-no  face" href={this.props.user.facebook}></a>
                     </div>
-                    <div className="d-flex justify-content-center align-items-center button">
+                    <div className="d-flex justify-content-center align-items-center btn btn-secondary m-2">
                         Редагувати
                      </div>
-                    <div className="d-flex justify-content-center align-items-center button">
+                    <div className="d-flex justify-content-center align-items-center btn btn-secondary m-2">
                         Пошук
                      </div>
             </div>
@@ -62,7 +62,7 @@ class Likes extends React.Component {
             <div className="d-flex like-title align-items-center">Подобається</div>
             <input placeholder="+" />
             {
-                likes.map(item => <div className='tag'>{item}</div>)
+                likes.map(item => <div key={item} className='tag'>{item}</div>)
             }
         </div>;
     }
@@ -94,10 +94,12 @@ class LikedPresents extends React.Component {
     render() {
         return <div className="d-flex flex-column fields">
             <div className="d-flex nav justify-content-center align-items-center">Вподобані подарунки</div>
-            <div className="d-flex h-100 content2 align-items-center">
+            <div className="d-flex h-100 align-items-center">
+                <div className="d-flex content2 h-100 w-75 align-items-center">
                 <LikedPresent />
                 <LikedPresent />
-                <LikedPresent />
+                </div>
+                <ChevronRight className="d-flex right-arrow align-items-center" size='10vh' color='white' />
             </div>
         </div>;
     }
@@ -128,14 +130,14 @@ class AddedPresents extends React.Component {
                     <div className="h-100 w-100 d-flex justify-content-center align-items-center plus-div" onClick={this.handleOpenModal}><Plus className='plus ' color='white' size='7vh'/></div>
                 </div>
                 <LikedPresent />
-                <LikedPresent />
+                <ChevronRight className="d-flex right-arrow align-items-center" size='10vh' color='white' />
             </div>
             <ReactModal
                 isOpen={this.state.showModal}
                 onRequestClose={this.handleCloseModal}
                 className='addPresent w-100 h-100 d-flex align-items-center'
             >
-                <NewPresent apiUrl="/api/Presents" toClose={this.handleCloseModal} />
+                <NewPresent toClose={this.handleCloseModal} />
             </ReactModal>
         </div>
             

@@ -14,101 +14,35 @@ namespace SurpriseU.Models
     public class Present
     {
         public string Id { get; set; }
-        
+
         public string Title { get; set; }
-        
+
         public string Content { get; set; }
         public PresentsGender Gender { get; set; }
         public string Photo { get; set; }
         public int StartAge { get; set; }
         public int EndAge { get; set; }
-        public string LikesString { get; set; }
-        public string CelebrationString { get; set; }
-        public string UsersIdString { get; set; }
-
-        [NotMapped]
-        public List<string> Likes
-        {
-            get {
-                if (LikesString != null)
-                {
-                    return LikesString.Split(',').ToList();
-                }
-                else return null;
-               
-            }
-            set
-            {
-                LikesString = string.Join(",", value);
-            }
-        }
-        [NotMapped]
-        public List<int> Celebration
-        {
-            get {
-                if (CelebrationString != null)
-                {
-                    List<string> Cel = CelebrationString.Split(',').ToList();
-                    return Cel.Select(idU => Convert.ToInt32(idU)).ToList();
-                }
-                else return null;
-
-            }
-            set
-            {
-                CelebrationString = string.Join(",", value);
-            }
-        }
-        [NotMapped]
-        public List<int> UsersId
-        {
-            get
-            {
-                if (UsersIdString != null)
-                {
-
-                    return UsersIdString.Split(',').ToList().Select(idU => Convert.ToInt32(idU)).ToList(); ;
-                }
-                else return null;
-            }
-               
-            set
-            {
-                UsersIdString = string.Join(",", value);
-            }
-        }
-
-        public enum PresentsGender
-        {
-            All,
-            Male,
-            Female
-        }
+        public List<PresentTag> Tags { get; set; }
+        public List<UserPresent> Users { get; set; } //users that liked this present
+        public User User { get; set; } //user, that suggested this present to database or selected this present for someone
+        public List<PresentUser> likedForUsers { get; set; } //users, thats was selected by other users for this present
         public Present()
         {
-            
-            //Likes = new List<string>();
-            //Celebration = new List<int>();
-            //UsersId = new List<int>();
-            
+
+            Tags = new List<PresentTag>();
+            Users = new List<UserPresent>();
+            likedForUsers = new List<PresentUser>();
+
+
         }
-
     }
-    public class PresentsContext : DbContext
+
+    public enum PresentsGender
     {
-        public PresentsContext(DbContextOptions<PresentsContext> options)
-           : base(options)
-        { }
-        public DbSet<Present> Presents { get; set; }
-
+        All,
+        Male,
+        Female
     }
-    //public enum Celebration
-    //{
-    //    Birthday,
-    //    NewYear,
-    //    WomenDay,
-    //    MenDay,
-    //    MothersDay,
-    //    Other
-    //}
+
+
 }
