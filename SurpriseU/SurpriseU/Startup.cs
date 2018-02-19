@@ -29,7 +29,7 @@ namespace SurpriseU
 
             services.AddDbContext<ApplicationContext>(options =>
         options.UseSqlServer(Configuration.GetConnectionString("ApplicationConnection")));
-
+            services.AddRouting();
 
             services.AddIdentity<User, IdentityRole>(opts =>
             {
@@ -39,7 +39,7 @@ namespace SurpriseU
                 opts.Password.RequireUppercase = false; // требуются ли символы в верхнем регистре
                 opts.Password.RequireDigit = false; // требуются ли цифры
                 opts.User.RequireUniqueEmail = true;    // уникальный email
-                opts.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyz"; // допустимые символы
+                //opts.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyz"; // допустимые символы
             })
                 .AddEntityFrameworkStores<ApplicationContext>()
                 .AddDefaultTokenProviders();
@@ -72,6 +72,11 @@ namespace SurpriseU
 
             app.UseMvc(routes =>
             {
+                routes.MapRoute(
+                     name: "account",
+                     template: "Account/Register",
+                     defaults: new { controller = "Account", action = "Register" });
+
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");

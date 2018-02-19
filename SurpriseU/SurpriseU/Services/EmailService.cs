@@ -23,8 +23,8 @@ namespace SurpriseU.Services
 
             using (var client = new SmtpClient())
             {
-                await client.ConnectAsync("smtp.yandex.ru", 25, false);
-                await client.AuthenticateAsync("login@yandex.ru", "password");
+                await client.ConnectAsync("nshcherbakovaa@gmail.com", 25, false);
+                await client.AuthenticateAsync("nshcherbakovaa@gmail.com", "n21111998");
                 await client.SendAsync(emailMessage);
 
                 await client.DisconnectAsync(true);

@@ -105,9 +105,18 @@ namespace SurpriseU.Controllers
             {
                 return BadRequest(ModelState);
             }
-
+            present.Id = Guid.NewGuid().ToString();
+            present.Tags.ForEach(delegate (PresentTag tag)
+            {
+                tag.PresentId = present.Id;
+                tag.Present = present;
+                tag.Tag = _context.Tags.Find(tag.TagId);
+            });
             _context.Presents.Add(present);
+            
+
             await _context.SaveChangesAsync();
+
 
             return CreatedAtAction("GetPresent", new { id = present.Id }, present);
         }

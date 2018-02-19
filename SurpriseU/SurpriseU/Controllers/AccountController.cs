@@ -16,6 +16,8 @@ using SurpriseU.ViewModels;
 
 namespace SurpriseU.Controllers
 {
+    [Produces("application/json")]
+    
     public class AccountController : Controller
     {
         private readonly UserManager<User> _userManager;
@@ -302,17 +304,25 @@ namespace SurpriseU.Controllers
             await _signInManager.SignOutAsync();
             return RedirectToAction("Index", "Home");
         }
-        [HttpGet]
-        public IActionResult Register()
-        {
-            return View();
-        }
+        //[HttpGet]
+        //public IActionResult Register()
+        //{
+        //    return View();
+        //}
+        //[AllowAnonymous]
+        //[ValidateAntiForgeryToken]
+        //[HttpPost]
+        //public int Register(RegisterModel model)
+        //{
+        //    return 0;
+        //}
+
+        //[HttpPost("Account/Register")]
         [HttpPost]
-        [AllowAnonymous]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Register(RegisterModel model, string returnUrl = null)
+        public async Task<IActionResult> Register([FromBody] RegisterModel model)
+        //, string returnUrl = null)
         {
-            ViewData["ReturnUrl"] = returnUrl;
+            //ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid)
             {
                 var user = new User { UserName = model.Email, Email = model.Email, Name = model.Name, Gender = model.Gender };
@@ -330,7 +340,7 @@ namespace SurpriseU.Controllers
                         $"Подтвердите регистрацию, перейдя по ссылке: <a href='{callbackUrl}'>link</a>");
 
                     // await _signInManager.SignInAsync(user, isPersistent: false);
-                    return RedirectToAction(returnUrl);
+                    return CreatedAtAction("Get", new { id = user.Id }, user);
                 }
                 //AddErrors(result);
             }
