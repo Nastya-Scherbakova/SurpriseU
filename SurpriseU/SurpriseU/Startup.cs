@@ -43,7 +43,7 @@ namespace SurpriseU
             })
                 .AddEntityFrameworkStores<ApplicationContext>()
                 .AddDefaultTokenProviders();
-
+            services.ConfigureApplicationCookie(options => options.LoginPath = "/Account/LogIn");
             services.AddMvc();
 
 

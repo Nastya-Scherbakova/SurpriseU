@@ -11,6 +11,8 @@ using SurpriseU.Models;
 using SurpriseU.Models.AccountViewModels;
 using SurpriseU.Services;
 using SurpriseU.ViewModels;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 
 
@@ -162,7 +164,9 @@ namespace SurpriseU.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Logout()
         {
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             await _signInManager.SignOutAsync();
+            
             _logger.LogInformation("User logged out.");
             return RedirectToAction(nameof(HomeController.Index), "Home");
         }
@@ -272,6 +276,7 @@ namespace SurpriseU.Controllers
                 var user = await _userManager.FindByNameAsync(model.Email);
                 if (user != null)
                 {
+                    await Authenticate(model.Email);
                     // проверяем, подтвержден ли email
                     if (!await _userManager.IsEmailConfirmedAsync(user))
                     {
@@ -300,6 +305,8 @@ namespace SurpriseU.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> LogOff()
         {
+            
+            
             // удаляем аутентификационные куки
             await _signInManager.SignOutAsync();
             return RedirectToAction("Index", "Home");
@@ -327,17 +334,18 @@ namespace SurpriseU.Controllers
             {
                 var user = new User { UserName = model.Email, Email = model.Email, Name = model.Name, Gender = model.Gender };
                 var result = await _userManager.CreateAsync(user, model.Password);
+                await Authenticate(model.Email);
                 if (result.Succeeded)
                 {
-                    var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-                    var callbackUrl = Url.Action(
-                        "ConfirmEmail",
-                        "Account",
-                        new { userId = user.Id, code = code },
-                        protocol: HttpContext.Request.Scheme);
-                    EmailService emailService = new EmailService();
-                    await emailService.SendEmailAsync(model.Email, "Confirm your account",
-                        $"Подтвердите регистрацию, перейдя по ссылке: <a href='{callbackUrl}'>link</a>");
+                    //var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                    //var callbackUrl = Url.Action(
+                    //    "ConfirmEmail",
+                    //    "Account",
+                    //    new { userId = user.Id, code = code },
+                    //    protocol: HttpContext.Request.Scheme);
+                    //EmailService emailService = new EmailService();
+                    //await emailService.SendEmailAsync(model.Email, "Confirm your account",
+                    //    $"Подтвердите регистрацию, перейдя по ссылке: <a href='{callbackUrl}'>link</a>");
 
                     // await _signInManager.SignInAsync(user, isPersistent: false);
                     return CreatedAtAction("Get", new { id = user.Id }, user);
@@ -411,6 +419,19 @@ namespace SurpriseU.Controllers
             }
             
             return View();
+        }
+
+        private async Task Authenticate(string userName)
+        {
+            // создаем один claim
+            var claims = new List<Claim>
+            {
+                new Claim(ClaimsIdentity.DefaultNameClaimType, userName)
+            };
+            // создаем объект ClaimsIdentity
+            ClaimsIdentity id = new ClaimsIdentity(claims, "ApplicationCookie", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
+            // установка аутентификационных куки
+            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(id));
         }
 
         [HttpGet]
