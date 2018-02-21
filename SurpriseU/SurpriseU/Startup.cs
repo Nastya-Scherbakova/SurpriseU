@@ -43,7 +43,12 @@ namespace SurpriseU
             })
                 .AddEntityFrameworkStores<ApplicationContext>()
                 .AddDefaultTokenProviders();
-            services.ConfigureApplicationCookie(options => options.LoginPath = "/Account/LogIn");
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(options => //CookieAuthenticationOptions
+                {
+                    options.LoginPath = new Microsoft.AspNetCore.Http.PathString("/Account/Login");
+                });
+            //services.ConfigureApplicationCookie(options => options.LoginPath = "/Account/LogIn");
             services.AddMvc();
 
 

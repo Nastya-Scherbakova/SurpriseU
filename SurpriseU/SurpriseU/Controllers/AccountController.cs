@@ -268,7 +268,7 @@ namespace SurpriseU.Controllers
         [HttpPost]
         [AllowAnonymous]
         //[ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login(LoginModel model)
+        public async Task<IActionResult> Login([FromBody]LoginModel model)
         {
             //ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid)
@@ -280,8 +280,9 @@ namespace SurpriseU.Controllers
                     // проверяем, подтвержден ли email
                     if (!await _userManager.IsEmailConfirmedAsync(user))
                     {
-                        ModelState.AddModelError(string.Empty, "Вы не подтвердили свой email");
-                        return View(model);
+                        //ModelState.AddModelError(string.Empty, "Вы не подтвердили свой email");
+                        //return View(model);
+                        return Ok(model);
                     }
                 }
 
@@ -298,7 +299,7 @@ namespace SurpriseU.Controllers
                 //}
             }
 
-            return View(model);
+            return Ok(model);
         }
 
         [HttpPost]
