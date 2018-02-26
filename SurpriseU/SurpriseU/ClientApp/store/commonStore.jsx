@@ -1,31 +1,22 @@
 ﻿import { observable, action, reaction } from 'mobx';
 import requests from '../requests';
-
+import $ from "jquery";
 class CommonStore {
 
-    @observable token = window.localStorage.getItem('jwt');
-    @observable appLoaded = false;
+    @observable token;
+    //@observable appLoaded = false;
 
     constructor() {
-        reaction(
-            () => this.token,
-            token => {
-                if (token) {
-                    window.localStorage.setItem('jwt', token);
-                } else {
-                    window.localStorage.removeItem('jwt');
-                }
-            }
-        );
+        this.token =  $('input:hidden[name="__RequestVerificationToken"]').val();
     }
-
+   
     @action setToken(token) {
         this.token = token;
     }
 
-    @action setAppLoaded() {
-        this.appLoaded = true;
-    }
+    //@action setAppLoaded() {
+    //    this.appLoaded = true;
+    //}
 
 }
 

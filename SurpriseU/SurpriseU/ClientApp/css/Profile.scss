@@ -49,7 +49,9 @@
 }
 
 $darkblue: #031560;
-
+$menu-s: 9vh;
+$menu-m: 11vh;
+$menu-l: 13vh;
 @mixin keyframes($name) {
     @-webkit-keyframes #{$name} {
         @content;
@@ -93,11 +95,11 @@ $darkblue: #031560;
         position: relative;
 
         @include for-size( phone-landscape-up ) {
-            margin-top: 14vh;
+            margin-top: $menu-m;
         }
 
         @include for-size(tablet-portrait-up) {
-            margin-top: 16vh;
+            margin-top: $menu-l;
         }
 
         @include for-orient(port) {

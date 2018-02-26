@@ -1,9 +1,10 @@
 ﻿import * as React from 'react';
-import { Present } from './Present.jsx';
-import '../css/Site.scss';
 import ReactModal from 'react-modal';
-import { PresentsList, NewPresent } from './Present.jsx';
-import { Plus, Settings, Search, ChevronRight} from 'react-feather';
+import { PresentsList, NewPresent, Present } from './Present.jsx';
+import { Plus, Settings, Search, ChevronRight, LogOut } from 'react-feather';
+import { inject, observer } from 'mobx-react';
+import { Redirect } from 'react-router';
+import { withRouter } from 'react-router-dom';
 var Nastya = {
     name: 'Настя',
     age: '19',
@@ -15,22 +16,21 @@ var Nastya = {
     photo: 'https://pp.userapi.com/c840025/v840025300/39a4/aQuz84zS8-0.jpg'
 }
 
+
+@inject('authStore', 'userStore')
+@withRouter
+@observer
 class Info extends React.Component {
-    constructor(props) {
-        super(props);
+    logOut = () => {
+        this.props.authStore.logout()
     }
+
     render() {
-        const gender = this.props.user.gender;
-        let genderIcon = null;
-        if (gender == 0) {
-            genderIcon = 'user-he'
-        }
-        else {
-            genderIcon = 'user-she'
-        }
+        const { isUser } = this.props.userStore;
         return <div className="info w-100 d-flex justify-content-around align-items-center">
             <div className="d-flex flex-column main align-items-center">
-                    <img className="img rounded-circle " src={this.props.user.photo} />
+                <img className="img rounded-circle " src={this.props.user.photo} />
+                <LogOut onClick={this.logOut.bind(this)} className='m-2 ' size='3vh' color='#031560' />
                     <div className="d-flex justify-content-around">
                         <a className="d-flex justify-content-center align-items-center social-icon navlink-no  tel" href={this.props.user.telegram}></a>
                         <a className="d-flex justify-content-center align-items-center social-icon navlink-no  insta " href={this.props.user.instagram}></a>
@@ -48,6 +48,7 @@ class Info extends React.Component {
                 <Likes user={this.props.user} />
                 <Friends user={this.props.user} />
             </div>
+            {!isUser && <Redirect to="/login" />}
         </div>;
     }
 }
@@ -114,7 +115,9 @@ class AddedPresents extends React.Component {
         this.handleOpenModal = this.handleOpenModal.bind(this);
         this.handleCloseModal = this.handleCloseModal.bind(this);
     }
-
+    componentWillMount() {
+        ReactModal.setAppElement('body');
+    }
     handleOpenModal() {
         this.setState({ showModal: true });
     }
@@ -143,6 +146,7 @@ class AddedPresents extends React.Component {
             
     }
 }
+
 
 export class Profile extends React.Component {
     constructor(props) {

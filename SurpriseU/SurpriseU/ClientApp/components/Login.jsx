@@ -2,7 +2,7 @@
 import { inject, observer } from 'mobx-react';
 import { withRouter, Link } from 'react-router-dom';
 import {  Check } from 'react-feather';
-
+import { Redirect } from 'react-router'
 
 @inject('authStore')
 @withRouter
@@ -151,7 +151,7 @@ const socialIcons = [' tw ', ' go ', ' face '].map((icon) =>
 );
 
 
-@inject('authStore')
+@inject('authStore', 'userStore')
 @withRouter
 @observer
 class Login extends React.Component {
@@ -164,7 +164,10 @@ class Login extends React.Component {
         };
         this.onSubmit = this.onSubmit.bind(this);
         this.onChange = this.onChange.bind(this);
+        this.onRemember = this.onRemember.bind(this);
     }
+
+    onRemember = () => this.setState(prevState => ({ remember: !prevState.remember }));
 
     onChange = e => this.setState({ [e.target.name]: e.target.value });
 
@@ -172,48 +175,49 @@ class Login extends React.Component {
         e.preventDefault();
         this.props.authStore.login({
             email: this.state.email,
-            password: this.state.password
-        })
+            password: this.state.password,
+            rememberMe: this.state.remember
+        });
     };
 
     render() {
         const { values, errors, inProgress } = this.props.authStore;
+        const { isUser } = this.props.userStore;
         return <form className='form d-flex justify-content-around flex-column  align-items-center' onSubmit={this.onSubmit}>
-                <div className="d-flex justify-content-center flex-column  align-items-center">
-                    <div className="d-flex flex-row">
-                        {socialIcons}
-                    </div>
+            <div className="d-flex justify-content-center flex-column  align-items-center">
+                <div className="d-flex flex-row">
+                    {socialIcons}
                 </div>
-                <input className='inpt'
-                        name="email"
-                        required="required"
-                        placeholder="Логін"
-                        value={this.state.email}
-                        onChange={this.onChange}
-                        type="email" />
-                <input className='inpt'
-                        name="password"
-                        required="required"
-                        placeholder="Пароль"
-                        value={this.state.password}
-                        onChange={this.onChange}
-                        type="password" />
-                    <div onClick={this.onSubmit} className="sbm-but d-flex justify-content-center align-items-center">Увійти</div>
-                    
-                    <label className='d-flex justify-content-center align-items-center w-100 check-label'>
-                        {
-                            this.state.remember ? <span className='d-flex justify-content-center align-items-center mr-3 checkbox-true'><Check className='check animated scaleIn' /></span>
-                        : <span className='d-flex justify-content-center align-items-center mr-3 checkbox-false'><Check className='check animated scaleIn' /></span>
+            </div>
+            <input className='inpt'
+                name="email"
+                required="required"
+                placeholder="Логін"
+                value={this.state.email}
+                onChange={this.onChange}
+                type="email" />
+            <input className='inpt'
+                name="password"
+                required="required"
+                placeholder="Пароль"
+                value={this.state.password}
+                onChange={this.onChange}
+                type="password" />
+            <div onClick={this.onSubmit} className="sbm-but d-flex justify-content-center align-items-center">Увійти</div>
 
-                        }
-                       Запам'ятати мене</label>
+            <label className='d-flex justify-content-center align-items-center w-100 check-label'>
+                <span onClick={this.onRemember} className={`d-flex justify-content-center align-items-center mr-3 ${this.state.remember ? ' checkbox-true' : ' checkbox-false '}`}><Check className='check animated scaleIn' /></span>
+                Запам'ятати мене
+            </label>
                     <div className="d-flex justify-content-center">Забули пароль?</div>
+                    {isUser && <Redirect to="/profile" />}
             </form>;
-
     }
 }
 
-
+@inject('authStore', 'userStore')
+@withRouter
+@observer
 export class LogIn extends React.Component {
     constructor(props) {
         super(props);
@@ -223,7 +227,6 @@ export class LogIn extends React.Component {
         this.onTab = this.onTab.bind(this);
     }
     onTab = e => this.setState({ signIn: e.target.value });
-
     render() {
         return <div className='w-100 h-100 d-flex justify-content-center'>
             <div className='log-form row'>
@@ -240,7 +243,7 @@ export class LogIn extends React.Component {
                                 <input type="radio" value={1} onClick={this.onTab} />
                             </label>
                     </div>
-                {(this.state.signIn == 0) ? <Login /> : <Register />}
+                    {(this.state.signIn == 0) ? <Login /> : <Register />}
             </div>
             </div>
         </div>;

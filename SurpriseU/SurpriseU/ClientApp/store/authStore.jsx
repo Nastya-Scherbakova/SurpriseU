@@ -1,7 +1,7 @@
 ﻿import { observable, action, reaction } from 'mobx';
 import requests from '../requests';
 import userStore from './userStore';
-import commonStore from './commonStore';
+
 
 class AuthStore {
     @observable inProgress = false;
@@ -9,12 +9,11 @@ class AuthStore {
 
     @action login(user) {
         return requests.Auth.login(user)
-          
             .catch(action((err) => {
                 this.errors = err.response && err.response.body && err.response.body.errors;
                 throw err;
             }))
-            .finally(action(() => { this.inProgress = false; }));
+            .finally(action(() => { userStore.getUser()}));
     }
 
     @action register(user) {
@@ -30,9 +29,9 @@ class AuthStore {
     }
 
     @action logout() {
-        commonStore.setToken(undefined);
+        //commonStore.setToken(undefined);
         userStore.forgetUser();
-        return Promise.resolve();
+        //return Promise.resolve();
     }
 
 }

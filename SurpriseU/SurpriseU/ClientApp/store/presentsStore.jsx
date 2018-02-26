@@ -5,7 +5,18 @@ import requests from '../requests';
 export class PresentsStore {
     @observable isLoading = false;
     @observable presentsState = [];
-    
+    @observable search = '';
+    @observable isFilter = false;
+
+    @action searchPresents(input) {
+        this.search = input;
+    }
+
+
+    @action enableFilter() {
+        this.isFilter = !this.isFilter;
+    }
+
     @action loadPresents() {
         this.isLoading = true;
         requests.Presents.all().then(
@@ -21,13 +32,7 @@ export class PresentsStore {
             this.loadPresents();
         }))
     }
-
-    @action tagsToNewPresent(present) {
-        let tonew = this.presentsState.find(item => item.title === present.title);
-        let newTags = tonew.tags.map(tag => { tag.presentId = tonew.id });
-        
-
-    }
+    
 
     @action deletePresent(present) {
         return requests.Presents.del(present.id)

@@ -1,16 +1,12 @@
 import * as React from 'react';
 import { Switch, Route, withRouter } from 'react-router-dom';
 import { inject, observer } from 'mobx-react';
-import { RouteComponentProps } from 'react-router';
 import { Layout } from './components/Layout';
 import { Home } from './components/Home';
 import { Anketa } from './components/Anketa';
 import { LogIn } from './components/Login';
 import { Profile } from './components/Profile';
 
-@inject('presentsStore', 'commonStore')
-@withRouter
-@observer
 export const routes = <Layout>
     <Route exact path='/' component={Home } />
     <Route path='/anketa'  />

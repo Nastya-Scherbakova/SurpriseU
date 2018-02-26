@@ -6,6 +6,10 @@ var superagent = require('superagent-promise')(require('superagent'), Promise);
 const responseBody = res => res.body;
 
 
+const tokenPlugin = req => {
+    req.set("__RequestVerificationToken", commonStore.token);
+};
+
 const requests = {
     del: url => 
         superagent
@@ -36,7 +40,7 @@ const Auth = {
     login: (user) =>
         requests.post('/Account/Login', user),
     register: (user) =>
-        requests.post('Account/Register', user)
+        requests.post('/Account/Register', user)
 };
 const limit = (count, p) => `limit=${count}&offset=${p ? p * count : 0}`;
 
