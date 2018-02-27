@@ -52,6 +52,42 @@ namespace SurpriseU.Controllers
 
             return Ok(present);
         }
+        // GET: api/Presents/cupcake
+        [HttpGet("Search/{presentTitle}")]
+        public IEnumerable<Present> Search([FromRoute] string presentTitle, [FromQuery] int startAge, [FromQuery] int endAge, [FromQuery] PresentsGender gender, [FromQuery] List<string> tagId)
+        {
+            IQueryable<Present> presents = _context.Presents.Include(p => p.Tags);
+            if (startAge != 0 && endAge!=0 && startAge < endAge)
+            {
+                presents = presents.Where(p => p.StartAge >= startAge && p.EndAge <= endAge);
+            }
+            if (!String.IsNullOrEmpty(presentTitle))
+            {
+                presents = presents.Where(p => p.Title.Contains(presentTitle));
+            }
+            if (gender != PresentsGender.All)
+            {
+                presents = presents.Where(p => p.Gender==gender || p.Gender == PresentsGender.All);
+            }
+            if (tagId.Count != 0)
+            {
+                
+                foreach (var tag in tagId)
+                {
+                    var realTag = _context.Tags.Find(tag);
+                   var listOfPresents = realTag.Presents;
+                    foreach (var pr in listOfPresents)
+                    {
+                        presents = presents.Where(p => p.Id == pr.PresentId);
+                    }
+                        
+                }
+                
+            }
+            
+
+            return presents;
+        }
 
         // PUT: api/Presents/5
         [HttpPut("{id}")]
