@@ -26,3 +26,21 @@ export class Layout extends React.Component{
         </div>;
     }
 }
+
+
+
+
+export class HashTag extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            check: this.props.check
+        };
+    }
+    render() {
+        return <div className={`tag-${this.state.check ? 'check' : 'proposal'}  d-flex align-items-center`}
+            onClick={this.props.onClick}>
+            #{this.props.name}
+        </div>
+    }
+}

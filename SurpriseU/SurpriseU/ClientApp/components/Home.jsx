@@ -1,10 +1,11 @@
 import * as React from 'react';
 import { ReactDOM } from 'react-dom';
-import { PresentsList, HashTag} from './Present';
+import { PresentsList } from './Present';
+import { HashTag } from './Layout';
 import { inject, observer } from 'mobx-react';
 import { Link, NavLink, withRouter } from 'react-router-dom';
 import { X, Check } from 'react-feather';
-
+import 'scrollpos-styler';
 @inject('presentsStore', 'tagsStore')
 @withRouter
 @observer
@@ -88,7 +89,7 @@ class Filter extends React.Component {
         this.setState({ popularTags: likes.concat(celebration) });
     };
     render() {
-        return <div className='filter-form animated fadeInDown'>
+        return <div className='filter-form animated fadeInDown '>
                 <div className='d-flex w-100 h-75 justify-content-around align-items-center'>
                     <div className='d-flex flex-column align-items-center w-25 h-75'>
                         <input className='text'

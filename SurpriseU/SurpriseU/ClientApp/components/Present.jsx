@@ -5,6 +5,7 @@ import ReactModal from 'react-modal';
 import { inject, observer } from 'mobx-react';
 import 'react-tippy/dist/tippy.css';
 import { Tooltip, withTooltip} from 'react-tippy';
+import { HashTag } from './Layout';
 
 @inject('presentsStore')
 @withRouter
@@ -39,7 +40,7 @@ export class Present extends React.Component {
     }
     onRemovePresent = () => this.props.presentsStore.deletePresent(this.state.data);
     render() {
-        return <div className="col-md-5 present animated fadeInDown">
+        return <div className="present animated fadeInDown">
             <img className="img  rounded-circle pull-left" src={this.state.data.photo} />
             <div className="info">
                 <div className="d-flex justify-content-center align-items-center"><div className="title">{this.state.data.title}</div></div>
@@ -147,7 +148,8 @@ export class PresentForm extends React.Component {
             startAge: props.present.startAge,
             endAge: props.present.endAge,
             id: props.present.id,
-            tags: props.present.tags,
+            likesTags: [],
+            celebrationTags: [],
             likes: '',
             celebration: '',
             likesAuto: [],
@@ -163,20 +165,19 @@ export class PresentForm extends React.Component {
         this.onSubmit = this.onSubmit.bind(this);
         this.onChange = this.onChange.bind(this);
         this.validateField = this.validateField.bind(this);
-        this.onBlurAuto = this.onBlurAuto.bind(this);
         this.renderOffers = this.renderOffers.bind(this);
     }
     
     componentWillMount() {
-        let tags = [], is = !this.props.isNew;
-        this.state.tags.map(tag => {
+        let likesTags = [],
+            is = !this.props.isNew,
+            celebrationTags = [];
+        this.props.present.tags.map(tag => {
             let newTag = this.props.tagsStore.likesStore.find(storeTag => storeTag.id === tag.tagId);
-            newTag != undefined ? tags.push(newTag) : tags.push(this.props.tagsStore.celebrationStore.find(storeTag => storeTag.id === tag.tagId));
+            newTag != undefined ? likesTags.push(newTag) : celebrationTags.push(this.props.tagsStore.celebrationStore.find(storeTag => storeTag.id === tag.tagId));
         });
-        this.setState({ tags: tags, formValid: [is, is, is, is] });
+        this.setState({ likesTags: likesTags, celebrationTags: celebrationTags, formValid: [is, is, is, is] });
     }
-
-    onBlurAuto = (e) => { setTimeout(this.setState({ [`${e.target.name}Auto`]: [], [e.target.name]: ''}), 100)};
 
     renderOffers = (e) => {
         this.onChange(e);
@@ -188,22 +189,24 @@ export class PresentForm extends React.Component {
     };
 
     onTagClick = tag => {
-        let tags = this.state.tags, type = tag.type == '0' ? 'likes' : 'celebration';
+        let type = tag.type == '0' ? 'likes' : 'celebration';
+        let tags = this.state[`${type}Tags`];
         tags.map(x => x.id).indexOf(tag.id) == -1 && tags.push({ id: tag.id, name: tag.name });
-        this.setState({ tags: tags, [type]: '', [`${type}Auto`]: [] });
+        this.setState({ [`${type}Tags`]: tags, [type]: '', [`${type}Auto`]: [] });
     }
 
-    deleteTag = id => {
-        let tags = this.state.tags;
-        tags.splice(tags.findIndex(x => x.id === id), 1);
-        this.setState({ tags: tags })
+    deleteTag = tag => {
+        let type = this.state.likesTags.map(x => x.id).indexOf(tag.id) != -1 ? 'likes' : 'celebration';
+        let tags = this.state[`${type}Tags`];
+        tags.splice(tags.findIndex(x => x.id === tag.id), 1);
+        this.setState({ [`${type}Tags`]: tags })
     }
 
     onChange(e) { this.setState({ [e.target.name]: e.target.value }) }
     
     onSubmit(e) {
         e.preventDefault();
-        let tags = this.state.tags.map(e => Object.assign({}, { presentId: '' }, { tagId: e.id }));
+        let tags = this.state.likesTags.map(e => Object.assign({}, { presentId: '' }, { tagId: e.id })).concat(this.state.celebrationTags.map(e => Object.assign({}, { presentId: '' }, { tagId: e.id })));
         this.props.toClose();
         this.props.onPresentSubmit({
             title: this.state.title,
@@ -258,37 +261,29 @@ export class PresentForm extends React.Component {
 
     render() {
 
-        const { tags, likesAuto, celebrationAuto, formValid} = this.state,
+        const { likesTags, celebrationTags, likesAuto, celebrationAuto, formValid } = this.state,
             correct = formValid.every(item => item);
        
         return (
             <form className='new-present-form d-flex flex-column justify-content-around align-items-center' onSubmit={this.onSubmit}>
-                <Tooltip title="Назва має містити від 3 до 100 символів" position="bottom"
-                    open={this.state.formErrors.title.length != 0}
-                    className='w-100 h-input' distance={-5} arrow={true} theme='light'
-                >
+                <div className='w-100 h-input'>
                     <input className={`text ${errorClass(this.state.formErrors.title)}`}
                     name="title"
                     placeholder="Назва"
                     value={this.state.title}
                     onChange={this.onChange}
                     onBlur={this.validateField}
-                    maxLength='100' />
-                </Tooltip>
+                    maxLength='100' /> </div>
 
-                <Tooltip title="Інформація має містити від 10 до 1000 символів" position="bottom"
-                    open={this.state.formErrors.content.length != 0}
-                    className='w-100 h-25' distance={-25} arrow={true} theme='light'
-                >
+                    <div className='w-100 h-25'>
                 <textarea className={`${errorClass(this.state.formErrors.content)}`}
                     name="content"
                     placeholder="Інформація про подарунок"
                     value={this.state.content}
                     onChange={this.onChange}
                     onBlur={this.validateField}
-                    maxLength='1000'
-                  />
-                </Tooltip>
+                    maxLength='1000'/> </div>
+             
 
                 <div className='w-100 gender d-flex justify-content-around'>
                         {[
@@ -301,24 +296,18 @@ export class PresentForm extends React.Component {
                             </label>)}
                 </div>
 
-
-                <Tooltip title="Вкажіть фото" position="bottom"
-                    open={this.state.formErrors.photo.length != 0}
-                    className='w-100 h-input' distance={-5} arrow={true} theme='light'
-                >
+         
+                <div className='w-100 h-input'>
                         <input className={`text ${errorClass(this.state.formErrors.photo)}`}
                         name="photo"
                         placeholder="Введіть посилання на фото"
                         value={this.state.photo}
                         onChange={this.onChange}
                         onBlur={this.validateField}/>
-                </Tooltip>
+                </div>
 
 
-                <Tooltip title="Вкажіть межі віку від 0 до 100" position="bottom"
-                    open={this.state.formErrors.age.length != 0}
-                    className='w-100  h-input d-flex justify-content-between align-items-center' distance={-5} arrow={true} theme='light'
-                >
+                <div className='w-100  h-input d-flex justify-content-between align-items-center'>
                         {[
                                 { name: "startAge", placeholder: "Початковий вік", class: 'mr-2 ', toState: this.state.startAge },
                                 { name: "endAge", placeholder: "Кінцевий вік", class: 'ml-2 ', toState: this.state.endAge}
@@ -327,46 +316,36 @@ export class PresentForm extends React.Component {
                                 placeholder={item.placeholder}
                                 value={item.toState}
                                 onChange={this.onChange}
-                                onBlur={this.validateField}/>
-                                )
-                        }
-                </Tooltip>
+                                onBlur={this.validateField}/>)}
+                </div>
 
-                <div className='w-100 d-flex justify-content-between align-items-center tags-area'>
-                    <div className='d-flex flex-column tags-cont w-100 h-100 justify-content-start mr-2'>
-                        <input className={`${likesAuto.length == 0 ? ' text ' : ' text is-true '}`}
+                <div className='w-100 h-input d-flex justify-content-between align-items-center'>
+                        <input className={`${likesAuto.length == 0 ? ' text mr-2' : ' text is-true mr-2'}`}
                                 name="likes" placeholder="Подобається"
                                 value={this.state.likes}
-                                onChange={this.renderOffers}
-                                onBlur={this.onBlurAuto} />
-                        <div className={`${likesAuto.length == 0 ? ' hidden  ' : ' suggestions '}`}>
-                                {likesAuto.map(like => <div key={like.id} className='suggestion' onMouseDown={this.onTagClick.bind(this, like)}> {like.name} </div>)}
-                            </div>
-                        </div>
-
-                    <div className='d-flex flex-column tags-cont  w-100 h-100 justify-content-start ml-2 '>
-                        <input className={`${celebrationAuto.length == 0 ? ' text ' : 'text  is-true '}`}
+                                onChange={this.renderOffers}/>
+                        <input className={`${celebrationAuto.length == 0 ? ' text ml-2' : 'text  is-true ml-2'}`}
                                 name="celebration" placeholder="Свята"
                                 value={this.state.celebration}
-                                onChange={this.renderOffers}
-                                onBlur={this.onBlurAuto} />
-                        <div className={`${celebrationAuto.length == 0 ? ' hidden ' : ' suggestions  '}`}>
-                                {celebrationAuto.map(like => <div key={like.id} className='suggestion' onMouseDown={this.onTagClick.bind(this, like)}>{like.name}</div>)}
-                            </div>
-                        </div>
+                                onChange={this.renderOffers} />
                 </div>
-                <p></p>
-                <div className='tags d-flex w-100 flex-wrap justify-content-center align-items-center'>
-                    {tags.length != 0
-                        ? tags.map(like => <HashTag key={like.id} name={like.name} check={true} onClick={this.deleteTag.bind(this, like.id)} />)
-                        : <p className='text-center'>Додайте теги</p>
-                    }
+                
+                <div className='tags-background w-100 d-flex justify-content-between align-items-center mt-2'>
+                    <div className='present-tags d-flex flex-wrap justify-content-start align-items-start  mr-2'>
+                        {likesTags.map(tag => <HashTag key={tag.id} name={tag.name} check={true} onClick={this.deleteTag.bind(this, tag)} />)}
+                        {likesAuto.map(tag => <HashTag key={tag.id} name={tag.name} check={false} onClick={this.onTagClick.bind(this, tag)} />)}
+                    </div>
+                    <div className='present-tags d-flex flex-wrap justify-content-start align-items-start  ml-2'>
+                        {celebrationTags.map(tag => <HashTag key={tag.id} name={tag.name} check={true} onClick={this.deleteTag.bind(this, tag)} />)}
+                        {celebrationAuto.map(tag => <HashTag key={tag.id} name={tag.name} check={false} onClick={this.onTagClick.bind(this, tag)} />)}
+                    </div>
                 </div>
 
                 <div className='d-flex justify-content-around mt-3'>
-                    <div className='but' onClick={correct && this.onSubmit}><Check size="5vh" color={`${correct ? '#031560' : 'grey'}`}/></div> 
+                    <div className='but' onClick={correct ? this.onSubmit : undefined }><Check size="5vh" color={`${correct ? '#031560' : 'grey'}`}/></div> 
                     <div className='but' onClick={this.props.toClose}><X size="5vh" color='#600303' /></div>
                 </div>
+
             </form>
         );
     }
@@ -404,22 +383,6 @@ export class PresentForm extends React.Component {
 //    </div>
 //</div>
 
-
-
-export class HashTag extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            check: this.props.check
-        };
-    }
-    render() {
-        return <div className={`tag-${this.state.check ? 'check' : 'proposal'}  d-flex align-items-center`}
-            onClick={this.props.onClick}>
-            #{this.props.name}
-        </div>
-    }
-}
 
 const errorClass = (error) => error.length === 0 ? '' : 'has-error';
 const isError = (error) => error.length > 0 && <p className='error '>{error}  </p>;

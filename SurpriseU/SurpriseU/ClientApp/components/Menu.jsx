@@ -5,10 +5,14 @@ import 'scrollpos-styler';
 import { Switch, Route, withRouter } from 'react-router-dom';
 import { inject, observer } from 'mobx-react';
 
-@inject('userStore')
+@inject('userStore', 'authStore')
 @withRouter
 @observer
 export class Menu extends Component {
+    logOut = () => {
+        this.props.authStore.logout()
+    }
+
     render() {
         const { isUser } = this.props.userStore,
             path = this.props.location.pathname;
@@ -20,11 +24,14 @@ export class Menu extends Component {
                     </NavLink>
                     { path == '/' && <SearchInput /> }
                 </div> 
-                <div className="icons">
-                    {isUser && <NavLink className="navlink-no" to={'/anketa'}><Clipboard className='nav-icon ' color='#031560' /></NavLink>   }
-                    {isUser && <NavLink className="navlink-no" to={'/profile'}><User className='nav-icon' color='#031560' /></NavLink>   }
-                    {isUser || <NavLink className="navlink-no" to={'/login'}><LogIn className='nav-icon' color='black' /></NavLink>  }
-                </div>
+                {
+                    isUser ? <div className="icons">
+                        <NavLink className="navlink-no" to={'/anketa'}><Clipboard className='nav-icon ' color='#031560' /></NavLink>
+                        <NavLink className="navlink-no" to={'/profile'}><User className='nav-icon' color='#031560' /></NavLink>
+                        <NavLink className="navlink-no" to={'/login'}><LogOut onClick={this.logOut.bind(this)} className='nav-icon' color='#031560' /></NavLink>
+                    </div> : <div className="icons"><NavLink className="navlink-no" to={'/login'}><LogIn className='nav-icon' color='#031560' /></NavLink></div>
+                }
+                  
             </nav>;
     }
 }
@@ -65,8 +72,8 @@ class SearchInput extends Component {
                 <span className="search-button" onClick={this.openSearch} >
                     <span className="search-icon"></span>
                 </span>
-                <Filter className='filter' onClick={this.openFilter}/>
-            </div>
+                <Filter className='f-filter' onClick={this.openFilter} />
+        </div>
         </div >;
     }
 }
