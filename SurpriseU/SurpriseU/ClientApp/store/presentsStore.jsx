@@ -8,7 +8,20 @@ export class PresentsStore {
     @observable search = '';
     @observable isFilter = false;
 
-    @action searchPresents(input) {
+    @action searchPresents(gender, startAge, endAge, tags) {
+        let age0 = startAge.length != 0 ? startAge : '0',
+            age1 = endAge.length != 0 ? endAge : '0';
+        requests.Presents.search(this.search, gender, age0, age1).then(
+            action(presents => {
+                console.log(presents);
+                this.presentsState = presents.slice('');
+            })
+        )
+    }
+
+
+
+    @action searchInput(input) {
         this.search = input;
     }
 

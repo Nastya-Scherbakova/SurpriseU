@@ -20,19 +20,16 @@ class AuthStore {
 
     @action register(user) {
         return requests.Auth.register(user)
-            .then(action((res) => {
-                alert('true' + res.status);
-            }))
-            .catch(action((err) => {
-                alert(err.status);
-                throw err;
-            }))
+            .then(action(user => userStore.pullUser(user)));
     }
 
     @action logout() {
         userStore.forgetUser();
     }
 
+    @action forgetPassword(user) {
+
+    }
 }
 
 export default new AuthStore();

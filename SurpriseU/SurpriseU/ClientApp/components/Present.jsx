@@ -190,9 +190,11 @@ export class PresentForm extends React.Component {
 
     onTagClick = tag => {
         let type = tag.type == '0' ? 'likes' : 'celebration';
-        let tags = this.state[`${type}Tags`];
-        tags.map(x => x.id).indexOf(tag.id) == -1 && tags.push({ id: tag.id, name: tag.name });
-        this.setState({ [`${type}Tags`]: tags, [type]: '', [`${type}Auto`]: [] });
+        this.state[`${type}Tags`].map(x => x.id).indexOf(tag.id) == -1 && this.setState({
+            [`${type}Tags`]: this.state[`${type}Tags`].concat({ id: tag.id, name: tag.name }),
+            [type]: '',
+            [`${type}Auto`]: []
+        });
     }
 
     deleteTag = tag => {

@@ -5,7 +5,7 @@ import 'scrollpos-styler';
 import { Switch, Route, withRouter } from 'react-router-dom';
 import { inject, observer } from 'mobx-react';
 
-@inject('userStore', 'authStore')
+@inject('userStore', 'authStore', 'presentsStore')
 @withRouter
 @observer
 export class Menu extends Component {
@@ -14,9 +14,9 @@ export class Menu extends Component {
     }
     render() {
         const { isUser } = this.props.userStore,
-            path = this.props.location.pathname;
-
-        return <nav className="container-fluid d-flex align-items-center justify-content-between fixed-top sps sps--abv">
+            path = this.props.location.pathname,
+            { isFilter } = this.props.presentsStore;
+        return <nav className={`${isFilter || 'sps sps--abv'}  menu container-fluid d-flex align-items-center justify-content-between fixed-top `}>
                 <div className="content">
                     <NavLink className="nav-brand" to={'/'}>   
                     <h1 className={`main ${path == '/login' && ' login '}`}>SurpriseU</h1>
@@ -53,7 +53,7 @@ class SearchInput extends Component {
 
     onChange(e) {
         this.setState({ search: e.target.value });
-        this.props.presentsStore.searchPresents(e.target.value);
+        this.props.presentsStore.searchInput(e.target.value);
     }
 
     openSearch = () => {

@@ -12,7 +12,17 @@ import { HashTag } from './Layout';
 @withRouter
 @observer
 class Info extends React.Component {
-    
+    constructor(props) {
+        super(props);
+        this.state = {
+            editModal: false
+        };
+    }
+    componentWillMount() {
+        ReactModal.setAppElement('body');
+    }
+    openEdit = () => this.setState({ editModal: true });
+    hideEdit = () => this.setState({ editModal: false });
     render() {
         return <div className="info w-100 d-flex justify-content-around align-items-center">
             <div className="d-flex flex-column main align-items-center">
@@ -22,11 +32,11 @@ class Info extends React.Component {
                         <a className="d-flex justify-content-center align-items-center social-icon navlink-no  insta " /*href={this.props.user.instagram}*/></a>
                         <a className="d-flex justify-content-center align-items-center social-icon navlink-no  face" /*href={this.props.user.facebook}*/></a>
                     </div>
-                    <div className="d-flex justify-content-center align-items-center button">
-                    Редагувати<Search className='icon' />
+                    <div className="d-flex justify-content-center align-items-center button" onClick={this.openEdit}>
+                    Редагувати<Edit className='icon' />
                      </div>
                     <div className="d-flex justify-content-center align-items-center button">
-                    Пошук<Edit className='icon'/>
+                    Пошук<Search className='icon' />
                      </div>
             </div>
             <div className="d-flex flex-column other-data h-100 justify-content-around">
@@ -34,9 +44,32 @@ class Info extends React.Component {
                 <Likes /*user={this.props.user}*/ />
                 <Friends /*user={this.props.user}*/ />
             </div>
+            <ReactModal isOpen={this.state.editModal} onRequestClose={this.hideEdit} className='profile'>
+                <EditUser toClose={this.hideEdit} />
+            </ReactModal>
         </div>;
     }
 }
+
+
+
+class EditUser extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+        };
+    }
+    render() {
+        return <div className="edit-user animated fadeInDown">
+            <div className="content">
+                {presents.map(present => LikedPresent)}
+            </div>
+            <div className='button'><X size="5vh" color='#600303' onClick={this.props.toClose} /></div>
+        </div>;
+    }
+}
+
+
 
 class Likes extends React.Component {
     render() {
@@ -181,14 +214,6 @@ class UserPresents extends React.Component {
 @withRouter
 @observer
 export class Profile extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
-
-    componentWillMount() {
-        while (this.props.userStore.currentUser == null) this.setState({ user: this.props.userStore.currentUser});
-    }
     render() {
         const { isUser, currentUser } = this.props.userStore;
         return <div className="profile h-100 w-100">

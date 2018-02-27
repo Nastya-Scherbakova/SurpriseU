@@ -39,6 +39,7 @@
     <None Remove="ClientApp\components\ConnectingDots.jsx" />
     <None Remove="ClientApp\components\NavMenu.tsx" />
     <None Remove="ClientApp\css\Profile.scss" />
+    <None Remove="ClientApp\css\style.css" />
   </ItemGroup>
 
   <Target Name="DebugRunWebpack" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('wwwroot\dist') ">

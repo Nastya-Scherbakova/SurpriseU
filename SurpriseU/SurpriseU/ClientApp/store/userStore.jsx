@@ -3,28 +3,9 @@ import requests from '../requests';
 
 class UserStore {
     @observable currentUser = undefined;
-    //@observable updatingUser;
-    //@observable updatingUserErrors;
     @observable isUser = false;
     @observable isAdmin = false;
 
-    //@action getUser() {
-    //    //this.loadingUser = true;
-    //    return requests.Auth.current()
-    //        .then(action(({ user }) => {
-    //            this.currentUser = user;
-    //            this.getRole();
-    //            this.isUser = true;
-    //        }))
-    //        .catch(action((err) => {
-    //            if (err.status == '') {
-    //                this.currentUser = undefined;
-    //                this.isUser = false;
-    //            };
-    //            throw err;
-    //        }))
-    //    //.finally(action(() => { this.loadingUser = false; }))
-    //}
     @action pullUser(user) {
         this.currentUser = user;
         this.isUser = true;
@@ -51,3 +32,23 @@ class UserStore {
 }
 
 export default new UserStore();
+
+
+
+    //@action getUser() {
+    //    //this.loadingUser = true;
+    //    return requests.Auth.current()
+    //        .then(action(({ user }) => {
+    //            this.currentUser = user;
+    //            this.getRole();
+    //            this.isUser = true;
+    //        }))
+    //        .catch(action((err) => {
+    //            if (err.status == '') {
+    //                this.currentUser = undefined;
+    //                this.isUser = false;
+    //            };
+    //            throw err;
+    //        }))
+    //    //.finally(action(() => { this.loadingUser = false; }))
+    //}

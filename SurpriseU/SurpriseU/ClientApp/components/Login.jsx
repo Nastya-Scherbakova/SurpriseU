@@ -4,9 +4,6 @@ import { withRouter, Link } from 'react-router-dom';
 import {  Check } from 'react-feather';
 import { Redirect } from 'react-router'
 
-@inject('authStore')
-@withRouter
-@observer
 class Register extends React.Component {
     constructor(props) {
         super(props);
@@ -35,13 +32,12 @@ class Register extends React.Component {
 
     onSubmit = e => {
         e.preventDefault();
-        this.props.authStore.register({
+        this.state.formValid.every(item => item) && this.props.authStore.register({
             name: this.state.name,
             email: this.state.email,
             password: this.state.password,
             gender: Number(this.state.gender)
-        })
-            .then(() => this.props.history.replace('/'));
+        });
     };
 
     validateField(e) {
@@ -70,7 +66,7 @@ class Register extends React.Component {
                 formValid[3] = fieldValid ? true : false;
                 break;
             case 'password2':
-                fieldValid = value == this.state.password;
+                fieldValid = value.length >= 6 && value == this.state.password;
                 fieldErrors.password = fieldValid ? '' : 'Паролі відрізняються';
                 formValid[3] = fieldValid ? true : false;
                 break;
@@ -84,16 +80,12 @@ class Register extends React.Component {
     }
 
     errorClass = (error) => error.length === 0 ? '' : 'has-error';
-
-    isErrorField = (error) => error.length > 0 ? <p className='d-flex justify-content-center'>{error}</p> : <p > </p>;
+    isErrorField = (error) => error.length > 0 ? <p className='d-flex justify-content-center error'>{error}</p> : <p > </p>;
 
     render() {
-        let field = this.state.formValid,
-            allFields = field[0] && field[1] && field[2] && field[3];
         return <form className='form d-flex justify-content-around flex-column align-items-center' onSubmit={this.onSubmit}>
                     <input className={`inpt ${this.errorClass(this.state.formErrors.name)}`}
                         name="name"
-                        required="required" 
                         placeholder="Ім'я"
                         value={this.state.name}
                         onChange={this.onChange}
@@ -102,7 +94,6 @@ class Register extends React.Component {
                     {this.isErrorField(this.state.formErrors.name)}
                     <input className={`inpt ${this.errorClass(this.state.formErrors.email)}`}
                         name="email"
-                        required="required" 
                         placeholder="Електронна адреса"
                         value={this.state.email}
                         onChange={this.onChange}
@@ -110,7 +101,6 @@ class Register extends React.Component {
                         type="email" />
                     {this.isErrorField(this.state.formErrors.email)}
                     <input className={`inpt ${this.errorClass(this.state.formErrors.password)}`}
-                        required="required" 
                         name="password"
                         placeholder="Пароль"
                         value={this.state.password}
@@ -119,7 +109,6 @@ class Register extends React.Component {
                         type="password" />
                     {this.isErrorField(this.state.formErrors.password)}
                     <input className={`inpt ${this.errorClass(this.state.formErrors.password2)}`}
-                        required="required"
                         name="password2"
                         placeholder="Повторіть пароль"
                         value={this.state.password2}
@@ -138,12 +127,11 @@ class Register extends React.Component {
                             <div className={(this.state.gender == 1) ? ('female female' + '-checked') : 'female'} ></div>
                         </label>
                     </div>
-                    <div onClick={this.onSubmit} className="sbm-but mb-3 d-flex justify-content-center align-items-center">Зареєструватися</div>
+                    <div onClick={this.onSubmit} className="sbm-but d-flex justify-content-center align-items-center">Зареєструватися</div>
             </form>;
 
     }
 }
-
 
 
 const socialIcons = [' tw ', ' go ', ' face '].map((icon) =>
@@ -160,15 +148,15 @@ class Login extends React.Component {
         this.state = {
             email: '',
             password: '',
-            remember: false
+            remember: false,
+            forgetPassword: false
         };
         this.onSubmit = this.onSubmit.bind(this);
         this.onChange = this.onChange.bind(this);
         this.onRemember = this.onRemember.bind(this);
-    }
-
+    };
+    
     onRemember = () => this.setState(prevState => ({ remember: !prevState.remember }));
-
     onChange = e => this.setState({ [e.target.name]: e.target.value });
 
     onSubmit = e => {
@@ -182,13 +170,13 @@ class Login extends React.Component {
 
     render() {
         const { errors, inProgress } = this.props.authStore;
-        const { isUser } = this.props.userStore;
         return <form className='form d-flex justify-content-around flex-column  align-items-center' onSubmit={this.onSubmit}>
             <div className="d-flex justify-content-center flex-column  align-items-center">
                 <div className="d-flex flex-row">
                     {socialIcons}
                 </div>
             </div>
+
             <input className='inpt'
                 name="email"
                 required="required"
@@ -203,17 +191,17 @@ class Login extends React.Component {
                 value={this.state.password}
                 onChange={this.onChange}
                 type="password" />
-            {errors == '401' && <p className='login-error'>Неправильний логін або пароль</p>}
-           
 
-            <div onClick={this.onSubmit} className="sbm-but d-flex justify-content-center align-items-center">Увійти</div>
+            {errors == '401' && <p className='login-error'>Невірний логін або пароль</p>}
 
             <label className='d-flex justify-content-center align-items-center w-100 check-label'>
                 <span onClick={this.onRemember} className={`d-flex justify-content-center align-items-center mr-3 ${this.state.remember ? ' checkbox-true' : ' checkbox-false '}`}><Check className='check animated scaleIn' /></span>
                 Запам'ятати мене
             </label>
-                    <div className="d-flex justify-content-center">Забули пароль?</div>
-                    {isUser && <Redirect to="/profile" />}
+
+            <div onClick={this.onSubmit} className="sbm-but d-flex justify-content-center align-items-center">Увійти</div>
+            <div className="d-flex justify-content-center">Забули пароль?</div>
+         
             </form>;
     }
 }
@@ -227,28 +215,27 @@ export class LogIn extends React.Component {
         this.state = {
             signIn: 0
         };
-        this.onTab = this.onTab.bind(this);
     }
     onTab = e => this.setState({ signIn: e.target.value });
     render() {
+        const { currentUser } = this.props.userStore;
         return <div className='w-100 h-100 d-flex justify-content-center'>
             <div className='log-form row'>
             <div className="image"></div>
             <div className="content d-flex flex-column justify-content-around align-items-center">
-                    <div className=" d-flex name justify-content-center align-items-center">
-                        <h2>SurpriseU</h2>
-                    </div>
+                    <div className="name"><h2>SurpriseU</h2></div>
                     <div className="tabs d-flex justify-content-start align-items-bottom ">
-                            <label className={(this.state.signIn == 0) ? ('tab tab-active') : ('tab')}> Вхід
+                            <label className={`${this.state.signIn == 0 && 'tab-active'} tab`}> Вхід
                                 <input type="radio" value={0} onClick={this.onTab} />
                             </label>
-                            <label className={(this.state.signIn == 1) ? ('tab tab-active') : ('tab')}>Реєстрація
+                            <label className={`${this.state.signIn == 1 && 'tab-active'} tab`}>Реєстрація
                                 <input type="radio" value={1} onClick={this.onTab} />
                             </label>
                     </div>
                     {(this.state.signIn == 0) ? <Login /> : <Register />}
             </div>
             </div>
+            {currentUser != null && <Redirect to="/profile" />}
         </div>;
 
     }

@@ -13,7 +13,7 @@ export class Home extends React.Component{
     render() {
         const { isFilter } = this.props.presentsStore;
         return <div>
-            <div className="home-image"></div>
+            <div className={`${isFilter && 'image-fixed'}  home-image`}></div>
             {isFilter && <Filter />}
             <PresentsList />
         </div>;
@@ -31,63 +31,56 @@ class Filter extends React.Component {
             gender: '0',
             startAge: '',
             endAge: '',
-            tags: [],
-            inputTags: '',
-            popularTags: []
+            likesTags: [],
+            celebrationTags: [],
+            likes: '',
+            celebration: '',
+            likesAuto: [],
+            celebrationAuto: [],
         };
         this.onChange = this.onChange.bind(this);
         this.openFilter = this.openFilter.bind(this);
+        this.search = this.search.bind(this);
         this.renderOffers = this.renderOffers.bind(this);
     }
-
-
+    
+    
     addTag = tag => {
-        let tags = this.state.tags,
-            popularTags = this.state.popularTags;
-        if (tags.map(x => x.id).indexOf(tag.id) == -1) {
-            tags.push({ id: tag.id, name: tag.name });
-            popularTags.splice(popularTags.findIndex(x => x.id === tag.id), 1);
-        };
-        this.setState({
-            tags: tags,
-            popularTags: popularTags
+        let type = tag.type == '0' ? 'likes' : 'celebration';
+        this.state[`${type}Tags`].map(x => x.id).indexOf(tag.id) == -1 && this.setState({
+            [`${type}Tags`]: this.state[`${type}Tags`].concat({ id: tag.id, name: tag.name }),
+            [type]: '',
+            [`${type}Auto`]: []
         });
     }
 
     deleteTag = tag => {
-        let tags = this.state.tags,
-            popularTags = this.state.popularTags;
-        popularTags.push({ id: tag.id, name: tag.name }); 
+        let type = this.state.likesTags.map(x => x.id).indexOf(tag.id) != -1 ? 'likes' : 'celebration';
+        let tags = this.state[`${type}Tags`];
         tags.splice(tags.findIndex(x => x.id === tag.id), 1);
-        this.setState({
-            tags: tags,
-            popularTags: popularTags
-        });
+        this.setState({ [`${type}Tags`]: tags })
     }
+    
+    openFilter = () => this.props.presentsStore.enableFilter();
 
-    componentWillMount() {
-        let tags = this.props.tagsStore.likesStore.concat(this.props.tagsStore.celebrationStore);
-        this.setState({ popularTags: tags });
-    }
+    onChange = e => this.setState({ [e.target.name]: e.target.value });
 
-    openFilter = () => {
-        this.props.presentsStore.enableFilter();
-    }
-
-    onChange(e) {
-        this.setState({ [e.target.name]: e.target.value });
-    }
+    search = e => {
+        e.preventDefault();
+        let tags = this.state.likesTags.map(e => Object.assign({}, { presentId: '' }, { tagId: e.id })).concat(this.state.celebrationTags.map(e => Object.assign({}, { presentId: '' }, { tagId: e.id })));
+        this.props.presentsStore.searchPresents(this.state.gender, this.state.startAge, this.state.endAge, this.state.tags);
+    };
 
     renderOffers = (e) => {
         this.onChange(e);
         const inputValue = e.target.value.trim().toLowerCase(),
             inputLength = inputValue.length,
-            likes = inputLength === 0 ? [] : this.props.tagsStore.likesStore.filter(
-                item => item.name.toLowerCase().slice(0, inputLength) === inputValue),
-            celebration = inputLength === 0 ? [] : this.props.tagsStore.celebrationStore.filter(
+            suggestions = inputLength === 0 ? [] : this.props.tagsStore[`${e.target.name}Store`].filter(
                 item => item.name.toLowerCase().slice(0, inputLength) === inputValue);
-        this.setState({ popularTags: likes.concat(celebration) });
+        this.setState({ [`${e.target.name}Auto`]: suggestions });
     };
+
+
     render() {
         return <div className='filter-form animated fadeInDown '>
                 <div className='d-flex w-100 h-75 justify-content-around align-items-center'>
@@ -102,12 +95,6 @@ class Filter extends React.Component {
                             placeholder="Кінцевий вік"
                             value={this.state.endAge}
                             onChange={this.onChange} />
-                        <input className='text'
-                            name="inputTags"
-                            placeholder="Теги"
-                            value={this.state.inputTags}
-                            onChange={this.renderOffers}
-                    />
                         <div className='gender d-flex justify-content-around'>
                             {[
                                 { value: 1, gender: "male" },
@@ -118,16 +105,35 @@ class Filter extends React.Component {
                                 <div className={(this.state.gender == item.value) ? (item.gender + ' ' + item.gender + '-checked') : (item.gender)} ></div>
                             </label>)}
                         </div>
+                      
                     </div>
-                    <div className='popular-tags d-flex flex-wrap justify-content-start align-items-start'>
-                    {this.state.tags.map(tag => <HashTag key={tag.id} name={tag.name} check={true} onClick={this.deleteTag.bind(this, tag)} />)}
-                    {this.state.popularTags.map(tag => <HashTag key={tag.id} name={tag.name} check={false} onClick={this.addTag.bind(this, tag)} />) }
+                    <div className='d-flex flex-column align-items-center'>
+                        <input className='text-tag'
+                        name="likes"
+                        placeholder="Подобається"
+                        value={this.state.likes}
+                        onChange={this.renderOffers} />
+                        <div className='popular-tags d-flex flex-wrap justify-content-start align-items-start'>
+                        {this.state.likesTags.map(tag => <HashTag key={tag.id} name={tag.name} check={true} onClick={this.deleteTag.bind(this, tag)} />)}
+                        {this.state.likesAuto.map(tag => <HashTag key={tag.id} name={tag.name} check={false} onClick={this.addTag.bind(this, tag)} />) }
+                        </div>
                     </div>
-            </div>
-            <div className='w-100 d-flex justify-content-center icons'>
-                <Check className='icon' />
-                <X className='icon' onClick={this.openFilter} />
-            </div>
+                    <div className='d-flex flex-column align-items-center'>
+                        <input className='text-tag'
+                        name="celebration"
+                        placeholder="Свята"
+                        value={this.state.celebration}
+                        onChange={this.renderOffers} />
+                        <div className='popular-tags d-flex flex-wrap justify-content-start align-items-start'>
+                        {this.state.celebrationTags.map(tag => <HashTag key={tag.id} name={tag.name} check={true} onClick={this.deleteTag.bind(this, tag)} />)}
+                        {this.state.celebrationAuto.map(tag => <HashTag key={tag.id} name={tag.name} check={false} onClick={this.addTag.bind(this, tag)} />)}
+                        </div>
+                    </div>
+                </div>
+                <div className='w-100 d-flex justify-content-center icons'>
+                    <Check className='icon' onClick={this.search} />
+                    <X className='icon' onClick={this.openFilter} />
+                </div>
         </div>;
     }
 }

@@ -244,7 +244,7 @@ body {
 /*TAGS*/
 .tags {
     background: rgba(255,255,255,0.7);
-    padding: 1.5vh 2vw;
+    padding: 1.5vh 1vw;
     border-radius: 2.5vh;
 }
 .tag {
@@ -276,10 +276,21 @@ body {
 }
 .popular-tags {
     @extend .tags;
-    width: 50%;
-    min-height: 70%;
-    max-height: 100%;
+
+    @include for-orient(port) {
+        width: 30vw;
+    }
+
+    @include for-orient(land) {
+        width: 20vw;
+    }
+
     overflow: hidden;
+    height: 17vh;
+
+    .tag {
+        font-size: 1rem;
+    }
 }
 .present-tags {
         @extend .tags;
@@ -293,12 +304,16 @@ body {
 
 
 /*MENU*/
- .home-image {
-        margin-bottom: 3vh;
+.image-fixed {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+.home-image {
         background: url(https://wallpaperscraft.ru/image/abstrakciya_seryy_siniy_dym_441_1920x1080.jpg);
         background-size: cover;
         box-shadow: 0 0 10px rgba(0,0,0,0.5);
-
+        margin-bottom: 3vh;
         @include for-size(phone-only) {
             height: 35vh;
             background-size: 250%;
@@ -316,15 +331,27 @@ body {
         }
 
         @include for-size(desktop-up) {
-            height: 50vh;
+            height: 45vh;
         }
     }
-.sps {
+.menu {
     position: fixed;
     top: 0;
     left: 0;
     transition: all 0.25s ease;
     width: 100%;
+
+    @include for-size(phone-only) {
+        height: $menu-s;
+    }
+
+    @include for-size( phone-landscape-up ) {
+        height: $menu-m;
+    }
+
+    @include for-size(tablet-portrait-up) {
+        height: $menu-l;
+    }
 
     .content {
         display: flex;
@@ -361,8 +388,6 @@ body {
         }
     }
 
-
-
     .icons {
         width: 25%;
         display: flex;
@@ -387,35 +412,15 @@ body {
 .sps--abv {
     background-color: transparent;
     color: #000;
-
-    @include for-size(phone-only) {
-        height: $menu-s;
-    }
-
-    @include for-size( phone-landscape-up ) {
-        height: $menu-m;
-    }
-
-    @include for-size(tablet-portrait-up) {
-        height: $menu-l;
-    }
 }
 .sps--blw {
     background-color: #fff !important;
     color: #fff;
     box-shadow: 0 0 10px rgba(0,0,0,0.5);
-
-    @include for-size(phone-only) {
-        height: $menu-s;
-    }
-
-    @include for-size( phone-landscape-up ) {
-        height: $menu-m;
-    }
-
-    @include for-size(tablet-portrait-up) {
-        height: $menu-l;
-    }
+   
+}
+.no-shadow {
+box-shadow: none !important;
 }
 $background-color: #2A2E37;
 $search-bg-color: #242628;
@@ -521,27 +526,35 @@ $transition: all .5s ease;
         }
     }
 }
-.filter-form {
+.f-filter {
+    color: black;
+    width: 3vh;
+    height: 3vh;
     position: absolute;
+    right: -5vh;
+}
+.filter-form {
+    position: fixed;
     top: 0;
     left: 0;
-    background: rgba(255,255,255,0.4);
     width: 100vw;
     font-size: 0.7em;
-    z-index: 2;
+    z-index: 1;
+    background: rgba(255,255,255, 0.4);
+
     @include for-size(phone-only) {
         height: 35vh;
-        padding: 7% 10% 0 10%;
+        padding: $menu-s 5% 0 5%;
     }
 
     @include for-size(phone-landscape-up) {
         height: 40vh;
-        padding: 7% 10% 0 10%;
+        padding: $menu-m 5% 0 5%;
     }
 
     @include for-size(desktop-up) {
-        height: 50vh;
-        padding: 7% 20% 0 20%;
+        height: 45vh;
+        padding: $menu-l 20% 0 20%;
     }
 
     .text {
@@ -553,7 +566,7 @@ $transition: all .5s ease;
             width: 85%;
         }
 
-        height: 5vh;
+        height: 4.5vh;
         background: rgba(255,255,255,1);
         margin: 1vh;
         padding: 1.5vh 1.5vw;
@@ -565,6 +578,12 @@ $transition: all .5s ease;
             outline: none;
             background: rgba(255,255,255,1);
         }
+    }
+
+    .text-tag {
+        @extend .text;
+     
+            width: 70%;
     }
 
     .gender {
@@ -599,8 +618,10 @@ $transition: all .5s ease;
     }
 
     .icons {
+        position: relative;
+        bottom: 0;
         height: 10%;
-        margin-top: 3vh;
+        margin-top: 1.5vh;
 
         .icon {
             transition: $transition;
@@ -616,14 +637,6 @@ $transition: all .5s ease;
         }
     }
 }
-.f-filter {
-    color: black;
-    width: 3vh;
-    height: 3vh;
-    position: absolute;
-    right: -5vh;
-}
-
 
 
 
@@ -709,6 +722,28 @@ $transition: all .5s ease;
             text-transform: uppercase;
             font-size: 1.3em;
             height: 6vh;
+        }
+    }
+
+    .edit-user {
+        @extend .profile-div;
+        background: rgba(255,255,255,0.2);
+        border-radius: 2vh;
+        box-shadow: 0 3px 5px 0 rgba(0,0,0,0.1);
+
+        @include for-orient(port) {
+            width: 80vw;
+            height: 80vh;
+        }
+
+        @include for-orient(land) {
+            width: 40vw;
+            height: 78vh;
+        }
+
+        @include for-size(phone-only) {
+            width: 90vw;
+            height: 85vh;
         }
     }
 
@@ -1183,7 +1218,7 @@ $transition: all .5s ease;
 /*REGISTRATION LOGIN*/
 .log-form {
     font-family: 'Lato', sans-serif;
-    font-size: 0.7em;
+    font-size: 0.6em;
     box-shadow: 0 0 10px rgba(0,0,0,0.5);
 
     input[type="radio"] {
@@ -1208,7 +1243,6 @@ $transition: all .5s ease;
         width: 50vw;
         height: 60vh;
     }
-
 
     .image {
         background-position: center center;
@@ -1241,13 +1275,25 @@ $transition: all .5s ease;
             width: 25vw;
             height: 100%;
         }
+
         .login-error {
-            color: red;
+            color: #BF0000;
         }
+
         .name {
             height: 10%;
-            letter-spacing: 7px;
+            font-size: 3em;
+            letter-spacing: 0.45em;
             text-transform: uppercase;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .forget-password {
+            width: 70vw;
+            height: 30vh;
+            margin: auto;
         }
 
         .tabs {
@@ -1284,7 +1330,7 @@ $transition: all .5s ease;
             .inpt {
                 display: block;
                 width: 100%;
-                height: 10%;
+                height: 4.5vh;
                 padding: 2vh 1vh;
                 border: 1px solid #EAEAEA;
                 background: white;
@@ -1292,25 +1338,27 @@ $transition: all .5s ease;
 
                 &:focus {
                     border: 1px solid #B9D0F8;
-                    -webkit-box-shadow: 0 0 0 0.2rem rgba(69, 130, 236, 0.25);
-                    box-shadow: 0 0 0 0.2rem rgba(69, 130, 236, 0.25);
+                    -webkit-box-shadow: 0 0 0.5em 0.2rem rgba(69, 130, 236, 0.25);
+                    box-shadow: 0 0 0.5em 0.2rem rgba(69, 130, 236, 0.25);
                 }
             }
 
             .has-error {
                 border: 1px solid #F8B9B9;
-                -webkit-box-shadow: 0 0 0 0.2rem rgba(236,69,69, 0.25);
-                box-shadow: 0 0 0 0.2rem rgba(236,69,69, 0.25);
+                -webkit-box-shadow: 0 0 0.5em 0.2rem rgba(236,69,69, 0.25);
+                box-shadow: 0 0 0.5em 0.2rem rgba(236,69,69, 0.25);
+                margin-bottom: 1vh;
+            }
+
+            .error {
+                color: rgba(236,69,69, 1);
             }
         }
 
         .sbm-but {
-            height: 10%;
+            height: 4.5vh;
             width: 100%;
             text-transform: uppercase;
-            height: 4vh;
-            display: block;
-            width: 100%;
             letter-spacing: 1px;
             color: black;
             border: 1px solid #031868;
@@ -1334,20 +1382,17 @@ $transition: all .5s ease;
                 width: 7vh;
                 font-size: 3vh;
                 font-weight: bold;
-                margin: 0 1%;
 
-                @each $gender, $content, $color in (female, 221, #d9d9d9), (male, 222, #d9d9d9) {
+                @each $gender, $content, $color in (female, 221, #7D001B), (male, 222, #052E7D) {
                     .#{$gender} {
                         &::before {
                             font-family: FontAwesome;
                             content: "\f#{$content}";
-                            color: #{$color};
+                            color: #d9d9d9;
                             font-size: 3vh;
                         }
                     }
-                }
 
-                @each $gender, $color in (female, #7D001B), (male, #052E7D) {
                     .#{$gender}-checked {
                         &::before {
                             color: $color;
