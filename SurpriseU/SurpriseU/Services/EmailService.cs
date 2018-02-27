@@ -13,7 +13,7 @@ namespace SurpriseU.Services
         {
             var emailMessage = new MimeMessage();
 
-            emailMessage.From.Add(new MailboxAddress("Администрация сайта", "login@yandex.ru"));
+            emailMessage.From.Add(new MailboxAddress("Администрация SurpriseU", "support@surprise-u.com"));
             emailMessage.To.Add(new MailboxAddress("", email));
             emailMessage.Subject = subject;
             emailMessage.Body = new TextPart(MimeKit.Text.TextFormat.Html)
@@ -23,7 +23,7 @@ namespace SurpriseU.Services
 
             using (var client = new SmtpClient())
             {
-                await client.ConnectAsync("nshcherbakovaa@gmail.com", 25, false);
+                await client.ConnectAsync("smtp.gmail.com", 465, true);
                 await client.AuthenticateAsync("nshcherbakovaa@gmail.com", "n21111998");
                 await client.SendAsync(emailMessage);
 
