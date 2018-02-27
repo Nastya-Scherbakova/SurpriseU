@@ -12,7 +12,6 @@ export class Menu extends Component {
     logOut = () => {
         this.props.authStore.logout()
     }
-
     render() {
         const { isUser } = this.props.userStore,
             path = this.props.location.pathname;

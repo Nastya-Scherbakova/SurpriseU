@@ -7,17 +7,6 @@ import { Redirect } from 'react-router';
 import { withRouter } from 'react-router-dom';
 import { HashTag } from './Layout';
 
-var Nastya = {
-    name: 'Настя',
-    age: '19',
-    gender: 1,
-    instagram: '',
-    telegram: '',
-    facebook: '',
-    likes: [{ name: 'спорт', id: '1' }, { name: 'хореографія', id: '2' }, { name: 'співати', id: '3' }, { name: 'програмування', id: '4'}],
-    photo: 'https://pp.userapi.com/c840025/v840025300/39a4/aQuz84zS8-0.jpg'
-}
-
 
 @inject('authStore', 'userStore')
 @withRouter
@@ -25,14 +14,13 @@ var Nastya = {
 class Info extends React.Component {
     
     render() {
-        const { isUser } = this.props.userStore;
         return <div className="info w-100 d-flex justify-content-around align-items-center">
             <div className="d-flex flex-column main align-items-center">
-                <img className="img rounded-circle " src={this.props.user.photo} />
+                <img className="img rounded-circle " /*src={this.props.user.photo} *//>
                     <div className="d-flex justify-content-around">
-                        <a className="d-flex justify-content-center align-items-center social-icon navlink-no  tel" href={this.props.user.telegram}></a>
-                        <a className="d-flex justify-content-center align-items-center social-icon navlink-no  insta " href={this.props.user.instagram}></a>
-                        <a className="d-flex justify-content-center align-items-center social-icon navlink-no  face" href={this.props.user.facebook}></a>
+                        <a className="d-flex justify-content-center align-items-center social-icon navlink-no  tel" /*href={this.props.user.telegram}*/></a>
+                        <a className="d-flex justify-content-center align-items-center social-icon navlink-no  insta " /*href={this.props.user.instagram}*/></a>
+                        <a className="d-flex justify-content-center align-items-center social-icon navlink-no  face" /*href={this.props.user.facebook}*/></a>
                     </div>
                     <div className="d-flex justify-content-center align-items-center button">
                     Редагувати<Search className='icon' />
@@ -42,18 +30,17 @@ class Info extends React.Component {
                      </div>
             </div>
             <div className="d-flex flex-column other-data h-100 justify-content-around">
-                <div className="d-flex align-items-center age">Дата народження<div >{this.props.user.age}</div></div>
-                <Likes user={this.props.user} />
-                <Friends user={this.props.user} />
+                <div className="d-flex align-items-center age">Дата народження<div ></div></div>
+                <Likes /*user={this.props.user}*/ />
+                <Friends /*user={this.props.user}*/ />
             </div>
-            {!isUser && <Redirect to="/login" />}
         </div>;
     }
 }
 
 class Likes extends React.Component {
     render() {
-        const likes = this.props.user.likes;
+        const likes = [{ name: 'спорт', id: '1' }, { name: 'хореографія', id: '2' }, { name: 'співати', id: '3' }, { name: 'програмування', id: '4'}];
         return <div className="w-100 h-25 d-flex flex-wrap align-items-center likes" >
             <div className="d-flex like-title align-items-center">Подобається</div>
             <input placeholder="+" />
@@ -190,24 +177,31 @@ class UserPresents extends React.Component {
     }
 }
 
+@inject('authStore', 'userStore')
+@withRouter
+@observer
 export class Profile extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-            user: Nastya
-        };
+    }
+
+
+    componentWillMount() {
+        while (this.props.userStore.currentUser == null) this.setState({ user: this.props.userStore.currentUser});
     }
     render() {
-        let user = this.state.user;
+        const { isUser, currentUser } = this.props.userStore;
         return <div className="profile h-100 w-100">
             <div className='profile-area d-flex flex-column justify-content-around'>
-                <div className="d-flex justify-content-center align-items-center w-100 name">{user.name}</div>
-                <Info user={user} />
+                <div className="d-flex justify-content-center align-items-center w-100 name">{currentUser.name}</div>
+                <Info user={currentUser} />
                 <div className='d-flex content align-items-center'>
                     <LikedPresents />
                     <AddedPresents />
                 </div>
             </div>
+
+            {!isUser && <Redirect to="/login" />}
         </div>;
     }
 }

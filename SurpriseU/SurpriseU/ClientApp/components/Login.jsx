@@ -181,7 +181,7 @@ class Login extends React.Component {
     };
 
     render() {
-        const { values, errors, inProgress } = this.props.authStore;
+        const { errors, inProgress } = this.props.authStore;
         const { isUser } = this.props.userStore;
         return <form className='form d-flex justify-content-around flex-column  align-items-center' onSubmit={this.onSubmit}>
             <div className="d-flex justify-content-center flex-column  align-items-center">
@@ -203,6 +203,9 @@ class Login extends React.Component {
                 value={this.state.password}
                 onChange={this.onChange}
                 type="password" />
+            {errors == '401' && <p className='login-error'>Неправильний логін або пароль</p>}
+           
+
             <div onClick={this.onSubmit} className="sbm-but d-flex justify-content-center align-items-center">Увійти</div>
 
             <label className='d-flex justify-content-center align-items-center w-100 check-label'>

@@ -2,10 +2,9 @@
 import requests from '../requests';
 
 class UserStore {
-    @observable currentUser;
+    @observable currentUser = undefined;
     //@observable updatingUser;
     //@observable updatingUserErrors;
-    
     @observable isUser = false;
     @observable isAdmin = false;
 
@@ -26,10 +25,10 @@ class UserStore {
     //        }))
     //    //.finally(action(() => { this.loadingUser = false; }))
     //}
-    @action getUser() {
-        console.log(this.isUser);
+    @action pullUser(user) {
+        this.currentUser = user;
         this.isUser = true;
-        console.log(this.isUser);
+
     }
     @action updateUser(newUser) {
         //this.updatingUser = true;

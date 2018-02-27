@@ -39,8 +39,10 @@ const Auth = {
         requests.get(''),
     login: (user) =>
         requests.post('/Account/Login', user),
-    register: (user) =>
-        requests.post('/Account/Register', user)
+    register: (user) => 
+        requests.post('/Account/Register', user),
+    logout: () =>
+        requests.post('/Account/LogOff'),
 };
 const limit = (count, p) => `limit=${count}&offset=${p ? p * count : 0}`;
 
