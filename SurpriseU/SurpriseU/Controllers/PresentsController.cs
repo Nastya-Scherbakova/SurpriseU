@@ -54,10 +54,10 @@ namespace SurpriseU.Controllers
         }
         // GET: api/Presents/cupcake
         [HttpGet("Search/{presentTitle}")]
-        public IEnumerable<Present> Search([FromRoute] string presentTitle, [FromQuery] int startAge, [FromQuery] int endAge, [FromQuery] PresentsGender gender, [FromQuery] List<string> tagId)
+        public IEnumerable<Present> Search([FromRoute] string presentTitle, [FromQuery] int? startAge, [FromQuery] int endAge, [FromQuery] PresentsGender gender, [FromQuery] List<string> tagIds)
         {
             IQueryable<Present> presents = _context.Presents.Include(p => p.Tags);
-            if (startAge != 0 && endAge!=0 && startAge < endAge)
+            if (startAge != 0 && endAge != 0 && startAge < endAge)
             {
                 presents = presents.Where(p => p.StartAge >= startAge && p.EndAge <= endAge);
             }
@@ -67,26 +67,28 @@ namespace SurpriseU.Controllers
             }
             if (gender != PresentsGender.All)
             {
-                presents = presents.Where(p => p.Gender==gender || p.Gender == PresentsGender.All);
+                presents = presents.Where(p => p.Gender == gender || p.Gender == PresentsGender.All);
             }
-            if (tagId.Count != 0)
+
+            if (tagIds.Any())
             {
-                
-                foreach (var tag in tagId)
+
+                foreach (var tag in tagIds)
                 {
                     var realTag = _context.Tags.Find(tag);
-                   var listOfPresents = realTag.Presents;
+                    var realTag1 = _context.Tags.Where(t=> tagIds.Contains(t.Id)).Select(t=> t.Id).ToList();
+                    var listOfPresents = realTag.Presents;
                     foreach (var pr in listOfPresents)
                     {
                         presents = presents.Where(p => p.Id == pr.PresentId);
                     }
-                        
-                }
-                
-            }
-            
 
-            return presents;
+                }
+
+            }
+
+            var result = presents.ToList();
+            return result;
         }
 
         // PUT: api/Presents/5
@@ -149,7 +151,7 @@ namespace SurpriseU.Controllers
                 tag.Tag = _context.Tags.Find(tag.TagId);
             });
             _context.Presents.Add(present);
-            
+
 
             await _context.SaveChangesAsync();
 
