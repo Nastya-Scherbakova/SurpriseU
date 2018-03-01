@@ -40,10 +40,14 @@ namespace SurpriseU.ViewModels
     }
     public class EditUserViewModel
     {
+       
         public string Id { get; set; }
         public string Email { get; set; }
         public string Name { get; set; }
         public Gender Gender { get; set; }
+        public DateTime Age { get; set; }
+        public string Photo { get; set; }
+        public ICollection<UserTag> Tags { get; set; }
     }
     public class ChangePasswordViewModel
     {

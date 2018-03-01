@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query.ResultOperators;
 using SurpriseU.Data;
 using SurpriseU.Models;
 
@@ -142,7 +143,10 @@ namespace SurpriseU.Controllers
 
            // if (!res.Any()) res.AddRange(_context.Presents);
            // var result = presents.ToList();
-            return res;
+            var result = res.OrderByDescending(p => p.Users.Count);
+            
+            
+            return result;
         }
 
         // PUT: api/Presents/5

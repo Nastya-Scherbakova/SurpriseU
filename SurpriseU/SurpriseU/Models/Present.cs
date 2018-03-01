@@ -24,8 +24,8 @@ namespace SurpriseU.Models
         public int EndAge { get; set; }
         public List<PresentTag> Tags { get; set; }
         public List<UserPresent> Users { get; set; } //users that liked this present
-        public User User { get; set; } //user, that suggested this present to database or selected this present for someone
-        public List<PresentUser> likedForUsers { get; set; } //users, thats was selected by other users for this present
+        public User User { get; set; } //user, that suggested this present to database
+        public List<PresentUser> likedForUsers { get; set; } //users, that is being selected by other users for this present
         public Present()
         {
 
