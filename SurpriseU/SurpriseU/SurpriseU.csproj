@@ -38,6 +38,7 @@
     <None Remove="ClientApp\components\Admin.tsx" />
     <None Remove="ClientApp\components\ConnectingDots.jsx" />
     <None Remove="ClientApp\components\NavMenu.tsx" />
+    <None Remove="ClientApp\css\HYPE.ttf" />
     <None Remove="ClientApp\css\Profile.scss" />
     <None Remove="ClientApp\css\style.css" />
   </ItemGroup>

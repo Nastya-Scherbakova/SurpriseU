@@ -4,6 +4,7 @@ import { User, Clipboard, LogIn, Search, LogOut, Circle, Filter} from 'react-fea
 import 'scrollpos-styler';
 import { Switch, Route, withRouter } from 'react-router-dom';
 import { inject, observer } from 'mobx-react';
+import Ionicon from 'react-ionicons';
 
 @inject('userStore', 'authStore', 'presentsStore')
 @withRouter
@@ -21,16 +22,16 @@ export class Menu extends Component {
                     <NavLink className="nav-brand" to={'/'}>   
                     <h1 className={`main ${path == '/login' && ' login '}`}>SurpriseU</h1>
                     </NavLink>
+                
                     { path == '/' && <SearchInput /> }
                 </div> 
                 {
                     isUser ? <div className="icons">
-                        <NavLink className="navlink-no" to={'/anketa'}><Clipboard className='nav-icon ' color='#031560' /></NavLink>
-                        <NavLink className="navlink-no" to={'/profile'}><User className='nav-icon' color='#031560' /></NavLink>
+                    <NavLink className="navlink-no" to={'/anketa'}><Ionicon icon="ios-clipboard-outline" className='nav-icon' /></NavLink>
+                        <NavLink className="navlink-no" to={'/profile'}><User className='nav-icon' /></NavLink>
                         <NavLink className="navlink-no" to={'/login'}><LogOut onClick={this.logOut.bind(this)} className='nav-icon' color='#031560' /></NavLink>
-                    </div> : <div className="icons"><NavLink className="navlink-no" to={'/login'}><LogIn className='nav-icon' color='#031560' /></NavLink></div>
+                </div> : <div className="icons"><NavLink className="navlink-no" to={'/login'}><Ionicon icon="ios-log-in" className='nav-icon' /> </NavLink></div>
                 }
-                  
             </nav>;
     }
 }
@@ -65,14 +66,15 @@ class SearchInput extends Component {
     }
     render() {
         return <div className='d-flex align-items-center h-100 w-100'>
-        <div className={`d-flex align-items-center search ${this.state.isSearch && ' open'} `}>
-                <input type="search" ref={(input) => { this.search = input }} className="search-box"
+            <div className={`d-flex align-items-center search ${this.state.isSearch && ' open'} `}>
+                <input type="search" ref={(input) => { this.search = input }} className="search-input"
                     value={this.state.search} placeholder="Пошук" onChange={this.onChange} />
-                <span className="search-button" onClick={this.openSearch} >
-                    <span className="search-icon"></span>
-                </span>
-                <Filter className='f-filter' onClick={this.openFilter} />
-        </div>
+            
+              
+                <Ionicon icon="ios-arrow-dropright" className='ios-right  nav-icon' onClick={this.openSearch} />
+                <Ionicon icon="ios-search-outline" className='ios-search nav-icon' onClick={this.openSearch} />
+               
+            </div>
         </div >;
     }
 }

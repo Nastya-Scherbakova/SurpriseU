@@ -108,7 +108,7 @@ class Friends extends React.Component {
                     {LikedPresent}
                     {LikedPresent}
                 </div>
-                <ChevronRight className="d-flex right-arrow align-items-center" size='10vh' color='white' onClick={this.showPresents} />
+                <ChevronRight className="d-flex right-arrow align-items-center" size='10vh'  onClick={this.showPresents} />
             </div>
             <ReactModal isOpen={this.state.allPresents} onRequestClose={this.hidePresents} className='profile'>
                 <UserPresents toClose={this.hidePresents} />
@@ -138,7 +138,7 @@ class LikedPresents extends React.Component {
                 <div className="items">
                     {presents.map(present => LikedPresent)}
                 </div>
-                <ChevronRight className="d-flex right-arrow align-items-center" size='10vh' color='white' onClick={this.showPresents} />
+                <ChevronRight className="d-flex right-arrow align-items-center" size='10vh' onClick={this.showPresents} />
             </div>
             <ReactModal isOpen={this.state.allPresents} onRequestClose={this.hidePresents} className='profile'>
                 <UserPresents toClose={this.hidePresents} />
@@ -172,11 +172,11 @@ class AddedPresents extends React.Component {
             <div className="d-flex h-100 align-items-center">
                 <div className="items">
                     <div className="user-present rounded-circle">
-                        <div className="h-100 w-100 d-flex justify-content-center align-items-center plus-div" onClick={this.openAdd}><Plus className='plus ' color='white' size='7vh' /></div>
+                        <div className="h-100 w-100 d-flex justify-content-center align-items-center plus-div" onClick={this.openAdd}><Plus className='plus ' size='7vh' /></div>
                     </div>
                     {presents.map(present => LikedPresent)}
                 </div>
-                <ChevronRight className="d-flex right-arrow align-items-center" size='10vh' color='white' onClick={this.showPresents}/>
+                <ChevronRight className="d-flex right-arrow align-items-center" size='10vh' onClick={this.showPresents}/>
             </div>
             <ReactModal isOpen={this.state.newPresentModal} onRequestClose={this.closeAdd} className='addPresent'>
                 <NewPresent toClose={this.closeAdd} />

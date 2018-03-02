@@ -219,7 +219,7 @@ export class LogIn extends React.Component {
     onTab = e => this.setState({ signIn: e.target.value });
     render() {
         const { currentUser } = this.props.userStore;
-        return <div className='w-100 h-100 d-flex justify-content-center'>
+        return <div className='w-100 h-100 d-flex justify-content-center login'>
             <div className='log-form row'>
             <div className="image"></div>
             <div className="content d-flex flex-column justify-content-around align-items-center">

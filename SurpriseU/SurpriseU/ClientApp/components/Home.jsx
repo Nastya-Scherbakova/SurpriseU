@@ -5,21 +5,67 @@ import { HashTag } from './Layout';
 import { inject, observer } from 'mobx-react';
 import { Link, NavLink, withRouter } from 'react-router-dom';
 import { X, Check } from 'react-feather';
+import Radium, { StyleRoot } from 'radium';
+import { fadeInRight, fadeInDown, fadeInLeft, fadeInUp, fadeInRightBig} from 'react-animations';
 import 'scrollpos-styler';
+import Ionicon from 'react-ionicons';
+import scrollToComponent from 'react-scroll-to-component';
+import { ParallaxProvider, Parallax, ParallaxBanner  } from 'react-scroll-parallax';
+import Anime from 'react-anime';
 @inject('presentsStore', 'tagsStore')
 @withRouter
 @observer
 export class Home extends React.Component{
     render() {
         const { isFilter } = this.props.presentsStore;
-        return <div>
-            <div className={`${isFilter && 'image-fixed'}  home-image`}></div>
+        return <ParallaxProvider>
+            <div>
+            <div className={`${isFilter && 'image-fixed'}  home-image`}>
+                    <div className='home-name fromTop'>SURPRISEU</div>
+                    <div className='img-1 fromRight' ><img src='https://i.pinimg.com/736x/26/55/32/265532d484558d8230d18de71745ef2e.jpg' /></div>
+                    <div className='img-2 fromLeft' ><img src='http://lespartisanes.com/journal/wp-content/uploads/LOOKBOOK-4.jpg' />
+                    <div className='home-button'>Знайти подарунок</div>
+                </div>
+                    <div className='img-3 fromTop' ><img src='https://cheeseit.ru/wp-content/uploads/2017/11/3-07afa11bc01b124f9a57d7ee1ad6e3b6.jpg' /></div>
+                    <div className='text-div fromRight'><span className='underline-text'>тут красивая анимация<br />не придумала надпись ахах</span></div>
+               
+                        <div className='border-back-1 fromTop'></div>
+                   
+             
+                        <div className='img-1-back fromRight' ></div>
+             
+                        <div className='img-2-back fromLeft' ></div>
+                <div className='img-3-back fromTop' ></div>
+            </div>
             {isFilter && <Filter />}
-            <PresentsList />
-        </div>;
+            <div className='scroll-to-presents' onClick={() => scrollToComponent(this.Presents, { offset: -80, align: 'top', duration: 500, ease:'inCirc' })}>
+                <Ionicon icon="ios-arrow-down" className='ios-down' onClick={this.openSearch} />
+            </div>
+          
+           
+            <section ref={(section) => { this.Presents = section; }}><PresentsList /></section>
+
+        </div>
+        </ParallaxProvider>;
     }
 }
-
+//<ParallaxBanner
+//    className='home-parallax'
+//    layers={[
+//        {
+//            image: 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/105988/banner.jpg',
+//            amount: 0.3,
+//            slowerScrollRate: true,
+//        },
+//    ]}
+//    style={{
+//        height: '80vh',
+//    }}
+//>
+//    <div className='layer-1'>
+//        <h1>Headline Text</h1>
+//    </div>
+//</ParallaxBanner>
 
 @inject('presentsStore', 'tagsStore')
 @withRouter
@@ -137,3 +183,28 @@ class Filter extends React.Component {
         </div>;
     }
 }
+
+
+const styles = {
+    fadeInDown: {
+        animation: '1s',
+        animationName: Radium.keyframes(fadeInDown, 'fadeInDown')
+    },
+    fadeInRight: {
+        animation: '1s',
+        animationName: Radium.keyframes(fadeInRight, 'fadeInRight')
+    },
+    fadeInLeft: {
+        animation: '1s',
+        animationName: Radium.keyframes(fadeInLeft, 'fadeInLeft')
+    },
+    fadeInUp: {
+        animation: '1s',
+        animationName: Radium.keyframes(fadeInUp, 'fadeInUp')
+    },
+    fadeInRightBig: {
+        animation: '1s',
+        animationName: Radium.keyframes(fadeInRightBig, 'fadeInRightBig')
+    }
+}
+

@@ -3,8 +3,6 @@ import { Link, NavLink, withRouter } from 'react-router-dom';
 import { X, Check, Image, Upload, Edit, Trash, Hash} from 'react-feather';
 import ReactModal from 'react-modal';
 import { inject, observer } from 'mobx-react';
-import 'react-tippy/dist/tippy.css';
-import { Tooltip, withTooltip} from 'react-tippy';
 import { HashTag } from './Layout';
 
 @inject('presentsStore')
