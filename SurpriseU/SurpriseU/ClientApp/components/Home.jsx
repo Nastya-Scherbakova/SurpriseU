@@ -113,8 +113,14 @@ class Filter extends React.Component {
 
     search = e => {
         e.preventDefault();
-        let tags = this.state.likesTags.map(e => Object.assign({}, { presentId: '' }, { tagId: e.id })).concat(this.state.celebrationTags.map(e => Object.assign({}, { presentId: '' }, { tagId: e.id })));
-        this.props.presentsStore.searchPresents(this.state.gender, this.state.startAge, this.state.endAge, this.state.tags);
+        let tags = this.state.likesTags.map(e => Object.assign({}, { id: e.id })).concat(this.state.celebrationTags.map(e => Object.assign({}, { id: e.id})));
+        this.props.presentsStore.searchPresents({
+            keyWord: this.props.presentsStore.search,
+            gender: Number(this.state.gender),
+            startAge: Number(this.state.startAge),
+            endAge: Number(this.state.endAge),
+            tags: tags
+        });
     };
 
     renderOffers = (e) => {

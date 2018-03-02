@@ -57,8 +57,8 @@ const Presents = {
          requests.del(`/api/Presents/${id}`),
      edit: present =>
          requests.put(`/api/Presents/${present.id}`, present),
-     search: (presentTitle, gender, startAge, endAge) =>
-         requests.get(`api/Presents/Search/${presentTitle}?startAge=${startAge}&endAge=${endAge}&gender=${gender}`),
+     search: present =>
+         requests.post(`/api/Presents/Search`, present),
 };
 
 const Tag = {
