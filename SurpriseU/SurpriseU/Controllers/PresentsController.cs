@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query.ResultOperators;
+using SurpriseU.Data;
 using SurpriseU.Models;
 
 namespace SurpriseU.Controllers
@@ -52,41 +54,99 @@ namespace SurpriseU.Controllers
 
             return Ok(present);
         }
-        // GET: api/Presents/cupcake
-        [HttpGet("Search/{presentTitle}")]
-        public IEnumerable<Present> Search([FromRoute] string presentTitle, [FromQuery] int startAge, [FromQuery] int endAge, [FromQuery] PresentsGender gender, [FromQuery] List<string> tagId)
+        // POST: api/Presents/Search
+        [HttpPost("Search")]
+        public IEnumerable<Present> Search([FromBody]PresentData presentData)
         {
             IQueryable<Present> presents = _context.Presents.Include(p => p.Tags);
-            if (startAge != 0 && endAge!=0 && startAge < endAge)
+            List<Present> res = new List<Present>();
+            if (presentData.Tags.Any())
             {
-                presents = presents.Where(p => p.StartAge >= startAge && p.EndAge <= endAge);
-            }
-            if (!String.IsNullOrEmpty(presentTitle))
-            {
-                presents = presents.Where(p => p.Title.Contains(presentTitle));
-            }
-            if (gender != PresentsGender.All)
-            {
-                presents = presents.Where(p => p.Gender==gender || p.Gender == PresentsGender.All);
-            }
-            if (tagId.Count != 0)
-            {
-                
-                foreach (var tag in tagId)
+
+                foreach (var tag in presentData.Tags)
                 {
                     var realTag = _context.Tags.Find(tag);
-                   var listOfPresents = realTag.Presents;
+
+                    var listOfPresents = realTag.Presents;
                     foreach (var pr in listOfPresents)
                     {
-                        presents = presents.Where(p => p.Id == pr.PresentId);
+                        //presents = presents.Where(p => p.Id == pr.PresentId);
+                        res.Add(_context.Presents.Find(pr.PresentId));
                     }
-                        
+
                 }
                 
+
             }
             
+            if (presentData.EndAge != 0 && presentData.StartAge < presentData.EndAge)
+            {
+                presents = presents.Where(p => p.StartAge >= presentData.StartAge && p.EndAge <= presentData.EndAge);
+                foreach (var pr in presents)
+                {
+                    if(!res.Contains(pr)) res.Add(pr);
+                }
+               // res.AddRange(presents.ToList());
+                presents = _context.Presents.Include(p => p.Tags);
+            }
+            else if (presentData.EndAge == 0 && presentData.StartAge != 0)
+            {
+                presents = presents.Where(p => p.StartAge >= presentData.StartAge);
+                foreach (var pr in presents)
+                {
+                    if (!res.Contains(pr)) res.Add(pr);
+                }
+                // res.AddRange(presents.ToList());
+                presents = _context.Presents.Include(p => p.Tags);
 
-            return presents;
+            }
+            if (!String.IsNullOrEmpty(presentData.KeyWord))
+            {
+                presents = presents.Where(p => p.Title.Contains(presentData.KeyWord));
+                foreach (var pr in presents)
+                {
+                    if (!res.Contains(pr)) res.Add(pr);
+                }
+                presents = _context.Presents.Include(p => p.Tags);
+                presents = presents.Where(p => p.Content.Contains(presentData.KeyWord));
+                foreach (var pr in presents)
+                {
+                    if (!res.Contains(pr)) res.Add(pr);
+                }
+                presents = _context.Presents.Include(p => p.Tags);
+                var tags = _context.Tags.Where(t=> t.Name.Contains(presentData.KeyWord));
+                foreach (var tag in tags)
+                {
+
+                    var listOfPresents = tag.Presents;
+                    foreach (var pr in listOfPresents)
+                    {
+                        //presents = presents.Where(p => p.Id == pr.PresentId);
+                        if (!res.Contains(_context.Presents.Find(pr.PresentId))) res.Add(_context.Presents.Find(pr.PresentId));
+                    }
+
+                }
+
+
+
+            }
+            if (presentData.Gender != PresentsGender.All)
+            {
+                presents = presents.Where(p => p.Gender == presentData.Gender || p.Gender == PresentsGender.All);
+                foreach (var pr in presents)
+                {
+                    if (!res.Contains(pr)) res.Add(pr);
+                }
+               // presents = _context.Presents.Include(p => p.Tags);
+            }
+
+
+           // if (!res.Any()) res.AddRange(_context.Presents);
+           // var result = presents.ToList();
+            var result = res.OrderByDescending(p => p.Users.Count);
+            
+            
+            return result;
         }
 
         // PUT: api/Presents/5
@@ -149,7 +209,7 @@ namespace SurpriseU.Controllers
                 tag.Tag = _context.Tags.Find(tag.TagId);
             });
             _context.Presents.Add(present);
-            
+
 
             await _context.SaveChangesAsync();
 
