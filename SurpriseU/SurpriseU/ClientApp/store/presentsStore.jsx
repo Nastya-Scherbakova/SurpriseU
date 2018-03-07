@@ -11,7 +11,7 @@ export class PresentsStore {
     @action searchPresents(present) {
         requests.Presents.search(present).then(
             action(presents => {
-                this.presentsState = presents;
+                this.presentsState = presents.slice('');
             })
         )
     }

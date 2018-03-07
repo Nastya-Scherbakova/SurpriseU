@@ -49,7 +49,6 @@ class SearchInput extends Component {
         };
         this.openSearch = this.openSearch.bind(this);
         this.onChange = this.onChange.bind(this);
-        this.openFilter = this.openFilter.bind(this);
     }
 
     onChange(e) {
@@ -60,25 +59,19 @@ class SearchInput extends Component {
     openSearch = () => {
         this.setState(prevState => ({ isSearch: !prevState.isSearch }));
         this.search.focus();
-    }
-    openFilter = () => {
         this.props.presentsStore.enableFilter();
     }
     render() {
         return <div className='d-flex align-items-center h-100 w-100'>
-
-            <Ionicon icon="ios-funnel-outline" className='nav-icon' onClick={this.openFilter} />
             <div className={`d-flex align-items-center search ${this.state.isSearch && ' open'} `}>
 
                 <input type="search" ref={(input) => { this.search = input }} className="search-input"
                     value={this.state.search} placeholder="Пошук" onChange={this.onChange} />
             
-              
                 <Ionicon icon="ios-arrow-dropright" className='ios-right  nav-icon' onClick={this.openSearch} />
                 <Ionicon icon="ios-search-outline" className='ios-search nav-icon' onClick={this.openSearch} />
             </div>
         </div >;
     }
 }
-
-
+            
