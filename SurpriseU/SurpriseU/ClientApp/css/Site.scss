@@ -1,10 +1,12 @@
 ﻿@import url("https://use.fontawesome.com/releases/v5.0.1/css/all.css");
-@import url(https://fonts.googleapis.com/css?family=Lato:400,700);
+/*@import url(https://fonts.googleapis.com/css?family=Lato:400,700);*/
 @import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500&subset=cyrillic-ext');
 @import url('https://fonts.googleapis.com/css?family=Lobster&subset=cyrillic');
-@import url('https://fonts.googleapis.com/css?family=Caveat');
+/*@import url('https://fonts.googleapis.com/css?family=Caveat');*/
 @import url('https://fonts.googleapis.com/css?family=Duru+Sans');
-@import url('https://fonts.googleapis.com/css?family=Caveat:400,700&subset=cyrillic');
+@import url('https://fonts.googleapis.com/css?family=Roboto+Mono:100,300,400,500&subset=cyrillic,cyrillic-ext');
+/*@import url('https://fonts.googleapis.com/css?family=Caveat:400,700&subset=cyrillic');*/
+@import url('https://fonts.googleapis.com/css?family=Noto+Sans:400,400i,700,700i&subset=cyrillic,cyrillic-ext');
 @import 'bootstrap.css';
 @font-face {
     font-family: "FontAwesome";
@@ -13,7 +15,7 @@
     src: url("http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/fonts/fontawesome-webfont.eot?v=4.3.0");
     src: url("http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/fonts/fontawesome-webfont.eot?#iefix&v=4.3.0") format("embedded-opentype"), url("http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/fonts/fontawesome-webfont.woff2?v=4.3.0") format("woff2"), url("http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/fonts/fontawesome-webfont.woff?v=4.3.0") format("woff"), url("http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/fonts/fontawesome-webfont.ttf?v=4.3.0") format("truetype"), url("http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/fonts/fontawesome-webfont.svg?v=4.3.0#fontawesomeregular") format("svg");
 }
-@font-face {
+/*@font-face {
     font-family: 'klinic_slabbook';
     src: url("//cdn.shopify.com/s/files/1/0809/6969/t/3/assets/KlinicSlabBook-webfont.eot?13858869307445870543");
     src: url("//cdn.shopify.com/s/files/1/0809/6969/t/3/assets/KlinicSlabBook-webfont.eot?%23iefix&13858869307445870543") format("embedded-opentype"),url("//cdn.shopify.com/s/files/1/0809/6969/t/3/assets/KlinicSlabBook-webfont.woff2?13858869307445870543") format("woff2"),url("//cdn.shopify.com/s/files/1/0809/6969/t/3/assets/KlinicSlabBook-webfont.woff?13858869307445870543") format("woff"),url("//cdn.shopify.com/s/files/1/0809/6969/t/3/assets/KlinicSlabBook-webfont.ttf?13858869307445870543") format("truetype"),url("//cdn.shopify.com/s/files/1/0809/6969/t/3/assets/KlinicSlabBook-webfont.svg%23klinic_slabbook?13858869307445870543") format("svg");
@@ -47,14 +49,14 @@
     src: url("//cdn.shopify.com/s/files/1/0809/6969/t/3/assets/standard-leap-font.eot?%23iefix&13858869307445870543") format("embedded-opentype"),url("//cdn.shopify.com/s/files/1/0809/6969/t/3/assets/standard-leap-font.woff?13858869307445870543") format("woff"),url("//cdn.shopify.com/s/files/1/0809/6969/t/3/assets/standard-leap-font.ttf?13858869307445870543") format("truetype"),url("//cdn.shopify.com/s/files/1/0809/6969/t/3/assets/standard-leap-font.svg%23leap-font-set?13858869307445870543") format("svg");
     font-weight: normal;
     font-style: normal
-}
+}*/
 @font-face {
     font-family: tk-brandon-grotesque-n4;
     src: url(https://use.typekit.net/af/8d9762/0000000000000000000132df/27/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n4&v=3) format("woff2"),url(https://use.typekit.net/af/8d9762/0000000000000000000132df/27/d?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n4&v=3) format("woff"),url(https://use.typekit.net/af/8d9762/0000000000000000000132df/27/a?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n4&v=3) format("opentype");
     font-weight: 400;
     font-style: normal;
 }
-@font-face {
+/*@font-face {
     font-family: tk-brandon-grotesque-i4;
     src: url(https://use.typekit.net/af/0dee2d/0000000000000000000132e0/27/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=i4&v=3) format("woff2"),url(https://use.typekit.net/af/0dee2d/0000000000000000000132e0/27/d?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=i4&v=3) format("woff"),url(https://use.typekit.net/af/0dee2d/0000000000000000000132e0/27/a?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=i4&v=3) format("opentype");
     font-weight: 400;
@@ -71,7 +73,7 @@
     src: url(https://use.typekit.net/af/008d92/0000000000000000000132dc/27/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=i1&v=3) format("woff2"),url(https://use.typekit.net/af/008d92/0000000000000000000132dc/27/d?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=i1&v=3) format("woff"),url(https://use.typekit.net/af/008d92/0000000000000000000132dc/27/a?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=i1&v=3) format("opentype");
     font-weight: 100;
     font-style: italic;
-}
+}*/
 
 @mixin for-size($size) {
     @if $size == phone-only {
@@ -831,7 +833,6 @@ $transition: all .7s ease;
     left: 50vh;
     border-radius: 50%;
 }
-
 .img-7 {
     @extend .background-icon;
     top: 40vh;
@@ -855,6 +856,7 @@ $transition: all .7s ease;
     border-radius: 50%;
 }
 .profile2 {
+    font-family: 'Noto Sans', monospace;
     position: absolute;
     background: #FAFAFA;
     width: 100vw;
@@ -900,15 +902,6 @@ $transition: all .7s ease;
         background-size: cover;
         background-position: left center;
     }*/
-    .name {
-        font-size: 3em;
-        position: absolute;
-        top: 5vh;
-        left: 45%;
-        color: $darkblue;
-        z-index: 11;
-    }
-
     .profile-div {
         margin: auto;
         display: block;
@@ -923,7 +916,7 @@ $transition: all .7s ease;
 
         @include for-orient(land) {
             width: 60vw;
-            height: 78vh;
+            height: 80vh;
         }
 
         @include for-size(phone-only) {
@@ -932,28 +925,332 @@ $transition: all .7s ease;
         }
     }
 
-    .user {
-        @extend .profile-div;
-        /*border: 5px solid white;
-        border-image: linear-gradient(45deg, #C6C6E7, #E2C6C0) 1 round;*/
-        background: white;
-        box-shadow: 0 3px 5px rgba(0,0,0,0.3);
-        .edit {
-            position:absolute;
-            top:2vh;
-            right:2vh;
-        }
-        .social-border {
-            width: 6vh;
-            height: 6vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+
+
+    svg {
+        display: inline-block;
+        stroke: #fff;
+        stroke-width: 0;
+        stroke-miterlimit: 5;
+
+        .tw {
+            stroke-dasharray: 4000;
+            fill: url(#gradient1);
         }
 
-        .age {
-            font-weight: bold;
+        .inst {
+            stroke-dasharray: 4000;
+            fill: url(#gradient2);
         }
+
+        .fa {
+            stroke-dasharray: 3000;
+            fill: url(#gradient3);
+        }
+
+        .cake {
+            stroke-dasharray: 4000;
+            fill: url(#gradient4);
+        }
+    }
+
+    svg:hover .tw {
+        stroke-width: 15;
+        fill: none;
+        -webkit-animation: tw .9s cubic-bezier(0.47, 0, 0.745, 0.715) forwards,gradient1 .8s 5s forwards;
+        animation: tw .9s cubic-bezier(0.47, 0, 0.745, 0.715) forwards,gradient1 .8s 1s forwards;
+    }
+
+
+    svg:hover .cake {
+        fill: none;
+        -webkit-animation: cake .9s cubic-bezier(0.47, 0, 0.745, 0.715) forwards,gradient4 .8s 5s forwards;
+        animation: cake .9s cubic-bezier(0.47, 0, 0.745, 0.715) forwards,gradient4 .8s 1s forwards;
+    }
+
+    svg:hover .cake-width {
+        stroke-width: 1;
+    }
+
+    svg:hover .other-width {
+        stroke-width: 10;
+    }
+
+    svg:hover .inst {
+        stroke-width: 15;
+        fill: none;
+        -webkit-animation: inst .9s cubic-bezier(0.47, 0, 0.745, 0.715) forwards,gradient2 .8s 5s forwards;
+        animation: inst .9s cubic-bezier(0.47, 0, 0.745, 0.715) forwards,gradient2 .8s 1s forwards;
+    }
+
+    svg:hover .fa {
+        stroke-width: 15;
+        fill: none;
+        -webkit-animation: fa .9s cubic-bezier(0.47, 0, 0.745, 0.715) forwards,gradient3 .8s 1s forwards;
+        animation: fa .9s cubic-bezier(0.47, 0, 0.745, 0.715) forwards,gradient3 .8s 1s forwards;
+    }
+    /*------- Stroke animation -------------*/
+    @keyframes tw {
+        from {
+            stroke-dashoffset: 4000;
+        }
+
+        to {
+            stroke-dashoffset: 0;
+        }
+    }
+
+    @keyframes cake {
+        from {
+            stroke-dashoffset: 4000;
+        }
+
+        to {
+            stroke-dashoffset: 0;
+        }
+    }
+
+    @keyframes inst {
+        from {
+            stroke-dashoffset: 4000;
+        }
+
+        to {
+            stroke-dashoffset: 0;
+        }
+    }
+
+    @keyframes fa {
+        from {
+            stroke-dashoffset: 3000;
+        }
+
+        to {
+            stroke-dashoffset: 0;
+        }
+    }
+    /*--------- gradient animation ----*/
+    @keyframes gradient1 {
+        10% {
+            fill: none;
+        }
+
+        100% {
+            fill: url(#gradient1);
+            stroke-width: 0;
+        }
+    }
+
+    @keyframes gradient2 {
+        10% {
+            fill: none;
+        }
+
+        100% {
+            fill: url(#gradient2);
+            stroke-width: 0;
+        }
+    }
+
+    @keyframes gradient3 {
+        10% {
+            fill: none;
+        }
+
+        100% {
+            fill: url(#gradient3);
+            stroke-width: 0;
+        }
+    }
+
+    @keyframes gradient4 {
+        10% {
+            fill: none;
+        }
+
+        100% {
+            fill: url(#gradient4);
+            stroke-width: 0;
+        }
+    }
+
+    @keyframes gradient5 {
+        10% {
+            fill: none;
+        }
+
+        100% {
+            fill: url(#gradient5);
+            stroke-width: 0;
+        }
+    }
+    /*.back-div {
+        z-index: 10;
+        background: rgba(93,63,73, 0.3);
+        position: absolute;
+        left: -1vw;
+        top: 15vh;
+
+        @include for-orient(land) {
+            width: 22vw;
+            height: 50vh;
+        }
+    }*/
+    .back-div2 {
+        z-index: 10;
+        background: rgba(93,63,73, 0.3);
+        position: absolute;
+        left: -0.5vw;
+        top: 12.5vh;
+
+        @include for-orient(land) {
+            width: 21vw;
+            height: 55vh;
+        }
+    }
+
+    .main {
+        z-index: 11;
+        overflow: hidden;
+        font-size: 0.7em;
+        background: white;
+        position: absolute;
+        left: 0;
+        top: 10vh;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        /*@include for-orient(port) {
+                width: 80vw;
+                height: 20vh;
+            }*/
+        @include for-orient(land) {
+            width: 20vw;
+            height: 60vh;
+        }
+        /*@include for-size(phone-only) {
+                width: 90vw;
+                height: 25vh;
+            }*/
+        .top-image {
+            height: 15vh;
+            width: 25vw;
+            left: -2.5vw;
+            position: absolute;
+            top: 0;
+            background: red;
+            border-radius: 0 0 50% 50% /0 0 25px 25px;
+            display: flex;
+            justify-content: space-around;
+            align-items: flex-end;
+            padding: 0 3vw;
+            background: url(https://www.bronco.co.uk/inc/img/banner--pattern.svg) top center/cover,-webkit-linear-gradient(top left, #900019, #CC3876, #D1BAEB) !important;
+            background: url(https://www.bronco.co.uk/inc/img/banner--pattern.svg) top center/cover,linear-gradient(to bottom right, #900019, #CC3876, #D1BAEB) !important;
+
+
+            .photo {
+                background: url('https://lh3.googleusercontent.com/-N3amwcuqO8E/WQSWb-YsKDI/AAAAAAAAAS4/0-WJc3GPCGMg4chvwfNR5qy1uMggvy5aQCEwYBhgL/w140-h140-p/cT_KnLEbQ3Y.jpg');
+                background-size: cover;
+                border-radius: 50%;
+                border: 0.5vh solid white;
+                margin-bottom: -7.5vh;
+
+                @include for-orient(port) {
+                    width: 15vh;
+                    height: 15vh;
+                }
+
+                @include for-orient(land) {
+                    width: 15vh;
+                    height: 15vh;
+                }
+            }
+
+            .settings {
+                width: 6vh;
+                height: 6vh;
+                background: white;
+                border-radius: 50%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                margin-bottom: -2.5vh;
+            }
+        }
+
+
+
+
+
+
+        .info {
+            position: absolute;
+            bottom: 0;
+            display: flex;
+            flex-direction: column;
+            height: 38vh;
+            justify-content: space-around;
+            align-items: center;
+            padding: 0 3vh 12vh 3vh;
+
+            .name {
+                font-family: 'Roboto Mono', sans-serif;
+                font-size: 1rem;
+                color: #31274A;
+                font-weight: 500;
+            }
+
+            .age {
+                font-weight: bold;
+                color: #615481
+            }
+
+            .title {
+                position: relative;
+                width: 100%;
+                display: flex;
+                justify-content: center;
+            }
+
+            .tag {
+                font-family: 'Lobster', cursive;
+                margin: 0 1vw;
+                font-size: 0.65rem;
+
+                .icon {
+                    height: 2vh;
+                    width: 2vh;
+                }
+            }
+
+            .tag-check {
+                @extend .tag;
+                color: #615481;
+
+                .icon {
+                    color: #615481;
+                }
+            }
+        }
+
+        .social-tabs {
+            width: 100%;
+            position: absolute;
+            bottom: 0;
+            background: #F6F5F9;
+            padding: 2vh 15%;
+
+            .social-border {
+                width: 6vh;
+                height: 6vh;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                border-radius: 50%;
+                background: white;
+            }
+        }
+
+
+
 
         .items-border {
             width: 14.5vh;
@@ -962,6 +1259,7 @@ $transition: all .7s ease;
             justify-content: center;
             align-items: center;
             position: relative;
+            opacity: 0.9;
 
             &:before {
                 content: '';
@@ -969,6 +1267,7 @@ $transition: all .7s ease;
                 width: 3.5vh;
                 height: 2px;
                 margin-right: 1vh;
+                opacity: 0.8;
             }
 
             &:after {
@@ -977,286 +1276,101 @@ $transition: all .7s ease;
                 width: 3.5vh;
                 height: 2px;
                 margin-left: 1vh;
+                opacity: 0.8;
             }
         }
 
-        svg {
-            display: inline-block;
-            stroke: #fff;
-            stroke-width: 0;
-            stroke-miterlimit: 5;
-
-            .tw {
-                stroke-dasharray: 4000;
-                fill: url(#gradient1);
-            }
-
-            .inst {
-                stroke-dasharray: 4000;
-                fill: url(#gradient2);
-            }
-
-            .fa {
-                stroke-dasharray: 3000;
-                fill: url(#gradient3);
-            }
-
-            .cake {
-                stroke-dasharray: 4000;
-                fill: url(#gradient4);
-            }
-        }
-
-        svg:hover .tw {
-            stroke-width: 15;
-            fill: none;
-            -webkit-animation: tw .9s cubic-bezier(0.47, 0, 0.745, 0.715) forwards,gradient1 .8s 5s forwards;
-            animation: tw .9s cubic-bezier(0.47, 0, 0.745, 0.715) forwards,gradient1 .8s 1s forwards;
-        }
 
 
-        svg:hover .cake {
-            stroke-width: 1;
-            fill: none;
-            -webkit-animation: cake .9s cubic-bezier(0.47, 0, 0.745, 0.715) forwards,gradient4 .8s 5s forwards;
-            animation: cake .9s cubic-bezier(0.47, 0, 0.745, 0.715) forwards,gradient4 .8s 1s forwards;
-        }
 
-        svg:hover .inst {
-            stroke-width: 15;
-            fill: none;
-            -webkit-animation: inst .9s cubic-bezier(0.47, 0, 0.745, 0.715) forwards,gradient2 .8s 5s forwards;
-            animation: inst .9s cubic-bezier(0.47, 0, 0.745, 0.715) forwards,gradient2 .8s 1s forwards;
-        }
 
-        svg:hover .fa {
-            stroke-width: 15;
-            fill: none;
-            -webkit-animation: fa .9s cubic-bezier(0.47, 0, 0.745, 0.715) forwards,gradient3 .8s 1s forwards;
-            animation: fa .9s cubic-bezier(0.47, 0, 0.745, 0.715) forwards,gradient3 .8s 1s forwards;
-        }
-        /*------- Stroke animation -------------*/
-        @keyframes tw {
-            from {
-                stroke-dashoffset: 4000;
-            }
 
-            to {
-                stroke-dashoffset: 0;
-            }
-        }
 
-        @keyframes cake {
-            from {
-                stroke-dashoffset: 4000;
-            }
 
-            to {
-                stroke-dashoffset: 0;
-            }
-        }
-
-        @keyframes inst {
-            from {
-                stroke-dashoffset: 4000;
-            }
-
-            to {
-                stroke-dashoffset: 0;
-            }
-        }
-
-        @keyframes fa {
-            from {
-                stroke-dashoffset: 3000;
-            }
-
-            to {
-                stroke-dashoffset: 0;
-            }
-        }
-        /*--------- gradient animation ----*/
-        @keyframes gradient1 {
-            10% {
-                fill: none;
-            }
-
-            100% {
-                fill: url(#gradient1);
-                stroke-width: 0;
-            }
-        }
-
-        @keyframes gradient2 {
-            10% {
-                fill: none;
-            }
-
-            100% {
-                fill: url(#gradient2);
-                stroke-width: 0;
-            }
-        }
-
-        @keyframes gradient3 {
-            10% {
-                fill: none;
-            }
-
-            100% {
-                fill: url(#gradient3);
-                stroke-width: 0;
-            }
-        }
-
-        @keyframes gradient4 {
-            10% {
-                fill: none;
-            }
-
-            100% {
-                fill: url(#gradient4);
-                stroke-width: 0;
-            }
-        }
-
-        @keyframes gradient5 {
-            10% {
-                fill: none;
-            }
-
-            100% {
-                fill: url(#gradient5);
-                stroke-width: 0;
-            }
-        }
-
-        .info {
-            position: relative;
-            width: 100%;
+        .button {
+            margin: 0.5vh 0;
+            padding: 1vh 3vh;
+            transition: $transition;
+            border-radius: 20px;
+            background: transparent;
+            color: #132B5A;
+            border: 1px solid #132B5A;
 
             @include for-orient(port) {
-                height: 45%;
+                width: 100%;
             }
 
             @include for-orient(land) {
-                height: 40vh;
+                width: 75%;
             }
 
-            .main {
-                width: 30%;
-                padding: 2vh;
-
-
-
-                .search {
-                    width: 5vh;
-                    height: 5vh;
-                    opacity: .99;
-                    -webkit-transition: all 0.3s ease-in-out;
-                    -moz-transition: all 0.3s ease-in-out;
-                    -o-transition: all 0.3s ease-in-out;
-                    transition: all 0.3s ease-in-out;
-                    top: -1vh;
-                    right: -3vh;
-                    position: absolute;
-                }
-
-                .social-tabs {
-                    width: 75%;
-                }
-
-               
-
-
-                    .photo {
-                        background: url('https://lh3.googleusercontent.com/-N3amwcuqO8E/WQSWb-YsKDI/AAAAAAAAAS4/0-WJc3GPCGMg4chvwfNR5qy1uMggvy5aQCEwYBhgL/w140-h140-p/cT_KnLEbQ3Y.jpg');
-                        background-size: cover;
-                        border-radius: 18%;
-                        border:none;
-                        @include for-orient(port) {
-                            width: 15vh;
-                            height: 15vh;
-                        }
-
-                        @include for-orient(land) {
-                            width: 20vh;
-                            height: 20vh;
-                        }
-                    }
-              
-
-
-                .button {
-                    margin: 0.5vh 0;
-                    padding: 1vh 3vh;
-                    transition: $transition;
-                    border-radius: 20px;
-                    background: transparent;
-                    color: #132B5A;
-                    border: 1px solid #132B5A;
-
-                    @include for-orient(port) {
-                        width: 100%;
-                    }
-
-                    @include for-orient(land) {
-                        width: 75%;
-                    }
-
-                    &:hover {
-                        /*animation: pulse 1s;
+            &:hover {
+                /*animation: pulse 1s;
                         box-shadow: 0 0 0 2em rgba(#fff,0);*/
-                        box-shadow: 0 0.5em 0.5em -0.4em adjust-hue(#132B5A, 45deg);
-                        transform: translateY(-0.25em);
-                    }
-
-                    @keyframes pulse {
-                        0% {
-                            box-shadow: 0 0 0 0 adjust-hue(#132B5A, 45deg);
-                        }
-                    }
-                }
+                box-shadow: 0 0.5em 0.5em -0.4em adjust-hue(#132B5A, 45deg);
+                transform: translateY(-0.25em);
             }
 
-            .other-data {
-                width: 70%;
-                height: 100%;
-                padding: 0 1vw;
-
-                .title {
-                    position: relative;
-                    background: white;
-                }
-
-                .likes {
-                    input {
-                        width: 4vh;
-                        border: none;
-                        background-color: transparent;
-                        border-radius: 2vh;
-                        transition: all 300ms ease-in-out;
-                        margin: 0.2vh;
-                        padding: 0.4vh 1vh;
-
-                        &:focus {
-                            width: 10vh;
-                            padding: 0.4vh 1.5vh;
-                            outline: none;
-                            background-color: #fbfbfb;
-                        }
-
-                        &::-webkit-input-placeholder {
-                            color: $darkblue;
-                        }
-
-                        &::-moz-placeholder {
-                            color: $darkblue;
-                        }
-                    }
+            @keyframes pulse {
+                0% {
+                    box-shadow: 0 0 0 0 adjust-hue(#132B5A, 45deg);
                 }
             }
         }
+    }
+
+
+
+    .likes {
+        input {
+            width: 4vh;
+            border: none;
+            background-color: transparent;
+            border-radius: 2vh;
+            transition: all 300ms ease-in-out;
+            margin: 0.2vh;
+            padding: 0.4vh 1vh;
+
+            &:focus {
+                width: 10vh;
+                padding: 0.4vh 1.5vh;
+                outline: none;
+                background-color: #fbfbfb;
+            }
+
+            &::-webkit-input-placeholder {
+                color: $darkblue;
+            }
+
+            &::-moz-placeholder {
+                color: $darkblue;
+            }
+        }
+    }
+
+
+    .user {
+        /*border: 5px solid white;
+        border-image: linear-gradient(45deg, #C6C6E7, #E2C6C0) 1 round;*/
+        @include for-orient(port) {
+            width: 80vw;
+            height: 80vh;
+        }
+
+        @include for-orient(land) {
+            width: 45vw;
+            height: 80vh;
+        }
+
+        @include for-size(phone-only) {
+            width: 90vw;
+            height: 85vh;
+        }
+
+        background: #F4F4FB;
+        box-shadow: 0 3px 5px rgba(0,0,0,0.3);
+        position: absolute;
+        right: 0;
 
         .content {
             @include for-orient(port) {
@@ -1319,12 +1433,13 @@ $transition: all .7s ease;
 
             @include for-orient(land) {
                 height: 100%;
-                width: 48%;
+                width: 75%;
             }
         }
 
         .fields {
             position: relative;
+            right: -5vh;
             overflow: hidden;
             display: flex;
             -webkit-box-orient: vertical !important;
@@ -1365,12 +1480,12 @@ $transition: all .7s ease;
                 background-image: linear-gradient(180deg, transparent 65%, #cbb4d4 0);
                 background-size: 100% 80%;*/
                 .text {
-                    border: 1px solid transparent;
+                    /*border: 1px solid transparent;
                     background-image: linear-gradient(0deg, transparent 0%, transparent 100%), linear-gradient(0deg, #CBB4D4 0%,#CBB4D4 100%), linear-gradient(0deg,#CBB4D4 0%,#CBB4D4 100%);
                     background-origin: padding-box, border-box, border-box;
                     background-repeat: no-repeat;
                     background-size: 100% 100%, 100% 50%, 50% 0px;
-                    background-position: top left, bottom left, top left;
+                    background-position: top left, bottom left, top left;*/
                     padding: 0 1vh;
 
                     &::after {
