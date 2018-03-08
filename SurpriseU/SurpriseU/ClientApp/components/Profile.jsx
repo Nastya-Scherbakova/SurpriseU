@@ -249,7 +249,6 @@ export class Profile extends React.Component {
 @observer
 export class TestProfile extends React.Component {
     render() {
-        const { isUser, currentUser } = this.props.userStore;
         const likes = [{ name: 'спорт', id: '1' }, { name: 'хореографія', id: '2' }, { name: 'співати', id: '3' }, { name: 'програмування', id: '4' }];
         return <div className="profile2">
          
@@ -260,7 +259,9 @@ export class TestProfile extends React.Component {
               
                 <div className='back-div'></div>  
   <div className='back-div2'></div> 
-                <div className="main d-flex flex-column align-items-center">
+  <div className="main d-flex flex-column align-items-center">
+                    <div className='main-shadow1'></div>
+                    <div className='main-shadow2'></div>
                     <div className='top-image'>
 
                         {Search}
@@ -269,13 +270,22 @@ export class TestProfile extends React.Component {
                     </div> 
                    
                     <div className='info'>
-                    <div className="name">{currentUser.name}</div>
+                    <div className="name">Влада</div>
                         
                 
-                    <div className="d-flex align-items-center age">
+                    <div className="age">
+                        <div className="d-flex title align-items-center">{Cake}</div>02.01.1999
+                     </div>
 
-                            <div className="d-flex title align-items-center">{Cake}</div>02.01.1999
-                                  </div>
+                      <div className=" d-flex flex-wrap align-items-center likes" >
+                         <div className="d-flex title align-items-center"> {Heart}</div>
+                            <br />
+                            <input placeholder="+" />
+                                    {
+                                        likes.map(like => <HashTag key={like.id} name={like.name} check={true} />)
+                                    }
+                             </div>
+                    </div>
 
 
                     <div className='social-tabs d-flex justify-content-around align-items-center'>
@@ -283,15 +293,6 @@ export class TestProfile extends React.Component {
                         {Instagram}
                         {Facebook}
                     </div>
-                                        <div className=" d-flex flex-wrap align-items-center likes" >
-                            <div className="d-flex title align-items-center"> {Heart}</div>
-                            <br />
-                            <input placeholder="+" />
-                                    {
-                                        likes.map(like => <HashTag key={like.id} name={like.name} check={true} />)
-                                    }
-                                        </div>
-                  </div>
                 </div>
 
 
@@ -314,15 +315,13 @@ export class TestProfile extends React.Component {
                     
                     <div className="presents">
                         <div className="title"><div className='text'>Запропоновані подарунки</div></div>
-                        <div className="d-flex h-100 items align-items-center">
-                     
-                                <div className="user-present rounded-circle">
-                                    <div className="h-100 w-100 d-flex justify-content-center align-items-center plus-div"><Plus className='plus ' size='7vh' /></div>
-                                </div>
-                                {presents.map(present => LikedPresent)}
-                          
-                           
+                        <div className="items">
+                            <div className="user-present rounded-circle">
+                                <div className="h-100 w-100 d-flex justify-content-center align-items-center plus-div"><Plus className='plus ' size='7vh' /></div>
+                            </div>
+                            {presents.map(present => LikedPresent)}
                         </div>
+                       
                     </div>  
                 </div>
 
@@ -340,7 +339,7 @@ const LikedPresent = <div className="user-present rounded-circle border-0">
     <img className="h-100 rounded-circle border-0" src="https://avatars.mds.yandex.net/get-pdb/51720/a98cbb00-060c-4d87-b5fa-ef7500a58dd5/s800" />
 </div>;
 
-const Instagram = <div className='social-border'><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" viewBox="0 0 512 512" width='4vh' height='4vh'>
+const Instagram = <div className='social-border'><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" viewBox="0 0 512 512" >
         <defs>
             <linearGradient id="gradient2">
                 <stop offset="10%" stop-color="#FCBC59" />
@@ -359,7 +358,7 @@ const Instagram = <div className='social-border'><svg version="1.1" xmlns="http:
         </g>
 </svg></div>;
 
-const Facebook = <div className='social-border'><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1000 1000" width='4vh' height='4vh' >
+const Facebook = <div className='social-border'><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1000 1000">
     <defs>
         <linearGradient id="gradient3">
             <stop offset="10%" stop-color="#636E93" />
@@ -369,7 +368,7 @@ const Facebook = <div className='social-border'><svg version="1.1" xmlns="http:/
     <path className="fa" stroke="url(#gradient3)" d="M583.5,341.5h143.4L710.2,500H583.5v459.8H393.2V500h-94.9V341.5h94.9v-95.4 	c0-67.7,16-118.9,48-153.7s84.6-52.2,157.9-52.2h126.7v158.5h-79.2c-14.5,0-26.1,1.2-34.9,3.6c-8.7,2.4-15.1,6.8-19,13.1 	s-6.4,12.7-7.5,19.3s-1.7,15.7-1.7,27.6V341.5L583.5,341.5z" />
     </svg></div>;
 
-const Twitter = <div className='social-border'><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1000 1000" width='5vh' height='5vh' >
+const Twitter = <div className='twitter'><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1000 1000" >
     <defs>
         <linearGradient id="gradient1">
             <stop offset="10%" stop-color="#0283BF" />

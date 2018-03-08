@@ -868,7 +868,6 @@ $transition: all .7s ease;
     padding-top: 3vh;
     overflow: hidden;
     background-image: url('http://www.floresfh.com/sites/58cc36ef51d0100a2f5eebbe/assets/58cc378051d0100a2f5eeecc/background-picture-2.png');
-    background-color: rgba(184,185,215,0.3);
     /*.img-1 {
         position: absolute;
         height: 50vh;
@@ -932,6 +931,8 @@ $transition: all .7s ease;
         stroke: #fff;
         stroke-width: 0;
         stroke-miterlimit: 5;
+        width: 2vh;
+        height: 2vh;
 
         .tw {
             stroke-dasharray: 4000;
@@ -1096,7 +1097,7 @@ $transition: all .7s ease;
             height: 50vh;
         }
     }*/
-    .back-div2 {
+    /*.back-div2 {
         z-index: 10;
         background: rgba(93,63,73, 0.3);
         position: absolute;
@@ -1107,17 +1108,48 @@ $transition: all .7s ease;
             width: 21vw;
             height: 55vh;
         }
-    }
-
+    }*/
     .main {
         z-index: 11;
         overflow: hidden;
         font-size: 0.7em;
-        background: white;
+        background: rgba(255,255,255,1);
         position: absolute;
         left: 0;
         top: 10vh;
-        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        box-shadow: 0 3px 5px rgba(0,0,0,0.1);
+
+        &:before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 8.5vh;
+            background: url(https://www.bronco.co.uk/inc/img/banner--pattern.svg) top center/cover,-webkit-linear-gradient(top left, #900019, #CC3876, #D1BAEB) !important;
+            background: url(https://www.bronco.co.uk/inc/img/banner--pattern.svg) top center/cover,linear-gradient(to bottom right, #900019, #CC3876, #D1BAEB) !important;
+        }
+
+        .main-shadow1 {
+            position: absolute;
+            right: 0;
+            margin: auto;
+            left: 0;
+            top: 0;
+            width: 19vw;
+            height: 52.5vh;
+            background: rgba(255,255,255,0.5);
+        }
+
+        .main-shadow2 {
+            position: absolute;
+            right: 0;
+            margin: auto;
+            left: 0;
+            top: 0;
+            width: 18vw;
+            height: 53.5vh;
+            background: rgba(255,255,255,0.5);
+        }
         /*@include for-orient(port) {
                 width: 80vw;
                 height: 20vh;
@@ -1183,13 +1215,15 @@ $transition: all .7s ease;
 
         .info {
             position: absolute;
-            bottom: 0;
+            bottom: 8.5vh;
             display: flex;
             flex-direction: column;
-            height: 38vh;
+            height: 28vh;
             justify-content: space-around;
             align-items: center;
             padding: 0 3vh 12vh 3vh;
+            background: white;
+            overflow: hidden;
 
             .name {
                 font-family: 'Roboto Mono', sans-serif;
@@ -1199,8 +1233,22 @@ $transition: all .7s ease;
             }
 
             .age {
+                font-size: 1.1em;
                 font-weight: bold;
-                color: #615481
+                color: #615481;
+                position: relative;
+                top: 0;
+                display: flex;
+                align-items: center;
+                opacity: 0.8;
+
+                .items-border {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    opacity: 0.9;
+                    margin: 1vh 1vh 1vh 0;
+                }
             }
 
             .title {
@@ -1232,15 +1280,23 @@ $transition: all .7s ease;
         }
 
         .social-tabs {
-            width: 100%;
+            width: 75%;
             position: absolute;
             bottom: 0;
-            background: #F6F5F9;
-            padding: 2vh 15%;
+            padding: 1vh;
+
+            .twitter {
+                @extend .social-border;
+
+                svg {
+                    height: 3vh;
+                    width: 3vh;
+                }
+            }
 
             .social-border {
-                width: 6vh;
-                height: 6vh;
+                width: 4.5vh;
+                height: 4.5vh;
                 display: flex;
                 justify-content: center;
                 align-items: center;
@@ -1252,33 +1308,7 @@ $transition: all .7s ease;
 
 
 
-        .items-border {
-            width: 14.5vh;
-            height: 8vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-            opacity: 0.9;
 
-            &:before {
-                content: '';
-                background-image: linear-gradient(135deg, #31274A, #B8B9D7);
-                width: 3.5vh;
-                height: 2px;
-                margin-right: 1vh;
-                opacity: 0.8;
-            }
-
-            &:after {
-                content: '';
-                background-image: linear-gradient(135deg, #31274A, #B8B9D7);
-                width: 3.5vh;
-                height: 2px;
-                margin-left: 1vh;
-                opacity: 0.8;
-            }
-        }
 
 
 
@@ -1322,6 +1352,34 @@ $transition: all .7s ease;
 
 
     .likes {
+        .items-border {
+            width: 14.5vh;
+            height: 8vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            opacity: 0.9;
+
+            &:before {
+                content: '';
+                background-image: linear-gradient(135deg, #31274A, #B8B9D7);
+                width: 3.5vh;
+                height: 2px;
+                margin-right: 1vh;
+                opacity: 0.8;
+            }
+
+            &:after {
+                content: '';
+                background-image: linear-gradient(135deg, #31274A, #B8B9D7);
+                width: 3.5vh;
+                height: 2px;
+                margin-left: 1vh;
+                opacity: 0.8;
+            }
+        }
+
         input {
             width: 4vh;
             border: none;
@@ -1367,10 +1425,21 @@ $transition: all .7s ease;
             height: 85vh;
         }
 
-        background: #F4F4FB;
+        background-image: linear-gradient(45deg, #C6C6E7, #E2C6C0);
+
+        &::before {
+            content: '';
+            width: 100%;
+            left: 0;
+            height: 100%;
+            position: absolute;
+            background-color: rgba(255,255,255,0.5);
+        }
+
         box-shadow: 0 3px 5px rgba(0,0,0,0.3);
         position: absolute;
         right: 0;
+        padding: 3vh 3vh 3vh 6.5vw;
 
         .content {
             @include for-orient(port) {
@@ -1433,13 +1502,12 @@ $transition: all .7s ease;
 
             @include for-orient(land) {
                 height: 100%;
-                width: 75%;
+                width: 100%;
             }
         }
 
         .fields {
             position: relative;
-            right: -5vh;
             overflow: hidden;
             display: flex;
             -webkit-box-orient: vertical !important;
@@ -1506,33 +1574,7 @@ $transition: all .7s ease;
             }
         }
 
-        .plus-div {
-            .plus {
-                @include for-orient(port) {
-                    margin: 1.5vh;
-                }
 
-                @include for-orient(land) {
-                    margin: 4vh;
-                }
-
-                color: white;
-                -webkit-transition: all 0.3s ease-in-out;
-                -moz-transition: all 0.3s ease-in-out;
-                -o-transition: all 0.3s ease-in-out;
-                transition: all 0.3s ease-in-out;
-            }
-
-            &:hover {
-                .plus {
-                    -webkit-transform: scale(1.1);
-                    -moz-transform: scale(1.1);
-                    -ms-transform: scale(1.1);
-                    -o-transform: scale(1.1);
-                    transform: scale(1.1);
-                }
-            }
-        }
 
         .right-arrow {
             color: #E5E6FF;
@@ -1565,6 +1607,34 @@ $transition: all .7s ease;
 
         background-color: #E5E6FF;
         margin: 1vh;
+    }
+
+    .plus-div {
+        .plus {
+            @include for-orient(port) {
+                margin: 1.5vh;
+            }
+
+            @include for-orient(land) {
+                margin: 4vh;
+            }
+
+            color: white;
+            -webkit-transition: all 0.3s ease-in-out;
+            -moz-transition: all 0.3s ease-in-out;
+            -o-transition: all 0.3s ease-in-out;
+            transition: all 0.3s ease-in-out;
+        }
+
+        &:hover {
+            .plus {
+                -webkit-transform: scale(1.1);
+                -moz-transform: scale(1.1);
+                -ms-transform: scale(1.1);
+                -o-transform: scale(1.1);
+                transform: scale(1.1);
+            }
+        }
     }
 }
     /*PRESENTS*/
