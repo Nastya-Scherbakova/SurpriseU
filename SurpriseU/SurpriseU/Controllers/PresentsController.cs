@@ -146,7 +146,7 @@ namespace SurpriseU.Controllers
             var result = res.OrderByDescending(p => p.Users.Count);
             
             
-            return result;
+            return res.OrderByDescending(p => p.Users.Count);
         }
 
         // PUT: api/Presents/5
