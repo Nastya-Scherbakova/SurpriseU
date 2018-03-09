@@ -897,11 +897,24 @@ $transition: all .7s ease;
         display: block;
         position: relative;
         z-index: 10;
-        padding: 1vh;
 
         @include for-orient(port) {
             width: 80vw;
             height: 80vh;
+            background: url(https://www.bronco.co.uk/inc/img/banner--pattern.svg) top center/cover,-webkit-linear-gradient(top left, #0C0090, #383ACC, #BADDEB) !important;
+            background: url(https://www.bronco.co.uk/inc/img/banner--pattern.svg) top center/cover,linear-gradient(to bottom right, #0C0090, #383ACC, #BADDEB) !important;
+            border-radius: 1vh;
+            box-shadow: 0 3px 3px rgba(0,0,0,0.3);
+
+            &::before {
+                content: '';
+                width: 100%;
+                left: 0;
+                height: 100%;
+                position: absolute;
+                background-color: rgba(255,255,255,0.5);
+                border-radius: 1vh;
+            }
         }
 
         @include for-orient(land) {
@@ -914,8 +927,6 @@ $transition: all .7s ease;
             height: 85vh;
         }
     }
-
-
 
     svg {
         display: inline-block;
@@ -1101,58 +1112,98 @@ $transition: all .7s ease;
         }
     }*/
     .main {
+        display: flex;
         z-index: 11;
         overflow: hidden;
         font-size: 0.7em;
-        background: rgba(255,255,255,0);
-        position: absolute;
-        left: 0;
-        top: 10vh;
-        box-shadow: 0 3px 5px rgba(0,0,0,0.1);
         border-radius: 1vh;
-        background: url(https://www.bronco.co.uk/inc/img/banner--pattern.svg) top center/cover,-webkit-linear-gradient(top left, #0C0090, #383ACC, #BADDEB) !important;
-        background: url(https://www.bronco.co.uk/inc/img/banner--pattern.svg) top center/cover,linear-gradient(to bottom right, #0C0090, #383ACC, #BADDEB) !important;
 
-        &:before {
-            content: '';
-            position: absolute;
-            bottom: 0;
+        @include for-orient(port) {
             width: 100%;
-            height: 8.5vh;
-            background: url(https://www.bronco.co.uk/inc/img/banner--pattern.svg) bottom center/cover,-webkit-linear-gradient(top left, #0C0090, #383ACC, #BADDEB) !important;
-            background: url(https://www.bronco.co.uk/inc/img/banner--pattern.svg) bottom center/cover,linear-gradient(to bottom right, #0C0090, #383ACC, #BADDEB) !important;
-        }
-
-        .main-shadow1 {
-            position: absolute;
-            right: 0;
-            margin: auto;
+            height: 34vh;
             left: 0;
             top: 0;
-            width: 19vw;
-            height: 52.5vh;
-            background: rgba(255,255,255,0.5);
-            border-radius: 1vh;
+            -webkit-box-orient: vertical !important;
+            -webkit-box-direction: normal !important;
+            -ms-flex-direction: column !important;
+            flex-direction: column !important;
+            justify-content: space-around;
+            position: absolute;
+            background: transparent;
+
+            .main-shadow1 {
+                position: absolute;
+                left: 2.5%;
+                top: 0;
+                width: 95%;
+                height: 100%;
+                background: rgba(255,255,255,0.5);
+                border-radius: 1vh;
+                z-index: 11;
+            }
+
+            .main-shadow2 {
+                position: absolute;
+                right: 0;
+                margin: auto;
+                left: 0;
+                top: 0;
+                width: 98%;
+                height: 97%;
+                background: rgba(255,255,255,0.5);
+                border-radius: 1vh;
+            }
         }
 
-        .main-shadow2 {
-            position: absolute;
-            right: 0;
-            margin: auto;
-            left: 0;
-            top: 0;
-            width: 18vw;
-            height: 53.5vh;
-            background: rgba(255,255,255,0.5);
-            border-radius: 1vh;
-        }
-        /*@include for-orient(port) {
-                width: 80vw;
-                height: 20vh;
-            }*/
         @include for-orient(land) {
+            box-shadow: 0 3px 5px rgba(0,0,0,0.1);
+            background: url(https://www.bronco.co.uk/inc/img/banner--pattern.svg) top center/cover,-webkit-linear-gradient(top left, #0C0090, #383ACC, #BADDEB) !important;
+            background: url(https://www.bronco.co.uk/inc/img/banner--pattern.svg) top center/cover,linear-gradient(to bottom right, #0C0090, #383ACC, #BADDEB) !important;
             width: 20vw;
             height: 60vh;
+            -webkit-box-orient: horizontal !important;
+            -webkit-box-direction: normal !important;
+            -ms-flex-direction: row !important;
+            flex-direction: row !important;
+            justify-content: space-between;
+            left: 0;
+            top: 10vh;
+            position: absolute;
+
+            .main-shadow1 {
+                position: absolute;
+                right: 0;
+                margin: auto;
+                left: 0;
+                top: 0;
+                width: 19vw;
+                height: 52.5vh;
+                background: rgba(255,255,255,0.5);
+                border-radius: 1vh;
+                z-index: 10;
+            }
+
+            .main-shadow2 {
+                position: absolute;
+                right: 0;
+                margin: auto;
+                left: 0;
+                top: 0;
+                width: 18vw;
+                height: 53.5vh;
+                background: rgba(255,255,255,0.5);
+                border-radius: 1vh;
+            }
+
+            &:before {
+                content: '';
+                position: absolute;
+                bottom: 0;
+                width: 100%;
+                height: 8.5vh;
+                background: url(https://www.bronco.co.uk/inc/img/banner--pattern.svg) bottom center/cover,-webkit-linear-gradient(top left, #0C0090, #383ACC, #BADDEB) !important;
+                background: url(https://www.bronco.co.uk/inc/img/banner--pattern.svg) bottom center/cover,linear-gradient(to bottom right, #0C0090, #383ACC, #BADDEB) !important;
+            }
         }
         /*@include for-size(phone-only) {
                 width: 90vw;
@@ -1160,10 +1211,10 @@ $transition: all .7s ease;
             }*/
         .top-image {
             height: 15vh;
-            width: 25vw;
-            left: -2.5vw;
+            width: 120%;
             position: absolute;
             top: 0;
+            left: -10%;
             border-radius: 0 0 50% 50% /0 0 25px 25px;
             display: flex;
             justify-content: space-around;
@@ -1171,7 +1222,7 @@ $transition: all .7s ease;
             padding: 0 3vw;
             background: url(https://www.bronco.co.uk/inc/img/banner--pattern.svg) top center/cover,-webkit-linear-gradient(top left, #0C0090, #383ACC, #BADDEB) !important;
             background: url(https://www.bronco.co.uk/inc/img/banner--pattern.svg) top center/cover,linear-gradient(to bottom right, #0C0090, #383ACC, #BADDEB) !important;
-            z-index: 10;
+            z-index: 12;
 
             .photo {
                 background: url('https://lh3.googleusercontent.com/-N3amwcuqO8E/WQSWb-YsKDI/AAAAAAAAAS4/0-WJc3GPCGMg4chvwfNR5qy1uMggvy5aQCEwYBhgL/w140-h140-p/cT_KnLEbQ3Y.jpg');
@@ -1204,23 +1255,26 @@ $transition: all .7s ease;
         }
 
 
-
-
-
-
         .info {
             position: absolute;
             top: 0;
             display: flex;
             flex-direction: column;
             height: 51.5vh;
+            width: 100%;
             justify-content: space-around;
             align-items: center;
             padding: 0 3vh 12vh 3vh;
             background: white;
             overflow: hidden;
             border-radius: 1vh;
-            padding-top: 26.5vh;
+            z-index: 11;
+            padding-top: 25vh;
+
+            @include for-orient(port) {
+                padding-top: 3vh;
+                height: 94%;
+            }
 
             .name {
                 font-family: 'Roboto Mono', sans-serif;
@@ -1277,10 +1331,16 @@ $transition: all .7s ease;
         }
 
         .social-tabs {
-            width: 75%;
+            width: 100%;
             position: absolute;
             bottom: 0;
-            padding: 1vh;
+            padding: 1vh 2vw;
+            z-index: 13;
+            display: flex;
+            justify-content: space-around;
+            @include for-orient(port) {
+                bottom: 10%;
+            }
 
             .twitter {
                 @extend .social-border;
@@ -1397,14 +1457,35 @@ $transition: all .7s ease;
     .user {
         /*border: 5px solid white;
         border-image: linear-gradient(45deg, #C6C6E7, #E2C6C0) 1 round;*/
+        position: relative;
+        bottom: 0;
+        z-index: 9;
+        position: absolute;
+        right: 0;
+        padding: 3vh 3vh 3vh 6.5vw;
+        border-radius: 1vh;
+
         @include for-orient(port) {
             width: 80vw;
-            height: 80vh;
+            height: 47vh;
+            padding: 1vh 2vh;
         }
 
         @include for-orient(land) {
             width: 45vw;
             height: 80vh;
+            background-image: linear-gradient(45deg, #0C0090, #383ACC, #BADDEB);
+            box-shadow: 0 3px 5px rgba(0,0,0,0.3);
+
+            &::before {
+                content: '';
+                width: 100%;
+                left: 0;
+                height: 100%;
+                position: absolute;
+                background-color: rgba(255,255,255,0.8);
+                border-radius: 1vh;
+            }
         }
 
         @include for-size(phone-only) {
@@ -1412,22 +1493,10 @@ $transition: all .7s ease;
             height: 85vh;
         }
 
-        background-image: linear-gradient(45deg, #0C0090, #383ACC, #BADDEB);
 
-        &::before {
-            content: '';
-            width: 100%;
-            left: 0;
-            height: 100%;
-            position: absolute;
-            background-color: rgba(255,255,255,0.9);
-        }
 
-        box-shadow: 0 3px 5px rgba(0,0,0,0.3);
-        position: absolute;
-        right: 0;
-        padding: 3vh 3vh 3vh 6.5vw;
-        border-radius: 1vh;
+
+
 
         .content {
             @include for-orient(port) {
@@ -1486,6 +1555,7 @@ $transition: all .7s ease;
             @include for-orient(port) {
                 height: 45%;
                 width: 100%;
+                margin: 1vh;
             }
 
             @include for-orient(land) {

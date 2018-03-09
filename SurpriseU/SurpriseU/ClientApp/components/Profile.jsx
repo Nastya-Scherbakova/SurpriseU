@@ -259,7 +259,7 @@ export class TestProfile extends React.Component {
               
                 <div className='back-div'></div>  
   <div className='back-div2'></div> 
-  <div className="main d-flex flex-column align-items-center">
+  <div className="main">
                     <div className='main-shadow1'></div>
                     <div className='main-shadow2'></div>
                     <div className='top-image'>
