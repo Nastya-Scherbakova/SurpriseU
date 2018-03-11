@@ -1,9 +1,8 @@
 ﻿import * as React from 'react';
 import { inject, observer } from 'mobx-react';
-import { withRouter, Link } from 'react-router-dom';
+import { withRouter, Link, NavLink } from 'react-router-dom';
 import {  Check } from 'react-feather';
 import { Redirect } from 'react-router'
-
 class Register extends React.Component {
     constructor(props) {
         super(props);
@@ -232,19 +231,17 @@ export class LogIn extends React.Component {
     onEnter = () => this.setState({ signIn: true });
     render() {
         const { currentUser } = this.props.userStore;
-        return <div className='w-100 h-100 d-flex justify-content-center login'>
-            <div className='log-form row'>
+        return <div className='log-form w-100 h-100'>
+           
             <div className="image"></div>
-            <div className="content d-flex flex-column justify-content-around align-items-center">
-                    <div className="name"><h2>SurpriseU</h2></div>
-                    <div className="tabs">
-                        <div className={`${this.state.signIn && 'tab-active'} tab`} onClick={this.onEnter}>Вхід</div>
-                        <div className={`${this.state.signIn || 'tab-active'} tab`} onClick={this.onRegister}>Реєстрація</div>
-                    </div>
-                    {this.state.signIn ? <Login /> : <Register />}
+            <div className="content d-flex flex-column align-items-center">
+                <div className={`${this.state.signIn && 'tab-active'} tab`} onClick={this.onEnter}>Вхід</div>
+                <div className={`${this.state.signIn || 'tab-active'} tab`} onClick={this.onRegister}>Реєстрація</div>
+                <NavLink className="name navlink-no" to={'/'}> <h2>SurpriseU</h2></NavLink>
+              
+                {this.state.signIn ? <Login /> : <Register />}
             </div>
-            </div>
-            {currentUser != null && <Redirect to="/profile" />}
+            {currentUser != null && <Redirect to="/anketa" />}
         </div>;
 
     }
@@ -262,8 +259,8 @@ export class LogIn extends React.Component {
 const User = <div className='hint'><svg viewBox="0 0 482.9 482.9" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" x="0px" y="0px">
     <defs>
         <linearGradient id="icon" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="10%" stop-color="#1C1C59" />
-            <stop offset="100%" stop-color="#03A9F4" />
+            <stop offset="10%" stopColor="#1C1C59" />
+            <stop offset="100%" stopColor="#03A9F4" />
         </linearGradient>
     </defs>
     <g>

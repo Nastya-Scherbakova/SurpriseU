@@ -41,6 +41,7 @@
     <None Remove="ClientApp\css\HYPE.ttf" />
     <None Remove="ClientApp\css\Profile.scss" />
     <None Remove="ClientApp\css\style.css" />
+    <None Remove="ClientApp\css\untitled.svg" />
     <None Remove="ClientApp\css\Без имени-1.png" />
     <None Remove="ClientApp\images\222.png" />
     <None Remove="ClientApp\images\white.png" />
