@@ -25,6 +25,7 @@ class AuthStore {
 
     @action logout() {
         userStore.forgetUser();
+        requests.Auth.logout();
     }
 
     @action forgetPassword(user) {

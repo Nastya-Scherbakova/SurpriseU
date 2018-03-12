@@ -1090,6 +1090,8 @@ background-image: url('images/home-image.jpg');
 
 
         .content {
+            background: url('http://rosepoudredecoration.com/wp-content/uploads/2017/03/back-slider-4-1.jpg');
+            background-size: cover;
             position: absolute;
             top: 0;
             display: flex;
@@ -1098,7 +1100,6 @@ background-image: url('images/home-image.jpg');
             width: 100%;
             justify-content: space-around;
             align-items: center;
-            background: white;
             overflow: hidden;
             border-radius: 1vh;
             z-index: 12;
@@ -1243,33 +1244,7 @@ background-image: url('images/home-image.jpg');
                 }
             }
         }
-        /*.photo-back {
-            $color: #49176D;
-
-            position: absolute;
-            width: 16vh;
-            height: 16vh;
-            bottom: -8vh;
-            z-index: 13;
-            border-radius: 50%;
-            border: 2px solid #49176D;
-            background: white;
-            border-left: 0;
-            border-top: 0;
-            border-right: 0;
-            transform: rotate(-90deg);
-
-            &:after {
-                content: "";
-                width: 90%;
-                height: 90%;
-                background: -webkit-linear-gradient(45deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 40%, rgba(255,255,255,0.7) 60%, rgba(255,255,255,0) 100%);
-                position: absolute;
-                top: 0;
-                left: 0;
-                display: none;
-            }
-        }*/
+    
         .settings {
             @extend .svg-base;
             width: 6vh;
@@ -1563,7 +1538,7 @@ background-image: url('images/home-image.jpg');
         .friends {
             width: 50%;
             transition: $transition;
-            background: rgba(255,255,255,1);
+            background: rgba(255,255,255,0.3);
             border-radius: 1vh;
             position: relative;
             height: 80%;
@@ -1685,6 +1660,7 @@ background-image: url('images/home-image.jpg');
         .likes {
             @extend .info-example;
             padding: 0 1.5vh;
+            background: rgba(255,255,255,0.3);
 
             .items {
                 padding-left: 3vh;
@@ -1840,13 +1816,14 @@ background-image: url('images/home-image.jpg');
         }
 
         .presents {
+            background: rgba(255,255,255,0.3);
             position: relative;
             display: flex;
             -webkit-box-orient: vertical !important;
             -webkit-box-direction: normal !important;
             -ms-flex-direction: column !important;
             flex-direction: column !important;
-            background: rgba(255,255,255,1);
+            
             border-radius: 2vh;
             margin: 2vh;
             box-shadow: 0px 2px 0 darken(#AA9FB4, 5%), 2px 4px 6px darken(#D5CFDA, 2%);
@@ -3080,7 +3057,440 @@ background-image: url('images/home-image.jpg');
         }
     }
 
+.profile3 {
+    background-attachment: fixed;
+    position: absolute;
+    background: url('http://rosepoudredecoration.com/wp-content/uploads/2017/03/back-slider-4-1.jpg');
+    background-size: cover;
+    width: 100%;
+    height: 100%;
+    font-size: 0.7em;
+    display: flex;
+    justify-content: center;
+    align-content: center;
 
+    @include for-orient(port) {
+        background-size: cover;
+        background-position: center bottom;
+    }
+
+    @include for-orient(land) {
+        background-size: 110%;
+        background-position: left bottom;
+    }
+
+    .name {
+        font-family: 'Roboto Mono', sans-serif;
+        font-size: 1.3rem;
+        color: #31274A;
+        font-weight: 500;
+        text-align: center;
+        padding: 1vh;
+        position: absolute;
+        top: 5vh;
+        left: 23vh;
+    }
+
+
+
+    .photo {
+        border-radius: 50%;
+        z-index: 14;
+        box-shadow: 0px 2px 0 darken(#7C7C7C, 5%), 0px 3px 6px darken(#7C7C7C, 2%);
+        position: relative;
+        overflow: hidden;
+        left: 3vh;
+        top: 3vh;
+
+        @include for-orient(port) {
+            width: 15vh;
+            height: 15vh;
+        }
+
+        @include for-orient(land) {
+            width: 20vh;
+            height: 20vh;
+        }
+
+        img {
+            background-size: cover;
+            background-position: center center;
+            border-radius: 50%;
+
+            @include for-orient(port) {
+                width: 15vh;
+                height: 15vh;
+            }
+
+            @include for-orient(land) {
+                width: 20vh;
+                height: 20vh;
+            }
+
+            background: url('https://lh3.googleusercontent.com/-N3amwcuqO8E/WQSWb-YsKDI/AAAAAAAAAS4/0-WJc3GPCGMg4chvwfNR5qy1uMggvy5aQCEwYBhgL/w140-h140-p/cT_KnLEbQ3Y.jpg');
+        }
+
+        .plus-photo {
+            transition: $transition;
+            border-radius: 50%;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            transform: translateY(50%);
+            background: linear-gradient(transparent 60%, rgba(0,0,0,0.3) 40%);
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+
+            svg {
+                height: 3vh;
+                width: 3vh;
+                margin: 1.5vh;
+                cursor: pointer;
+                fill: white;
+                stroke: white;
+                stroke-width: 15;
+            }
+        }
+
+        &:hover {
+            .plus-photo {
+                transform: translateY(0);
+            }
+        }
+    }
+
+    .all-content {
+        @extend .profile-div;
+        background: rgba(255,255,255,0.6);
+        border-radius: 2vh;
+        box-shadow: 0 3px 5px 0 rgba(0,0,0,0.1);
+
+
+        .user-present {
+            @include for-orient(port) {
+                height: 20vw;
+                width: 20vw;
+            }
+
+            @include for-orient(land) {
+                height: 15vh;
+                width: 15vh;
+            }
+
+            margin: 0.5vw;
+        }
+
+        .content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+
+            @include for-orient(port) {
+                padding: 3vw;
+            }
+
+            @include for-orient(land) {
+                padding: 1vh;
+            }
+        }
+
+        .title {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(to right, #FFFFFF, #C1C3FF);
+            width: 100%;
+            border-radius: 2vh 2vh 0 0;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            font-size: 1.3em;
+            height: 6vh;
+        }
+    }
+
+    .edit-user {
+        @extend .small-form;
+        display: flex;
+        justify-content: center;
+        background: rgba(255,255,255,0.2);
+        border-radius: 2vh;
+        box-shadow: 0 3px 5px 0 rgba(0,0,0,0.1);
+    }
+
+
+    .settings {
+        width: 6vh;
+        height: 6vh;
+        background: transparent;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        bottom: 0;
+
+        &::before {
+            transition: $transition;
+            position: absolute;
+            border-radius: 50%;
+            content: '';
+            width: 100%;
+            height: 100%;
+            border: 2px solid #49176D;
+            border-left: 0;
+            border-top: 0;
+            border-right: 0;
+            transform: rotate(-90deg);
+        }
+
+        &:hover {
+            &::before {
+                border: 2px solid #49176D;
+                border-top: 0;
+                border-right: 0;
+                transform: rotate(0deg);
+            }
+        }
+
+        svg {
+            width: 3vh;
+            height: 3vh;
+        }
+    }
+
+    .profile-area {
+        @include for-orient(port) {
+            width: 90vw;
+            position: absolute;
+            bottom: 3vh;
+        }
+
+        @include for-orient(land) {
+            width: 60vw;
+            height: 78vh;
+            margin: auto;
+            position: relative;
+        }
+
+        .info {
+            border-radius: 2vh;
+            background: rgba(255,255,255,0.5);
+            box-shadow: 0 3px 5px 0 rgba(0,0,0,0.1);
+            position: relative;
+            padding: 1vh;
+            display: flex;
+            -webkit-box-orient: vertical !important;
+            -webkit-box-direction: normal !important;
+            -ms-flex-direction: column !important;
+            flex-direction: column !important;
+            justify-content: space-around;
+
+            @include for-orient(port) {
+                width: 100%;
+            }
+
+            @include for-orient(land) {
+                height: 45vh;
+                width: 50%;
+                margin: auto;
+            }
+
+            .age {
+                text-align: center;
+                margin: auto;
+                font-weight: bold;
+            }
+
+            .likes {
+                .like-title {
+                    font-weight: bold;
+                    margin-right: 5%;
+                }
+
+                input {
+                    width: 4vh;
+                    border: none;
+                    background-color: transparent;
+                    border-radius: 2vh;
+                    transition: all 300ms ease-in-out;
+                    margin: 0.2vh;
+                    padding: 0.4vh 1vh;
+
+                    &:focus {
+                        width: 10vh;
+                        padding: 0.4vh 1.5vh;
+                        outline: none;
+                        background-color: #fbfbfb;
+                    }
+
+                    &::-webkit-input-placeholder {
+                        color: $darkblue;
+                    }
+
+                    &::-moz-placeholder {
+                        color: $darkblue;
+                    }
+                }
+            }
+        }
+
+        .content {
+            @include for-orient(port) {
+                -webkit-box-orient: vertical !important;
+                -webkit-box-direction: normal !important;
+                -ms-flex-direction: column !important;
+                flex-direction: column !important;
+                justify-content: space-around;
+                height: 42vh;
+                width: 100%;
+            }
+
+            @include for-orient(land) {
+                -webkit-box-orient: horizontal !important;
+                -webkit-box-direction: normal !important;
+                -ms-flex-direction: row !important;
+                flex-direction: row !important;
+                justify-content: space-between;
+                height: 30vh;
+                width: 100%;
+            }
+        }
+
+        .friends {
+            @extend .fields;
+            height: 45%;
+            width: 100%;
+            margin: auto;
+
+            .user-present {
+                @include for-orient(port) {
+                    height: 10vh;
+                    width: 10vh;
+                }
+
+                @include for-orient(land) {
+                    height: 10vh;
+                    width: 10vh;
+                }
+
+                margin: 1vh;
+                background: rgba(255,255,255,0.4);
+            }
+        }
+
+        .presents {
+            @extend .fields;
+
+            @include for-orient(port) {
+                height: 45%;
+                width: 100%;
+            }
+
+            @include for-orient(land) {
+                height: 100%;
+                width: 48%;
+            }
+        }
+
+        .fields {
+            border-radius: 2vh;
+            background: rgba(255,255,255,0.7);
+            box-shadow: 0 3px 5px 0 rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            -webkit-box-orient: vertical !important;
+            -webkit-box-direction: normal !important;
+            -ms-flex-direction: column !important;
+            flex-direction: column !important;
+
+            .items {
+                display: flex;
+                flex-wrap: nowrap;
+                height: 100%;
+                width: 80%;
+                justify-content: flex-start;
+                align-items: center;
+                overflow: hidden;
+            }
+
+            .title {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                background: linear-gradient(to right, #FFFFFF, #C1C3FF);
+                width: 100%;
+                border-radius: 2vh 2vh 0 0;
+                letter-spacing: 1px;
+                text-transform: uppercase;
+                font-size: 1.3em;
+                height: 25%;
+            }
+        }
+
+        .plus-div {
+            .plus {
+                @include for-orient(port) {
+                    margin: 1.5vh;
+                }
+
+                @include for-orient(land) {
+                    margin: 4vh;
+                }
+
+                color: white;
+                -webkit-transition: all 0.3s ease-in-out;
+                -moz-transition: all 0.3s ease-in-out;
+                -o-transition: all 0.3s ease-in-out;
+                transition: all 0.3s ease-in-out;
+            }
+
+            &:hover {
+                .plus {
+                    -webkit-transform: scale(1.1);
+                    -moz-transform: scale(1.1);
+                    -ms-transform: scale(1.1);
+                    -o-transform: scale(1.1);
+                    transform: scale(1.1);
+                }
+            }
+        }
+
+        .right-arrow {
+            color: #E5E6FF;
+            height: 10vh;
+            -webkit-transition: all 0.3s ease-in-out;
+            -moz-transition: all 0.3s ease-in-out;
+            -o-transition: all 0.3s ease-in-out;
+            transition: all 0.3s ease-in-out;
+
+            &:hover {
+                -webkit-transform: scale(1.1);
+                -moz-transform: scale(1.1);
+                -ms-transform: scale(1.1);
+                -o-transform: scale(1.1);
+                transform: scale(1.1);
+            }
+        }
+    }
+
+    .user-present {
+        @include for-orient(port) {
+            height: 10vh;
+            width: 10vh;
+        }
+
+        @include for-orient(land) {
+            height: 15vh;
+            width: 15vh;
+        }
+
+        background-color: #E5E6FF;
+        margin: 1vh;
+    }
+}
 .spinner {
 
     $ncirc: 2;

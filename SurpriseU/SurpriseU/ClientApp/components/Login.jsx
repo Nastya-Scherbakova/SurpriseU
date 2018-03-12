@@ -241,7 +241,7 @@ export class LogIn extends React.Component {
               
                 {this.state.signIn ? <Login /> : <Register />}
             </div>
-            {currentUser != null && <Redirect to="/anketa" />}
+            {currentUser != null && <Redirect to="/profile" />}
         </div>;
 
     }

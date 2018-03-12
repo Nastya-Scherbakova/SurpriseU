@@ -8,12 +8,25 @@ export class PresentsStore {
     @observable search = '';
     @observable isFilter = false;
 
+
+
     @action searchPresents(present) {
-        requests.Presents.search(present).then(
-            action(presents => {
-                this.presentsState = presents.slice('');
-            })
-        )
+        //requests.Presents.search(present).then(
+        //    action(presents => {
+        //        this.presentsState = presents.slice('');
+        //    })
+        //)
+        var xhr = new XMLHttpRequest();
+        xhr.open("post", '/api/Presents/Search', true);
+        xhr.responseType = "blob";
+        xhr.setRequestHeader("Content-type", "application/json");
+
+        xhr.send(JSON.stringify(present));
+        xhr.onload = function () {
+            console.log(xhr.responseText);
+       
+ 
+        }
     }
 
 

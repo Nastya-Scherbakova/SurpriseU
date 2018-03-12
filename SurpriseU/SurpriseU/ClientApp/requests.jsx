@@ -57,8 +57,13 @@ const Presents = {
          requests.del(`/api/Presents/${id}`),
      edit: present =>
          requests.put(`/api/Presents/${present.id}`, present),
-     search: present =>
-         requests.post(`/api/Presents/Search`, present),
+     //search: present =>
+     //  superagent
+     //        .post('/api/Presents/Search')
+     //        .send(present)
+     //        .responseType('blob')
+     //        .set('Content-type', 'application/json')
+     //        .then(responseBody)
 };
 
 const Tag = {

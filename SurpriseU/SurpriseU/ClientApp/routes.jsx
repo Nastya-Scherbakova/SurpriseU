@@ -5,11 +5,11 @@ import { Layout } from './components/Layout';
 import { Home } from './components/Home';
 import { Anketa } from './components/Anketa';
 import { LogIn } from './components/Login';
-import { Profile , TestProfile} from './components/Profile';
+import { Profile , TestProfile, TestProfile2} from './components/Profile';
 
 export const routes = <Layout>
     <Route exact path='/' component={Home } />
-    <Route path='/anketa' component={TestProfile}/>
+    <Route path='/anketa' component={Anketa}/>
     <Route path='/profile' component={Profile} />
     <Route path="/login" component={LogIn} />
     <Route path="/present/:id" />
