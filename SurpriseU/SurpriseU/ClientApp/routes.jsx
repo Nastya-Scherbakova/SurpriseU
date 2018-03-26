@@ -5,13 +5,13 @@ import { Layout } from './components/Layout';
 import { Home } from './components/Home';
 import { Anketa } from './components/Anketa';
 import { LogIn } from './components/Login';
-import { Profile , TestProfile, TestProfile2} from './components/Profile';
+import { Profile, EditUser} from './components/Profile';
 
 export const routes = <Layout>
     <Route exact path='/' component={Home } />
-    <Route path='/anketa' component={Anketa}/>
+    <Route path='/anketa' component={EditUser}/>
     <Route path='/profile' component={Profile} />
     <Route path="/login" component={LogIn} />
-    <Route path="/present/:id" />
-    <Route path="/@:username" component={Profile} />
+    <Route path="/account/edit" component={EditUser} />
+    <Route exact path="/:id" component={Profile} />
 </Layout>;

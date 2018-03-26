@@ -13,9 +13,13 @@ class UserStore {
     }
     @action updateUser(newUser) {
         //this.updatingUser = true;
-        return requests.Auth.save(newUser)
-            .then(action(({ user }) => { this.currentUser = user; }))
-            //.finally(action(() => { this.updatingUser = false; }))
+
+        requests.Auth.update(newUser);
+        //    .then(action(({ user }) => { this.currentUser = user; }))
+
+
+
+        //.finally(action(() => { this.updatingUser = false; }))
     }
 
     @action forgetUser() {

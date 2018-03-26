@@ -1,4 +1,4 @@
-﻿import commonStore from './store/commonStore';
+﻿import commonStore from './stores/commonStore';
 import authStore from './stores/authStore';
 var Promise = global.Promise = require('promise');
 var superagent = require('superagent-promise')(require('superagent'), Promise);
@@ -43,6 +43,8 @@ const Auth = {
         requests.post('/Account/Register', user),
     logout: () =>
         requests.post('/Account/LogOff'),
+    update: (user) =>
+        requests.post('/Users/Edit', user),
 };
 const limit = (count, p) => `limit=${count}&offset=${p ? p * count : 0}`;
 

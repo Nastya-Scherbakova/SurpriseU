@@ -8,11 +8,11 @@ import { useStrict } from 'mobx';
 import { Provider } from 'mobx-react';
 
 
-import commonStore from './store/commonStore';
-import presentsStore from './store/presentsStore';
-import tagsStore from './store/tagsStore';
-import authStore from './store/authStore';
-import userStore from './store/userStore';
+import commonStore from './stores/commonStore';
+import presentsStore from './stores/presentsStore';
+import tagsStore from './stores/tagsStore';
+import authStore from './stores/authStore';
+import userStore from './stores/userStore';
 let routes = RoutesModule.routes;
 
 const stores = {
