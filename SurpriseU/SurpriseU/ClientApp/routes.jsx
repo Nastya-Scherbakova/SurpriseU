@@ -10,7 +10,6 @@ import { Profile, EditUser} from './components/Profile';
 export const routes = <Layout>
     <Route exact path='/' component={Home } />
     <Route path='/anketa' component={EditUser}/>
-    <Route path='/profile' component={Profile} />
     <Route path="/login" component={LogIn} />
     <Route path="/account/edit" component={EditUser} />
     <Route exact path="/:id" component={Profile} />

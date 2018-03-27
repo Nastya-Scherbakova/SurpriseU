@@ -971,12 +971,52 @@ background-image: url('images/home-image.jpg');
             width: 80%;
         }
 
+        .age-gen {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+
+            label {
+                width: 45%;
+            }
+
+
+            .gender {
+                display: flex;
+                justify-content: center;
+                width: 70%;
+
+                label {
+                    height: 5vh;
+                }
+
+                svg {
+                    width: 3vh;
+                    height: 3vh;
+                    margin: 1vh;
+                }
+
+                .not-checked {
+                    svg {
+                        opacity: .3;
+                    }
+                }
+            }
+        }
+
         .nav {
             width: 100%;
             position: absolute;
             top: 0;
             display: flex;
             justify-content: space-between;
+            align-items:center;
+            background: linear-gradient(to right, #FFFFFF, #C1C3FF);
+            height: 7vh;
+            border-radius: 2vh 2vh 0 0;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            font-size: 1em;
 
             svg {
                 fill: #C2C4FE;
@@ -993,133 +1033,6 @@ background-image: url('images/home-image.jpg');
 
             z-index: 2;
         }
-
-        .data {
-            display: flex;
-            position: relative;
-
-            a, a:focus {
-                border: none;
-                outline: none;
-            }
-
-            .rc-calendar {
-                background: rgba(255,255,255,0.6);
-                padding: 1vh;
-                border-radius: 2vh;
-                margin: 1vh;
-
-                .rc-calendar-month-panel {
-                    position: absolute;
-                    background: white;
-                    width: 100%;
-                    height: 100%;
-                    top: 0;
-                    left: 0;
-                    border-radius: 2vh;
-
-                    .rc-calendar-year-panel-header,
-                    .rc-calendar-decade-panel-century,
-                    .rc-calendar-month-panel-header {
-                        padding: 1vh;
-                        font-weight: bold;
-                        border-bottom: 1px solid grey;
-                    }
-
-                    table {
-                        margin: auto;
-                    }
-                }
-
-                .rc-calendar-decade-panel {
-                    @extend .rc-calendar-month-panel;
-                }
-
-                .rc-calendar-year-panel {
-                    @extend .rc-calendar-month-panel;
-                }
-
-                .rc-calendar-month-select, .rc-calendar-my-select {
-                    font-weight: bold;
-                    padding: 0 1vh;
-                }
-
-                .rc-calendar-selected-date {
-                    background: white;
-                    border-radius: 50%;
-                    font-weight: bold;
-                }
-
-                .rc-calendar-column-header-inner {
-                    font-weight: 500;
-                }
-
-                .rc-calendar-year-select {
-                    font-weight: bold;
-                }
-
-                .rc-calendar-input {
-                    padding: 0.5vh 1vh;
-                }
-
-                .rc-calendar-header {
-                    text-align: center;
-                }
-
-                .rc-calendar-month-panel-cell, .rc-calendar-year-panel-cell {
-                    padding: 1vh;
-                }
-
-                .rc-calendar-date {
-                    padding: 0.1vh;
-                    text-align: center;
-                }
-            }
-
-            label {
-                height: 3vh;
-            }
-        }
-
-        .react-datepicker__input-container {
-            width: 100%;
-            overflow: hidden;
-        }
-
-        .gender {
-            display: flex;
-            justify-content: center;
-            width: 40%;
-
-            label {
-                height: 5vh;
-            }
-
-            svg {
-                width: 3vh;
-                height: 3vh;
-                margin: 1vh;
-            }
-
-            .not-checked {
-                svg {
-                    opacity: .3;
-                }
-            }
-        }
-
-
-        .name {
-            position: absolute;
-            top: 0;
-            background: linear-gradient(to right, #FFFFFF, #C1C3FF);
-            height: 7vh;
-            border-radius: 2vh 2vh 0 0;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            font-size: 1em;
-        }
-
         label {
             width: 100%;
             position: relative;
@@ -1134,7 +1047,6 @@ background-image: url('images/home-image.jpg');
                 height: 3vh;
                 bottom: 1vh;
                 left: 1vh;
-                z-index: 5;
                 display: flex;
                 align-items: center;
                 justify-content: center;
@@ -1146,73 +1058,32 @@ background-image: url('images/home-image.jpg');
             }
         }
 
-        .other {
 
 
-            .tabs {
-                display: flex;
-                justify-content: space-around;
-
-                .active {
-                    font-weight: 500;
-
-                    &:after {
-                        content: "";
-                        position: absolute;
-                        background: white;
-                        width: 12px;
-                        height: 12px;
-                        left: 50%;
-                        bottom: -6px;
-                        margin-left: -6px;
-                        transform: rotate(45deg);
-                        box-shadow: inset 3px 3px 3px #B9D0F8, inset 1px 1px 1px opacify(red,0.1);
-                    }
-                }
-
-                .tab {
-                    padding: 1vh 3vh;
-                    position: relative;
-                }
-            }
+        .section {
+            position: relative;
+            bottom: 0;
+            width: 80%;
+            justify-content: space-between;
 
             label {
-                width: 100%;
-            }
+                height: 3vh;
+                margin: 1vh 0;
+                width: 30%;
 
-            .password {
-                background: rgba(255,255,255,0.3);
-                border-radius: 2vh;
-                padding: 1vh;
-                padding-left: 3vh;
-                border-top: 1px solid rgba(170,170,170, 0.6);
-            }
-
-            .section {
-                background: rgba(255,255,255,0.3);
-                border-radius: 2vh;
-                padding: 1vh;
-                border-top: 1px solid rgba(170,170,170, 0.6);
-                padding-left: 3vh;
-
-                label {
+                svg {
+                    width: 3vh;
                     height: 3vh;
-                    margin: 1vh 0;
+                    position: absolute;
+                    bottom: -0.5vh;
+                }
 
-                    svg {
-                        width: 3vh;
-                        height: 3vh;
-                        position: absolute;
-                        bottom: -0.5vh;
-                    }
+                input {
+                    padding: 2vh 2vh 2vh 5vh;
+                }
 
-                    input {
-                        padding: 2vh 2vh 2vh 5vh;
-                    }
-
-                    .hint {
-                        bottom: 0vh;
-                    }
+                .hint {
+                    bottom: 0vh;
                 }
             }
         }
@@ -1221,7 +1092,8 @@ background-image: url('images/home-image.jpg');
             display: block;
             width: 100%;
             height: 4vh;
-            padding: 2vh 5vh;
+            padding: 2vh;
+            padding-left: 5vh;
             border: none;
             background: transparent;
             position: relative;
@@ -1243,22 +1115,25 @@ background-image: url('images/home-image.jpg');
             display: flex;
             justify-content: space-around;
             width: 15vh;
+
             .photo-input {
-                input{
+                input {
                     background: transparent;
                     position: absolute;
                     top: 5.5vh;
                     z-index: 2;
                     width: 300%;
                     padding: 1vh;
-                    left:-75%;
+                    left: -75%;
                     color: transparent;
-                    &:focus{
+
+                    &:focus {
                         background: rgba(255,255,255,1);
                         color: black;
                     }
                 }
             }
+
             img {
                 width: 100%;
                 height: 100%;
@@ -1280,11 +1155,14 @@ background-image: url('images/home-image.jpg');
                 height: 4vh;
                 transition: $transition;
                 fill: #3E3E3E;
+                background: white;
+                border-radius: 50%;
+                opacity: 0.5;
             }
 
             &:hover {
                 .pencil {
-                    fill: #0F0F0F;
+                    opacity: 1;
                 }
             }
         }

@@ -25,7 +25,7 @@ export class Menu extends Component {
                 </div> 
                 {
                 isUser ? <div className="icons">
-                    <NavLink className="navlink-no" to={'/profile'}><div className='nav-photo'>
+                    <NavLink className="navlink-no" to={`/${currentUser.userName}`}><div className='nav-photo'>
                         {currentUser.photo == null ? UserImage : <img src={currentUser.photo} />}</div>
                     </NavLink>
                     <NavLink className="navlink-no" to={'/anketa'}><div className='nav-icon'>{Clipboard}</div></NavLink>

@@ -2,7 +2,7 @@
 import requests from '../requests';
 
 class UserStore {
-    @observable currentUser = undefined;
+    @observable currentUser = null;
     @observable isUser = false;
     @observable isAdmin = false;
 

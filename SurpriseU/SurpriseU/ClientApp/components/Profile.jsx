@@ -6,11 +6,14 @@ import { inject, observer } from 'mobx-react';
 import { Redirect } from 'react-router';
 import { withRouter, NavLink } from 'react-router-dom';
 import { HashTag } from './Layout';
-import Ionicon from 'react-ionicons';import moment from 'moment';
-import Calendar from 'rc-calendar';
+import moment from 'moment';
+import DayPickerInput from 'react-day-picker/DayPickerInput';
+import 'react-day-picker/lib/style.css';
+import { User, EditTwi, EditMail, EditTel, PhotoIcon, EditInsta, Password, Username, Balloon, Back, Ok, Search, Edit, Pencil, Upload,Mars, Venus, Instagram, UserImage, Twitter, Facebook, Upload } from './Icons';
+import MomentLocaleUtils, { formatDate, parseDate } from 'react-day-picker/moment';
 
-import DatePicker from 'rc-calendar/lib/Picker'; import 'react-datepicker/dist/react-datepicker.css';
-import { User, EditTwi, EditMail, EditTel, EditInsta, Password, Username, Balloon, Back, Ok, Search, Edit, Pencil, Upload,Mars, Venus, Instagram, UserImage, Twitter, Facebook, Upload } from './Icons';
+
+
 @inject('userStore')
 @withRouter
 @observer
@@ -18,10 +21,11 @@ class Info extends React.Component {
     render() {
         const { currentUser } = this.props.userStore;
         return <div className="info w-100 d-flex flex-column justify-content-around align-items-center">
+            {currentUser == null && <Redirect to="/login" />}
             <div className='nav'>{Search}<NavLink className="navlink-no" to={'/account/edit'}>{Edit}</NavLink></div>
             <div className='photo'>{Upload} {currentUser != null && (currentUser.photo == null ? UserImage : <img src={currentUser.photo} />)}</div>
-            <div className='name'>Влада</div>
-                <div className="d-flex align-items-center age">02.01.1999</div>
+            <div className='name'>{currentUser.name}</div>
+            <div className="d-flex align-items-center age">{currentUser.age}</div>
                 <div className='fr-likes'>
                 <Likes />
                 <Friends />
@@ -45,6 +49,9 @@ export class EditUser extends React.Component {
         this.state = {
             field: 'contacts',
             user: this.props.userStore.currentUser,
+            age: '',
+            newPassword: '',
+            oldPassword: '',
             formErrors: {
                 title: '',
                 content: '',
@@ -56,20 +63,16 @@ export class EditUser extends React.Component {
         this.onSubmit = this.onSubmit.bind(this);
         this.onChange = this.onChange.bind(this);
         this.validateField = this.validateField.bind(this);
-    
+        this.passwordChange = this.passwordChange.bind(this);
         this.ageChange = this.ageChange.bind(this);
     }
 
     componentWillMount() {
-            var user = Object.assign({}, this.state.user);
-            //Object.getOwnPropertyNames(user).map(
-            //    field => user[field] = this.props.userStore.currentUser[field]
-            //);
-            var age = user.age.substring(8, 10) + '.' + user.age.substring(5, 7) + '.' + user.age.substring(0, 4);
-            user.age = age;
-            
-            this.setState({ user: user })
-            console.log(this.state.user);
+        if (this.props.userStore.currentUser) {
+            var ageStr = this.state.user.age;
+            var age = new Date(ageStr.substring(0, 4), ageStr.substring(5, 7), ageStr.substring(8, 10));
+            this.setState({ age: age })
+        }
     }
     contacts = () => this.setState({ field: 'contacts' });
     password = () => this.setState({ field: 'password' });
@@ -77,7 +80,10 @@ export class EditUser extends React.Component {
         this.setState({ user: Object.assign({}, this.state.user, { [e.target.name]: e.target.value }) })
     }
     ageChange(date) {
-        this.setState({ user: Object.assign({}, this.state.user, { age: date.format('DD.MM.YYYY')}) })
+        this.setState({age: date})
+    }
+    passwordChange(e) {
+        this.setState({ [e.target.name]: e.target.value })
     }
     onSubmit(e) {
         e.preventDefault();
@@ -124,130 +130,99 @@ export class EditUser extends React.Component {
         const { currentUser, isUser }=this.props.userStore;
         const correct = true;
         return <div className="edit-user d-flex flex-column">
-            {!isUser && <Redirect to="/login" />}
-          
+            {!isUser ? <Redirect to="/login" />
+                :
             <div className="edit-form animated fadeInDown flex flex-column justify-content-between align-items-center">
                 <div className="nav">
-                    <NavLink to={`/profile`}>{Back}</NavLink>
+                    <NavLink to={`/${currentUser.userName}`}>{Back}</NavLink>Редагувати профіль
                     <div className='but' onClick={correct ? this.onSubmit : undefined}> {Ok} </div>
                 </div>
-                <div className="w-100 d-flex align-items-center justify-content-center name">Редагувати профіль</div>
-                <div className='photo'> <div className='photo-input'> <input name="photo"
-                    value={this.state.user.photo}
-                    onChange={this.onChange}
-                    onBlur={this.validateField} />{Pencil}</div>
+                <div className='photo'> {Pencil}
                     {currentUser != null ? (currentUser.photo != null ? <img src={currentUser.photo} /> : UserImage) : UserImage}
-                  </div>
-                  <div className='w-80 d-flex justify-content-between align-items-center'>
-                    <div className='w-50 d-flex flex-column'>
-                    <label>
-                    {User}Ім'я
-                    <input name="name"
-                    placeholder="Назва"
-                    value={this.state.user.name}
-                    onChange={this.onChange}
-                    onBlur={this.validateField} /> 
-                </label>
-                <label>
-                            <div className='hint'> {Username}</div>Ім'я користувача
-                    <input name="userName"
-                        placeholder="Назва"
-                        value={this.state.user.userName}
-                        onChange={this.onChange}
-                        onBlur={this.validateField} />
-                </label>
-                <label>
-                            <div className='hint'>{Balloon}</div>День народження
-                    <input name="age"
-                        placeholder="Назва"
-                        value={this.state.user.age} />
-                </label>
-                    <label>
-                       Стать
-                          <div className='gender'>
-                        <label className={`label ${this.state.user.gender == 0 ? '' : 'not-checked'}`}>
-                                <input type="radio" value={0} name="gender" checked={this.state.user.gender === 0} onChange={this.onChange} onClick={this.validateField} />
-                                {Mars}
-                            </label>
-                            <label className={`label ${this.state.user.gender == 1 ? '' : 'not-checked'}`}>
-                                <input type="radio" value={1} name="gender" checked={this.state.user.gender === 1} onChange={this.onChange} onClick={this.validateField} />
-                                {Venus}
-                            </label>
-                        </div>
-                    </label>
-                    
-                    </div>
-                    <div className="data">
-                        <Calendar className='calendar'
-                            showDateInput={false}
-                            showToday={false}
-                            onChange={this.ageChange}
-                        /></div></div>
-                <div className='other'>
-                <div className='tabs'>
-                        <div className={`tab ${this.state.field=='contacts' && ' active ' }`} value='contacts' onClick={this.contacts}>Контакти</div>
-                        <div className={`tab ${this.state.field != 'contacts' && ' active '}`} value='password' onClick={this.password}>Пароль</div>
                 </div>
-                {this.state.field=='contacts' ? <div className='section d-flex flex-column'>
-                    <label className='contact'>
-                            {EditMail}
-                        <input name="email"
-                            placeholder="Email"
-                            value={this.state.user.email}
-                            onChange={this.onChange}
-                            onBlur={this.validateField} />
-                    </label>
-                    <label className='contact'>
-                            {EditTel}
-                        <input name="phoneNumber"
-                            placeholder="Телеграм"
-                            value={this.state.user.phoneNumber}
-                            onChange={this.onChange}
-                            onBlur={this.validateField} />
-                    </label>
-                    <label className='contact'>
-                            {EditInsta}
-                        <input name="instagram"
-                            placeholder="Instagram"
-                            value={this.state.user.instagram}
-                            onChange={this.onChange}
-                            onBlur={this.validateField} />
-                    </label>
-                    <label className='contact'>
-                            {EditTwi}
-                        <input name="twitter"
-                            placeholder="Twitter"
-                            value={this.state.user.twitter}
-                            onChange={this.onChange}
-                            onBlur={this.validateField} />
-                    </label></div> : <div className='password d-flex flex-column'>
-                        <label>
-                                {Password}Старий пароль
-                    <input name="name"
+                <div className='w-80 flex-column d-flex justify-content-around'>
+                        <label>{User}Ім'я
+                            <input name="name"
                                 placeholder="Назва"
                                 value={this.state.user.name}
                                 onChange={this.onChange}
                                 onBlur={this.validateField} />
                         </label>
-                        <label>
-                                {Password}Новий пароль
-                    <input name="userName"
+                        <label><div className='hint'> {Username}</div>Ім'я користувача
+                            <input name="userName"
                                 placeholder="Назва"
                                 value={this.state.user.userName}
                                 onChange={this.onChange}
                                 onBlur={this.validateField} />
                         </label>
-                        <label>
-                                {Password}Новий пароль
-                    <input name="userName"
-                                placeholder="Назва"
-                                value={this.state.user.userName}
+                        <div className='age-gen'>
+                        <label><div className='hint'>{Balloon}</div>День народження
+                                <DayPickerInput
+                                    placeholder='День народження'
+                                    value={this.state.age}
+                                    formatDate={formatDate}
+                                    parseDate={parseDate}
+                                    onDayChange={this.ageChange} />
+                        </label>
+                        <label>Стать
+                            <div className='gender'>
+                                <label className={`label ${this.state.user.gender == 0 ? '' : 'not-checked'}`}>
+                                    {Mars}
+                                    <input type="radio" value={0} name="gender" checked={this.state.user.gender === 0} onChange={this.onChange} onClick={this.validateField} />
+                                </label>
+                                <label className={`label ${this.state.user.gender == 1 ? '' : 'not-checked'}`}>
+                                    {Venus}
+                                    <input type="radio" value={1} name="gender" checked={this.state.user.gender === 1} onChange={this.onChange} onClick={this.validateField} />
+                                </label>
+                            </div>
+                        </label>
+                        </div>
+                        <label><div className='hint'> {PhotoIcon}</div>Фото
+                            <input name="photo"
+                                placeholder="Фото"
+                                value={this.state.user.photo}
+                                onChange={this.onChange} />
+                        </label>
+                        <label>{Password}Старий пароль
+                            <input name="oldPassword" type="password"
+                                placeholder="Старий пароль"
+                                value={this.state.oldPassword}
+                                onChange={this.passwordChange}
+                                onBlur={this.validateField} />
+                        </label>
+                        <label>{Password}Новий пароль
+                            <input name="newPassword"
+                                type="password"
+                                placeholder="Новий пароль"
+                                value={this.state.newPassword}
+                                onChange={this.passwordChange}
+                                onBlur={this.validateField} />
+                        </label>
+                </div>
+                <div className='section d-flex'>
+                        <label className='contact'>{EditMail}
+                            <input name="email"
+                                placeholder="Email"
+                                value={this.state.user.email}
                                 onChange={this.onChange}
                                 onBlur={this.validateField} />
-                        </label> </div>
-                }
-                </div>
-            </div>
+                        </label>
+                        <label className='contact'>{EditTel}
+                            <input name="phoneNumber"
+                                placeholder="Телеграм"
+                                value={this.state.user.phoneNumber}
+                                onChange={this.onChange}
+                                onBlur={this.validateField} />
+                        </label>
+                        <label className='contact'>{EditInsta}
+                            <input name="instagram"
+                                placeholder="Instagram"
+                                value={this.state.user.instagram}
+                                onChange={this.onChange}
+                                onBlur={this.validateField} />
+                        </label>
+                    </div>
+            </div>}
         </div>;
     }
 }
@@ -406,17 +381,15 @@ export class Profile extends React.Component {
     render() {
         const { isUser, currentUser } = this.props.userStore;
         return <div className="profile h-100 w-100">
-         
+            {!isUser && <Redirect to="/login" />}
             <div className='profile-area d-flex flex-column justify-content-around'>
                 <div className="d-flex justify-content-center align-items-center w-100 name">{console.log(currentUser)}</div>
-                <Info />
+                {isUser && <Info />} 
                 <div className='d-flex content align-items-center'>
                     <LikedPresents />
                     <AddedPresents />
                 </div>
             </div>
-
-            {!isUser && <Redirect to="/login" />}
         </div>;
     }
 }

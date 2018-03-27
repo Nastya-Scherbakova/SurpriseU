@@ -233,7 +233,7 @@ export class LogIn extends React.Component {
     onRegister = () => this.setState({ signIn: false });
     onEnter = () => this.setState({ signIn: true });
     render() {
-        const { currentUser } = this.props.userStore;
+        const { currentUser, isUser } = this.props.userStore;
       
         return <div className='log-form w-100 h-100'>
            
