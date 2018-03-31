@@ -9,7 +9,7 @@ import { HashTag } from './Layout';
 import moment from 'moment';
 import DayPickerInput from 'react-day-picker/DayPickerInput';
 import 'react-day-picker/lib/style.css';
-import { User, EditTwi, EditMail, EditTel, PhotoIcon, EditInsta, Password, Username, Balloon, Back, Ok, Search, Edit, Pencil, Upload,Mars, Venus, Instagram, UserImage, Twitter, Facebook, Upload } from './Icons';
+import {Button} from './Icons';
 import MomentLocaleUtils, { formatDate, parseDate } from 'react-day-picker/moment';
 
 
@@ -22,8 +22,19 @@ class Info extends React.Component {
         const { currentUser } = this.props.userStore;
         return <div className="info w-100 d-flex flex-column justify-content-around align-items-center">
             {currentUser == null && <Redirect to="/login" />}
-            <div className='nav'>{Search}<NavLink className="navlink-no" to={'/account/edit'}>{Edit}</NavLink></div>
-            <div className='photo'>{Upload} {currentUser != null && (currentUser.photo == null ? UserImage : <img src={currentUser.photo} />)}</div>
+            <div className='nav'>
+                <div className='settings'> <Button name='Search' />   </div>
+                    <NavLink className="navlink-no" to={'/account/edit'}>
+                    <div className='settings'>  <Button name='Edit' />   </div>
+                    </NavLink>
+                </div>
+            <div className='photo'>
+                <div className='plus-photo'><Button name='Upload' /></div>
+                {currentUser != null &&
+                    (currentUser.photo == null ?
+                    <Button name='UserImage' /> :
+                        <img src={currentUser.photo} />)}
+            </div>
             <div className='name'>{currentUser.name}</div>
             <div className="d-flex align-items-center age">{currentUser.age}</div>
                 <div className='fr-likes'>
@@ -31,9 +42,9 @@ class Info extends React.Component {
                 <Friends />
                 </div>
                 <div className='social-tabs'>
-        {Twitter}
-      {Instagram}
-        {Facebook}
+                <div className='twitter'>   <Button name='Twitter' />    </div>
+        <div className='social-border'>   <Button name='Instagram' />    </div>
+        <div className='social-border'>   <Button name='Facebook' />    </div>
     </div>
      
         </div>;
@@ -134,63 +145,63 @@ export class EditUser extends React.Component {
                 :
             <div className="edit-form animated fadeInDown flex flex-column justify-content-between align-items-center">
                 <div className="nav">
-                    <NavLink to={`/${currentUser.userName}`}>{Back}</NavLink>Редагувати профіль
-                    <div className='but' onClick={correct ? this.onSubmit : undefined}> {Ok} </div>
+                        <NavLink to={`/id${currentUser.id.substr(0, 6)}`}><Button name='Back' /></NavLink>Редагувати профіль
+                    <div className='but' onClick={correct ? this.onSubmit : undefined}><div className='valid'><Button name='Ok' /> </div></div>
                 </div>
-                <div className='photo'> {Pencil}
-                    {currentUser != null ? (currentUser.photo != null ? <img src={currentUser.photo} /> : UserImage) : UserImage}
+                <div className='photo'>
+                        <Button name='Pencil' className='pencil'/> 
+                        {currentUser != null ? (currentUser.photo != null ? <img src={currentUser.photo} /> : <Button name='UserImage' />) : <Button name='UserImage' />}
                 </div>
                 <div className='w-80 flex-column d-flex justify-content-around'>
-                        <label>{User}Ім'я
+                        <label><div className='hint'> <Button name='User' /></div>Ім'я
                             <input name="name"
                                 placeholder="Назва"
                                 value={this.state.user.name}
                                 onChange={this.onChange}
                                 onBlur={this.validateField} />
                         </label>
-                        <label><div className='hint'> {Username}</div>Ім'я користувача
+                        <label><div className='hint'> <Button name='UserName' /></div>Ім'я користувача
                             <input name="userName"
                                 placeholder="Назва"
                                 value={this.state.user.userName}
                                 onChange={this.onChange}
                                 onBlur={this.validateField} />
                         </label>
-                        <div className='age-gen'>
-                        <label><div className='hint'>{Balloon}</div>День народження
-                                <DayPickerInput
+                       
+                        <label className='age'><div className='hint'> <Button name='Balloon' /> </div>День народження
+                            <div><DayPickerInput
                                     placeholder='День народження'
                                     value={this.state.age}
                                     formatDate={formatDate}
                                     parseDate={parseDate}
-                                    onDayChange={this.ageChange} />
-                        </label>
-                        <label>Стать
-                            <div className='gender'>
+                                    onDayChange={this.ageChange} /> </div>
+                                     <div className='gender'>
                                 <label className={`label ${this.state.user.gender == 0 ? '' : 'not-checked'}`}>
-                                    {Mars}
+                                    <Button name='Mars' /> 
                                     <input type="radio" value={0} name="gender" checked={this.state.user.gender === 0} onChange={this.onChange} onClick={this.validateField} />
                                 </label>
                                 <label className={`label ${this.state.user.gender == 1 ? '' : 'not-checked'}`}>
-                                    {Venus}
+                                    <Button name='Venus' /> 
                                     <input type="radio" value={1} name="gender" checked={this.state.user.gender === 1} onChange={this.onChange} onClick={this.validateField} />
                                 </label>
                             </div>
                         </label>
-                        </div>
-                        <label><div className='hint'> {PhotoIcon}</div>Фото
+                       
+                        <label><div className='hint'>   <Button name='PhotoIcon' /> </div>Фото
                             <input name="photo"
                                 placeholder="Фото"
                                 value={this.state.user.photo}
                                 onChange={this.onChange} />
                         </label>
-                        <label>{Password}Старий пароль
+                        <label><div className='hint'><Button name='Password' />  </div>Старий пароль
                             <input name="oldPassword" type="password"
                                 placeholder="Старий пароль"
                                 value={this.state.oldPassword}
                                 onChange={this.passwordChange}
                                 onBlur={this.validateField} />
                         </label>
-                        <label>{Password}Новий пароль
+                        <label>
+                            <div className='hint'> <Button name='Password' />  </div>Новий пароль
                             <input name="newPassword"
                                 type="password"
                                 placeholder="Новий пароль"
@@ -198,23 +209,24 @@ export class EditUser extends React.Component {
                                 onChange={this.passwordChange}
                                 onBlur={this.validateField} />
                         </label>
-                </div>
-                <div className='section d-flex'>
-                        <label className='contact'>{EditMail}
+                        <div className='section d-flex'>
+                            <label className='contact'>
+                                <Button name='EditMail' />
                             <input name="email"
                                 placeholder="Email"
                                 value={this.state.user.email}
                                 onChange={this.onChange}
                                 onBlur={this.validateField} />
                         </label>
-                        <label className='contact'>{EditTel}
+                            <label className='contact'>
+                                <Button name='EditTel' />
                             <input name="phoneNumber"
                                 placeholder="Телеграм"
                                 value={this.state.user.phoneNumber}
                                 onChange={this.onChange}
                                 onBlur={this.validateField} />
                         </label>
-                        <label className='contact'>{EditInsta}
+                            <label className='contact'><Button name='EditInsta' />
                             <input name="instagram"
                                 placeholder="Instagram"
                                 value={this.state.user.instagram}
@@ -222,6 +234,8 @@ export class EditUser extends React.Component {
                                 onBlur={this.validateField} />
                         </label>
                     </div>
+                </div>
+               
             </div>}
         </div>;
     }
@@ -302,7 +316,7 @@ class LikedPresents extends React.Component {
             <div className="title"><div className='text'>Вподобані подарунки</div></div>
             <div className="d-flex h-100 align-items-center">
                 <div className="items">
-                    {presents.map(present => LikedPresent)}
+                    {presents.map((present, i) => LikedPresent)}
                 </div>
                 <ChevronRight className="d-flex right-arrow align-items-center" size='10vh' onClick={this.showPresents} />
             </div>
@@ -386,7 +400,7 @@ export class Profile extends React.Component {
                 <div className="d-flex justify-content-center align-items-center w-100 name">{console.log(currentUser)}</div>
                 {isUser && <Info />} 
                 <div className='d-flex content align-items-center'>
-                    <LikedPresents />
+                    <AddedPresents />
                     <AddedPresents />
                 </div>
             </div>

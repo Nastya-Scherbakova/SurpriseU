@@ -4,11 +4,11 @@ import { X, Check, Image, Upload, Edit, Trash, Hash} from 'react-feather';
 import ReactModal from 'react-modal';
 import { inject, observer } from 'mobx-react';
 import { HashTag } from './Layout';
-
+import{XCircle, PencilSquare, Button} from './Icons';
 @inject('presentsStore')
 @withRouter
 @observer
-export class Present extends React.Component {
+export class PresentPreview extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -17,64 +17,134 @@ export class Present extends React.Component {
             showModal: false,
         };
         this.onLike = this.onLike.bind(this);
-        this.handleOpenModal = this.handleOpenModal.bind(this);
-        this.handleCloseModal = this.handleCloseModal.bind(this);
-        this.onEditPresent = this.onEditPresent.bind(this);
+    }
+
+    onLike = () => this.setState(prevState => ({ liked: !prevState.liked }));
+
+    render() {
+        return <div className="present-preview animated fadeInDown">
+            <img className="img  rounded-circle pull-left" src={this.state.data.photo} />
+            <div className="info">
+                <div className="title">{this.state.data.title}</div>
+                <div className="d-flex justify-content-start align-items-center about">
+                    {this.state.data.content}
+                </div>
+                <div className="bottom">
+                  
+                    <NavLink className="navlink-no nav " to={`/present/${this.state.data.id}`}>
+                        Читати далі
+                    </NavLink>
+                    <div className="like-users">
+                        <div className='add1'></div>
+                        <div className='add2'></div>
+                        <div className='add3 mr-1'></div>  +1143
+
+                    </div>
+                    <Button onClick={this.onLike} className={` ${this.state.liked ? 'like' : 'without-like'  }`}name='Heart' />
+             </div>
+            </div>
+        </div>;
+    }
+}
+
+@inject('presentsStore')
+@withRouter
+@observer
+export class Present extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            like: false
+        };
         this.onRemovePresent = this.onRemovePresent.bind(this);
     }
+    componentDidMount() {
+        this.props.presentsStore.getPresent(this.props.location.pathname.substr(9));
+    }
+    onLike = () => this.setState(prevState => ({ liked: !prevState.liked }));
+    
+    onRemovePresent = () => this.props.presentsStore.deletePresent(this.state.data);
+    render() {
+        const present = this.props.presentsStore.currentPresent;
+        return <div className="present-back"> <div className="present animated fadeInDown">
+            {present != null && <div>
+                <div className="settings">
+                <NavLink className="navlink-no nav " to={`/present/${present.id}/edit`}><Button name='PencilSquare' /></NavLink>
+                <Button onClick={this.onRemovePresent} name='XCircle' />
+                </div>
+                <div className='main'>
+                <img className="img" src={present.photo} />
+                <div className="info">
+                        <div className="title">
+                            {present.title}
+                        </div>
+                        <div className="gender">
+                                <Button name='Mars' />
+                                <Button name='Venus' />
+                        </div>
+                        <div className="age">
+                        {present.startAge}-{present.endAge}
+                        </div>
 
-    componentWillMount() {
-        ReactModal.setAppElement('body');
+                    <div className="about">
+                        {present.content}
+                    </div>
+                    <div className="">
+                            праздники
+                    </div>
+                    <div className="">
+                        хобби
+                    </div>
+                    <div className="d-flex justify-content-between align-items-center bottom">
+                        <div className="d-flex justify-content-center align-items-center" onClick={this.onLike}>
+                            {this.state.liked ? isLiked : notLiked}
+                        </div>
+                    </div>
+                </div>
+                </div>
+                </div>}
+        </div> </div>
+        };
     }
 
-    handleOpenModal = () => this.setState({ showModal: true });
-    handleCloseModal = () => this.setState({ showModal: false });
-    onLike = () => this.setState(prevState => ({ liked: !prevState.liked }));
+
+@inject('presentsStore', 'commonStore')
+@withRouter
+@observer
+export class EditPresent extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            data: {
+                title: this.props.presentsStore.currentPresent.title,
+                content: this.props.presentsStore.currentPresent.content,
+                gender: this.props.presentsStore.currentPresent.gender,
+                photo: this.props.presentsStore.currentPresent.photo,
+                startAge: this.props.presentsStore.currentPresent.startAge,
+                endAge: this.props.presentsStore.currentPresent.endAge,
+                tags: []
+            }
+        };
+        this.onEditPresent = this.onEditPresent.bind(this);
+    }
 
     onEditPresent(present) {
         if (present) {
             this.props.presentsStore.editPresent(present);
         }
     }
-    onRemovePresent = () => this.props.presentsStore.deletePresent(this.state.data);
+    hi=()=> console.log('hi');
     render() {
-        return <div className="present animated fadeInDown">
-            <img className="img  rounded-circle pull-left" src={this.state.data.photo} />
-            <div className="info">
-                <div className="d-flex justify-content-center align-items-center"><div className="title">{this.state.data.title}</div></div>
-                <div className="settings">
-                    <Edit className='mx-2' size="3vh" color='#C4C4D8' onClick={this.handleOpenModal}/>
-                    <Trash className='mx-2' size="3vh" color='#C4C4D8' onClick={this.onRemovePresent} />
-                </div>
-                <div className="d-flex justify-content-start align-items-center about">
-                    {this.state.data.content}
-                </div>
-                <div className="d-flex justify-content-between align-items-center bottom">
-                    <NavLink className="navlink-no nav " to={'/'}>
-                        <div className="d-flex justify-content-center align-items-center ">
-                            Читати далі 
-                        <div className="d-flex justify-content-center align-items-center arrow-right"></div>
-                        </div>
-                    </NavLink>
-                    <div className="d-flex justify-content-center align-items-center" onClick={this.onLike}>
-                        {this.state.liked ?  isLiked : notLiked }
-                    </div>
-            </div>
-            </div>
-
-            <ReactModal
-                isOpen={this.state.showModal}
-                onRequestClose={this.handleCloseModal}
-                className='addPresent w-100 h-100 d-flex align-items-center'>
-                <div className='form-add d-flex flex-column align-items-center animated fadeInDown'>
-                    <div className="w-100 d-flex flex-wrap align-items-center justify-content-center name">Редагувати подарунок</div>
-                    <PresentForm onPresentSubmit={this.onEditPresent} toClose={this.handleCloseModal} isNew={false} present={this.state.data} />
-                </div>
-            </ReactModal>
-            
-        </div>;
+        return <div className='addPresent w-100 h-100 d-flex align-items-center' >
+            <div className='form-add d-flex flex-column align-items-center animated fadeInDown'>
+                <div className="w-100 d-flex flex-wrap align-items-center justify-content-center name">Редагувати подарунок</div>
+                <PresentForm onPresentSubmit={this.onEditPresent} toClose={this.hi} isNew={false} present={this.state.data} />
+            </div></div>;
     }
 }
+
+
+
 
 
 @inject('presentsStore', 'commonStore')
@@ -126,7 +196,7 @@ export class PresentsList extends React.Component {
         const { presentsState } = this.props.presentsStore;
         return <div className="d-flex flex-row  flex-wrap justify-content-around">
                 {
-                presentsState.map(present => <Present key={present.id} present={present} />)
+                presentsState.map(present => <PresentPreview key={present.id} present={present} />)
                 }
         </div>;
     }
@@ -350,39 +420,6 @@ export class PresentForm extends React.Component {
         );
     }
 };
-//<div className='d-flex w-100 h-25 justify-content-between align-items-center'>
-//    <div className='d-flex flex-column h-100 w-50 justify-content-around align-items-center'>
-//        <div className='d-flex flex-column tags-cont  justify-content-start '>
-//            <input className={`${likesAuto.length == 0 ? ' tags-input ' : ' tags-input is-true '}`}
-//                name="likes" placeholder="Подобається"
-//                value={this.state.likes}
-//                onChange={this.renderOffers}
-//                onBlur={this.onBlurAuto} />
-//            <div className={`${likesAuto.length == 0 ? ' hidden ' : ' suggestions '}`}>
-//                {likesAuto.map(like => <div key={like.id} className='suggestion' onMouseDown={this.onTagClick.bind(this, like)}> {like.name} </div>)}
-//            </div>
-//        </div>
-
-//        <div className='d-flex flex-column tags-cont justify-content-start '>
-//            <input className='tags-input'
-//                name="celebration" placeholder="Свята"
-//                value={this.state.celebration}
-//                onChange={this.renderOffers}
-//                onBlur={this.onBlurAuto} />
-//            <div className={`${celebrationAuto.length == 0 ? ' hidden ' : ' suggestions '}`}>
-//                {celebrationAuto.map(like => <div key={like.id} className='suggestion' onMouseDown={this.onTagClick.bind(this, like)}>{like.name}</div>)}
-//            </div>
-//        </div>
-//    </div>
-
-//    <div className='tags d-flex flex-wrap justify-content-center align-items-center'>
-//        {this.state.tags.length != 0
-//            ? this.state.tags.map(like => <HashTag key={like.id} name={like.name} onDelete={this.deleteTag.bind(this, like.id)} />)
-//            : <p className='text-center'>Додайте теги</p>
-//        }
-//    </div>
-//</div>
-
 
 const errorClass = (error) => error.length === 0 ? '' : 'has-error';
 const isError = (error) => error.length > 0 && <p className='error '>{error}  </p>;

@@ -3,7 +3,7 @@ import { Link, NavLink } from 'react-router-dom';
 import 'scrollpos-styler';
 import { Switch, Route, withRouter } from 'react-router-dom';
 import { inject, observer } from 'mobx-react';
-import { UserImage,Clipboard, Search, Exit, Enter }from './Icons';
+import { UserImage,Clipboard, Search, Exit, Enter , Button}from './Icons';
 import Ionicon from 'react-ionicons';
 @inject('userStore', 'authStore', 'presentsStore')
 @withRouter
@@ -25,12 +25,12 @@ export class Menu extends Component {
                 </div> 
                 {
                 isUser ? <div className="icons">
-                    <NavLink className="navlink-no" to={`/${currentUser.userName}`}><div className='nav-photo'>
-                        {currentUser.photo == null ? UserImage : <img src={currentUser.photo} />}</div>
+                    <NavLink className="navlink-no" to={`/id${currentUser.id.substr(0,6)}`}><div className='nav-photo'>
+                        {currentUser.photo == null ? <Button name='UserImage' /> : <img src={currentUser.photo} />}</div>
                     </NavLink>
-                    <NavLink className="navlink-no" to={'/anketa'}><div className='nav-icon'>{Clipboard}</div></NavLink>
-                    <NavLink className="navlink-no" to={'/login'}><div onClick={this.logOut.bind(this)} className='nav-icon'>{Exit}</div></NavLink>
-                </div> : <div className="icons"><NavLink className="navlink-no" to={'/login'}><div className='nav-icon'>{Enter}</div> </NavLink></div>
+                    <NavLink className="navlink-no" to={'/anketa'}><div className='nav-icon'><Button name='Clipboard' /> </div></NavLink>
+                    <NavLink className="navlink-no" to={'/login'}><div onClick={this.logOut.bind(this)} className='nav-icon'> <Button name='Exit' /> </div></NavLink>
+                </div> : <div className="icons"><NavLink className="navlink-no" to={'/login'}><div className='nav-icon'> <Button name='Enter'  /> </div> </NavLink></div>
                 }
             </nav>;
     }

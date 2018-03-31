@@ -87,7 +87,9 @@ class Filter extends React.Component {
         const inputValue = e.target.value.trim().toLowerCase(),
             inputLength = inputValue.length,
             suggestions = inputLength === 0 ? [] : this.props.tagsStore[`${e.target.name}Store`].filter(
-                item => item.name.toLowerCase().slice(0, inputLength) === inputValue);
+                item => item.name.toLowerCase().slice(0, inputLength) === inputValue
+                    && this.state[`${e.target.name}Tags`].every(x => x.name.toLowerCase().slice(0, inputLength) != inputValue));
+       
         this.setState({ [`${e.target.name}Auto`]: suggestions });
     };
 

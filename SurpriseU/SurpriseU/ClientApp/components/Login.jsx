@@ -2,8 +2,8 @@
 import { inject, observer } from 'mobx-react';
 import { withRouter, Link, NavLink } from 'react-router-dom';
 import {  Check } from 'react-feather';
-import { Redirect } from 'react-router'
-import { Red, Ok, User, Email, Password } from './Icons';
+import {  Redirect } from 'react-router'
+import {  Button } from './Icons';
 
 
 class Register extends React.Component {
@@ -84,9 +84,9 @@ class Register extends React.Component {
 
     render() {
         const showHint = (error) => error.length == 0 ? undefined : error != 'null' ? <p className='error'>{error}</p> : undefined,
-            status = (error) => error.length == 0 ? Ok : error == 'null' ? undefined : Red;
+            status = (error) => error.length == 0 ?  <div className='valid'><Button name='Ok' /></div> : error == 'null' ? undefined :  <div className='valid'><Button name='Red' /></div>;
         return <form className='form d-flex justify-content-around flex-column align-items-center' onSubmit={this.onSubmit}>
-            <div className='field'>{User}
+            <div className='field'><div className='hint'><Button name='User' /></div>
                 <input name="name"
                     placeholder="Ім'я"
                     value={this.state.name}
@@ -96,7 +96,7 @@ class Register extends React.Component {
                 {showHint(this.state.formErrors.name)}
             </div>
 
-            <div className='field'> {Email}
+            <div className='field'> <div className='hint'><Button name='Email' /></div>
                 <input name="email"
                     placeholder="Електронна адреса"
                     value={this.state.email}
@@ -106,7 +106,7 @@ class Register extends React.Component {
                 {showHint(this.state.formErrors.email)} </div>
            
 
-            <div className='field'>{Password}
+            <div className='field'><div className='hint'><Button name='Password' /></div>
                 <input name="password"
                 placeholder="Пароль"
                 value={this.state.password}
@@ -118,7 +118,7 @@ class Register extends React.Component {
           
 
 
-             <div className='field'>{Password}
+            <div className='field'><div className='hint'><Button name='Password' /></div>
                 <input name="password2"
                     placeholder="Повторіть пароль"
                     value={this.state.password2}
@@ -188,7 +188,7 @@ class Login extends React.Component {
                     {socialIcons}
                 </div>
             </div>
-            <div className='field'>{User}
+            <div className='field'><div className='hint'><Button name='User' /></div>
             <input className='inpt'
                 name="email"
                 required="required"
@@ -196,7 +196,7 @@ class Login extends React.Component {
                 value={this.state.email}
                 onChange={this.onChange}
                 type="email" /></div>
-            <div className='field'>{Password}
+            <div className='field'><div className='hint'><Button name='Password' /></div>
             <input className='inpt'
                 name="password"
                 required="required"
@@ -246,7 +246,7 @@ export class LogIn extends React.Component {
                 {this.state.signIn ? <Login /> : <Register />}
               
             </div>
-            {currentUser != null && <Redirect to={`/${currentUser.userName}`} />}
+            {currentUser != null && <Redirect to={`/id${currentUser.id.substr(0, 6)}`} />}
         </div>;
 
     }
