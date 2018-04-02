@@ -1,8 +1,9 @@
 ﻿import * as React from 'react';
 import { inject, observer } from 'mobx-react';
-import { X, Check } from 'react-feather';
-import { HashTag } from '../Layout';
+import HashTag from '../Shared/Tag';
 import { withRouter } from 'react-router-dom';
+import { Icon } from '../Shared/Icons';
+
 @inject('presentsStore', 'tagsStore')
 @withRouter
 @observer
@@ -212,9 +213,9 @@ export default class PresentForm extends React.Component {
                     </div>
                 </div>
 
-                <div className='d-flex justify-content-around mt-3'>
-                    <div className='but' onClick={correct ? this.onSubmit : undefined}><Check size="5vh" color={`${correct ? '#031560' : 'grey'}`} /></div>
-                    <div className='but' onClick={this.props.toClose}><X size="5vh" color='#600303' /></div>
+                <div className='d-flex align-items-end justify-content-around mt-3'>
+                    <Icon onClick={correct ? this.onSubmit : undefined} name='Check' width='3vh' height='3vh' fill={`${correct ? '#031560' : 'grey'}`} className='but' />
+                    <Icon onClick={this.props.toClose} name='X' width='2.5vh' height='2.5vh' fill='#600303' className='but' />
                 </div>
 
             </form>

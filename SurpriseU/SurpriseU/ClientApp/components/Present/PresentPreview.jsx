@@ -1,8 +1,7 @@
-﻿import { Button } from '../Icons';
-import * as React from 'react';
+﻿import * as React from 'react';
 import { inject, observer } from 'mobx-react';
 import { Link, NavLink, withRouter } from 'react-router-dom';
-
+import { Icon } from '../Shared/Icons';
 
 
 
@@ -33,7 +32,7 @@ export default class PresentPreview extends React.Component {
                 <div className="bottom">
 
                     <NavLink className="navlink-no nav " to={`/present/${this.state.data.id}`}>
-                        Читати далі<Button name='RightArrow' />
+                        Читати далі<Icon name='RightArrow' />
                     </NavLink>
                     <div className="like-users">
                         <div className='add1'></div>
@@ -41,7 +40,7 @@ export default class PresentPreview extends React.Component {
                         <div className='add3 mr-1'></div>  +1143
 
                     </div>
-                    <Button onClick={this.onLike} className={` ${this.state.liked ? 'like' : 'without-like'}`} name='Heart' />
+                    <Icon onClick={this.onLike} className={` ${this.state.liked ? 'like' : 'without-like'}`} name='Heart' />
                 </div>
             </div>
         </div>;

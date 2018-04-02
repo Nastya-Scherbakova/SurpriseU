@@ -1,11 +1,9 @@
 ﻿import * as React from 'react';
 import { inject, observer } from 'mobx-react';
 import { withRouter, Link, NavLink } from 'react-router-dom';
-import {  Check } from 'react-feather';
 import {  Redirect } from 'react-router'
-import {  Button } from './Icons';
-
-
+import { Icon } from '../Shared/Icons';
+//[DOM] Input elements should have autocomplete attributes (suggested: "current-password"): 
 class Register extends React.Component {
     constructor(props) {
         super(props);
@@ -84,9 +82,14 @@ class Register extends React.Component {
 
     render() {
         const showHint = (error) => error.length == 0 ? undefined : error != 'null' ? <p className='error'>{error}</p> : undefined,
-            status = (error) => error.length == 0 ?  <div className='valid'><Button name='Ok' /></div> : error == 'null' ? undefined :  <div className='valid'><Button name='Red' /></div>;
+            status = (error) =>
+                error.length == 0
+                    ? <div className='valid'><Icon name='Check' fill='#5BD2B3'/></div>
+                    : error == 'null'
+                        ? undefined
+                        : <div className='valid'><Icon name='X' fill="#D25C5C" /></div>;
         return <form className='form d-flex justify-content-around flex-column align-items-center' onSubmit={this.onSubmit}>
-            <div className='field'><div className='hint'><Button name='User' /></div>
+            <div className='field'><div className='hint'><Icon name='User' /></div>
                 <input name="name"
                     placeholder="Ім'я"
                     value={this.state.name}
@@ -96,7 +99,7 @@ class Register extends React.Component {
                 {showHint(this.state.formErrors.name)}
             </div>
 
-            <div className='field'> <div className='hint'><Button name='Email' /></div>
+            <div className='field'> <div className='hint'><Icon name='Email' /></div>
                 <input name="email"
                     placeholder="Електронна адреса"
                     value={this.state.email}
@@ -106,7 +109,7 @@ class Register extends React.Component {
                 {showHint(this.state.formErrors.email)} </div>
            
 
-            <div className='field'><div className='hint'><Button name='Password' /></div>
+            <div className='field'><div className='hint'><Icon name='Password' /></div>
                 <input name="password"
                 placeholder="Пароль"
                 value={this.state.password}
@@ -118,7 +121,7 @@ class Register extends React.Component {
           
 
 
-            <div className='field'><div className='hint'><Button name='Password' /></div>
+            <div className='field'><div className='hint'><Icon name='Password' /></div>
                 <input name="password2"
                     placeholder="Повторіть пароль"
                     value={this.state.password2}
@@ -188,29 +191,31 @@ class Login extends React.Component {
                     {socialIcons}
                 </div>
             </div>
-            <div className='field'><div className='hint'><Button name='User' /></div>
-            <input className='inpt'
+            <div className='field'><div className='hint'><Icon name='User' /></div>
+                <input className='inpt'
                 name="email"
                 required="required"
                 placeholder="Логін"
                 value={this.state.email}
                 onChange={this.onChange}
                 type="email" /></div>
-            <div className='field'><div className='hint'><Button name='Password' /></div>
+            <div className='field'><div className='hint'><Icon name='Password' /></div>
             <input className='inpt'
                 name="password"
                 required="required"
                 placeholder="Пароль"
                 value={this.state.password}
                 onChange={this.onChange}
-                type="password" />
+                type="password"/>
             <div className="forget-text">Забули пароль?</div>
          </div>
 
             {errors == '401' && <p className='login-error'>Невірний логін або пароль</p>}
 
             <div className='d-flex justify-content-center align-items-center w-100 check-label'>
-                <span onClick={this.onRemember} className={`d-flex justify-content-center align-items-center mr-3 ${this.state.remember ? ' checkbox-true' : ' checkbox-false '}`}><Check className='check animated scaleIn' /></span>
+                <span onClick={this.onRemember} className={`d-flex justify-content-center align-items-center mr-3 ${this.state.remember ? ' checkbox-true' : ' checkbox-false '}`}>
+                    <Icon name='Check' className='check animated scaleIn'/>
+                </span>
                 Запам'ятати мене
             </div>
 
@@ -223,7 +228,7 @@ class Login extends React.Component {
 @inject('userStore')
 @withRouter
 @observer
-export class LogIn extends React.Component {
+export default class LoginPage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {

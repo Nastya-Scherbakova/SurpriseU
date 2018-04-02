@@ -2,7 +2,7 @@
 import { Link, NavLink, withRouter } from 'react-router-dom';
 import ReactModal from 'react-modal';
 import { inject, observer } from 'mobx-react';
-import { Button } from '../Icons';
+import { Icon } from '../Shared/Icons';
 import Radium from 'radium';
 
 
@@ -41,9 +41,9 @@ class Present extends React.Component {
                 <div className='main'>
                     <div className='top'>
                         <NavLink className="navlink-no" to={`/`}>
-                            <Button name='Back' className='back' />
+                            <Icon name='Back' className='back' />
                         </NavLink>
-                        <Button name='HeartOutline' onClick={this.onLike}
+                        <Icon name='HeartOutline' onClick={this.onLike}
                             className={this.state.liked ? 'animated opac': ''}
                             style={this.state.liked ? styles.liked:styles.notliked} />
                     </div>
@@ -53,12 +53,12 @@ class Present extends React.Component {
                             {present.title}
                         </div>
                         <div className="age">
-                            <div className="age"> <Button name='UserSimple' />
+                            <div className="age"> <Icon name='UserSimple' />
                                 ж, ч</div>
-                            <div className="age"> <Button name='Clock' /> 
+                            <div className="age"> <Icon name='Clock' /> 
                          
                                 {present.startAge}-{present.endAge}</div>
-                            <div className="age"> <Button name='HeartOutline' />
+                            <div className="age"> <Icon name='HeartOutline' />
                                     12 </div>
                         </div>
                         <div className="about">
@@ -67,8 +67,8 @@ class Present extends React.Component {
                        
                     </div>
                 <div className="settings">
-                    <NavLink className="navlink-no nav " to={`/present/${present.id}/edit`}><Button name='Pencil' /></NavLink>
-                    <Button onClick={this.onRemovePresent} name='Trash' />
+                    <NavLink className="navlink-no nav " to={`/present/${present.id}/edit`}><Icon name='Pencil' /></NavLink>
+                    <Icon onClick={this.onRemovePresent} name='Trash' />
                 </div>
                 </div>}
         </div> </div>
