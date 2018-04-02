@@ -6,7 +6,8 @@ import { Home } from './components/Home';
 import { Anketa } from './components/Anketa';
 import { LogIn } from './components/Login';
 import { Profile, EditUser} from './components/Profile';
-import { Present , EditPresent} from './components/Present';
+import Present from './components/Present/Present';
+import { EditPresent } from './components/Present/CreateUpdate';
 export const routes = <Layout>
     <Route exact path='/' component={Home } />
     <Route path='/anketa' component={EditUser}/>

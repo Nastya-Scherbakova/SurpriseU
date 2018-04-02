@@ -1,7 +1,8 @@
 ﻿import * as React from 'react';
 import ReactModal from 'react-modal';
-import { PresentsList, NewPresent, Present } from './Present.jsx';
-import { Plus, Settings, ChevronRight, X, Check } from 'react-feather';
+import PresentsList from './Present/PresentsList';
+import { NewPresent } from './Present/CreateUpdate';
+import { Plus, ChevronRight, X, Check } from 'react-feather';
 import { inject, observer } from 'mobx-react';
 import { Redirect } from 'react-router';
 import { withRouter, NavLink } from 'react-router-dom';
@@ -36,7 +37,7 @@ class Info extends React.Component {
                         <img src={currentUser.photo} />)}
             </div>
             <div className='name'>{currentUser.name}</div>
-            <div className="d-flex align-items-center age">{currentUser.age}</div>
+            <div className="d-flex align-items-center age"> <Button name='Clock' /> {currentUser.age.substr(0,11)}</div>
                 <div className='fr-likes'>
                 <Likes />
                 <Friends />

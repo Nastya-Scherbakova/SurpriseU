@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { ReactDOM } from 'react-dom';
-import { PresentsList } from './Present';
+import PresentsList from './Present/List';
 import { HashTag } from './Layout';
 import { inject, observer } from 'mobx-react';
 import { Link, NavLink, withRouter } from 'react-router-dom';
