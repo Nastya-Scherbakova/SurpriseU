@@ -7,7 +7,8 @@ export class PresentsStore {
     @observable presentsState = [];
     @observable search = '';
     @observable isFilter = false;
-    @observable currentPresent = null;
+    @observable presentById = null;
+
     @action searchPresents(present) {
         //requests.Presents.search(present).then(
         //    action(presents => {
@@ -41,6 +42,7 @@ export class PresentsStore {
         requests.Presents.all().then(
             action(presents => {
                 this.presentsState = presents.slice('');
+                this.isLoading = false;
             })
         )
     }
@@ -67,9 +69,11 @@ export class PresentsStore {
     }
    
     @action getPresent(id) {
+        this.isLoading = true;
         return requests.Presents.get(id)
             .then(action((present) => {
-                this.currentPresent = present;
+                this.presentById = present;
+                this.isLoading = false;
             }))
     }
 }

@@ -2,50 +2,40 @@
 import { Link, NavLink, withRouter } from 'react-router-dom';
 import ReactModal from 'react-modal';
 import { inject, observer } from 'mobx-react';
-import { Icon } from '../Shared/Icons';
+import { Icon, IconLink } from '../Shared/Icons';
 import Radium from 'radium';
-
-
-var styles = {
-    notliked: {
-        fill: '#DBDBE3'
-    },
-    liked: {
-        fill: '#7496DB'
-    }
-};
-
+import { Spinner } from '../Shared/Spinner';
+import { string, shape, number} from 'prop-types';
+import Like from '../Shared/Like';
 
 
 @inject('presentsStore')
 @withRouter
 @observer
 class Present extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            liked: false
-        };
-        this.onRemovePresent = this.onRemovePresent.bind(this);
+    state = {
+        liked: false
     }
-    componentDidMount() {
-        this.props.presentsStore.getPresent(this.props.location.pathname.substr(9));
+    static propTypes = {
+        present: shape({
+            title: string,
+            photo: string,
+            content: string
+        })
     }
     onLike = () => this.setState(prevState => ({ liked: !prevState.liked }));
-    
+   
     onRemovePresent = () => this.props.presentsStore.deletePresent(this.state.data);
+
     render() {
-        const present = this.props.presentsStore.currentPresent;
+        const present = this.props.presentsStore.presentById,
+        { isLoading }= this.props.presentsStore;
         return <div className="present-back"> <div className="present animated fadeInDown">
-            {present != null &&
+            {isLoading ? Spinner :
                 <div className='main'>
                     <div className='top'>
-                        <NavLink className="navlink-no" to={`/`}>
-                            <Icon name='Back' className='back' />
-                        </NavLink>
-                        <Icon name='HeartOutline' onClick={this.onLike}
-                            className={this.state.liked ? 'animated opac': ''}
-                            style={this.state.liked ? styles.liked:styles.notliked} />
+                        <IconLink name='Back' to={`/`} />
+                        <Like liked={this.state.liked} onLike={this.onLike} />
                     </div>
                     <img className="img" src={present.photo} />
                     <div className="info">
@@ -66,8 +56,8 @@ class Present extends React.Component {
                         </div>
                        
                     </div>
-                <div className="settings">
-                    <NavLink className="navlink-no nav " to={`/present/${present.id}/edit`}><Icon name='Pencil' /></NavLink>
+                    <div className="settings">
+                    <IconLink to={`${this.props.match.url}/edit`} name='Pencil' />
                     <Icon onClick={this.onRemovePresent} name='Trash' />
                 </div>
                 </div>}
@@ -75,5 +65,5 @@ class Present extends React.Component {
         };
     }
 
-export default Radium(Present);
+export default Present;
 

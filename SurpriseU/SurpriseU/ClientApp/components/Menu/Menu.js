@@ -5,7 +5,6 @@ import { Switch, Route, withRouter } from 'react-router-dom';
 import { inject, observer } from 'mobx-react';
 import { Icon } from '../Shared/Icons';
 import SearchInput from './Search';
-
 @inject('userStore', 'authStore', 'presentsStore')
 @withRouter
 @observer

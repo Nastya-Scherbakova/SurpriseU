@@ -34,10 +34,11 @@ export default class NewPresent extends React.Component {
     }
 
     render() {
-        return <div className='form-add d-flex flex-column align-items-center animated fadeInDown'>
+        return <div className='addPresent'><div className='form-add d-flex flex-column align-items-center animated fadeInDown'>
             <div className="w-100 d-flex flex-wrap align-items-center justify-content-center name">Додати подарунок</div>
             <PresentForm onPresentSubmit={this.onAddPresent} toClose={this.props.toClose} present={this.state.present} isNew={true}
             />
+        </div>
         </div>;
     }
 }

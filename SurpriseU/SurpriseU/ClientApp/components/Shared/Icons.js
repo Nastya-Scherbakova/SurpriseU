@@ -1,5 +1,16 @@
 ﻿import React from 'react';
 import { Component } from 'react';
+import { NavLink } from 'react-router-dom';
+
+
+export const IconLink = props => {
+    const { to, name, ...other } = props;
+    return (
+        <NavLink className="navlink-no" to={to}>
+            <Icon name={name} {...other} />
+        </NavLink>
+    );
+};
 
 
 export const Icon = props => {
@@ -36,6 +47,10 @@ export const Icon = props => {
     );
 };
 
+Icon.defaultProps = {
+    width: '3vh',
+    height: '3vh'
+};
 
 const Icons = {
     PencilSquare: {

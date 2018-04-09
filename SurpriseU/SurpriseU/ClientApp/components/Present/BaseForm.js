@@ -215,7 +215,7 @@ export default class PresentForm extends React.Component {
 
                 <div className='d-flex align-items-end justify-content-around mt-3'>
                     <Icon onClick={correct ? this.onSubmit : undefined} name='Check' width='3vh' height='3vh' fill={`${correct ? '#031560' : 'grey'}`} className='but' />
-                    <Icon onClick={this.props.toClose} name='X' width='2.5vh' height='2.5vh' fill='#600303' className='but' />
+                    <Icon onClick={this.props.history.goBack} name='X' width='2.5vh' height='2.5vh' fill='#600303' className='but' />
                 </div>
 
             </form>

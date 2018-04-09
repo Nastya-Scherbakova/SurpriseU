@@ -14,12 +14,12 @@ export default  class EditPresent extends React.Component {
         super(props);
         this.state = {
             data: {
-                title: this.props.presentsStore.currentPresent.title,
-                content: this.props.presentsStore.currentPresent.content,
-                gender: this.props.presentsStore.currentPresent.gender,
-                photo: this.props.presentsStore.currentPresent.photo,
-                startAge: this.props.presentsStore.currentPresent.startAge,
-                endAge: this.props.presentsStore.currentPresent.endAge,
+                title: this.props.presentsStore.presentById.title,
+                content: this.props.presentsStore.presentById.content,
+                gender: this.props.presentsStore.presentById.gender,
+                photo: this.props.presentsStore.presentById.photo,
+                startAge: this.props.presentsStore.presentById.startAge,
+                endAge: this.props.presentsStore.presentById.endAge,
                 tags: []
             },
             close: false
@@ -32,14 +32,13 @@ export default  class EditPresent extends React.Component {
             this.props.presentsStore.editPresent(present);
         }
     }
-    close = () => this.setState({ close: true });
+    close = () => this.props.history.goBack();
     render() {
         return <div className='addPresent w-100 h-100 d-flex align-items-center' >
             <div className='form-add d-flex flex-column align-items-center animated fadeInDown'>
                 <div className="w-100 d-flex flex-wrap align-items-center justify-content-center name">Редагувати подарунок</div>
                 <PresentForm onPresentSubmit={this.onEditPresent} toClose={this.close} isNew={false} present={this.state.data} />
             </div>
-            {this.state.close && <Redirect to={this.props.location.pathname.slice(0, -5)} />}
         </div>;
     }
 }
