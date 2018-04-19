@@ -11,7 +11,6 @@ var styles = {
     label: {
         width: '100%',
         position: 'relative',
-        fontSize: '0.9em',
         margin: '1vh 0'
     },
     input: {

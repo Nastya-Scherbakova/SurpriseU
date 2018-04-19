@@ -32,7 +32,6 @@ var style = {
         backgroundSize: 'cover',
         width: '100vw',
         height: '100vh',
-        fontSize: '0.8em',
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',

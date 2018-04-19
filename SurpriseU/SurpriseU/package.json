@@ -3,13 +3,6 @@
   "private": true,
   "version": "0.0.0",
   "devDependencies": {
-    "@types/history": "4.6.0",
-    "@types/react": "15.0.35",
-    "@types/react-dom": "15.5.1",
-    "@types/react-hot-loader": "3.0.3",
-    "@types/react-router": "4.0.12",
-    "@types/react-router-dom": "4.0.5",
-    "@types/webpack-env": "1.13.0",
     "aspnet-webpack": "^2.0.1",
     "aspnet-webpack-react": "^3.0.0",
     "awesome-typescript-loader": "3.2.1",
@@ -17,8 +10,6 @@
     "event-source-polyfill": "0.0.9",
     "extract-text-webpack-plugin": "2.1.2",
     "file-loader": "0.11.2",
-    "isomorphic-fetch": "2.2.1",
-    "jquery": "3.2.1",
     "json-loader": "0.5.4",
     "material-ui": "^0.20.0",
     "mobx": "^3.5.1",
@@ -26,7 +17,6 @@
     "moment": "^2.22.0",
     "node-sass": "^4.0.0",
     "promise": "^8.0.1",
-    "promise.prototype.finally": "^3.1.0",
     "prop-types": "^15.6.0",
     "radium": "^0.22.0",
     "react": "16.2.0",
@@ -48,12 +38,20 @@
     "webpack-hot-middleware": "2.21.0"
   },
   "dependencies": {
+    "@types/history": "4.6.0",
+    "@types/node": "^9.6.4",
+    "@types/react": "15.0.35",
+    "@types/react-dom": "15.5.1",
+    "@types/react-hot-loader": "3.0.3",
+    "@types/react-router": "4.0.12",
+    "@types/react-router-dom": "4.0.5",
+    "@types/webpack-env": "1.13.0",
     "bootstrap": "4.0.0-beta.3",
+    "rc-slider": "^8.6.1",
     "react-day-picker": "^7.1.4",
     "react-file-reader": "^1.1.4",
     "react-reveal": "^1.2.1",
     "react-smooth": "^1.0.0",
-    "react-sticky": "^6.0.2",
-    "react-svg-morph": "^0.2.1"
+    "styled-components": "^3.2.5"
   }
 }

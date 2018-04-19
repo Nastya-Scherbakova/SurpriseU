@@ -36,7 +36,6 @@ var styles = {
     base: {
         fontFamily: "'Lobster', cursive",
         margin: '0 1vw',
-        fontSize: '0.9rem',
         display: 'flex',
         alignItems: 'center'
     },
@@ -51,7 +50,6 @@ var styles = {
     },
     user: {
         margin: '0.3vh 1vh',
-        fontSize: '0.75rem',
         borderRadius: '2vh',
         border: '1px solid #ECE4F4',
         padding: '0.25rem 0rem 0.25rem 0.4rem',

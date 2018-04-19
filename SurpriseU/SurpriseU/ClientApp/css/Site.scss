@@ -1,12 +1,4 @@
-﻿
-/*@import url('https://fonts.googleapis.com/css?family=Roboto+Mono:100,300,400,500&subset=cyrillic,cyrillic-ext');*/
-/*@import url('https://fonts.googleapis.com/css?family=Caveat:400,700&subset=cyrillic');*/
-/*@import url('https://fonts.googleapis.com/css?family=Noto+Sans:400,400i,700,700i&subset=cyrillic,cyrillic-ext');*/
-/*@import url(https://fonts.googleapis.com/css?family=Lato:400,700);*/
-/*@import url('https://fonts.googleapis.com/css?family=Caveat');*/
-/*@import url('https://fonts.googleapis.com/css?family=Duru+Sans');*/
-
-@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro');
+﻿@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro');
 @import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500&subset=cyrillic-ext');
 @import url('https://fonts.googleapis.com/css?family=Lobster&subset=cyrillic');
 
@@ -85,10 +77,7 @@
 $darkblue: #031560;
 $dark: #301746;
 
-body {
-    background-color: #F7F7FD;
-    font-family: 'Roboto', sans-serif;
-}
+
 
 
 /*ADD PRESENT*/
@@ -140,7 +129,6 @@ body {
         border-radius: 30px;
         box-shadow: 0 3px 5px 0 rgba(0,0,0,0.1);
         background: rgba(255,255,255,0.2);
-        font-size: 0.7rem;
 
         @extend .small-form;
 
@@ -719,17 +707,14 @@ input {
                 border-radius: 2vh;
                 transition: all 300ms ease-in-out;
                 margin: 0.2vh;
-                font-size: 0.75rem;
                 padding: 0.5vh;
                 text-align: center;
-                font-size: 0.75rem;
 
                 &:focus {
                     margin: 0.3vh 1vh;
                     width: 10vh;
                     padding: 0.25rem 0.4rem;
                     outline: none;
-                    font-size: 0.75rem;
                     background-color: #fbfbfb;
                     border: 1px solid #ECE4F4;
                 }
@@ -816,7 +801,6 @@ input {
     @extend .small-form;
     position: relative;
     margin: auto;
-    font-size: 0.7em;
     border-radius: 3vh;
     display: block;
     background: rgba(255,255,255,0.4);
@@ -887,265 +871,6 @@ input {
         svg {
             margin: 1vh;
             fill: #99999F;
-        }
-    }
-}
-    /*REGISTRATION LOGIN*/
-.log-form {
-    position: absolute;
-    top: 0;
-    font-size: 0.6em;
-    display: flex;
-    z-index: 10000;
-    background: white;
-
-    input[type="radio"] {
-        display: none;
-    }
-
-    @include for-orient(port) {
-        -webkit-box-orient: vertical !important;
-        -webkit-box-direction: normal !important;
-        -ms-flex-direction: column !important;
-        flex-direction: column !important;
-    }
-
-    @include for-orient(land) {
-        -webkit-box-orient: horizontal !important;
-        -webkit-box-direction: normal !important;
-        -ms-flex-direction: row !important;
-        flex-direction: row !important;
-    }
-
-    .image {
-        background-position: center center;
-        background-size: cover;
-        overflow: hidden;
-        background-image: url('images/login-blue.jpg');
-
-        @include for-orient(port) {
-            width: 100%;
-            height: 30vh;
-            z-index: 3;
-        }
-
-        @include for-orient(land) {
-            width: 35vw;
-            height: 100%;
-        }
-    }
-
-
-
-    .content {
-        background: white;
-        font-size: 1.1em;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-
-        @include for-orient(port) {
-            width: 100%;
-            height: 70vh;
-            padding: 5vh 10vw 1.5vh 10vw;
-        }
-
-        @include for-orient(land) {
-            width: 65vw;
-            height: 100%;
-            padding: 14vh 10vw;
-        }
-
-        .login-error {
-            color: #A92828;
-            font-family: 'Roboto', sans-serif;
-            font-size: 1.1em;
-            font-weight: 500;
-        }
-
-        .name {
-            h2 {
-                font-size: 3em;
-            }
-
-            font-family: tk-brandon-grotesque-n4, sans-serif;
-            letter-spacing: 0.7em;
-            text-transform: uppercase;
-            color: #1C1C59;
-            margin-bottom: 1.5em;
-        }
-
-        .tab {
-            font-size: 1.2em;
-            letter-spacing: 0.1em;
-            position: absolute;
-            padding: 1.5vh 3vh;
-            cursor: pointer;
-            transition: visibility 0.1s step-start;
-            text-transform: uppercase;
-            color: #6F8CBF;
-            border-radius: 2px;
-            border: 1px solid #6F8CBF;
-            z-index: 4;
-            @extend .shine-button;
-
-            @include for-orient(land) {
-                top: 5vh;
-                right: 5vh;
-            }
-
-            @include for-orient(port) {
-                top: 33vh;
-                right: 3vh;
-                background: white;
-            }
-        }
-
-        .tab-active {
-            color: #1C1C59;
-            visibility: hidden;
-        }
-
-
-
-
-
-
-        .form {
-            height: 70%;
-            width: 90%;
-            position: relative;
-            .forget-password {
-                width: 70vw;
-                height: 30vh;
-                margin: auto;
-            }
-        }
-
-        .sbm-but {
-            transition: $transition;
-            transition: all 0.2s;
-            font-size: 1.2em;
-            letter-spacing: 0.1em;
-            padding: 1.5vh 10vh;
-            cursor: pointer;
-            text-transform: uppercase;
-            border-radius: 2px;
-            color: white;
-            background: linear-gradient(135deg, #1C1C59, #425598);
-            @extend .shine-button;
-        }
-
-        .forget-text {
-            position: absolute;
-            right: 0;
-            top: 0;
-            padding: 2vh;
-            color: #6F6F6F;
-            transition: $transition;
-
-            &:hover {
-                color: #1E203C;
-            }
-        } 
-
-        .social-icon {
-            border-radius: 50%;
-            background-clip: content-box;
-            padding: 3px;
-            height: 7vh;
-            width: 7vh;
-            margin: 7px;
-            -webkit-transition: all 0.3s ease-in-out;
-            -moz-transition: all 0.3s ease-in-out;
-            -o-transition: all 0.3s ease-in-out;
-            transition: all 0.3s ease-in-out;
-
-            &:hover {
-                padding: 5px;
-                -webkit-transform: scale(1.1);
-                -moz-transform: scale(1.1);
-                -ms-transform: scale(1.1);
-                -o-transform: scale(1.1);
-                transform: scale(1.1);
-            }
-        }
-
-        .tw {
-            border: 1px dashed #3CF;
-            background-color: #3CF;
-
-            &::before {
-                font-family: FontAwesome;
-                content: "\f099";
-                color: white;
-                font-size: 3vh;
-            }
-        }
-
-        .go {
-            border: 1px dashed #DC4A38;
-            background-color: #DC4A38;
-
-            &::before {
-                font-family: FontAwesome;
-                content: "\f0d5";
-                color: white;
-                font-size: 3vh;
-            }
-        }
-
-        .face {
-            border: 1px dashed #3B5998;
-            background-color: #3B5998;
-
-            &::before {
-                font-family: FontAwesome;
-                content: "\f09a";
-                color: white;
-                font-size: 3vh;
-            }
-        }
-
-
-        .check-label {
-            font-weight: bolder;
-        }
-
-        .checkbox-false, .checkbox-true {
-            display: inline-block;
-            position: relative;
-            transform-origin: center;
-            width: 2vh;
-            height: 2vh;
-            border-radius: 3px;
-        }
-
-        .checkbox-false {
-            background-color: rgba(0,0,0,0.1);
-
-            .check {
-                width: 0vh;
-                color: transparent;
-                -moz-transition: all 0.2s linear;
-                -o-transition: all 0.2s linear;
-                -webkit-transition: all 0.2s linear;
-                transition: all 0.2s linear;
-            }
-        }
-
-        .checkbox-true {
-            background-color: #1C1C59;
-
-
-            .check {
-                width: 1.3vh;
-                fill: white;
-                -moz-transition: all 0.2s linear;
-                -o-transition: all 0.2s linear;
-                -webkit-transition: all 0.2s linear;
-                transition: all 0.2s linear;
-            }
         }
     }
 }
@@ -1243,7 +968,7 @@ input {
             display: flex;
             width: 75%;
             justify-content: flex-start;
-            vertical-align: middle;
+            align-items: center;
             height: 100%;
             padding-left: 10%;
 
@@ -1331,7 +1056,6 @@ input {
     $icon-color: black;
 
 .search {
-    font-size: 0.7em;
     width: 4vh;
     transition: $transition;
 
@@ -1390,7 +1114,6 @@ input {
         top: 0;
         left: 0;
         width: 100vw;
-        font-size: 0.7em;
         z-index: 100;
         background: rgba(255,255,255, 0.4);
 

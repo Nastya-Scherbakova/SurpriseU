@@ -74,7 +74,6 @@ var styles = {
     },
     main: {
         width: '100%',
-        fontSize: '0.7em',
         borderRadius: '0 3vh 3vh 0',
         height: '100%',
         padding: '4vh 2vh 0 13vh',

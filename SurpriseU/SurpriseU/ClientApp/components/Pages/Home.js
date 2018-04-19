@@ -3,6 +3,7 @@ import { inject, observer } from 'mobx-react';
 import { Link, NavLink, withRouter } from 'react-router-dom';
 import Filter from '../Menu/Filter'
 import PresentsList from '../Present/List';
+import { LoginForm } from '../organisms'
 
 @inject('presentsStore', 'tagsStore')
 @withRouter

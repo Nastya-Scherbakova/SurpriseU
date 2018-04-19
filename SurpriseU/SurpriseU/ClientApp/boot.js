@@ -6,13 +6,16 @@ import { AppContainer } from 'react-hot-loader';
 import { BrowserRouter } from 'react-router-dom';
 import { useStrict } from 'mobx';
 import { Provider } from 'mobx-react';
+import { injectGlobal } from 'styled-components'
 
-
+import { globalStyles } from './components/theme'
 import commonStore from './stores/commonStore';
 import presentsStore from './stores/presentsStore';
 import tagsStore from './stores/tagsStore';
 import authStore from './stores/authStore';
 import userStore from './stores/userStore';
+
+
 let routes = RoutesModule.routes;
 
 const stores = {
@@ -22,6 +25,9 @@ const stores = {
     authStore,
     userStore
 };
+
+
+injectGlobal`${globalStyles}`
 
 useStrict(true);
 renderApp();

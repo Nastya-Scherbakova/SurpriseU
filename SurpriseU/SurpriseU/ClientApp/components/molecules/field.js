@@ -1,0 +1,176 @@
+﻿import React from 'react'
+import styled, { css } from 'styled-components'
+import PropTypes from 'prop-types'
+
+import { Input, Error, Textarea } from '../atoms'
+import { IconLabel } from './'
+import { color, font } from '../theme'
+
+
+const fieldHeight = '3.6rem'
+const propHeight = 3.6;
+const iconHeight =2.4;
+
+const FieldContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    width: 100%;
+    height: 5rem;
+    font-family: ${font.formElement};
+    color: ${color.text};
+    -webkit-appearance: none;
+    flex-shrink: 0;
+    align-items: center;
+    ${(p) => p.area && css`
+    height: 10rem;
+    `}
+    ${(p) => p.active && css`
+        ${FieldLabel} {
+            transform: scale(0.83333) translateY(-1rem);
+        }
+        ${Input} {
+            padding-top: 1.8rem;
+            padding-bottom: 0.2rem;
+        font-size: 1.2rem;
+        }
+        ${Textarea} {
+            padding-top: 1.8rem;
+            padding-bottom: 0.2rem;
+        font-size: 1.2rem;
+        }`
+    }
+
+`
+const FieldLabel = styled.label`
+  margin: 0;
+  padding: 0;
+  border: 0;
+  vertical-align: baseline;
+  white-space: nowrap;
+  user-select: none;
+  transition: transform ease-out .1s;
+  transform-origin: left;
+  text-overflow: ellipsis;
+  right: 0;
+  position: absolute;
+  pointer-events: none;
+  overflow: hidden;
+  line-height: ${fieldHeight};
+  left: 1rem;
+  height: ${fieldHeight};
+  color: ${color.textLight};
+`
+const FieldWrapper = styled.div`
+
+  height: ${fieldHeight};
+  ${(p) => p.area && css`
+height: 8.6rem;
+`}
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  border: 0 solid black;
+  top: 0;
+`
+
+export const Field = ({ error, onChange, onBlur, value, label, type, required, maxLength, name }) => (
+    <FieldContainer active={value.trim().length !== 0} >
+        <FieldWrapper>
+            <FieldLabel>{label}</FieldLabel>
+            <Input
+                value={value}
+                onChange={e => onChange(e.target.name, e.target.value)}
+                onBlur={e => onBlur(e.target.name, e.target.value)}
+                type={type}
+                name={name}
+                required={required}
+                aria-describedby={label}
+                aria-label={label}
+                aria-required={required}
+                maxLength={maxLength}
+                autoCapitalize="false"
+                autoCorrect="false"
+                rounded
+                back={color.backgroundWhite}
+            />
+        </FieldWrapper>
+        <Error error={error} active={(error && (error.length > 0)) ? true : false} />
+        {IconValid(error)}
+    </FieldContainer>
+)
+
+
+const IconValid = (error) => error != null && <IconLabel
+            name={error.length == 0 ? 'Check' : 'X'}
+            propHeight={propHeight}
+            height={iconHeight / 2.5}
+            position='right'
+            color={error.length == 0 ? color.success : color.danger} />;
+
+export const FieldArea = ({ error, onChange, onBlur, value, label, type, required, maxLength, name }) => (
+                <FieldContainer active={value.trim().length !== 0} area>
+                    <FieldWrapper area >
+                        <FieldLabel>{label}</FieldLabel>
+                        <Textarea
+                            value={value}
+                            onChange={e => onChange(e.target.name, e.target.value)}
+                            onBlur={e => onBlur(e.target.name, e.target.value)}
+                            type={type}
+                            name={name}
+                            required={required}
+                            aria-describedby={label}
+                            aria-label={label}
+                            aria-required={required}
+                            maxLength={maxLength}
+                            autoCapitalize="false"
+                            autoCorrect="false"
+                            bordered
+                            back={color.backgroundWhite}
+                            height='12rem'
+                        />
+                    </FieldWrapper>
+                    <Error error={error} active={(error && (error.length > 0)) ? true : false} />
+                    {IconValid(error)}
+                </FieldContainer>
+            );
+
+FieldContainer.propTypes = {
+    active: PropTypes.bool,
+    area: PropTypes.bool
+}
+FieldContainer.defaultProps = {
+    active: false,
+    area:false
+}
+
+Field.defaultProps = {
+    value: '',
+    label: '',
+    type: 'text',
+    required: false,
+    maxLength: 100,
+    name: undefined,
+    error: null,
+    login: false,
+    register: false
+}
+
+Field.propTypes = {
+    onChange: PropTypes.func,
+    value: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.number
+    ]),
+    label: PropTypes.string,
+    type: PropTypes.oneOf(['text', 'password']),
+    required: PropTypes.bool,
+    maxLength: PropTypes.number,
+    name: PropTypes.string,
+    error: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.object
+    ])
+}

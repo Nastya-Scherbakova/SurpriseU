@@ -4,15 +4,15 @@ import { Route } from 'react-router-dom';
 import Layout from './components/Layout';
 import Home from './components/Pages/Home';
 import Anketa from './components/Pages/Anketa';
-import Login from './components/Login/Login';
 import Present from './components/Present/Present';
 import EditPresent from './components/Present/Update';
 import NewPresent from './components/Present/Create';
+import {Login } from './components/features';
 import { Offers, Likes, Friends, UserMain, EditUser } from './components/User/index';
-
+//import { Login} from './components/features';
 export const routes = <Layout>
     <Route exact path='/' component={ Home } />
-    <Route path='/anketa' component={EditUser}/>
+    <Route path='/anketa' component={Anketa}/>
     <Route path="/login" component={Login} />
     <Route path="/presents/new" component={NewPresent} />
     <Route path="/edit/:section" component={EditUser} />
