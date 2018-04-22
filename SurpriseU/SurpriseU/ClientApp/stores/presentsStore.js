@@ -5,7 +5,6 @@ import { validate } from '../components/validation'
 export class PresentsStore {
     @observable isLoading = false;
     @observable presentsState = [];
-    @observable search = '';
     @observable isFilter = false;
     @observable presentById = null;
     @observable formPresent = {
@@ -25,7 +24,36 @@ export class PresentsStore {
         endAge: null,
         form: null 
     }
+    @observable searchParams = {
+        title: '',
+        gender: 0,
+        startAge: 0,
+        endAge: 100,
+        tags: []
+    }
 
+    @action getEditablePresent(id) {
+        this.presentById && this.presentById.id == id || this.getPresent(id);
+        this.formPresent = {
+            title: this.presentById.title || '',
+            content: this.presentById.content || '',
+            gender: this.presentById.gender || 0,
+            photo: this.presentById.photo || '',
+            startAge: this.presentById.startAge || 0,
+            endAge: this.presentById.endAge || 100,
+        }
+    }
+    @action newPresent() {
+        this.formPresent = {
+            title: '',
+            content: '',
+            gender: 0,
+            photo: '',
+            startAge: 0,
+            endAge: 100
+        }
+
+    }
     @action searchPresents(present) {
         //requests.Presents.search(present).then(
         //    action(presents => {
@@ -58,8 +86,8 @@ export class PresentsStore {
     }
     
 
-    @action deletePresent(present) {
-        return requests.Presents.del(present.id)
+    @action deletePresent(id) {
+        return requests.Presents.del(id)
             .then(action(() => this.loadPresents()))
     }
 
@@ -71,6 +99,7 @@ export class PresentsStore {
     }
    
     @action getPresent(id) {
+        this.presentById = null;
         this.isLoading = true;
         return requests.Presents.get(id)
             .then(action((present) => {
@@ -80,7 +109,7 @@ export class PresentsStore {
     }
 
     @action searchInput(input) {
-        this.search = input;
+        this.searchParams.title = input;
     }
 
 
@@ -104,8 +133,7 @@ export class PresentsStore {
     
     @action
     onAgeFieldChange = (field, value) => {
-       
-       this.formPresent[field] = Number(value);
+        this.formPresent[field] = /[^[0-9]/.test(value) ? this.formPresent[field] : Number(value);
        this.formErrors.startAge = (this.formPresent.startAge > this.formPresent.endAge) ?
         'Початковий вік має бути меншим ніж кінцевий' : '';
     };

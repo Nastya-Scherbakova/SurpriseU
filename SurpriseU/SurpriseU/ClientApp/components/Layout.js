@@ -17,7 +17,6 @@ export default class Layout extends React.Component{
     }
     render() {
         return <div >
-            < Menu />
                 <div>
                     { this.props.children }
                 </div>

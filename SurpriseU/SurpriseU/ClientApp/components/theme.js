@@ -13,7 +13,10 @@ export const color = {
     borderDark: '#e6e6e6',
 
     success: '#35DC83',
-    danger: '#DC3545'
+    danger: '#DC3545',
+
+    darkGrey: '#888898',
+    lightGrey: '#DBDBE3'
 }
 
 export const font = {
@@ -39,3 +42,10 @@ export const globalStyles = css`
     box-sizing: border-box;
   }
 `
+export const variables = {
+    fieldHeight: 5,
+    fieldUnit: 'rem',
+    inputHeight: 3.6,
+    inputUnit: 'rem',
+
+}

@@ -12,19 +12,20 @@ const def = <def>
 
 const Wrapper = styled.span`
   position: absolute;
-  height: ${p => p.height }rem;
-  width: ${p => p.height }rem;
-  top: ${p => ((p.propHeight - p.height)/2)}rem;
-  ${p => p.position}: ${p => ((p.propHeight - p.height) / 2)}rem;
+  height: ${p => p.height + p.unit };
+  width: ${p => p.height + p.unit };
+  top: ${p => ((p.propHeight - p.height) / 2) + p.unit};
+  ${p => p.position}: ${p => ((p.propHeight - p.height) / 2) + p.unit};
 `
 
-export const IconLabel = ({ height, propHeight, position,  ...props }) =>
+export const IconLabel = ({ height, propHeight, unit, position, ...props }) =>
     <Wrapper height={height}
         position={position}
-        propHeight={propHeight} > 
+        propHeight={propHeight}
+        unit={unit}> 
         <Icon {...props}
             def={def}
-            size={`${height}rem`} />
+            size={`${height}${unit}`} />
     </Wrapper> 
 
 IconLabel.propTypes = {

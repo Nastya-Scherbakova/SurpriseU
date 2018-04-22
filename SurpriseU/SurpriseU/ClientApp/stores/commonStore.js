@@ -1,13 +1,12 @@
 ﻿import { observable, action, reaction } from 'mobx';
 import requests from '../requests';
-import $ from "jquery";
 class CommonStore {
 
     @observable token;
     //@observable appLoaded = false;
 
     constructor() {
-        this.token =  $('input:hidden[name="__RequestVerificationToken"]').val();
+        this.token = '';
     }
    
     @action setToken(token) {

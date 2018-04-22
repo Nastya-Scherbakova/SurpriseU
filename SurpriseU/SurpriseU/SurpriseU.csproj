@@ -30,7 +30,13 @@
 
   <ItemGroup>
     <!-- Files not to publish (note that the 'dist' subfolders are re-added below) -->
+    <Compile Remove="ClientApp\components\features\menu\**" />
+    <Compile Remove="ClientApp\components\Menu\**" />
     <Content Remove="ClientApp\**" />
+    <EmbeddedResource Remove="ClientApp\components\features\menu\**" />
+    <EmbeddedResource Remove="ClientApp\components\Menu\**" />
+    <None Remove="ClientApp\components\features\menu\**" />
+    <None Remove="ClientApp\components\Menu\**" />
   </ItemGroup>
 
   <ItemGroup>

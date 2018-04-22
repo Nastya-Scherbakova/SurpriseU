@@ -2,14 +2,14 @@
 import requests from '../requests';
 
 export class TagsStore {
-    @observable likesStore = [];
-    @observable celebrationStore = [];
+    @observable likes = [];
+    @observable celebrations = [];
 
 
     @action loadTags() {
         requests.Tag.all().then(
             action(tags => {
-                tags.map(tag => tag.type == 0 ? this.likesStore.push(tag) : this.celebrationStore.push(tag));
+                tags.map(tag => tag.type == 0 ? this.likes.push(tag) : this.celebrations.push(tag));
             })
         )
     }

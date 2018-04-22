@@ -2,9 +2,12 @@
 import PropTypes from 'prop-types'
 import { Icons } from './icons'
 import React from 'react'
+import { NavLink } from 'react-router-dom';
 
 const Wrapper = styled.span`
-    display: inline-block;
+    display: flex;
+align-items:center;
+justify-content:center;
     box-sizing: border-box;
     width: ${p => p.size || p.width};
     height:  ${p => p.size || p.height};
@@ -29,6 +32,12 @@ export const Icon = ({ name, defs, ...props }) => <Wrapper {...props}>
     </svg>
 </Wrapper>
 
+export const IconLink = ({ to, ...props }) => <NavLink to={to}>
+    <Icon {...props} />
+</NavLink>
+IconLink.propTypes = {
+    to: PropTypes.string.isRequired
+}
 Icon.propTypes = {
     defs: PropTypes.node,
     name: PropTypes.string.isRequired,

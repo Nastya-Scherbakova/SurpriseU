@@ -7,11 +7,12 @@ import { color } from '../theme'
 import React from 'react';
 const Title = styled.span`
     display: inline-block;
-    box-sizing: border-box;
     h2 {
         font-size: ${p => p.size};
+        margin-bottom:0;
+
+    letter-spacing: 0.3em;
     }
-    letter-spacing: 0.7rem;
     text-transform: uppercase;
     color: #1C1C59;
     font-family: tk-brandon-grotesque-n4, sans-serif;

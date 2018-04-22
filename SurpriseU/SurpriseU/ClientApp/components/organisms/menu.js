@@ -1,15 +1,26 @@
 import React, { Component } from 'react';
-import { Link, NavLink } from 'react-router-dom';
-import 'scrollpos-styler';
-import { Switch, Route, withRouter } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { inject, observer } from 'mobx-react';
-import { Icon, Input } from '../atoms';
 import styled, { css } from 'styled-components'
+import PropTypes from 'prop-types'
+
+import { Icon, Input, IconLink, Name } from '../atoms';
+import { Avatar } from '../molecules';
+
 
 @inject('userStore', 'authStore', 'presentsStore')
-@withRouter
 @observer
 export default class Menu extends Component {
+    state = {
+            windowPosition: window.pageYOffset,
+        }
+
+    handleScroll = () => this.setState({ windowPosition: window.pageYOffset })
+
+    componentDidMount = () => window.addEventListener('scroll', this.handleScroll)
+
+    componentWillUnmount = () => window.removeEventListener('scroll', this.handleScroll)
+    
 
     logOut = () => this.props.authStore.logout()
 
@@ -19,33 +30,63 @@ export default class Menu extends Component {
 
     render() {
         const { isUser, currentUser } = this.props.userStore,
-            path = this.props.location.pathname,
             { isFilter, search } = this.props.presentsStore;
-        return <nav className={`menu container-fluid  fixed-top ${isFilter || ' sps sps--abv '}`}>
-            <div className='content'>
-                    <NavLink className="nav-brand" to={'/'}>   
-                    <h1 className='main'>SurpriseU</h1>
-                    </NavLink>
-                    { path == '/' &&
-                     <Search
+        const { isSearch } = this.props;
+        const scroll = this.state.windowPosition > 0 && !isFilter;
+        return <MenuWrapper scroll={scroll}>
+            <MenuLeft>
+                    <Link to={'/'}><Name size='2rem' /></Link>
+                    {isSearch && <Search
                         isFilter={isFilter}
-                     onChange={this.onChange} 
-                     openSearch={this.openSearch} 
-                     value={search}
-                    /> }
-                </div> 
+                         onChange={this.onChange} 
+                         openSearch={this.openSearch} 
+                         value={search} />}
+            </MenuLeft> 
                 {
-                isUser ? <div className="icons">
-                    <NavLink className="navlink-no" to={`/id${currentUser.id.substr(0,6)}`}><div className='nav-photo'>
-                        {currentUser.photo == null ? <Icon name='UserImage' /> : <img src={currentUser.photo} />}</div>
-                    </NavLink>
-                    <NavLink className="navlink-no" to={'/anketa'}><div className='nav-icon'><Icon name='Clipboard' /> </div></NavLink>
-                    <NavLink className="navlink-no" to={'/login'}><div onClick={this.logOut.bind(this)} className='nav-icon'> <Icon name='Exit' /> </div></NavLink>
-                </div> : <div className="icons"><NavLink className="navlink-no" to={'/login'}><div className='nav-icon'> <Icon name='Enter'  /> </div> </NavLink></div>
+                isUser ? <Icons>
+                    <Link to={`/id${currentUser.id.substr(0, 6)}`}>
+                        <Avatar src={currentUser.photo} size='3vh' />
+                    </Link>
+                    <IconLink to='/anketa' name='Clipboard' />
+                    <IconLink onClick={this.logOut} to='/login' name='Exit' />
+                </Icons> : <IconLink to='/login' name='Enter' />
                 }
-            </nav>;
+        </MenuWrapper>;
     }
 }
+
+const MenuWrapper = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    position: fixed;
+    top: 0;
+    left: 0;
+    transition: all 0.25s ease;
+    width: 100%;
+    height: 10vh;
+    padding: 0 5vw;
+    z-index: 2;
+    ${p => p.scroll && css`
+        background: white;
+        box-shadow: 0 0 10px rgba(0,0,0,0.3);
+        z-index: 100;
+    `}
+`
+const MenuLeft = styled.div`
+    display: flex;
+    width: 75%;
+    justify-content: flex-start;
+    align-items: center;
+    height: 100%;
+`
+
+
+const Icons = styled.div`
+    width:  25%;
+    display: flex;
+    justify-content: space-between;
+`;
 
 const Wrapper = styled.div`
     width: 4vh;
@@ -74,7 +115,7 @@ const NavIcon = styled.div`
     transition: all .7s ease;
     position: absolute;
     right: 0;
-    top: 1vh;
+    top: 0.75vh;
 `;
 
 const SearchIcon = NavIcon.extend`
@@ -89,9 +130,11 @@ const NavInput = Input.extend`
     width: 100%;
     height: 100%;
     padding: 0 3vw;
+    background: transparent;
     &:focus {
         outline:none;
         border: none;
+        background: transparent;
     }
 `
 
@@ -102,17 +145,15 @@ const Search = props => <Wrapper open={props.isFilter}>
         value={props.value} 
         placeholder="Пошук"
         onChange={props.onChange} />
-
-  <Right > <Icon name='ChevronRight' size='2vh' onClick={props.openSearch} />
-   </Right > <SearchIcon ><Icon name='Search' size='2vh' onClick={props.openSearch} />
+    <Right > <Icon name='ChevronRight' size='2.5vh' onClick={props.openSearch} />
+   </Right > <SearchIcon ><Icon name='Search' size='2.5vh' onClick={props.openSearch} />
 </SearchIcon ></Wrapper >;
 
 
-var styles = {
-    div: {
-        display: 'flex',
-        alignItems: 'center',
-        height: '100%',
-        width: '100%'
-    }
+Menu.propTypes = {
+    isSearch: PropTypes.bool
+}
+
+Menu.defaultProps = {
+    isSearch: false,
 }

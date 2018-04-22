@@ -5,12 +5,12 @@ import Fade from 'react-reveal/Fade';
 
 import { Input, Error } from '../atoms'
 import { IconLabel } from './'
-import { color, font } from '../theme'
+import { color, font, variables } from '../theme'
 
 
-const fieldHeight = '3.6rem'
-const propHeight = 3.6;
-const iconHeight =2.4;
+const fieldHeight = variables.inputHeight + variables.inputUnit;
+const propHeight = variables.inputHeight;
+const iconHeight = 2.4;
 
 const FieldContainer = styled.div`
     display: flex;
@@ -50,6 +50,7 @@ export const LoginField = ({ register, error, onChange, onBlur, value, label, ty
                 name={icon}
                 propHeight={propHeight}
                 height={iconHeight / 1.5}
+                unit={variables.inputUnit}
                 position='left' />
             <Input
                 value={value}
@@ -77,11 +78,12 @@ export const LoginField = ({ register, error, onChange, onBlur, value, label, ty
 
 
 const IconValid = (error) => error != null && <IconLabel
-            name={error.length == 0 ? 'Check' : 'X'}
-            propHeight={propHeight}
-            height={iconHeight / 2.5}
-            position='right'
-            color={error.length == 0 ? color.success : color.danger} />;
+    name={error.length == 0 ? 'Check' : 'X'}
+    propHeight={variables.inputHeight}
+    unit={variables.fieldUnit}
+    height={iconHeight / 2.5}
+    position='right'
+    color={error.length == 0 ? color.success : color.danger} />;
 
 
 LoginField.propTypes = {

@@ -1,6 +1,7 @@
 ﻿import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
+import { Link } from 'react-router-dom';
 
 import img from '../../css/images/login-blue.jpg'
 import { Name, Layout, Button } from '../atoms'
@@ -64,7 +65,7 @@ export const LoginTemplate = ({ children, tab, onClick}) => (
         <Image>  <Tab><Button light shine onClick={onClick}>{tab}</Button> </Tab> </Image>
         <FormContainer >
            
-            <Name size='3rem'/>
+            <Link to={'/'}><Name size='3rem' /> </Link>
             {children}
         </FormContainer>
         </PageContainer>

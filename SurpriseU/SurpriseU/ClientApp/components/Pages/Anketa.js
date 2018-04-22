@@ -5,11 +5,11 @@ import { observer } from 'mobx-react';
 import { ProfileTemplate} from '../templates'
 import { Form, LoginField } from '../molecules'
 import { Login } from '../features'
-import { Menu } from '../organisms'
+import { Menu , Filter} from '../organisms'
 @observer
 export default class Anketa extends React.Component {
     render() {
-        return <PresentForm />;
+        return <ProfileTemplate ></ProfileTemplate>;
     }
 }
 

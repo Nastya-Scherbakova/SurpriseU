@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { observer, inject } from 'mobx-react'
 
 
-import { LoginField, IconLabel } from '../molecules'
+import { LoginField } from '../molecules'
 import { Button, Layout, Icon, Error } from '../atoms'
 
 @inject('authStore')
@@ -15,7 +15,7 @@ login = () => this.props.authStore.login();
     render() {
         const { errors, inProgress, loading , login, user, updatePassword, updateLogin} = this.props.authStore;
         return <Layout flow="column" align='center' width='100%' gap={1.6} padding={2}>
-<Social />
+            <Social />
             <LoginField
                 name='email'
                 value={user.email}

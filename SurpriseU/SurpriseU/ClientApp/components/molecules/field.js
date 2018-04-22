@@ -4,19 +4,19 @@ import PropTypes from 'prop-types'
 
 import { Input, Error, Textarea } from '../atoms'
 import { IconLabel } from './'
-import { color, font } from '../theme'
+import { color, font, variables } from '../theme'
 
 
-const fieldHeight = '3.6rem'
-const propHeight = 3.6;
-const iconHeight =2.4;
+const fieldHeight = variables.fieldHeight + variables.fieldUnit;
+const propHeight = variables.fieldHeight;
+const iconHeight = 2.4;
 
 const FieldContainer = styled.div`
     display: flex;
     flex-direction: column;
     position: relative;
     width: 100%;
-    height: 5rem;
+    height: ${variables.fieldHeight + variables.fieldUnit};
     font-family: ${font.formElement};
     color: ${color.text};
     -webkit-appearance: none;
@@ -32,12 +32,10 @@ const FieldContainer = styled.div`
         ${Input} {
             padding-top: 1.8rem;
             padding-bottom: 0.2rem;
-        font-size: 1.2rem;
         }
         ${Textarea} {
             padding-top: 1.8rem;
             padding-bottom: 0.2rem;
-        font-size: 1.2rem;
         }`
     }
 
@@ -56,14 +54,13 @@ const FieldLabel = styled.label`
   position: absolute;
   pointer-events: none;
   overflow: hidden;
-  line-height: ${fieldHeight};
+  line-height: ${variables.inputHeight + variables.inputUnit};
   left: 1rem;
-  height: ${fieldHeight};
+  height: ${variables.inputHeight + variables.inputUnit};
   color: ${color.textLight};
 `
 const FieldWrapper = styled.div`
-
-  height: ${fieldHeight};
+  height: ${variables.inputHeight + variables.inputUnit};
   ${(p) => p.area && css`
 height: 8.6rem;
 `}
@@ -105,7 +102,8 @@ export const Field = ({ error, onChange, onBlur, value, label, type, required, m
 
 const IconValid = (error) => error != null && <IconLabel
             name={error.length == 0 ? 'Check' : 'X'}
-            propHeight={propHeight}
+            propHeight={variables.inputHeight}
+            unit={variables.fieldUnit}
             height={iconHeight / 2.5}
             position='right'
             color={error.length == 0 ? color.success : color.danger} />;
