@@ -17,7 +17,6 @@
     "node-sass": "^4.0.0",
     "promise": "^8.0.1",
     "prop-types": "^15.6.0",
-    "radium": "^0.22.0",
     "react": "16.2.0",
     "react-cookie": "^2.1.2",
     "react-dom": "16.2.0",

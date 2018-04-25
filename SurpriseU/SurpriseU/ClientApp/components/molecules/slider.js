@@ -17,17 +17,17 @@ position: relative;
 height: 5rem;
 `
 const RangeWrapper = styled.div`
-width: 55%;
-height:3.6rem;
-display: flex;
-justify-content: center;
-align-items: center;
+    width: 55%;
+    height:3.6rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 `
 const ErrorWrapper = styled.div`
-width: 100%;
-position: absolute;
-bottom: 0;
-text-align: center;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    text-align: center;
 `
 
 const FieldContainer = styled.div`
@@ -63,24 +63,42 @@ const Field = ({ error, onChange, onBlur, value, label, type, required, maxLengt
     </FieldContainer>
 );
 
-export const MySlider = props => <Wrapper>
-    <Field 
-        name='startAge'
-        value={props.start.toString()}
-        onChange={props.onFieldChange} />
-    <RangeWrapper>
-        <Range
-            value={[props.start, props.end]} 
-            onChange={props.onChange} 
-            allowCross={false} />
-    </RangeWrapper>
-    <Field 
-        name='endAge'
-        value={props.end.toString()}
-        onChange={props.onFieldChange} />
-    <ErrorWrapper>
-      <Error 
-        error={props.error} 
-        active={(props.error && (props.error.length > 0))? true : false} />
-    </ErrorWrapper> 
-</Wrapper>
+export default class MySlider extends React.Component {
+    state = {
+        start: this.props.start,
+        end: this.props.end,
+        error: null
+    }
+
+   onChange = (field, value) => {
+        const newAge = /[^[0-9]/.test(value) ? this.state[field] : Number(value);
+       const error = (this.state.start > this.state.end) ?
+           'Початковий вік має бути меншим ніж кінцевий' : '';
+       this.setState({ [field]: newAge, error: error });
+    };
+
+    render() {
+        const { onChange } = this.props;
+        const { start, end, error } = this.state;
+        return <Wrapper><Field
+            name='start'
+            value={start.toString()}
+            onChange={this.onChange} />
+            <RangeWrapper>
+                <Range
+                    value={[start, end]}
+                    onChange={onChange}
+                    allowCross={false} />
+            </RangeWrapper>
+            <Field
+                name='end'
+                value={end.toString()}
+                onChange={this.onChange} />
+            <ErrorWrapper>
+                <Error
+                    error={this.state.error}
+                    active={(error && (error.length > 0)) ? true : false} />
+            </ErrorWrapper>
+        </Wrapper>;
+    }
+}

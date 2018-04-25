@@ -2,7 +2,7 @@
 import PropTypes from 'prop-types'
 import { inject, observer } from 'mobx-react'
 import styled from 'styled-components'
-import { Field, Form,MySlider, Select, FieldArea } from '../molecules'
+import { Field, Form,Slider, Select, FieldArea } from '../molecules'
 import { Button, Layout, Textarea  } from '../atoms'
 import { Autocomplete } from '../organisms' 
 import { withRouter } from 'react-router-dom'
@@ -46,7 +46,7 @@ export default class PresentForm extends Component {
                 values={genders} 
                 value={present.gender}
                 onChange={onFieldChange} />
-            <MySlider 
+            <Slider 
                 error={errors.startAge}
                 start={present.startAge}
                 end={present.endAge} 

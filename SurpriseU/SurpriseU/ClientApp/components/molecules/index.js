@@ -2,7 +2,7 @@
 export { Field, FieldArea } from './field'
 export { LoginField } from './login-field'
 export { Form } from './form'
-export { MySlider } from './slider'
+export { default as Slider } from './slider'
 export { Select } from './select'
 export { Avatar } from './avatar'
 export { Tag } from './tag'

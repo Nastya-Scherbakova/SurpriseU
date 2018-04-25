@@ -6,7 +6,7 @@ import PropTypes from 'prop-types'
 
 import img from '../../css/images/home-image.jpg'
 import { Icon } from '../atoms'
-import { Form, MySlider, Select } from '../molecules'
+import { Form, Slider, Select } from '../molecules'
 import { Autocomplete } from '../organisms'
 
 @inject('presentsStore', 'tagsStore')
@@ -24,7 +24,7 @@ export default class Filter extends Component {
                     values={genders}
                     value={searchParams.gender}
                     onChange={onFieldChange} />
-                    <MySlider
+                    <Slider
                         start={searchParams.startAge}
                         end={searchParams.endAge}
                         onChange={onAgeChange}

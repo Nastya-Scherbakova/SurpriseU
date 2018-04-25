@@ -5,7 +5,7 @@ import { withRouter } from 'react-router-dom'
 import { Icon } from './'
 
 
-const CloudWrapper = styled.div`
+export const CloudWrapper = styled.div`
     height: 85vh;
     @media (orientation: portrait) {
         width: 90%;
@@ -42,10 +42,10 @@ right:2rem;
 export class Cloud extends React.Component {
     back = () => this.props.history.goBack();
     render() {
-        const { children, rightIcon } = this.props;
+        const { children, rightIcon, leftIcon } = this.props;
         return <CloudWrapper>
             <Back>
-                <Icon name='Back' color='#888898' onClick={this.back} />
+                {leftIcon || <Icon name='Back' color='#888898' onClick={this.back} />}
             </Back>
             <Right>
                 {rightIcon}

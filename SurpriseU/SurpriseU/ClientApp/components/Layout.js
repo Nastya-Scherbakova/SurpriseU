@@ -2,8 +2,6 @@ import * as React from 'react';
 import { Switch, Route, withRouter } from 'react-router-dom';
 import { inject, observer } from 'mobx-react';
 import {Menu} from './organisms';
-import '../css/Site.scss';
-
 @inject('userStore', 'tagsStore', 'authStore')
 @withRouter
 @observer
@@ -17,9 +15,7 @@ export default class Layout extends React.Component{
     }
     render() {
         return <div >
-                <div>
                     { this.props.children }
-                </div>
         </div>;
     }
 }

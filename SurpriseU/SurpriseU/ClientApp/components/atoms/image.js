@@ -8,7 +8,7 @@ export const Image = styled.div`
     border-radius: 50%;
     overflow:hidden;
     background-size:cover;
-    background-image:  url("${p => p.src}");
+    background-image:  url(${p => p.src});
     ${p => p.round && css`
         border-radius: 50%;
     `}
@@ -21,7 +21,7 @@ export const Image = styled.div`
 
 Image.propTypes = {
     size: PropTypes.string,
-    src: PropTypes.string.isRequired,
+    src: PropTypes.string,
     round: PropTypes.bool
 }
 

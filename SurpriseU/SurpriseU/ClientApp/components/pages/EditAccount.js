@@ -1,10 +1,10 @@
 ﻿import * as React from 'react';
 import { NavLink } from 'react-router-dom';
 import { inject, observer } from 'mobx-react';
-import { Icon} from '../Shared/Icons';
-import Authorized from './Utils/AuthHOC';
+import { Icon} from './Icons';
+import Authorized from './AuthHOC';
 import { Route } from 'react-router-dom';
-import Input, { DateInput } from '../Shared/Input';
+import Input, { DateInput } from './Input';
 import Fade from 'react-reveal/Fade';
 
 @inject('userStore')

@@ -1,0 +1,7 @@
+﻿export { default as Profile } from './profile'
+export { default as Friends } from './user-friends'
+export { default as Likes } from './user-likes'
+export { default as Offers } from './user-offers'
+export { default as EditUser } from './user-edit'
+export { default as Home } from './home'
+export { default as Anketa } from './anketa'
