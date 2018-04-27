@@ -1,7 +1,7 @@
 ﻿import * as React from 'react';
 import { inject, observer } from 'mobx-react';
 import { withRouter } from 'react-router-dom';
-import { PresentCard } from '../molecules'
+import { PresentCard } from '../organisms'
 import styled from 'styled-components'
 @inject('presentsStore')
 @withRouter

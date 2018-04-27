@@ -1,12 +1,22 @@
 ﻿import React from 'react'
-import styled, { css } from 'styled-components'
+import styled, { css, keyframes } from 'styled-components'
 import PropTypes from 'prop-types'
 import { withRouter } from 'react-router-dom'
 import { Icon } from './'
 
-
+const Fade = keyframes`
+    0% { 
+        opacity: 0; 
+        transform: translateY(-20px);
+    }
+    100% { 
+        opacity: 1; 
+        transform: translateY(0);
+    }
+` 
 export const CloudWrapper = styled.div`
     height: 85vh;
+ animation: ${Fade} 1s both;
     @media (orientation: portrait) {
         width: 90%;
     }
@@ -28,14 +38,15 @@ export const CloudWrapper = styled.div`
 `
 
 const Back = styled.div`
-position:absolute;
-top:2rem;
-left:2rem;
+    position:absolute;
+    top:2rem;
+    left:2rem;
+    z-index: 2;
 `
 const Right = styled.div`
-position:absolute;
-top:2rem;
-right:2rem;
+    position:absolute;
+    top:2rem;
+    right:2rem;
 `
 
 @withRouter
@@ -51,6 +62,6 @@ export class Cloud extends React.Component {
                 {rightIcon}
             </Right>
             {children}
-        </CloudWrapper>;
+        </CloudWrapper>
     }
 }

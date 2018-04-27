@@ -28,13 +28,13 @@ export const Layout = styled.div`
 `
 
 Layout.propTypes = {
+    align: PropTypes.oneOf(['center', 'flex-start', 'flex-end', 'baseline']),
     flow: PropTypes.oneOf(['column', 'row']).isRequired,
-    wrap: PropTypes.oneOf(['wrap', 'nowrap']),
-    padding: PropTypes.number,
     gap: PropTypes.number,
     justify: PropTypes.oneOf(['center', 'flex-start', 'flex-end', 'space-between', 'space-around']),
-    align: PropTypes.oneOf(['center', 'flex-start', 'flex-end', 'baseline']),
+    padding: PropTypes.number,
     width: PropTypes.string,
+    wrap: PropTypes.oneOf(['wrap', 'nowrap'])
 }
 
 Layout.defaultProps = {
@@ -43,5 +43,5 @@ Layout.defaultProps = {
     gap: 0,
     justify: undefined,
     align: undefined,
-    width: '0rem',
+    width: '0rem'
 }

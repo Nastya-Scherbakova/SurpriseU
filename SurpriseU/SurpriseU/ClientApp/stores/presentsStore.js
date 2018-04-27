@@ -33,7 +33,7 @@ export class PresentsStore {
     }
 
     @action getEditablePresent(id) {
-        this.presentById && this.presentById.id == id || this.getPresent(id);
+        this.presentById && this.presentById.id === id || this.getPresent(id);
         this.formPresent = {
             title: this.presentById.title || '',
             content: this.presentById.content || '',
@@ -52,9 +52,11 @@ export class PresentsStore {
             startAge: 0,
             endAge: 100
         }
-
+        this.presentById = null;
     }
-    @action searchPresents(present) {
+  
+
+    @action searchPresents() {
         //requests.Presents.search(present).then(
         //    action(presents => {
         //        this.presentsState = presents.slice('');
@@ -64,7 +66,7 @@ export class PresentsStore {
         xhr.open("post", '/api/Presents/Search', true);
         xhr.responseType = "blob";
         xhr.setRequestHeader("Content-type", "application/json");
-        xhr.send(JSON.stringify(present));
+        xhr.send(JSON.stringify(this.searchParams));
         xhr.onload = function () {
             console.log(xhr.responseText);
         }
@@ -79,6 +81,8 @@ export class PresentsStore {
         )
       this.isLoading = false;
     }
+
+    @action onSubmit = () => this.presentById == null ? this.createPresent(this.formPresent) : this.editPresent(this.formPresent)
 
     @action createPresent(pr) {
         this.presentsState.push(pr);
@@ -108,35 +112,13 @@ export class PresentsStore {
             }))
     }
 
-    @action searchInput(input) {
-        this.searchParams.title = input;
-    }
-
-
-    @action enableFilter() {
-        this.isFilter = !this.isFilter;
-    }
-
-    @action
-    onFieldChange = (field, value) => {
-        this.formPresent[field] = value;
-    };
-    @action
-    onFieldBlur = (field, value) => {
-        this.formErrors[field] = validate(field, value);
-    };
-    @action
-    onAgeChange = (value) => {
-        this.formPresent.startAge = value[0];
-        this.formPresent.endAge = value[1];
-    };
+    @action searchChange = (field, value) => this.searchParams[field] = value;
     
-    @action
-    onAgeFieldChange = (field, value) => {
-        this.formPresent[field] = /[^[0-9]/.test(value) ? this.formPresent[field] : Number(value);
-       this.formErrors.startAge = (this.formPresent.startAge > this.formPresent.endAge) ?
-        'Початковий вік має бути меншим ніж кінцевий' : '';
-    };
+    @action enableFilter = () =>this.isFilter = !this.isFilter;
+
+    @action onFieldChange = (field, value) => this.formPresent[field] = value;
+
+    @action onFieldBlur = (field, value) =>  this.formErrors[field] = validate(field, value);
     
 }
 

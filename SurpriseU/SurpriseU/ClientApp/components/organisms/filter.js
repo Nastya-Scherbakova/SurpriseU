@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import { inject, observer } from 'mobx-react';
 import styled, { css } from 'styled-components'
 import PropTypes from 'prop-types'
 
 import img from '../../css/images/home-image.jpg'
 import { Icon } from '../atoms'
-import { Form, Slider, Select } from '../molecules'
+import { Form, Slider, GenderTriple } from '../molecules'
 import { Autocomplete } from '../organisms'
 
 @inject('presentsStore', 'tagsStore')
@@ -14,50 +13,46 @@ import { Autocomplete } from '../organisms'
 export default class Filter extends Component {
 
     openSearch = () => this.props.presentsStore.enableFilter()
-  
+
+    search = () => this.props.presentsStore.searchPresents()
+
     render() {
-        const { searchParams, isFilter, onFieldChange, onFieldBlur, onAgeFieldChange, onAgeChange } = this.props.presentsStore;
+        const { searchParams, isFilter, searchChange } = this.props.presentsStore;
         const { likes, celebrations } = this.props.tagsStore;
         return <Wrapper isFilter={isFilter} >
             {isFilter ? <Form>
-                <Main><Select name='gender'
-                    values={genders}
-                    value={searchParams.gender}
-                    onChange={onFieldChange} />
+                <Main>
+                    <GenderTriple
+                        value={searchParams.gender}
+                        onChange={searchChange}
+                    />
                     <Slider
-                        start={searchParams.startAge}
-                        end={searchParams.endAge}
-                        onChange={onAgeChange}
-                        onFieldChange={onAgeFieldChange}
-                        onBlur={onFieldBlur}
+                        startAge={searchParams.startAge}
+                        endAge={searchParams.endAge}
+                        onChange={searchChange}
                     /> </Main>
                 <Autocomplete width='25%'
                     suggestions={likes}
+                    title='Подобається'
                 />
                 <Autocomplete width='25%'
-                    suggestions={celebrations} />
+                    suggestions={celebrations}
+                    title='Свята' />
                 <Icons>
-                    <Icon name='Check' size='2vh' onClick={this.openSearch} />
-                    <Icon name='X' size='2vh' onClick={this.openSearch} />
+                    <Icon css={Scale} name='Check' size='2.5vh' color='#1C1C59' onClick={this.search} />
+                    <Icon css={Scale} name='X' size='2vh' color='#1C1C59'  onClick={this.openSearch} />
                 </Icons>
             </Form> : undefined}
-        </Wrapper>;
+        </Wrapper>
     }
 }
 
-
-const genders = [
-    {
-        icon: 'Mars',
-        value: 1
-    }, {
-        icon: 'BothGenders',
-        value: 0
-    }, {
-        icon: 'Venus',
-        value: 2
-    },
-];
+const Scale = `
+    transition: all .5s ease;
+    &:hover {
+        transform: scale(1.2);
+    }
+`
 
 const Main = styled.div`
     width: 30%;
@@ -65,23 +60,23 @@ const Main = styled.div`
 
 const Icons = styled.div`
     width: 10vh;
-position:absolute;
-bottom:2vh;
-margin: auto;
-left:0;
-right:0;
-display:flex;
-justify-content: space-between;
+    position:absolute;
+    bottom:2vh;
+    margin: auto;
+    left:0;
+    right:0;
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
 `
 
 const Form = styled.div`
-
     position: absolute;
     top:0;
     left:0;
     width:100%;
     height:100%;
-    background: rgba(255,255,255, 0.4);
+    background: rgba(255,255,255, 0.3);
     padding: 10vh 5%;
     display: flex;
     justify-content: space-around;

@@ -1,4 +1,4 @@
-﻿import styled from 'styled-components'
+﻿import styled, { css}from 'styled-components'
 import PropTypes from 'prop-types'
 import { Icons } from './icons'
 import React from 'react'
@@ -8,7 +8,6 @@ const Wrapper = styled.span`
     display: flex;
 align-items:center;
 justify-content:center;
-    box-sizing: border-box;
     width: ${p => p.size || p.width};
     height:  ${p => p.size || p.height};
     position: relative;
@@ -19,6 +18,9 @@ justify-content:center;
     fill: ${p => p.color};
     stroke: ${p => p.color};
   }
+    ${p => p.css && css`
+       ${ p.css }
+    `}
 `
 
 export const Icon = ({ name, defs, ...props }) => <Wrapper {...props}>
@@ -39,15 +41,17 @@ IconLink.propTypes = {
     to: PropTypes.string.isRequired
 }
 Icon.propTypes = {
+    color: PropTypes.string,
+    css: PropTypes.string,
     defs: PropTypes.node,
     name: PropTypes.string.isRequired,
-    color: PropTypes.string,
     size: PropTypes.string
 }
 
 Icon.defaultProps = {
-    defs: null,
     color: '#000000',
+    css: undefined,
+    defs: null,
     size: '3vh'
 }
 

@@ -26,7 +26,7 @@ const TagWrapper = styled.div`
     transition: all .7s ease;
     ${(p) => p.check && css`
         border: 1px solid #ECE4F4;
-        background: rgba(255, 255, 255, 0.3);
+        background: rgba(255, 255, 255, 0.5);
         &:hover {
             padding: 0.25rem 1rem 0.25rem 0.4rem;
         }
@@ -41,8 +41,8 @@ export const Tag = props => <TagWrapper check={props.check} onClick={props.add}>
 </TagWrapper>;
 
 Tag.propTypes = {
-    check: PropTypes.bool,
     add: PropTypes.func,
+    check: PropTypes.bool,
     delete: PropTypes.func,
     name: PropTypes.string.isRequired
 }

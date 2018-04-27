@@ -3,30 +3,26 @@ import PropTypes from 'prop-types'
 import { Icon } from '../atoms'
 import React from 'react'
 
-const def = <def>
+const def = <defs>
     <linearGradient id="icon" x1="0%" y1="0%" x2="100%" y2="100%">
         <stop offset="10%" stopColor="#1C1C59" />
         <stop offset="100%" stopColor="#03A9F4" />
     </linearGradient>
-</def>;
+</defs>;
 
-const Wrapper = styled.span`
+const Wrapper = (height, unit, propHeight, position) => `
   position: absolute;
-  height: ${p => p.height + p.unit };
-  width: ${p => p.height + p.unit };
-  top: ${p => ((p.propHeight - p.height) / 2) + p.unit};
-  ${p => p.position}: ${p => ((p.propHeight - p.height) / 2) + p.unit};
+  top: ${((propHeight - height) / 2) + unit};
+  ${position}: ${((propHeight - height) / 2) + unit};
 `
 
 export const IconLabel = ({ height, propHeight, unit, position, ...props }) =>
-    <Wrapper height={height}
-        position={position}
-        propHeight={propHeight}
-        unit={unit}> 
-        <Icon {...props}
-            def={def}
-            size={`${height}${unit}`} />
-    </Wrapper> 
+ <Icon {...props}
+            defs={def}
+            size={`${height}${unit}`}
+            css={Wrapper(height, unit, propHeight, position)}
+    />
+   
 
 IconLabel.propTypes = {
     height: PropTypes.number,

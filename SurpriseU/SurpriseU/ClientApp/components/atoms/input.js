@@ -11,14 +11,13 @@ export const Input = styled.input`
     font-weight: 400;
     line-height: 1.4rem;
     color: ${color.text};
-    border: 0;
-    overflow: hidden;
+    border: 0;   
+overflow: hidden;
     outline: none;
     text-overflow: ellipsis;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     -webkit-appearance: none;
     background: ${p => p.back};
-
     ${(p) => p.bordered && css`
         border: 1px solid #efefef;
         border-radius: 3px;

@@ -1,4 +1,4 @@
-﻿import React, { Component } from 'react';
+import React, { Component } from 'react';
 import styled, { css } from 'styled-components'
 import PropTypes from 'prop-types'
 import { Scrollbars } from 'react-custom-scrollbars';
@@ -18,7 +18,7 @@ export default class Autocomplete extends Component {
         const { suggested, data } = this.state,
             tags = suggested;
         tags.splice(suggested.findIndex(x => x.id === tag.id), 1);
-        data.map(x => x.id).indexOf(tag.id) == -1 &&
+        data.map(x => x.id).indexOf(tag.id) === -1 &&
             this.setState({
             data: data.concat({ id: tag.id, name: tag.name }),
             suggested: tags
@@ -41,7 +41,7 @@ export default class Autocomplete extends Component {
         const suggested = input.length === 0 ? [] :
                 this.props.suggestions.filter(item =>
                     item.name.toLowerCase().slice(0, input.length) === input
-                    && this.state.data.every(x => x.name != item.name));
+                    && this.state.data.every(x => x.name !== item.name));
         this.setState({ suggested });
     };
 
@@ -50,8 +50,8 @@ export default class Autocomplete extends Component {
         const { data, suggested } = this.state;
         return <Auto width={this.props.width}>
             <Input rounded
-                name="likes"
-                placeholder="Подобається"
+                name="tags"
+                placeholder={this.props.title}
                 value={this.state.value}
                 onChange={this.onChange} />
             <Scrollbars style={style}>
@@ -77,7 +77,8 @@ const style = {
     height: '10rem',
     marginTop: '1rem',
     background: 'rgba(255, 255, 255, 0.7)',
-    borderRadius: '2.5vh'
+    borderRadius: '2.5vh',
+    overflow: 'hidden'
 }
 
 const Auto = styled.div`
@@ -93,10 +94,12 @@ const Suggestions = styled.div`
 `
 
 Autocomplete.propTypes = {
-    width: PropTypes.string,
-    suggestions: PropTypes.node.isRequired
+    suggestions: PropTypes.node,
+    title: PropTypes.string,
+    width: PropTypes.string
 }
 
 Autocomplete.defaultProps = {
+    title: null,
     width: '100%'
 }

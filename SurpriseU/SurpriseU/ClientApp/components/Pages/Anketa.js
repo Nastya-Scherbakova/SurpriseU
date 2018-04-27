@@ -10,7 +10,7 @@ import { EditUser } from './'
 @observer
 export default class Anketa extends React.Component {
     render() {
-        return <EditUser />;
+        return <Login />;
     }
 }
 

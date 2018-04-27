@@ -5,7 +5,7 @@ import { withRouter } from 'react-router-dom'
 
 import { color, font } from '../theme'
 
-import { Button, Cloud } from '../atoms'
+import { Icon, Cloud } from '../atoms'
 
 
 const Title = styled.div`
@@ -28,16 +28,17 @@ export class Form extends React.Component {
                 {header}
             </Title>
             {children}
-            <Submit shine darkblue rounded >Зберегти</Submit>
+            <Icon css={Check} name='Check' color='#1F215F' onClick={submit} />
         </Cloud>;
     }
 }
 
-    //< Icon name= 'Check' onClick= { submit } />
-
-const Submit = Button.extend`
-transform: scale(0.9);
-margin: 0 auto;
+const Check = `
+    margin: 0 auto;
+    transition: all .7s ease;
+    &:hover {
+        transform: scale(1.2);
+    }
 `
 
 Form.propTypes = {

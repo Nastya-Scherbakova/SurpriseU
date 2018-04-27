@@ -4,7 +4,7 @@ import { inject, observer } from 'mobx-react';
 import styled, { css } from 'styled-components'
 import PropTypes from 'prop-types'
 
-import { Icon, Input, IconLink, Name } from '../atoms';
+import { Icon, Input, IconLink, Name, Flex } from '../atoms';
 import { Avatar } from '../molecules';
 
 
@@ -12,19 +12,18 @@ import { Avatar } from '../molecules';
 @observer
 export default class Menu extends Component {
     state = {
-            windowPosition: window.pageYOffset,
+            windowPosition: window.pageYOffset
         }
-
-    handleScroll = () => this.setState({ windowPosition: window.pageYOffset })
 
     componentDidMount = () => window.addEventListener('scroll', this.handleScroll)
 
     componentWillUnmount = () => window.removeEventListener('scroll', this.handleScroll)
     
+    handleScroll = () => this.setState({ windowPosition: window.pageYOffset })
 
     logOut = () => this.props.authStore.logout()
 
-    onChange = e => this.props.presentsStore.searchInput(e.target.value)
+    onChange = e => this.props.presentsStore.searchChange('title', e.target.value)
 
     openSearch = () => this.props.presentsStore.enableFilter()
 
@@ -34,24 +33,24 @@ export default class Menu extends Component {
         const { isSearch } = this.props;
         const scroll = this.state.windowPosition > 0 && !isFilter;
         return <MenuWrapper scroll={scroll}>
-            <MenuLeft>
-                    <Link to={'/'}><Name size='2rem' /></Link>
-                    {isSearch && <Search
-                        isFilter={isFilter}
-                         onChange={this.onChange} 
-                         openSearch={this.openSearch} 
-                         value={search} />}
-            </MenuLeft> 
-                {
-                isUser ? <Icons>
+            <Flex width='75%'>
+                <Link to={'/'}><Name size='2rem' /></Link>
+                {isSearch && <Search
+                    isFilter={isFilter}
+                    onChange={this.onChange}
+                    openSearch={this.openSearch}
+                    value={search} />}
+            </Flex>
+            {
+                isUser ? <Flex w='25%' child='1rem'>
                     <Link to={`/id${currentUser.id.substr(0, 6)}`}>
                         <Avatar src={currentUser.photo} size='3vh' />
                     </Link>
                     <IconLink to='/anketa' name='Clipboard' />
                     <IconLink onClick={this.logOut} to='/login' name='Exit' />
-                </Icons> : <IconLink to='/login' name='Enter' />
-                }
-        </MenuWrapper>;
+                </Flex> : <IconLink to='/login' name='Enter' />
+            }
+        </MenuWrapper>
     }
 }
 
@@ -80,13 +79,6 @@ const MenuLeft = styled.div`
     align-items: center;
     height: 100%;
 `
-
-
-const Icons = styled.div`
-    width:  25%;
-    display: flex;
-    justify-content: space-between;
-`;
 
 const Wrapper = styled.div`
     width: 4vh;
@@ -145,7 +137,7 @@ const Search = props => <Wrapper open={props.isFilter}>
         value={props.value} 
         placeholder="Пошук"
         onChange={props.onChange} />
-    <Right > <Icon name='ChevronRight' size='2.5vh' onClick={props.openSearch} />
+    <Right > <Icon name='ChevronRightLight' size='2.5vh' onClick={props.openSearch} />
    </Right > <SearchIcon ><Icon name='Search' size='2.5vh' onClick={props.openSearch} />
 </SearchIcon ></Wrapper >;
 

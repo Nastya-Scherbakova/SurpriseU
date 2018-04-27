@@ -2,13 +2,23 @@ import * as React from 'react';
 import { Route } from 'react-router-dom';
 
 import Layout from './components/layout';
-import { EditUser, Profile, Offers, Likes, Friends, Home, Anketa } from './components/pages';
-import { Login, AuthHOC } from './components/features';
-import { PresentPage, PresentForm } from './components/organisms';
+import { Home, Anketa } from './components/pages';
+import {
+    EditUser,
+    Profile,
+    Offers,
+    Likes,
+    Friends,
+    Login,
+    AuthHOC,
+    PresentPage,
+    PresentForm
+} from './components/features';
+
 
 export const routes = <Layout>
-    <Route exact path='/' component={ Home } />
-    <Route path='/anketa' component={Anketa}/>
+    <Route exact path='/' component={Home} />
+    <Route path='/anketa' component={Anketa} />
     <Route path="/login" component={Login} />
     <Route path="/presents/new" component={PresentForm} />
     <Route path="/edit/:section" component={AuthHOC(EditUser)} />

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { observer, inject } from 'mobx-react'
 
 
-import { LoginField } from '../molecules'
+import { LoginField, Checkbox } from '../molecules'
 import { Button, Layout, Icon, Error } from '../atoms'
 
 @inject('authStore')
@@ -35,6 +35,7 @@ login = () => this.props.authStore.login();
                 type='password'
                 login
             />
+            <Checkbox text="Запам'ятати мене" />
             <Button shine darkblue onClick={this.login}>Увійти</Button>
             <Error error='Невірний логін або пароль' active={errors == '401'} />
 

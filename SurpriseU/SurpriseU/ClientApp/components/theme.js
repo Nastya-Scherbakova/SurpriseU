@@ -14,13 +14,14 @@ export const color = {
 
     success: '#35DC83',
     danger: '#DC3545',
+    darkBlue: '#1C1C59',
 
     darkGrey: '#888898',
     lightGrey: '#DBDBE3'
 }
 
 export const font = {
-    formElement: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
+    formElement: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif'
 }
 
 export const globalStyles = css`
@@ -46,6 +47,6 @@ export const variables = {
     fieldHeight: 5,
     fieldUnit: 'rem',
     inputHeight: 3.6,
-    inputUnit: 'rem',
+    inputUnit: 'rem'
 
 }

@@ -11,11 +11,12 @@ const Image = styled.section`
     background-position: center center;
     background-size: cover;
     overflow: hidden;  
-    z-index: 3;position: relative;
+    z-index: 3;
+    position: relative;
     background-image: url(${img});
     @media (orientation: portrait) {
         width: 100%;
-        height: 30vh;
+        height: 20vh;
     }
     @media (orientation: landscape) {
         width: 35vw;
@@ -44,7 +45,7 @@ const FormContainer = styled.div`
     flex-direction: column;
     @media (orientation: portrait) {
         width: 100%;
-        height: 70vh;
+        height: 80vh;
         padding: 5vh 10vw 1.5vh 10vw;
     }
     @media (orientation: landscape)  {
@@ -55,16 +56,14 @@ const FormContainer = styled.div`
 `
 const Tab = styled.div`
     position: absolute;
-   top: 5vh;
+    top: 5vh;
     z-index:4;
- right:5vh;
+    right:20%;
 `
 export const LoginTemplate = ({ children, tab, onClick}) => (
     <PageContainer>
-       
         <Image>  <Tab><Button light shine onClick={onClick}>{tab}</Button> </Tab> </Image>
         <FormContainer >
-           
             <Link to={'/'}><Name size='3rem' /> </Link>
             {children}
         </FormContainer>
@@ -73,8 +72,8 @@ export const LoginTemplate = ({ children, tab, onClick}) => (
 
 LoginTemplate.propTypes = {
     children: PropTypes.node.isRequired,
-    tab: PropTypes.string,
     onClick: PropTypes.func,
+    tab: PropTypes.string
 }
 
 LoginTemplate.defaultTypes = {

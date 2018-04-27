@@ -77,13 +77,13 @@ export const LoginField = ({ register, error, onChange, onBlur, value, label, ty
 
 
 
-const IconValid = (error) => error != null && <IconLabel
-    name={error.length == 0 ? 'Check' : 'X'}
+const IconValid = (error) => error !== null && <IconLabel
+    name={error.length === 0 ? 'Check' : 'X'}
     propHeight={variables.inputHeight}
     unit={variables.fieldUnit}
     height={iconHeight / 2.5}
     position='right'
-    color={error.length == 0 ? color.success : color.danger} />;
+    color={error.length === 0 ? color.success : color.danger} />;
 
 
 LoginField.propTypes = {

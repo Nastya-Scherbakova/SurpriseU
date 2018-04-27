@@ -23,7 +23,6 @@ export const Button = styled.button`
         color: white;
         background: linear-gradient(135deg, #1C1C59, #425598);
         height: 3.5rem;  
-        width: 60%;
     `}
     ${p => p.shine && css`
         &::after {
@@ -57,12 +56,12 @@ export const Button = styled.button`
 
 Button.propTypes = {
     darkblue: PropTypes.bool,
-    shine: PropTypes.bool,
-    light: PropTypes.bool
+    light: PropTypes.bool,
+    shine: PropTypes.bool
 }
 
 Button.defaultProps = {
-    shine: false,
     darkblue: false,
-    light: false
+    light: false,
+    shine: false
 }

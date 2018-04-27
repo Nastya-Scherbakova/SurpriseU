@@ -3,11 +3,11 @@ import styled, { keyframes  } from 'styled-components'
 import PropTypes from 'prop-types'
 import { Link, withRouter } from 'react-router-dom'
 import { inject, observer } from 'mobx-react'
-import { color } from '../theme'
+import { color } from '../../../theme'
 
-import { Image, Icon, Cloud, Spinner, IconLink } from '../atoms'
-import { Like } from '../molecules'
-import { ProfileTemplate } from '../templates'
+import { Image, Icon, Cloud, Spinner, IconLink } from '../../../atoms'
+import { Like } from '../../../molecules'
+import { ProfileTemplate } from '../../../templates'
 
 @inject('presentsStore')
 @withRouter
@@ -28,7 +28,7 @@ export default class PresentPage extends React.Component {
     render() {
         const present = this.props.presentsStore.presentById;
         return <ProfileTemplate><Cloud rightIcon={<Like liked={this.state.liked} onClick={this.onLike}/>}>
-            {present == null ? <Spinner /> : 
+            {present === null ? <Spinner /> : 
                 <Wrapper>
                     <Image size='30vh' round src={present.photo} />
                     <Title>{present.title}</Title>

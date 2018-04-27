@@ -2,8 +2,8 @@ import * as React from 'react';
 import { inject, observer } from 'mobx-react';
 import { withRouter } from 'react-router-dom';
 
-import { Menu, Filter, PresentsList } from '../organisms'
-
+import { Menu, Filter } from '../organisms'
+import { PresentsList } from '../features'
 @inject('presentsStore', 'tagsStore')
 @withRouter
 @observer

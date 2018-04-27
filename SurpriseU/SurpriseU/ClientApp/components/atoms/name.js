@@ -9,9 +9,8 @@ const Title = styled.span`
     display: inline-block;
     h2 {
         font-size: ${p => p.size};
-        margin-bottom:0;
-
     letter-spacing: 0.3em;
+margin: 0;
     }
     text-transform: uppercase;
     color: #1C1C59;
@@ -23,9 +22,9 @@ font-weight: 800;
 export const Name = ({ size }) => <Title size={size}><h2>SurpriseU</h2></Title>
 
 Name.propTypes = {
-    size: PropTypes.string,
+    size: PropTypes.string
 };
 
 Name.defaultTypes = {
-    size: '5rem',
+    size: '5rem'
 };

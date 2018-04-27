@@ -12,7 +12,7 @@ const Wrapper = styled.div`
 width: 100%;
 display: flex;
 justify-content: space-between;
-align-items: flex-start;
+align-items: flex-startAge;
 position: relative;
 height: 5rem;
 `
@@ -46,53 +46,62 @@ const FieldContainer = styled.div`
 const Field = ({ error, onChange, onBlur, value, label, type, required, maxLength, name }) => (
     <FieldContainer >
         <Input
-                value={value}
-                onChange={e => onChange(e.target.name, e.target.value)}
-                type={type}
-                name={name}
-                required={required}
-                aria-describedby={label}
-                aria-label={label}
-                aria-required={required}
-                maxLength={maxLength}
-                autoCapitalize="false"
-                autoCorrect="false"
-                rounded
-                back={color.backgroundWhite}
-            />
+            value={value}
+            onChange={e => onChange(e.target.name, e.target.value)}
+            type={type}
+            name={name}
+            required={required}
+            aria-describedby={label}
+            aria-label={label}
+            aria-required={required}
+            maxLength={maxLength}
+            autoCapitalize="false"
+            autoCorrect="false"
+            rounded
+            back={color.backgroundWhite}
+        />
     </FieldContainer>
 );
 
 export default class MySlider extends React.Component {
     state = {
-        start: this.props.start,
-        end: this.props.end,
+        startAge: this.props.start,
+        endAge: this.props.end,
         error: null
     }
 
-   onChange = (field, value) => {
-        const newAge = /[^[0-9]/.test(value) ? this.state[field] : Number(value);
-       const error = (this.state.start > this.state.end) ?
+    onChange = (field, value) => {
+
+       const newAge = /[^[0-9]/.test(value) ? this.state[field] : Number(value);
+
+       const error = (this.state.startAge > this.state.endAge) ?
            'Початковий вік має бути меншим ніж кінцевий' : '';
        this.setState({ [field]: newAge, error: error });
+       
     };
 
+    rangeChange = (value) => {
+        this.setState({ startAge: value[0], endAge: value[1] });
+        this.props.onChange("startAge", value[0]);
+        this.props.onChange("endAge", value[1]);
+    }
+
     render() {
-        const { onChange } = this.props;
-        const { start, end, error } = this.state;
+        const { startAge, endAge } = this.props;
+        const { error } = this.state;
         return <Wrapper><Field
-            name='start'
-            value={start.toString()}
+            name='startAge'
+            value={startAge.toString()}
             onChange={this.onChange} />
             <RangeWrapper>
                 <Range
-                    value={[start, end]}
-                    onChange={onChange}
+                    value={[startAge, endAge]}
+                    onChange={this.rangeChange}
                     allowCross={false} />
             </RangeWrapper>
             <Field
-                name='end'
-                value={end.toString()}
+                name='endAge'
+                value={endAge.toString()}
                 onChange={this.onChange} />
             <ErrorWrapper>
                 <Error

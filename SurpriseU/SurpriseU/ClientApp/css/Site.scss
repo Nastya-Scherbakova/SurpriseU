@@ -9,105 +9,6 @@
     font-weight: 400;
     font-style: normal;
 }
-@mixin for-size($size) {
-    @if $size == phone-only {
-        @media (max-width: 576px) {
-            @content;
-        }
-    }
-    @else if $size == phone-landscape-up {
-        @media (min-width: 568px) {
-            @content;
-        }
-    }
-    @else if $size == tablet-portrait-up {
-        @media (min-width: 768px) {
-            @content;
-        }
-    }
-    @else if $size == tablet-landscape-up {
-        @media (min-width: 900px) {
-            @content;
-        }
-    }
-    @else if $size == desktop-up {
-        @media (min-width: 1200px) {
-            @content;
-        }
-    }
-}
-
-@mixin for-orient($or) {
-    @if $or == port {
-        @media (orientation: portrait) {
-            @content;
-        }
-    }
-    @else if $or == land {
-        @media (orientation: landscape) {
-            @content;
-        }
-    }
-}
-
-@mixin keyframes($name) {
-    @-webkit-keyframes #{$name} {
-        @content;
-    }
-
-    @-moz-keyframes #{$name} {
-        @content;
-    }
-
-    @-ms-keyframes #{$name} {
-        @content;
-    }
-
-    @keyframes #{$name} {
-        @content;
-    }
-}
-
-$darkblue: #031560;
-$dark: #301746;
-
-
-/*ADD PRESENT*/
-.small-form {
-    @include for-size(phone-only) {
-        height: 85%;
-        width: 80%;
-        margin-top: 5vh;
-    }
-
-    @include for-size(phone-landscape-up) {
-        height: 85%;
-        width: 50%;
-        margin-top: 5vh;
-    }
-
-    @include for-size(tablet-portrait-up) {
-        margin-top: 5vh;
-        width: 75%;
-    }
-
-    @include for-size(tablet-landscape-up) {
-        width: 50%;
-    }
-
-    @include for-size(desktop-up) {
-        width: 30%;
-    }
-
-    @include for-orient(port) {
-        height: 87%;
-        width: 90%;
-    }
-}
-
-
-$transition: all .7s ease;
-
 
 
 /*EDIT USER*/
@@ -120,7 +21,7 @@ $transition: all .7s ease;
     padding-left: 5.5vh;
     padding-right: 2vh;
     position: relative;
-    transition: $transition;
+    transition: all .7s ease;
     font-size: 1em;
     background: rgba(255,255,255,0.9);
     border: 1px solid rgba(170,170,170, 0.6);
@@ -129,130 +30,12 @@ $transition: all .7s ease;
     input {
         width: 100%;
         border: none;
-        height:100%;
+        height: 100%;
+
         &:focus {
             border: none;
             outline: none;
         }
-    }
-}
-
-.selected {
-    font-weight: 600;
-   
-    background-image: linear-gradient(180deg, transparent 95%,#888898 0);
-    background-size: 100% 100%;
-    transition: $transition;
-    background-repeat: no-repeat;
-}
-
-.edit-tab {
-    position: relative;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    height: 5vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: #888898;
-    background-image: linear-gradient(180deg, transparent 95%,#888898 0);
-    background-size: 0% 100%;
-    width: 20%;
-    transition: $transition;
-    background-repeat: no-repeat;
-
-    &:hover {
-        color: #888898;
-        outline: none;
-        /*background-size: 100% 100%;*/
-        text-decoration: none;
-    }
-}
-input {
-    &:focus {
-        border: 1px solid steelblue;
-        outline: none;
-        background: rgba(255,255,255,1);
-    }
-}
-.edit-form {
-    @extend .small-form;
-    display: flex;
-    background: rgba(255,255,255,0.3);
-    border-radius: 2vh;
-    box-shadow: 0 3px 5px 0 rgba(0,0,0,0.1);
-    position: relative;
-    padding-bottom: 10vh;
-    align-items: center;
-
-    .photo {
-        position: relative;
-        height: 15vh;
-        border-radius: 100%;
-        display: flex;
-        justify-content: space-around;
-        width: 15vh;
-        align-items: center;
-        margin: 1vh;
-        img {
-            width: 100%;
-            height: 100%;
-            border-radius: 100%;
-        }
-
-        svg {
-            width: 100%;
-            height: 100%;
-        }
-
-        .pencil {
-            position: absolute;
-            margin: auto;
-            width: 4vh;
-            height: 4vh;
-            transition: $transition;
-            fill: #3E3E3E;
-            background: white;
-            border-radius: 50%;
-            opacity: 0.5;
-        }
-
-        &:hover {
-            .pencil {
-                opacity: 1;
-            }
-        }
-    }
-}
-
-
-
-.social-tabs {
-    width: 100%;
-    padding: 1vh 10vw;
-    display: flex;
-    justify-content: space-around;
-    position: absolute;
-    bottom: 0;
-
-    .twitter {
-        @extend .social-border;
-
-        svg {
-            height: 3vh;
-            width: 3vh;
-        }
-    }
-
-    .social-border {
-        @extend .svg-base;
-        width: 4.5vh;
-        height: 4.5vh;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        border-radius: 50%;
-        background: white;
     }
 }
 
