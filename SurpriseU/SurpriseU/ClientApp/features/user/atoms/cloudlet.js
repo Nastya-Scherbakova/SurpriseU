@@ -4,9 +4,9 @@ import { inject, observer } from 'mobx-react'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
 
-import { ProfileTemplate } from '../../../templates'
-import { Avatar, Tag } from '../../../molecules'
-import { Cloud, Icon, IconLink, Flex, Image, Picture } from '../../../atoms'
+import { ProfileTemplate } from '../../../ui/templates'
+import { Avatar, Tag } from '../../../ui/molecules'
+import { Cloud, Icon, IconLink, Flex, Image, Picture } from '../../../ui/atoms'
 import { Add } from './'
 
 

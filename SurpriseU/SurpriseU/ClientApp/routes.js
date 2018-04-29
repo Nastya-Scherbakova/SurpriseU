@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { Route } from 'react-router-dom';
 
-import Layout from './components/layout';
-import { Home, Anketa } from './components/pages';
+import Layout from './ui/layout';
+import { Home, Anketa } from './ui/pages';
 import {
     EditUser,
     Profile,
@@ -13,7 +13,7 @@ import {
     AuthHOC,
     PresentPage,
     PresentForm
-} from './components/features';
+} from './features';
 
 
 export const routes = <Layout>

@@ -1,6 +1,6 @@
 ﻿import { observable, action, computed } from 'mobx';
 import requests from '../requests';
-import { validate } from '../components/validation'
+import { validate } from '../ui/validation'
 
 export class PresentsStore {
     @observable isLoading = false;

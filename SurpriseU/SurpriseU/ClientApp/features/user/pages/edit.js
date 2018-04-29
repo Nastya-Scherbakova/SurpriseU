@@ -1,9 +1,9 @@
 ﻿import * as React from 'react'
 import { inject, observer } from 'mobx-react'
 import styled, { css } from 'styled-components'
-import { ProfileTemplate } from '../../../templates'
-import { Field, Form, Slider, GenderDouble, FieldArea, Avatar } from '../../../molecules'
-import { Cloud, Icon, IconLink, CloudWrapper, Input, Flex } from '../../../atoms'
+import { ProfileTemplate } from '../../../ui/templates'
+import { Field, Form, Slider, GenderDouble, FieldArea, Avatar } from '../../../ui/molecules'
+import { Cloud, Icon, IconLink, CloudWrapper, Input, Flex } from '../../../ui/atoms'
 import { Link, withRouter, NavLink,Route} from 'react-router-dom'
 
 const Wrapper = CloudWrapper.extend`

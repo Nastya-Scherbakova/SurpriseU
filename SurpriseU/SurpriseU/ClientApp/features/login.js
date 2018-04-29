@@ -2,8 +2,8 @@
 import { observer,inject } from 'mobx-react';
 import {  Redirect } from 'react-router'
 
-import { LoginTemplate } from '../templates'
-import { LoginForm, RegisterForm } from '../organisms'
+import { LoginTemplate } from '../ui/templates'
+import { LoginForm, RegisterForm } from '../ui/organisms'
 
 @inject('authStore', 'userStore')
 @observer

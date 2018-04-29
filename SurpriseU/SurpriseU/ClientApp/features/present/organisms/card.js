@@ -1,8 +1,8 @@
 ﻿import React from 'react'
 import styled, {css } from 'styled-components'
 import PropTypes from 'prop-types'
-import { Card, Image, Icon } from '../../../atoms'
-import { Like } from '../../../molecules'
+import { Card, Image, Icon } from '../../../ui/atoms'
+import { Like } from '../../../ui/molecules'
 import { Link } from 'react-router-dom';
 export class PresentCard extends React.Component {
    

@@ -1,6 +1,6 @@
 ﻿import * as React from 'react';
 import styled from 'styled-components'
-import { IconLink } from '../../../atoms'
+import { IconLink } from '../../../ui/atoms'
 
 const Scale = `
   transition: all .5s ease;

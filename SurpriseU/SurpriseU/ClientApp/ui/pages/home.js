@@ -3,7 +3,7 @@ import { inject, observer } from 'mobx-react';
 import { withRouter } from 'react-router-dom';
 
 import { Menu, Filter } from '../organisms'
-import { PresentsList } from '../features'
+import { PresentsList } from '../../features'
 @inject('presentsStore', 'tagsStore')
 @withRouter
 @observer

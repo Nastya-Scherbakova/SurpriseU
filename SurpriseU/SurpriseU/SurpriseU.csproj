@@ -30,20 +30,20 @@
 
   <ItemGroup>
     <!-- Files not to publish (note that the 'dist' subfolders are re-added below) -->
-    <Compile Remove="ClientApp\components\features\menu\**" />
-    <Compile Remove="ClientApp\components\Menu\**" />
+    <Compile Remove="ClientApp\features\menu\**" />
+    <Compile Remove="ClientApp\ui\Menu\**" />
     <Content Remove="ClientApp\**" />
-    <EmbeddedResource Remove="ClientApp\components\features\menu\**" />
-    <EmbeddedResource Remove="ClientApp\components\Menu\**" />
-    <None Remove="ClientApp\components\features\menu\**" />
-    <None Remove="ClientApp\components\Menu\**" />
+    <EmbeddedResource Remove="ClientApp\features\menu\**" />
+    <EmbeddedResource Remove="ClientApp\ui\Menu\**" />
+    <None Remove="ClientApp\features\menu\**" />
+    <None Remove="ClientApp\ui\Menu\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="ClientApp\components\Admin.jsx" />
-    <None Remove="ClientApp\components\Admin.tsx" />
-    <None Remove="ClientApp\components\ConnectingDots.jsx" />
-    <None Remove="ClientApp\components\NavMenu.tsx" />
+    <None Remove="ClientApp\ui\Admin.jsx" />
+    <None Remove="ClientApp\ui\Admin.tsx" />
+    <None Remove="ClientApp\ui\ConnectingDots.jsx" />
+    <None Remove="ClientApp\ui\NavMenu.tsx" />
     <None Remove="ClientApp\css\bootstrap.css" />
     <None Remove="ClientApp\css\HYPE.ttf" />
     <None Remove="ClientApp\css\Profile.scss" />

@@ -3,9 +3,9 @@ import { Link, withRouter } from 'react-router-dom'
 import { inject, observer } from 'mobx-react'
 import styled from 'styled-components'
 
-import { ProfileTemplate } from '../../../templates'
-import { Avatar, Tag } from '../../../molecules'
-import { Cloud, Icon, IconLink, Flex } from '../../../atoms'
+import { ProfileTemplate } from '../../../ui/templates'
+import { Avatar, Tag } from '../../../ui/molecules'
+import { Cloud, Icon, IconLink, Flex } from '../../../ui/atoms'
 import { Cloudlet, Add } from '../atoms'
 
 @inject('userStore')

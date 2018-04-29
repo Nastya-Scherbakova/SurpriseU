@@ -1,7 +1,7 @@
 ﻿import { observable, action, reaction } from 'mobx';
 import requests from '../requests';
 import userStore from './userStore';
-import { validate } from '../components/validation'
+import { validate } from '../ui/validation'
 
 
 class AuthStore {

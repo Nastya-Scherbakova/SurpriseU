@@ -4,10 +4,10 @@ import { inject, observer } from 'mobx-react'
 import styled from 'styled-components'
 import { withRouter } from 'react-router-dom'
 
-import { Field, Form, Slider, GenderTriple, FieldArea } from '../../../molecules'
-import { Button, Layout, Textarea } from '../../../atoms'
-import { Autocomplete } from '../../../organisms' 
-import { ProfileTemplate } from '../../../templates'
+import { Field, Form, Slider, GenderTriple, FieldArea } from '../../../ui/molecules'
+import { Button, Layout, Textarea } from '../../../ui/atoms'
+import { Autocomplete } from '../../../ui/organisms' 
+import { ProfileTemplate } from '../../../ui/templates'
 
 @inject('presentsStore', 'tagsStore')
 @withRouter

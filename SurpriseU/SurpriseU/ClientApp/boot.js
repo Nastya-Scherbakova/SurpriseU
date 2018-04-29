@@ -8,7 +8,7 @@ import { useStrict } from 'mobx';
 import { Provider } from 'mobx-react';
 import { injectGlobal } from 'styled-components'
 import './css/Site.scss'
-import { globalStyles } from './components/theme'
+import { globalStyles } from './ui/theme'
 import commonStore from './stores/commonStore';
 import presentsStore from './stores/presentsStore';
 import tagsStore from './stores/tagsStore';

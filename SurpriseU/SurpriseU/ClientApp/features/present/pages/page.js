@@ -3,11 +3,11 @@ import styled, { keyframes  } from 'styled-components'
 import PropTypes from 'prop-types'
 import { Link, withRouter } from 'react-router-dom'
 import { inject, observer } from 'mobx-react'
-import { color } from '../../../theme'
+import { color } from '../../../ui/theme'
 
-import { Image, Icon, Cloud, Spinner, IconLink } from '../../../atoms'
-import { Like } from '../../../molecules'
-import { ProfileTemplate } from '../../../templates'
+import { Image, Icon, Cloud, Spinner, IconLink } from '../../../ui/atoms'
+import { Like } from '../../../ui/molecules'
+import { ProfileTemplate } from '../../../ui/templates'
 
 @inject('presentsStore')
 @withRouter

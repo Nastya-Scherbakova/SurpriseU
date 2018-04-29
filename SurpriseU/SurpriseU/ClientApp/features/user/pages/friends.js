@@ -1,8 +1,8 @@
 ﻿import * as React from 'react';
 import { inject, observer } from 'mobx-react';
 import styled, { css } from 'styled-components'
-import { ProfileTemplate } from '../../../templates'
-import { Cloud, Icon, IconLink } from '../../../atoms'
+import { ProfileTemplate } from '../../../ui/templates'
+import { Cloud, Icon, IconLink } from '../../../ui/atoms'
 import { Link, withRouter } from 'react-router-dom'
 @inject('userStore')
 @withRouter

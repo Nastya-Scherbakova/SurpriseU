@@ -1,6 +1,6 @@
 ﻿import { observable, action, reaction } from 'mobx'
 import requests from '../requests'
-import { validate } from '../components/validation'
+import { validate } from '../ui/validation'
 
 class UserStore {
     @observable currentUser = null;
