@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom';
 
-import img from '../../css/images/login-blue.jpg'
+import img from '../../styles/login-blue.jpg'
 import { Name, Layout, Button } from '../atoms'
 
 

@@ -1,8 +1,9 @@
 ﻿import * as React from 'react'
 import { inject, observer } from 'mobx-react'
 import styled, { css } from 'styled-components'
+
 import { ProfileTemplate } from '../../../ui/templates'
-import { Field, Form, Slider, GenderDouble, FieldArea, Avatar } from '../../../ui/molecules'
+import { Field, Calendar, Form, Slider, GenderDouble, FieldArea, Avatar } from '../../../ui/molecules'
 import { Cloud, Icon, IconLink, CloudWrapper, Input, Flex } from '../../../ui/atoms'
 import { Link, withRouter, NavLink,Route} from 'react-router-dom'
 
@@ -66,11 +67,11 @@ class Account extends React.Component {
                     error={editErrors.email}
                     label="Ім'я користувача"
                 />
-                <Field name='age'
+                <Calendar name='age'
                     value={editForm.age}
                     onChange={onFieldChange}
-                    onBlur={onFieldBlur}
                     label='День народження'
+                    error={editErrors.age}
                 />
                 <Field name='photo'
                     value={editForm.photo}

@@ -6,10 +6,11 @@ import { ProfileTemplate} from '../templates'
 import { Form, LoginField } from '../molecules'
 import { Login } from '../../features'
 import { Menu, Filter } from '../organisms'
+import { Spinner } from '../atoms'
 @observer
 export default class Anketa extends React.Component {
     render() {
-        return <Login />;
+        return <Spinner />;
     }
 }
 

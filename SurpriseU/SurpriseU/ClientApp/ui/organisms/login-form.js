@@ -4,7 +4,7 @@ import { observer, inject } from 'mobx-react'
 
 
 import { LoginField, Checkbox } from '../molecules'
-import { Button, Layout, Icon, Error } from '../atoms'
+import { Button, Layout, Icon, Error, Spinner } from '../atoms'
 
 @inject('authStore')
 @observer
@@ -36,7 +36,12 @@ login = () => this.props.authStore.login();
                 login
             />
             <Checkbox text="Запам'ятати мене" />
-            <Button shine darkblue onClick={this.login}>Увійти</Button>
+            {
+                loading ? <Spinner />
+                    : <Button shine darkblue onClick={this.login}>Увійти</Button>
+            }
+
+
             <Error error='Невірний логін або пароль' active={errors == '401'} />
 
         </Layout>;

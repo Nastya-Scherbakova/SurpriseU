@@ -3,7 +3,7 @@ import { inject, observer } from 'mobx-react';
 import styled, { css } from 'styled-components'
 import PropTypes from 'prop-types'
 
-import img from '../../css/images/home-image.jpg'
+import img from '../../styles/home-image.jpg'
 import { Icon } from '../atoms'
 import { Form, Slider, GenderTriple } from '../molecules'
 import { Autocomplete } from '../organisms'

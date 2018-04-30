@@ -47,6 +47,9 @@ var rules = {
         let error = (value.length <= 30 && value.length >= 3 && value.search(/\d/) == -1) ? '' : "Введіть назву";
         return error;
     },
-
+    age: value => {
+        let error = new Date(value) == 'Invalid Date' ? "Некоректна дата народження": '';
+        return error;
+    },
 
 }

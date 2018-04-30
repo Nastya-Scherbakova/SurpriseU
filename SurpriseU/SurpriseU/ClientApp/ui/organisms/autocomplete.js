@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import styled, { css } from 'styled-components'
 import PropTypes from 'prop-types'
-import { Scrollbars } from 'react-custom-scrollbars';
-
+import { Scrollbars } from 'react-custom-scrollbars'
 import { Input } from '../atoms';
 import { Tag } from '../molecules';
 

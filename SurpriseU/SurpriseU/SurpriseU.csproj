@@ -44,12 +44,12 @@
     <None Remove="ClientApp\ui\Admin.tsx" />
     <None Remove="ClientApp\ui\ConnectingDots.jsx" />
     <None Remove="ClientApp\ui\NavMenu.tsx" />
-    <None Remove="ClientApp\css\bootstrap.css" />
-    <None Remove="ClientApp\css\HYPE.ttf" />
-    <None Remove="ClientApp\css\Profile.scss" />
-    <None Remove="ClientApp\css\style.css" />
-    <None Remove="ClientApp\css\untitled.svg" />
-    <None Remove="ClientApp\css\Без имени-1.png" />
+    <None Remove="ClientApp\styles\bootstrap.css" />
+    <None Remove="ClientApp\styles\HYPE.ttf" />
+    <None Remove="ClientApp\styles\Profile.scss" />
+    <None Remove="ClientApp\styles\style.css" />
+    <None Remove="ClientApp\styles\untitled.svg" />
+    <None Remove="ClientApp\styles\Без имени-1.png" />
     <None Remove="ClientApp\images\222.png" />
     <None Remove="ClientApp\images\white.png" />
   </ItemGroup>

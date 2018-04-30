@@ -1,5 +1,5 @@
 ﻿export { IconLabel } from './icon-label'
-export { Field, FieldArea } from './field'
+export { Field, FieldArea, Calendar } from './field'
 export { LoginField } from './login-field'
 export { Form } from './form'
 export { default as Slider } from './slider'

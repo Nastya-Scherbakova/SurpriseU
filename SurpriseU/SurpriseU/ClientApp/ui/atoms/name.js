@@ -1,7 +1,6 @@
 ﻿import styled from 'styled-components'
 import PropTypes from 'prop-types'
 import Fade from 'react-reveal/Fade';
-import '../../css/Site.scss'
 import { color } from '../theme'
 
 import React from 'react';

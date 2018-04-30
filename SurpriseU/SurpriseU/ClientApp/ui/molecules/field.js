@@ -5,7 +5,8 @@ import PropTypes from 'prop-types'
 import { Input, Error, Textarea } from '../atoms'
 import { IconLabel } from './'
 import { color, font, variables } from '../theme'
-
+import DayPickerInput from 'react-day-picker/DayPickerInput'
+import 'react-day-picker/lib/style.css'
 
 const fieldHeight = variables.fieldHeight + variables.fieldUnit;
 const propHeight = variables.fieldHeight;
@@ -71,9 +72,13 @@ height: 8.6rem;
   position: relative;
   border: 0 solid black;
   top: 0;
+${(p) => p.calendar && css`
+  background: rgba(255,255,255,0.8);
+  border-radius: 15px;
+`}
 `
 
-export const Field = ({ error, onChange, onBlur, value, label, type, required, maxLength, name }) => (
+export const Field = ({ error, onChange, onBlur, value, label, type, required, maxLength, name, calendar }) => (
     <FieldContainer active={value.trim().length !== 0} >
         <FieldWrapper>
             <FieldLabel>{label}</FieldLabel>
@@ -87,11 +92,24 @@ export const Field = ({ error, onChange, onBlur, value, label, type, required, m
                 aria-describedby={label}
                 aria-label={label}
                 aria-required={required}
-                maxLength={maxLength}
-                autoCapitalize="false"
-                autoCorrect="false"
+                maxLength = {maxLength}
+                autoCapitalize = "false"
+                autoCorrect = "false"
                 rounded
-                back={color.backgroundWhite}
+                back = {color.backgroundWhite}
+            />
+        </FieldWrapper>
+        <Error error={error} active={(error && (error.length > 0)) ? true : false} />
+        {IconValid(error)}
+    </FieldContainer>
+)
+
+export const Calendar = ({ error, onChange, onBlur, value, label, name }) => (
+    <FieldContainer active>
+        <FieldWrapper calendar>
+            <FieldLabel>{label}</FieldLabel>
+            <DayPickerInput value={value}
+                onDayChange={e => onChange(name, e)}
             />
         </FieldWrapper>
         <Error error={error} active={(error && (error.length > 0)) ? true : false} />

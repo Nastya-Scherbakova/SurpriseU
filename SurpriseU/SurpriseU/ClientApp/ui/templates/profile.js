@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
 import { Container } from '../atoms'
-import img from '../../css/images/profile.jpg'
+import img from '../../styles/profile.jpg'
 import { Menu } from '../organisms'
 
 const RootContainer = styled.section`
