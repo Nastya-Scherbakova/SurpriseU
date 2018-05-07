@@ -33,7 +33,7 @@ const TagWrapper = styled.div`
     `}
 `
 
-export const Tag = props => <TagWrapper check={props.check} onClick={props.add}>
+export const Tag = props => <TagWrapper check={props.check} onClick={props.add} props={props} >
     #{props.name}
     <Delete>
         <Icon name='X' size='.5rem' onClick={props.delete} />

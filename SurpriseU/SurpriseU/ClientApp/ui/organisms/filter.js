@@ -1,52 +1,116 @@
 import React, { Component } from 'react';
-import { inject, observer } from 'mobx-react';
 import styled, { css } from 'styled-components'
 import PropTypes from 'prop-types'
+import { connect } from 'react-redux';
 
 import img from '../../styles/home-image.jpg'
 import { Icon } from '../atoms'
 import { Form, Slider, GenderTriple } from '../molecules'
 import { Autocomplete } from '../organisms'
 
-@inject('presentsStore', 'tagsStore')
-@observer
-export default class Filter extends Component {
 
-    openSearch = () => this.props.presentsStore.enableFilter()
+import { filterOn, filterOff, changeSearch, searchPresent, refreshTags } from '../../features/present/actions';
+import { getTags } from '../../features/tag/actions';
+const mapStateToProps = state => ({
+    search: state.present.search,
+    isFilter: state.present.isFilter,
+    likes: state.tag.likes,
+    celebrations: state.tag.holidays
+});
 
-    search = () => this.props.presentsStore.searchPresents()
 
+const mapDispatchToProps = dispatch => ({
+    getTags: () => dispatch(getTags()),
+    filterOff: () => dispatch(filterOff()),
+    onChange: (key, value) => dispatch(changeSearch(key, value)),
+    onSearch: present => dispatch(searchPresent(present)),
+    onTagsChange: tag => dispatch(refreshTags(tag))
+});
+
+class Filter extends Component {
+    componentDidMount = () => this.props.getTags()
+    closeSearch = () => this.props.filterOff()
+
+    search = () => this.props.onSearch(this.props.search)
+    onChange = (name, value) => this.props.onChange(name, value)
+    onRangeChange = value => {
+        this.props.onChange('startAge', value[0])
+        this.props.onChange('endAge', value[1])
+    }
+    onAddTag = tag => {
+        let tags = this.props.search.tags.concat(tag);
+        this.props.onTagsChange(tags)
+    }
+    onDeleteTag = newTag => {
+        let tags = this.props.search.tags.filter(tag => tag.id !== newTag.id);
+        this.props.onTagsChange(tags)
+    }
     render() {
-        const { searchParams, isFilter, searchChange } = this.props.presentsStore;
-        const { likes, celebrations } = this.props.tagsStore;
+        const { isFilter, search, likes, celebrations } = this.props;
         return <Wrapper isFilter={isFilter} >
             {isFilter ? <Form>
                 <Main>
-                    <GenderTriple
-                        value={searchParams.gender}
-                        onChange={searchChange}
-                    />
-                    <Slider
-                        startAge={searchParams.startAge}
-                        endAge={searchParams.endAge}
-                        onChange={searchChange}
-                    /> </Main>
+                <GenderTriple
+                    value={search.gender}
+                    onChange={this.onChange}
+                />
+                <Slider
+                    startAge={search.startAge}
+                    endAge={search.endAge}
+                    onChange={this.onRangeChange}
+                />
+                </Main>
                 <Autocomplete width='25%'
                     suggestions={likes}
                     title='Подобається'
+                    onAdd={this.onAddTag}
+                    onDelete={this.onDeleteTag}
                 />
                 <Autocomplete width='25%'
                     suggestions={celebrations}
-                    title='Свята' />
+                    title='Свята'
+                    onAdd={this.onAddTag}
+                    onDelete={this.onDeleteTag}
+                />
                 <Icons>
                     <Icon css={Scale} name='Check' size='2.5vh' color='#1C1C59' onClick={this.search} />
-                    <Icon css={Scale} name='X' size='2vh' color='#1C1C59'  onClick={this.openSearch} />
+                    <Icon css={Scale} name='X' size='2vh' color='#1C1C59' onClick={this.closeSearch} />
                 </Icons>
             </Form> : undefined}
         </Wrapper>
     }
 }
 
+export default connect(mapStateToProps, mapDispatchToProps)(Filter);
+//render() {
+//    const { searchParams, isFilter, searchChange } = this.props.presentsStore;
+//    const { likes, celebrations } = this.props.tagsStore;
+//    return <Wrapper isFilter={isFilter} >
+//        {isFilter ? <Form>
+//            <Main>
+//                <GenderTriple
+//                    value={searchParams.gender}
+//                    onChange={searchChange}
+//                />
+//                <Slider
+//                    startAge={searchParams.startAge}
+//                    endAge={searchParams.endAge}
+//                    onChange={searchChange}
+//                /> </Main>
+//            <Autocomplete width='25%'
+//                suggestions={likes}
+//                title='Подобається'
+//            />
+//            <Autocomplete width='25%'
+//                suggestions={celebrations}
+//                title='Свята' />
+//            <Icons>
+//                <Icon css={Scale} name='Check' size='2.5vh' color='#1C1C59' onClick={this.search} />
+//                <Icon css={Scale} name='X' size='2vh' color='#1C1C59' onClick={this.openSearch} />
+//            </Icons>
+//        </Form> : undefined}
+//    </Wrapper>
+//}
 const Scale = `
     transition: all .5s ease;
     &:hover {

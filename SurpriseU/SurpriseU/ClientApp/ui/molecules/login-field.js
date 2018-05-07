@@ -54,8 +54,8 @@ export const LoginField = ({ register, error, onChange, onBlur, value, label, ty
                 position='left' />
             <Input
                 value={value}
-                onChange={e => onChange(e.target.name, e.target.value)}
-                onBlur={e => onBlur(e.target.name, e.target.value)}
+                onChange={onChange}
+                onBlur={onBlur}
                 type={type}
                 name={name}
                 required={required}

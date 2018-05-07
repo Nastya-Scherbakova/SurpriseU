@@ -79,13 +79,13 @@ ${(p) => p.calendar && css`
 `
 
 export const Field = ({ error, onChange, onBlur, value, label, type, required, maxLength, name, calendar }) => (
-    <FieldContainer active={value.trim().length !== 0} >
+    <FieldContainer active={value && value.trim().length !== 0} >
         <FieldWrapper>
             <FieldLabel>{label}</FieldLabel>
             <Input
                 value={value}
-                onChange={e => onChange(e.target.name, e.target.value)}
-                onBlur={e => onBlur(e.target.name, e.target.value)}
+                onChange={onChange}
+                onBlur={onBlur}
                 type={type}
                 name={name}
                 required={required}
@@ -109,6 +109,7 @@ export const Calendar = ({ error, onChange, onBlur, value, label, name }) => (
         <FieldWrapper calendar>
             <FieldLabel>{label}</FieldLabel>
             <DayPickerInput value={value}
+                name={name}
                 onDayChange={e => onChange(name, e)}
             />
         </FieldWrapper>
@@ -127,13 +128,13 @@ const IconValid = (error) => error != null && <IconLabel
             color={error.length == 0 ? color.success : color.danger} />;
 
 export const FieldArea = ({ error, onChange, onBlur, value, label, type, required, maxLength, name }) => (
-                <FieldContainer active={value.trim().length !== 0} area>
+    <FieldContainer active={value && value.trim().length !== 0} area>
                     <FieldWrapper area >
                         <FieldLabel>{label}</FieldLabel>
                         <Textarea
                             value={value}
-                            onChange={e => onChange(e.target.name, e.target.value)}
-                            onBlur={e => onBlur(e.target.name, e.target.value)}
+                            onChange={onChange}
+                            onBlur={onBlur}
                             type={type}
                             name={name}
                             required={required}

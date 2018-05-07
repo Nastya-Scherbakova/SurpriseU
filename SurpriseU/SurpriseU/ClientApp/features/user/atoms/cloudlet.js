@@ -1,6 +1,5 @@
 ﻿import * as React from 'react'
 import { Link, withRouter } from 'react-router-dom'
-import { inject, observer } from 'mobx-react'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
 

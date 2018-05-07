@@ -1,4 +1,3 @@
 ﻿export { EditUser, Friends, Likes, Offers, Profile } from './user'
-export { PresentForm, PresentsList, PresentPage } from './present'
-export { default as Login } from './login'
-export { default as AuthHOC } from './authentication'
+export { PresentForm, PresentsList, PresentPage, NewPresent, EditPresent} from './present'
+export { LoginPage as Login, AuthHOC } from './auth'

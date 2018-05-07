@@ -4,6 +4,7 @@
     return error;
 };
 
+
 var rules = {
     name: value => {
         let error = (value.length <= 30 && value.length >= 3 && value.search(/\d/) == -1) ? '' : "Введіть ім'я";
@@ -24,7 +25,7 @@ var rules = {
         let error = regexp.test(value) ? '' : 'Введіть дійсний URL';
         return error;
     },
-    password: value => {
+    complexity: value => {
         let error = value.search(/\d/) == -1 ?
             'Пароль має містити хоча б 1 цифру' :
             value.length <= 6 ?
@@ -35,8 +36,13 @@ var rules = {
         let error = (value.length <= 30 && value.length >= 3 && value.search(/\d/) == -1) ? '' : "Введіть назву";
         return error;
     },
+    
+    compare: value => {
+        let error = value[0] == value[1] ? '' : "Паролі відрізняються";
+        return error;
+    },
     content: value => {
-        let error = (value.length <= 30 && value.length >= 3 && value.search(/\d/) == -1) ? '' : "Введіть назву";
+        let error = (value.length <= 200 && value.length >= 3 && value.search(/\d/) == -1) ? '' : "Введіть назву";
         return error;
     },
     startAge: value => {
@@ -51,5 +57,5 @@ var rules = {
         let error = new Date(value) == 'Invalid Date' ? "Некоректна дата народження": '';
         return error;
     },
-
+    gender: value => (value < 3 && value > -1) ? '' : 'Некоректний вибір'
 }

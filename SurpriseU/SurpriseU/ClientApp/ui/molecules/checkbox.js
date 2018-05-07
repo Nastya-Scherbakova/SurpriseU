@@ -26,8 +26,10 @@ font-weight: 500;
 export class Checkbox extends React.Component {
     state = { checked: this.props.checked }
 
-    onClick = () => this.setState(prevState => ({ checked: !prevState.checked }));
-
+    onClick = () => {
+        this.setState(prevState => ({ checked: !prevState.checked }));
+        this.props.onClick(this.state.checked);
+    }
     render() {
         const { def, active, text } = this.props;
         return <Flex align='center'>

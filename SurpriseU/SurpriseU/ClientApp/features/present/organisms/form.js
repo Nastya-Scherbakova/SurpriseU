@@ -1,34 +1,45 @@
 ﻿import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { inject, observer } from 'mobx-react'
 import styled from 'styled-components'
-import { withRouter } from 'react-router-dom'
 
 import { Field, Form, Slider, GenderTriple, FieldArea } from '../../../ui/molecules'
 import { Button, Layout, Textarea } from '../../../ui/atoms'
 import { Autocomplete } from '../../../ui/organisms' 
 import { ProfileTemplate } from '../../../ui/templates'
 
-@inject('presentsStore', 'tagsStore')
-@withRouter
-@observer
+
 export default class PresentForm extends Component {
-    
-    componentDidMount = () => this.props.history.location.pathname.includes('new') ?
-        this.props.presentsStore.newPresent() :
-        this.props.presentsStore.getEditablePresent(this.props.match.params.presentId);
+    onChange = e => {
+        let name = e.target.name,
+            value = e.target.value;
+        this.props.onChange(name, value);
+        if (this.props.touched[name] && this.props.errors[name].length > 0) this.onBlur(e);
+    }
 
-    submit = () => this.props.presentsStore.onSubmit();
-
-
+    onBlur = e => (e.target.value.length > 0) ? this.props.onBlur(e.target.name, e.target.value) : true;
+    onRangeChange = value => {
+        this.props.onChange('startAge', value[0])
+        this.props.onChange('endAge', value[1])
+    }
+    onAddTag = tag => {
+        let tags = this.props.present.tags.concat(tag);
+        this.props.onTagsChange(tags)
+    }
+    onDeleteTag = newTag => {
+        let tags = this.props.present.tags.filter(tag => tag.id !== newTag.id);
+        this.props.onTagsChange(tags)
+    }
+    onSelectChange = (name, value) => {
+        this.props.onChange(name, value)
+        this.props.onBlur(name, value)
+    }
     render() {
-        const { onFieldChange, onFieldBlur } = this.props.presentsStore;
-        const present = this.props.presentsStore.formPresent,
-            errors = this.props.presentsStore.formErrors;
-        const { likes, celebrations } = this.props.tagsStore;
+        const onFieldChange = this.onChange,
+            onFieldBlur = this.onBlur;
+        const { present, onSubmit, errors, likes, celebrations, title } = this.props;
         return (
             <ProfileTemplate>
-                <Form submit={this.submit} title={this.props.history.location.pathname.includes('new') ? 'Додати подарунок' : 'Редагувати'} >
+                <Form submit={onSubmit} title={title} >
                     <Field name='title'
                         value={present.title}
                         onChange={onFieldChange}
@@ -50,21 +61,25 @@ export default class PresentForm extends Component {
                     />
                     <GenderTriple
                         value={present.gender}
-                        onChange={onFieldChange}
+                        onChange={this.onSelectChange}
                     />
                     <Slider
                         startAge={present.startAge}
                         endAge={present.endAge}
-                        onChange={onFieldChange}
+                        onChange={this.onRangeChange}
                     />
                     <Tags>
                         <Autocomplete width='47%'
                             suggestions={likes}
                             title='Подобається'
+                            onAdd={this.onAddTag}
+                            onDelete={this.onDeleteTag}
                         />
                         <Autocomplete width='47%'
                             suggestions={celebrations}
                             title='Свята'
+                            onAdd={this.onAddTag}
+                            onDelete={this.onDeleteTag}
                         />
                     </Tags>
                 </Form>
@@ -72,7 +87,6 @@ export default class PresentForm extends Component {
         )
     }
 }
-
 
 const Tags = styled.div`
     width: 100%;

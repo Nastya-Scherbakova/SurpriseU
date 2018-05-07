@@ -1,28 +1,77 @@
 ﻿import * as React from 'react'
-import { inject, observer } from 'mobx-react'
 import styled, { css } from 'styled-components'
+import { connect } from 'react-redux';
 
 import { ProfileTemplate } from '../../../ui/templates'
-import { Field, Calendar, Form, Slider, GenderDouble, FieldArea, Avatar } from '../../../ui/molecules'
-import { Cloud, Icon, IconLink, CloudWrapper, Input, Flex } from '../../../ui/atoms'
-import { Link, withRouter, NavLink,Route} from 'react-router-dom'
+import { Avatar } from '../../../ui/molecules'
+import { Link, NavLink, Route } from 'react-router-dom'
+import { Account, Password, Contacts } from '../organisms';
+import { CloudWrapper } from '../../../ui/atoms'
+import { mainEdit, update, blur } from '../actions';
+
+const mapStateToProps = state => ({ ...state.user });
+
+const mapDispatchToProps = dispatch => ({
+    onChange: (name, value) => dispatch(update(name, value)),
+    onBlur: (name, error) => dispatch(blur(name, error)),
+    onSubmit: user => dispatch(mainEdit(user))
+});
+
 
 const Wrapper = CloudWrapper.extend`
     justify-content: flex-start;
 align-items: center;
+ & > *  {
+    margin: 1rem;
+ }
 `
 
-const Marg = styled.div`
-margin: 1rem;
-`
 
-@inject('userStore')
-@withRouter
-@observer
-export default class EditUser extends React.Component {
+
+class EditUser extends React.Component {
+
+    onChangePassword = e => {
+        let name = e.target.name,
+            value = e.target.value,
+            edit = this.props.edit;
+        this.props.onChange(name, value);
+        if (edit.touched[name] && edit.errors[name].length > 0) {
+            this.compare(e);
+            this.isComplex(e);
+        }
+    }
+
+    isComplex = e => (e.target.value.length > 0) && this.props.onBlur('complexity', e.target.value);
+
+    compare = e => (e.target.value.length > 0) &&
+        this.props.onBlur('compare',
+            [this.props.edit.newPassword, e.target.value]
+        )
+    onChange = e => {
+        let name = e.target.name,
+            value = e.target.value,
+            edit = this.props.edit;
+        this.props.onChange(name, value);
+        if (edit.touched[name] && edit.errors[name].length > 0) this.onBlur(e);
+    }
+
+    onBlur = e => (e.target.value.length > 0) ? this.props.onBlur(e.target.name, e.target.value) : true;
+
+
+    onAgeChange = (name, value) => this.props.onChange(name, value)
+
+    submitForm = e => {
+        e.preventDefault();
+        const { name, email, age, photo, gender } = this.props.edit;
+        this.props.onSubmit({
+            name, email, age, photo, gender
+        });
+    }
     render() {
-        const { currentUser } = this.props.userStore;
-        const link = this.props.match.url;
+        const { user } = this.props;
+        const password = this.props.edit,
+            errors = this.props.edit.errors;
+
         return (
             <ProfileTemplate>
                 <Wrapper>
@@ -31,120 +80,46 @@ export default class EditUser extends React.Component {
                         {TabLink('/edit/password', 'Пароль')}
                         {TabLink('/edit/contacts', 'Контакти')}
                     </Tabs>
-                    <Marg><Avatar src={currentUser.photo} size='15vh' />
-                    </Marg>
-                    <Route path="/edit/account" component={Account} />
-                    <Route path="/edit/password" component={Password} />
-                    <Route path="/edit/contacts" component={Contacts} />
+                    <Avatar src={user.photo} size='15vh' />
+                    <Route path="/edit/account"
+                        render={
+                            () => <Account
+                                onChange={this.onChange}
+                                onBlur={this.onBlur}
+                                onAgeChange={this.onAgeChange}
+                                user={this.props.edit}
+                                errors={this.props.edit.errors}
+                            />
+                        }
+                    />
+                    <Route path="/edit/password"
+                        render={
+                            () => <Password
+                                onChange={this.onChange}
+                                onChangePassword={this.onChangePassword}
+                                compare={this.compare}
+                                isComplex={this.isComplex}
+                                password={this.props.edit}
+                                errors={this.props.edit.errors}
+                            />
+                        }
+                    />
+                    <Route path="/edit/contacts" render={
+                        () => <Password
+                            onChangePassword={this.onChangePassword}
+                            compare={this.compare}
+                            isComplex={this.isComplex}
+                            password={this.props.edit}
+                            errors={this.props.edit.errors}
+                        />
+                    }
+                    />
                 </Wrapper>
             </ProfileTemplate>
         )
     }
 }
-
-
-@inject('userStore')
-@observer
-class Account extends React.Component {
-    render() {
-        const { editForm, onFieldChange, onFieldBlur, editErrors } = this.props.userStore;
-        return (
-            <Flex column width='100%' child='0.5rem 0'>
-                <GenderDouble
-                    value={editForm.gender}
-                    onChange={onFieldChange}
-                />
-                <Field name='name'
-                    value={editForm.name}
-                    onChange={onFieldChange}
-                    onBlur={onFieldBlur}
-                    error={editErrors.name}
-                    label="Ім'я" />
-                <Field name='email'
-                    value={editForm.email}
-                    onChange={onFieldChange}
-                    onBlur={onFieldBlur}
-                    error={editErrors.email}
-                    label="Ім'я користувача"
-                />
-                <Calendar name='age'
-                    value={editForm.age}
-                    onChange={onFieldChange}
-                    label='День народження'
-                    error={editErrors.age}
-                />
-                <Field name='photo'
-                    value={editForm.photo}
-                    onChange={onFieldChange}
-                    onBlur={onFieldBlur}
-                    error={editErrors.photo}
-                    label='Фото'
-                />
-            </Flex>
-        )
-    }
-}
-@inject('userStore')
-@observer
-class Password extends React.Component {
-    render() {
-        const { password, onPasswordChange, isComplex, compare } = this.props.userStore;
-        return (
-            <Flex column width='100%' child='0.5rem 0'>
-                <Field name='old'
-                    value={password.old}
-                    onChange={onPasswordChange}
-                    label="Старий пароль"
-                />
-                <Field name='password'
-                    value={password.password}
-                    onChange={onPasswordChange}
-                    onBlur={isComplex}
-                    error={password.complexity}
-                    label="Новий пароль"
-                />
-                <Field name='repeat'
-                    value={password.repeat}
-                    onChange={onPasswordChange}
-                    onBlur={compare}
-                    error={password.compare}
-                    label='Повторіть пароль'
-                />
-            </Flex>
-        )
-    }
-}
-
-@inject('userStore')
-@observer
-class Contacts extends React.Component {
-    render() {
-        const { password, onPasswordChange, isComplex, compare } = this.props.userStore;
-        return (
-            <Flex column width='100%' child='0.5rem 0'>
-                <Field name='old'
-                    value={password.old}
-                    onChange={onPasswordChange}
-                    label="Старий пароль"
-                />
-                <Field name='password'
-                    value={password.password}
-                    onChange={onPasswordChange}
-                    onBlur={isComplex}
-                    error={password.complexity}
-                    label="Новий пароль"
-                />
-                <Field name='repeat'
-                    value={password.repeat}
-                    onChange={onPasswordChange}
-                    onBlur={compare}
-                    error={password.compare}
-                    label='Повторіть пароль'
-                />
-            </Flex>
-        )
-    }
-}
+export default connect(mapStateToProps, mapDispatchToProps)(EditUser);
 
 
 const Tabs = styled.div`
@@ -162,12 +137,12 @@ const Tab = styled.div`
     height: 5vh;
     justify-content: center;
     align-items: center;
-    a{
-color: #888890;
-
-    &:hover, &:active {
+    a {
         color: #888890;
-    }}
+        &:hover, &:active {
+            color: #888890;
+        }
+    }
 `
 
 const TabLink = (to, title) => <Tab><Link to={to}>{title}</Link></Tab>

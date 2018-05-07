@@ -19,15 +19,17 @@ export default class Autocomplete extends Component {
         tags.splice(suggested.findIndex(x => x.id === tag.id), 1);
         data.map(x => x.id).indexOf(tag.id) === -1 &&
             this.setState({
-            data: data.concat({ id: tag.id, name: tag.name }),
-            suggested: tags
-        });
+                data: data.concat({ id: tag.id, name: tag.name, type: tag.type }),
+                suggested: tags
+            });
+        this.props.onAdd(tag);
     }
 
     deleteTag = tag => {
         let tags = this.state.data;
         tags.splice(tags.findIndex(x => x.id === tag.id), 1);
         this.setState({ data: tags })
+        this.props.onDelete(tag);
     }
 
     onChange = e => {
@@ -56,15 +58,16 @@ export default class Autocomplete extends Component {
             <Scrollbars style={style}>
             <Suggestions>
                 {data.map(tag =>
-                    <Tag check
-                        key={tag.id}
-                        name={tag.name}
-                        delete={() => this.deleteTag(tag)} />)}
+                        <Tag check
+                            key={tag.id}
+                            name={tag.name}
+                            delete={() => this.deleteTag(tag)}
+                        />)}
                 {suggested.map(tag =>
-                    <Tag
-                        key={tag.id}
-                        name={tag.name}
-                        add={() => this.addTag(tag)} />)}
+                        <Tag
+                            key={tag.id}
+                            name={tag.name}
+                            add={() => this.addTag(tag)} />)}
             </Suggestions>
             </Scrollbars>
             </Auto>;

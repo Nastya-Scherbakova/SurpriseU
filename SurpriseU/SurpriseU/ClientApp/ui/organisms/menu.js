@@ -1,16 +1,32 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { inject, observer } from 'mobx-react';
 import styled, { css } from 'styled-components'
 import PropTypes from 'prop-types'
+import { connect } from 'react-redux';
 
 import { Icon, Input, IconLink, Name, Flex } from '../atoms';
 import { Avatar } from '../molecules';
 
+import { changeSearchInput, filterOn, filterOff ,searchPresent} from '../../features/present/actions';
+import { logout } from '../../features/auth/actions';
+const mapStateToProps = state => ({
+    isAuth: state.auth.isAuth,
+    user: state.user.user,
+    search: state.present.search,
+    isFilter: state.present.isFilter
+});
 
-@inject('userStore', 'authStore', 'presentsStore')
-@observer
-export default class Menu extends Component {
+
+const mapDispatchToProps = dispatch => ({
+    onChange: value => dispatch(changeSearchInput(value)),
+    filterOn: () => dispatch(filterOn()),
+    logout: () => dispatch(logout()),
+    onSearch: present => dispatch(searchPresent(present))
+});
+
+
+
+class Menu extends Component {
     state = {
             windowPosition: window.pageYOffset
         }
@@ -21,16 +37,15 @@ export default class Menu extends Component {
     
     handleScroll = () => this.setState({ windowPosition: window.pageYOffset })
 
-    logOut = () => this.props.authStore.logout()
+    logout = () => this.props.logout()
 
-    onChange = e => this.props.presentsStore.searchChange('title', e.target.value)
+    onChange = e => this.props.onChange(e.target.value)
 
-    openSearch = () => this.props.presentsStore.enableFilter()
-
+    filterOn = () => this.props.filterOn()
+    onSearch = () => this.props.onSearch(this.props.search)
     render() {
-        const { isUser, currentUser } = this.props.userStore,
-            { isFilter, search } = this.props.presentsStore;
-        const { isSearch } = this.props;
+        const { isAuth, user, search, isFilter } = this.props;
+        const isSearch = true;
         const scroll = this.state.windowPosition > 0 && !isFilter;
         return <MenuWrapper scroll={scroll}>
             <Flex width='75%'>
@@ -38,22 +53,23 @@ export default class Menu extends Component {
                 {isSearch && <Search
                     isFilter={isFilter}
                     onChange={this.onChange}
-                    openSearch={this.openSearch}
-                    value={search} />}
+                    openSearch={this.filterOn}
+                    onSearch={this.onSearch}
+                    value={search.title} />}
             </Flex>
             {
-                isUser ? <Flex w='25%' child='1rem'>
-                    <Link to={`/id${currentUser.id.substr(0, 6)}`}>
-                        <Avatar src={currentUser.photo} size='3vh' />
+                isAuth ? <Flex w='25%' child='1rem'>
+                    <Link to={`/id${user.id}`}>
+                        <Avatar src={user.photo} size='3vh' />
                     </Link>
                     <IconLink to='/anketa' name='Clipboard' />
-                    <IconLink onClick={this.logOut} to='/login' name='Exit' />
+                    <IconLink onClick={this.logout} to='/login' name='Exit' />
                 </Flex> : <IconLink to='/login' name='Enter' />
             }
         </MenuWrapper>
     }
 }
-
+export default connect(mapStateToProps, mapDispatchToProps)(Menu);
 const MenuWrapper = styled.div`
     display: flex;
     align-items: center;
@@ -137,9 +153,12 @@ const Search = props => <Wrapper open={props.isFilter}>
         value={props.value} 
         placeholder="Пошук"
         onChange={props.onChange} />
-    <Right > <Icon name='ChevronRightLight' size='2.5vh' onClick={props.openSearch} />
-   </Right > <SearchIcon ><Icon name='Search' size='2.5vh' onClick={props.openSearch} />
-</SearchIcon ></Wrapper >;
+    
+    {props.isFilter ? <Right ><Icon name='ChevronRightLight' size='2.5vh' onClick={props.onSearch} />
+    </Right > : <SearchIcon ><Icon name='Search' size='2.5vh' onClick={props.openSearch} />
+        </SearchIcon >
+    }
+</Wrapper >;
 
 
 Menu.propTypes = {

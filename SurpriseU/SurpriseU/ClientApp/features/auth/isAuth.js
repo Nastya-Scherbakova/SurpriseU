@@ -1,24 +1,23 @@
 ﻿import * as React from 'react';
-import { inject, observer } from 'mobx-react';
 import { Redirect } from 'react-router';
-import { withRouter } from 'react-router-dom';
 
+import { connect } from 'react-redux';
 
+const mapStateToProps = state => ({ isAuth: state.auth.isAuth });
 
 const Authorized = (WrappedComponent) => {
-    @inject('authStore', 'userStore')
-    @withRouter
-    @observer
     class Wrapper extends React.Component {
         render() {
-            const { isUser } = this.props.userStore;
-            if (isUser) {
+            const { isAuth } = this.props;
+            if (isAuth) {
                 return <WrappedComponent {...this.props} />;
             } else {
-                return <Redirect to="/login" />;
+                return <Redirect to="/" />;
             }
         }
     };
-    return Wrapper;
+
+    return connect(mapStateToProps)(Wrapper);
 }
+
 export default Authorized;

@@ -1,20 +1,31 @@
 ﻿import * as React from 'react'
-import { Link, withRouter } from 'react-router-dom'
-import { inject, observer } from 'mobx-react'
+import { Link } from 'react-router-dom'
 import styled from 'styled-components'
+import { connect } from 'react-redux';
 
 import { ProfileTemplate } from '../../../ui/templates'
 import { Avatar, Tag } from '../../../ui/molecules'
 import { Cloud, Icon, IconLink, Flex } from '../../../ui/atoms'
 import { Cloudlet, Add } from '../atoms'
 
-@inject('userStore')
-@withRouter
-@observer
-export default class ProfilePage extends React.Component {
+import { onLoad } from '../actions'
+
+
+const mapStateToProps = state => ({
+    user: state.common.currentUser
+});
+
+const mapDispatchToProps = dispatch => ({
+    onUnload: () => true,
+    onLoad: () => dispatch(onLoad())
+});
+
+class ProfilePage extends React.Component {
+
+    componentDidMount = () => this.props.onLoad();
+
     render() {
-        const { currentUser } = this.props.userStore;
-        const link = this.props.match.url;
+        const { user } = this.props;
         return <ProfileTemplate>
             <Cloud
                 leftIcon={<Icon name='Search' color='#888898' size='2.5vh'/>}
@@ -22,9 +33,9 @@ export default class ProfilePage extends React.Component {
             >
                 <Main>
                     <Flex column align='center'>
-                        <Avatar src={currentUser.photo} size='15vh' />
-                        <Name>{currentUser.name}</Name>
-                        <Age>{currentUser.age.split('T')[0]}</Age>
+                        <Avatar src={user.photo} size='15vh' />
+                        <Name>{user.name}</Name>
+                        <Age>{user.age.split('T')[0]}</Age>
                     </Flex>
                     <Tags>
                         <Input placeholder='+'/>
@@ -35,9 +46,9 @@ export default class ProfilePage extends React.Component {
                         <Tag name='одежда' check />
                     </Tags>
                 </Main>
-                <Cloudlet presents={presents} title='Друзі' to={`/id${currentUser.id}/friends`} />
-                <Cloudlet presents={presents} title='Вподобані подарунки' to={`/id${currentUser.id}/likes`} />
-                <Cloudlet presents={presents} title='Запропоновані подарунки' isAdd to={`/id${currentUser.id}/offers`} />
+                <Cloudlet presents={presents} title='Друзі' to={`/id${user.id}/friends`} />
+                <Cloudlet presents={presents} title='Вподобані подарунки' to={`/id${user.id}/likes`} />
+                <Cloudlet presents={presents} title='Запропоновані подарунки' isAdd to={`/id${user.id}/offers`} />
                 <Flex width='100%' justify='space-around' p='0 20%'>
                     <Icon name="Twitter3D" />
                     <Icon name="Google3D" />
@@ -47,6 +58,7 @@ export default class ProfilePage extends React.Component {
         </ProfileTemplate>;
     }
 }
+export default connect(mapStateToProps, mapDispatchToProps)(ProfilePage);
 
 const presents = [
     { id: 1, src: 'https://bake-n-cake.ru/media/catalog/product/cache/3/image/9df78eab33525d08d6e5fb8d27136e95/v/a/vanilla-cupcakes2_1.jpg' },

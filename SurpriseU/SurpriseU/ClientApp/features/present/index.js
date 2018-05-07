@@ -1,2 +1,8 @@
-﻿export { PresentForm, PresentsList, PresentPage } from './pages'
+﻿export {
+    PresentPage,
+    PresentsList,
+    NewPresent,
+    EditPresent
+} from './pages'
+
 export { PresentCard } from './organisms'

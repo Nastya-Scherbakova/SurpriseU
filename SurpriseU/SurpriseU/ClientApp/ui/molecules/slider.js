@@ -5,7 +5,7 @@ import {Error, Input} from '../atoms'
 import styled, { css } from 'styled-components'
 import { color, font } from '../theme'
 const Range = Slider.Range;
-
+import PropTypes from 'prop-types'
 const fieldHeight = '3.6rem'
 
 const Wrapper = styled.div`
@@ -47,7 +47,7 @@ const Field = ({ error, onChange, onBlur, value, label, type, required, maxLengt
     <FieldContainer >
         <Input
             value={value}
-            onChange={e => onChange(e.target.name, e.target.value)}
+            onChange={onChange}
             type={type}
             name={name}
             required={required}
@@ -63,51 +63,74 @@ const Field = ({ error, onChange, onBlur, value, label, type, required, maxLengt
     </FieldContainer>
 );
 
-export default class MySlider extends React.Component {
-    state = {
-        startAge: this.props.start,
-        endAge: this.props.end,
-        error: null
-    }
-
-    onChange = (field, value) => {
-
-       const newAge = /[^[0-9]/.test(value) ? this.state[field] : Number(value);
-
-       const error = (this.state.startAge > this.state.endAge) ?
-           'Початковий вік має бути меншим ніж кінцевий' : '';
-       this.setState({ [field]: newAge, error: error });
-       
-    };
-
-    rangeChange = (value) => {
-        this.setState({ startAge: value[0], endAge: value[1] });
-        this.props.onChange("startAge", value[0]);
-        this.props.onChange("endAge", value[1]);
-    }
-
-    render() {
-        const { startAge, endAge } = this.props;
-        const { error } = this.state;
-        return <Wrapper><Field
+const MySlider = ({ startAge, endAge, onChange }) =>
+    <Wrapper>
+        <Field
             name='startAge'
-            value={startAge.toString()}
-            onChange={this.onChange} />
-            <RangeWrapper>
-                <Range
-                    value={[startAge, endAge]}
-                    onChange={this.rangeChange}
-                    allowCross={false} />
-            </RangeWrapper>
-            <Field
-                name='endAge'
-                value={endAge.toString()}
-                onChange={this.onChange} />
-            <ErrorWrapper>
-                <Error
-                    error={this.state.error}
-                    active={(error && (error.length > 0)) ? true : false} />
-            </ErrorWrapper>
-        </Wrapper>;
-    }
+            value={startAge} />
+        <RangeWrapper>
+            <Range
+                value={[startAge, endAge]}
+                onChange={onChange}
+                allowCross={false} />
+        </RangeWrapper>
+        <Field
+            name='endAge'
+            value={endAge} />
+    </Wrapper>
+
+export default MySlider;
+
+MySlider.defaultProps = {
+    startAge: 0,
+    endAge: 100
 }
+
+//export default class MySlider extends React.Component {
+//    state = {
+//        startAge: this.props.start,
+//        endAge: this.props.end,
+//        error: null
+//    }
+
+//    onChange = (field, value) => {
+
+//        const newAge = /[^[0-9]/.test(value) ? this.state[field] : Number(value);
+
+//        const error = (this.state.startAge > this.state.endAge) ?
+//            'Початковий вік має бути меншим ніж кінцевий' : '';
+//        this.setState({ [field]: newAge, error: error });
+
+//    };
+
+//    rangeChange = (value) => {
+//        this.setState({ startAge: value[0], endAge: value[1] });
+//        this.props.onChange("startAge", value[0]);
+//        this.props.onChange("endAge", value[1]);
+//    }
+
+//    render() {
+//        const { startAge, endAge } = this.props;
+//        const { error } = this.state;
+//        return <Wrapper><Field
+//            name='startAge'
+//            value={startAge}
+//            onChange={this.onChange} />
+//            <RangeWrapper>
+//                <Range
+//                    value={[startAge, endAge]}
+//                    onChange={this.rangeChange}
+//                    allowCross={false} />
+//            </RangeWrapper>
+//            <Field
+//                name='endAge'
+//                value={endAge}
+//                onChange={this.onChange} />
+//            <ErrorWrapper>
+//                <Error
+//                    error={this.state.error}
+//                    active={(error && (error.length > 0)) ? true : false} />
+//            </ErrorWrapper>
+//        </Wrapper>;
+//    }
+//}

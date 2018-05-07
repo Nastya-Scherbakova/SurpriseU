@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 import { Card, Image, Icon } from '../../../ui/atoms'
 import { Like } from '../../../ui/molecules'
 import { Link } from 'react-router-dom';
+
 export class PresentCard extends React.Component {
    
     state = { liked: false }

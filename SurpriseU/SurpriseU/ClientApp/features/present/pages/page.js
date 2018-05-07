@@ -1,32 +1,35 @@
 ﻿import React from 'react'
-import styled, { keyframes  } from 'styled-components'
+import styled, { keyframes } from 'styled-components'
 import PropTypes from 'prop-types'
-import { Link, withRouter } from 'react-router-dom'
-import { inject, observer } from 'mobx-react'
-import { color } from '../../../ui/theme'
+import { connect } from 'react-redux';
 
+import { color } from '../../../ui/theme'
 import { Image, Icon, Cloud, Spinner, IconLink } from '../../../ui/atoms'
 import { Like } from '../../../ui/molecules'
 import { ProfileTemplate } from '../../../ui/templates'
 
-@inject('presentsStore')
-@withRouter
-@observer
-export default class PresentPage extends React.Component {
+import { presentById, storeById } from '../actions';
+const mapStateToProps = (state, ownProps) => ({
+    ...state.present.presentById,
+    historyId: ownProps.match.params.id
+});
+
+const mapDispatchToProps = dispatch => ({
+    onLoad: id => dispatch(storeById(id))
+});
+
+
+class PresentPage extends React.Component {
     state = { liked: false }
 
+    onLike = () => this.setState(prevState => ({ liked: !prevState.liked }))
 
-    onLike = () => {
-        this.setState(prevState => ({ liked: !prevState.liked }));
-    }
-
-
-    componentDidMount = () => this.props.presentsStore.getPresent(this.props.match.params.presentId);
+    componentDidMount = () => this.props.onLoad(this.props.historyId)
 
 
-    onRemovePresent = () => this.props.presentsStore.deletePresent(this.props.match.params.presentId);
+    onRemovePresent = () => true;
     render() {
-        const present = this.props.presentsStore.presentById;
+        const present = this.props;
         return <ProfileTemplate><Cloud rightIcon={<Like liked={this.state.liked} onClick={this.onLike}/>}>
             {present === null ? <Spinner /> : 
                 <Wrapper>
@@ -53,6 +56,7 @@ export default class PresentPage extends React.Component {
 
 
 
+export default connect(mapStateToProps, mapDispatchToProps)(PresentPage);
 const Wrapper = styled.div`
 display: flex;
 flex-direction: column;
